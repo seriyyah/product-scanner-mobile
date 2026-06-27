@@ -1,0 +1,6 @@
+appId: com.productscanner.mobile
+---
+- launchApp
+- tapOn: "Scanner"
+- assertVisible: "Point camera at barcode"
+- assertVisible: "Scan Again"

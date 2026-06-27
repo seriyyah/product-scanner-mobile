@@ -1,5 +1,6 @@
 {
   "extends": "expo/tsconfig.base",
+  "exclude": ["__tests__", "**/__tests__/**", "*.test.ts", "*.test.tsx", "*.spec.ts", "*.spec.tsx"],
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,

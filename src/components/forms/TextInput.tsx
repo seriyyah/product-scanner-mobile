@@ -1,6 +1,6 @@
 /**
- * Reusable TextInput Component with Validation
- * Includes error handling and accessibility features
+ * Reusable TextInput Component
+ * Supports both standalone (value/onChangeText) and react-hook-form Controller (name/control) patterns
  */
 
 import React, { useState } from 'react';
@@ -10,81 +10,95 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  KeyboardTypeOptions,
 } from 'react-native';
-import { IInputProps } from '@/types';
+import { Controller } from 'react-hook-form';
 import theme from '@/constants/theme';
 
-const TextInput: React.FC<IInputProps> = ({
-  label,
-  value,
-  onChangeText,
-  placeholder,
-  secureTextEntry = false,
-  keyboardType = 'default',
-  autoCapitalize = 'none',
-  error,
-  required = false,
-  disabled = false,
-}) => {
+export interface TextInputProps {
+  label: string;
+  // Standalone mode
+  value?: string;
+  onChangeText?: (text: string) => void;
+  // react-hook-form mode
+  name?: string;
+  control?: any;
+  rules?: any;
+  // Common
+  placeholder?: string;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  error?: string | undefined;
+  required?: boolean;
+  disabled?: boolean;
+  editable?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number;
+  // Extra props accepted but ignored (for compatibility)
+  rightIcon?: string;
+  onRightIconPress?: () => void;
+}
+
+function InnerInput(props: {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  error?: string | undefined;
+  required?: boolean;
+  disabled?: boolean;
+  editable?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number;
+}) {
+  const {
+    label,
+    value,
+    onChangeText,
+    placeholder,
+    secureTextEntry = false,
+    keyboardType = 'default',
+    autoCapitalize = 'none',
+    error,
+    required = false,
+    disabled = false,
+    editable = true,
+    multiline = false,
+    numberOfLines = 1,
+  } = props;
+
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleFocus = (): void => {
-    setIsFocused(true);
-  };
+  const isDisabled = disabled || !editable;
 
-  const handleBlur = (): void => {
-    setIsFocused(false);
-  };
+  const inputContainerStyle = [
+    styles.inputContainer,
+    isFocused && styles.inputContainerFocused,
+    error ? styles.inputContainerError : null,
+    isDisabled ? styles.inputContainerDisabled : null,
+    multiline ? styles.inputContainerMultiline : null,
+  ];
 
-  const togglePasswordVisibility = (): void => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  const getInputContainerStyle = () => {
-    const baseStyle = [styles.inputContainer];
-    
-    if (isFocused) {
-      baseStyle.push(styles.inputContainerFocused);
-    }
-    
-    if (error) {
-      baseStyle.push(styles.inputContainerError);
-    }
-    
-    if (disabled) {
-      baseStyle.push(styles.inputContainerDisabled);
-    }
-    
-    return baseStyle;
-  };
-
-  const getLabelStyle = () => {
-    const baseStyle = [styles.label];
-    
-    if (required) {
-      baseStyle.push(styles.labelRequired);
-    }
-    
-    if (error) {
-      baseStyle.push(styles.labelError);
-    }
-    
-    return baseStyle;
-  };
+  const labelStyle = [
+    styles.label,
+    error ? styles.labelError : null,
+  ];
 
   return (
     <View style={styles.container}>
-      {/* Label */}
-      <Text style={getLabelStyle()}>
+      <Text style={labelStyle}>
         {label}
         {required && <Text style={styles.requiredAsterisk}> *</Text>}
       </Text>
-      
-      {/* Input Container */}
-      <View style={getInputContainerStyle()}>
+
+      <View style={inputContainerStyle}>
         <RNTextInput
-          style={styles.input}
+          style={[styles.input, multiline && styles.inputMultiline]}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -92,41 +106,74 @@ const TextInput: React.FC<IInputProps> = ({
           secureTextEntry={secureTextEntry && !isPasswordVisible}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          editable={!disabled}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          editable={!isDisabled}
           autoCorrect={false}
           spellCheck={false}
-          // Accessibility props
+          multiline={multiline}
+          numberOfLines={multiline ? numberOfLines : undefined}
           accessibilityLabel={label}
-          accessibilityHint={error || placeholder}
-          accessibilityState={{
-            disabled,
-            selected: isFocused,
-          }}
+          accessibilityState={{ disabled: isDisabled, selected: isFocused }}
         />
-        
-        {/* Password visibility toggle */}
+
         {secureTextEntry && (
           <TouchableOpacity
             style={styles.passwordToggle}
-            onPress={togglePasswordVisibility}
+            onPress={() => setIsPasswordVisible((v) => !v)}
+            activeOpacity={0.8}
             accessibilityLabel={isPasswordVisible ? 'Hide password' : 'Show password'}
           >
-            <Text style={styles.passwordToggleText}>
-              {isPasswordVisible ? '👁️' : '👁️‍🗨️'}
-            </Text>
+            <Text style={styles.passwordToggleText}>{isPasswordVisible ? 'Hide' : 'Show'}</Text>
           </TouchableOpacity>
         )}
       </View>
-      
-      {/* Error Message */}
-      {error && (
+
+      {error ? (
         <Text style={styles.errorText} accessibilityRole="alert">
           {error}
         </Text>
-      )}
+      ) : null}
     </View>
+  );
+}
+
+const TextInput: React.FC<TextInputProps> = (props) => {
+  const {
+    name,
+    control,
+    rules,
+    rightIcon,
+    onRightIconPress,
+    ...rest
+  } = props;
+
+  // Controlled (react-hook-form) path
+  if (control !== undefined && name !== undefined) {
+    return (
+      <Controller
+        control={control}
+        name={name}
+        rules={rules}
+        render={({ field: { onChange, value }, fieldState }) => (
+          <InnerInput
+            {...rest}
+            value={value ?? ''}
+            onChangeText={onChange}
+            error={props.error || fieldState.error?.message}
+          />
+        )}
+      />
+    );
+  }
+
+  // Standalone path
+  return (
+    <InnerInput
+      {...rest}
+      value={props.value ?? ''}
+      onChangeText={props.onChangeText || (() => {})}
+    />
   );
 };
 
@@ -134,26 +181,18 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: theme.spacing.md,
   },
-  
   label: {
     fontSize: theme.typography.fontSizes.sm,
-        fontWeight: '500' as any,
+    fontWeight: '500' as const,
     color: theme.colors.text,
     marginBottom: theme.spacing.xs,
   },
-  
-  labelRequired: {
-    // Additional styles for required fields if needed
-  },
-  
   labelError: {
     color: theme.colors.error,
   },
-  
   requiredAsterisk: {
     color: theme.colors.error,
   },
-  
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -163,45 +202,46 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     minHeight: 48,
   },
-  
   inputContainerFocused: {
     borderColor: theme.colors.primary,
-    ...theme.shadows.small,
   },
-  
   inputContainerError: {
     borderColor: theme.colors.error,
   },
-  
   inputContainerDisabled: {
     backgroundColor: theme.colors.borderLight,
     opacity: 0.6,
   },
-  
+  inputContainerMultiline: {
+    alignItems: 'flex-start',
+    minHeight: 96,
+  },
   input: {
     flex: 1,
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     fontSize: theme.typography.fontSizes.md,
     color: theme.colors.text,
-    lineHeight: theme.typography.lineHeights.normal * theme.typography.fontSizes.md,
   },
-  
+  inputMultiline: {
+    textAlignVertical: 'top',
+    paddingTop: theme.spacing.sm,
+  },
   passwordToggle: {
-    padding: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
   passwordToggleText: {
-    fontSize: theme.typography.fontSizes.lg,
+    fontSize: theme.typography.fontSizes.xs,
+    color: theme.colors.primary,
   },
-  
   errorText: {
     fontSize: theme.typography.fontSizes.xs,
     color: theme.colors.error,
     marginTop: theme.spacing.xs,
-      fontWeight: '700' as any,
+    fontWeight: '700' as const,
   },
 });
 

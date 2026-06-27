@@ -22,7 +22,7 @@ const Button: React.FC<IButtonProps> = ({
   size = 'medium',
   loading = false,
   disabled = false,
-  icon,
+  icon: _icon,
 }) => {
   // Determine button styles based on variant
   const getButtonStyle = (): ViewStyle => {

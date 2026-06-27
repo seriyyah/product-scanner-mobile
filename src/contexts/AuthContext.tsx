@@ -4,7 +4,8 @@
  */
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { IUser, IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
+import * as SecureStore from 'expo-secure-store';
+import { IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
 import { authRepository, ApiError } from '@/services/apiService';
 
 // Initial Auth State
@@ -13,7 +14,7 @@ const initialAuthState: IAuthState = {
   accessToken: null,
   refreshToken: null,
   isAuthenticated: false,
-  isLoading: true, // Start with loading true to check existing session
+  isLoading: true,
   error: null,
 };
 
@@ -21,11 +22,7 @@ const initialAuthState: IAuthState = {
 const authReducer = (state: IAuthState, action: AuthAction): IAuthState => {
   switch (action.type) {
     case 'LOGIN_START':
-      return {
-        ...state,
-        isLoading: true,
-        error: null,
-      };
+      return { ...state, isLoading: true, error: null };
 
     case 'LOGIN_SUCCESS':
       return {
@@ -50,23 +47,13 @@ const authReducer = (state: IAuthState, action: AuthAction): IAuthState => {
       };
 
     case 'LOGOUT':
-      return {
-        ...initialAuthState,
-        isLoading: false,
-      };
+      return { ...initialAuthState, isLoading: false };
 
     case 'REFRESH_TOKEN_SUCCESS':
-      return {
-        ...state,
-        accessToken: action.payload,
-        error: null,
-      };
+      return { ...state, accessToken: action.payload, error: null };
 
     case 'CLEAR_ERROR':
-      return {
-        ...state,
-        error: null,
-      };
+      return { ...state, error: null };
 
     default:
       return state;
@@ -75,16 +62,10 @@ const authReducer = (state: IAuthState, action: AuthAction): IAuthState => {
 
 // Auth Context Interface
 interface IAuthContextValue {
-  // State
   readonly state: IAuthState;
-  
-  // Actions
   readonly login: (credentials: IUserCredentials) => Promise<void>;
   readonly register: (userData: IUserRegistration) => Promise<void>;
   readonly logout: () => Promise<void>;
-  readonly updateProfile: (updates: Partial<IUser>) => Promise<void>;
-  readonly changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
-  readonly forgotPassword: (email: string) => Promise<void>;
   readonly clearError: () => void;
   readonly checkAuthStatus: () => Promise<void>;
 }
@@ -92,166 +73,105 @@ interface IAuthContextValue {
 // Create Context
 const AuthContext = createContext<IAuthContextValue | undefined>(undefined);
 
-// Auth Provider Props
 interface IAuthProviderProps {
   readonly children: ReactNode;
 }
 
-// Auth Provider Component
 export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
-  // Check authentication status on app launch
   useEffect(() => {
     checkAuthStatus();
   }, []);
 
   const checkAuthStatus = async (): Promise<void> => {
     try {
-      const isAuthenticated = await authRepository.isAuthenticated();
-      
-      if (isAuthenticated) {
-        // Try to get current user
+      const token = await SecureStore.getItemAsync('auth_token');
+      if (!token) {
+        dispatch({ type: 'LOGOUT' });
+        return;
+      }
+
+      try {
         const user = await authRepository.getCurrentUser();
         dispatch({
           type: 'LOGIN_SUCCESS',
-          payload: {
-            user,
-            tokens: {
-              accessToken: '', // Token is already stored securely
-              refreshToken: '',
-            },
-          },
+          payload: { user, tokens: { accessToken: token, refreshToken: '' } },
         });
-      } else {
-        dispatch({ type: 'LOGOUT' });
+      } catch (userError: unknown) {
+        const apiErr = userError as ApiError;
+        if (apiErr?.statusCode === 401) {
+          // Try to refresh
+          try {
+            const refreshToken = await SecureStore.getItemAsync('refresh_token');
+            if (refreshToken) {
+              const newTokens = await authRepository.refreshToken(refreshToken);
+              await SecureStore.setItemAsync('auth_token', newTokens.access_token);
+              await SecureStore.setItemAsync('refresh_token', newTokens.refresh_token);
+              const user = await authRepository.getCurrentUser();
+              dispatch({
+                type: 'LOGIN_SUCCESS',
+                payload: {
+                  user,
+                  tokens: {
+                    accessToken: newTokens.access_token,
+                    refreshToken: newTokens.refresh_token,
+                  },
+                },
+              });
+            } else {
+              await clearTokensAndLogout();
+            }
+          } catch {
+            await clearTokensAndLogout();
+          }
+        } else {
+          await clearTokensAndLogout();
+        }
       }
-    } catch (error) {
-      // If auth check fails, treat as logged out
+    } catch {
       dispatch({ type: 'LOGOUT' });
     }
   };
 
+  const clearTokensAndLogout = async (): Promise<void> => {
+    await SecureStore.deleteItemAsync('auth_token');
+    await SecureStore.deleteItemAsync('refresh_token');
+    dispatch({ type: 'LOGOUT' });
+  };
+
   const login = async (credentials: IUserCredentials): Promise<void> => {
     dispatch({ type: 'LOGIN_START' });
-    
     try {
       const result = await authRepository.login(credentials);
-      
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: result,
-      });
+      dispatch({ type: 'LOGIN_SUCCESS', payload: result });
     } catch (error) {
-      const errorMessage = error instanceof ApiError 
-        ? error.message 
+      const errorMessage = error instanceof ApiError
+        ? error.message
         : 'Login failed. Please try again.';
-      
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: errorMessage,
-      });
-      
-      throw error; // Re-throw so UI can handle it
+      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage });
+      throw error;
     }
   };
 
   const register = async (userData: IUserRegistration): Promise<void> => {
     dispatch({ type: 'LOGIN_START' });
-    
     try {
-      const user = await authRepository.register(userData);
-      
-      // After successful registration, automatically log in
-      await login({
-        email: userData.email,
-        password: userData.password,
-      });
+      await authRepository.register(userData);
+      dispatch({ type: 'LOGIN_FAILURE', payload: '' }); // reset loading
     } catch (error) {
-      const errorMessage = error instanceof ApiError 
-        ? error.message 
+      const errorMessage = error instanceof ApiError
+        ? error.message
         : 'Registration failed. Please try again.';
-      
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: errorMessage,
-      });
-      
-      throw error; // Re-throw so UI can handle it
+      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage });
+      throw error;
     }
   };
 
   const logout = async (): Promise<void> => {
-    try {
-      await authRepository.logout();
-    } catch (error) {
-      // Logout always succeeds locally even if API fails
-      // Silent failure is OK here
-    } finally {
-      dispatch({ type: 'LOGOUT' });
-    }
-  };
-
-  const updateProfile = async (updates: Partial<IUser>): Promise<void> => {
-    try {
-      const updatedUser = await authRepository.updateProfile(updates);
-      
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: {
-          user: updatedUser,
-          tokens: {
-            accessToken: state.accessToken || '',
-            refreshToken: state.refreshToken || '',
-          },
-        },
-      });
-    } catch (error) {
-      const errorMessage = error instanceof ApiError 
-        ? error.message 
-        : 'Profile update failed. Please try again.';
-      
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: errorMessage,
-      });
-      
-      throw error;
-    }
-  };
-
-  const changePassword = async (currentPassword: string, newPassword: string): Promise<void> => {
-    try {
-      await authRepository.changePassword(currentPassword, newPassword);
-    } catch (error) {
-      const errorMessage = error instanceof ApiError 
-        ? error.message 
-        : 'Password change failed. Please try again.';
-      
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: errorMessage,
-      });
-      
-      throw error;
-    }
-  };
-
-  const forgotPassword = async (email: string): Promise<void> => {
-    try {
-      await authRepository.forgotPassword(email);
-    } catch (error) {
-      const errorMessage = error instanceof ApiError 
-        ? error.message 
-        : 'Password reset failed. Please try again.';
-      
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        payload: errorMessage,
-      });
-      
-      throw error;
-    }
+    // Fire and forget — always clear local state
+    authRepository.logout().catch(() => {});
+    dispatch({ type: 'LOGOUT' });
   };
 
   const clearError = (): void => {
@@ -263,9 +183,6 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     login,
     register,
     logout,
-    updateProfile,
-    changePassword,
-    forgotPassword,
     clearError,
     checkAuthStatus,
   };
@@ -277,32 +194,12 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook for using Auth Context
 export const useAuth = (): IAuthContextValue => {
   const context = useContext(AuthContext);
-  
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  
   return context;
-};
-
-// HOC for components that require authentication
-export const withAuth = <P extends object>(
-  Component: React.ComponentType<P>
-): React.ComponentType<P> => {
-  return (props: P) => {
-    const { state } = useAuth();
-    
-    if (!state.isAuthenticated) {
-      // You might want to redirect to login screen here
-      // For now, we'll just not render the component
-      return null;
-    }
-    
-    return <Component {...props} />;
-  };
 };
 
 export default AuthContext;

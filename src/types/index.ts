@@ -7,16 +7,18 @@
 export interface IUser {
   readonly id: string;
   readonly email: string;
+  readonly first_name?: string;
+  readonly last_name?: string;
   readonly firstName?: string;
   readonly lastName?: string;
   readonly role: UserRole;
-  readonly emailVerified: boolean;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
+  readonly emailVerified?: boolean;
+  readonly createdAt?: Date;
+  readonly updatedAt?: Date;
   readonly preferences?: IUserPreferences;
 }
 
-export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'admin';
+export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'ai_premium' | 'admin';
 
 export interface IUserCredentials {
   readonly email: string;
@@ -27,7 +29,7 @@ export interface IUserRegistration extends IUserCredentials {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly termsAccepted: boolean;
-  readonly marketingConsent: boolean;
+  readonly marketingConsent?: boolean;
 }
 
 export interface IUserPreferences {
@@ -151,6 +153,83 @@ export interface IApiError {
   readonly statusCode: number;
 }
 
+// Scanner Service Types (matching backend)
+export interface ScanResult {
+  product: Product;
+  safety_score: number;
+  safety_grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+  rating_breakdown: RatingBreakdown;
+  warnings: string[];
+  saved_to_history: boolean;
+  cached: boolean;
+}
+
+export interface Product {
+  barcode: string;
+  name: string;
+  brand?: string;
+  category?: string;
+  ingredients: string[];
+  nutrition?: Nutrition;
+  images: string[];
+  allergens: string[];
+  additives: string[];
+  ingredients_analysis: string[];
+  nutriscore_grade?: string;
+  nova_group?: number;
+  ecoscore_grade?: string;
+}
+
+export interface Nutrition {
+  energy_kcal?: number;
+  proteins_g?: number;
+  carbohydrates_g?: number;
+  sugars_g?: number;
+  fat_g?: number;
+  saturated_fat_g?: number;
+  fiber_g?: number;
+  sodium_mg?: number;
+  salt_g?: number;
+}
+
+export interface RatingBreakdown {
+  nutriscore?: { score: number; grade: string; weighted_score: number };
+  nova?: { score: number; group: number; weighted_score: number };
+  additives?: { score: number; count: number; high_risk_count: number; weighted_score: number };
+  ecoscore?: { score: number; grade: string; weighted_score: number };
+}
+
+export interface ScanHistoryItem {
+  id: string;
+  barcode: string;
+  product_name: string;
+  brand?: string;
+  safety_score: number;
+  safety_grade: string;
+  scanned_at: string;
+}
+
+export interface ScanHistory {
+  items: ScanHistoryItem[];
+  total: number;
+  page: number;
+  per_page: number;
+}
+
+export interface UserProfile {
+  user_id: string;
+  first_name?: string;
+  last_name?: string;
+  display_name?: string;
+  bio?: string;
+  phone_number?: string;
+  avatar_url?: string;
+  dietary_restrictions: string[];
+  allergens: string[];
+  created_at: string;
+  updated_at: string;
+}
+
 // Navigation Types
 export type RootStackParamList = {
   readonly Auth: undefined;
@@ -168,6 +247,13 @@ export type MainTabParamList = {
   readonly Scanner: undefined;
   readonly History: undefined;
   readonly Profile: undefined;
+};
+
+export type MainStackParamList = {
+  MainTabs: undefined;
+  Subscription: undefined;
+  ProductDetail: { barcode: string; scanResult?: ScanResult };
+  ScanResult: { scanResult: ScanResult };
 };
 
 export type ProductStackParamList = {

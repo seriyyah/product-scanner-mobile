@@ -1,9 +1,7 @@
 module.exports = {
   extends: [
-    '@expo/metro-config',
     '@typescript-eslint/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],

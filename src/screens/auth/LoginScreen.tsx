@@ -12,7 +12,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -49,7 +48,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<ILoginForm>({
     resolver: yupResolver(loginSchema),
@@ -102,28 +101,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     navigation.navigate('ForgotPassword');
   };
 
-  // Show alert for demo purposes (since backend might not be fully set up)
-  const handleDemoLogin = (): void => {
-    Alert.alert(
-      'Demo Mode',
-      'This is a demo version. The backend integration is ready but may require setup.',
-      [
-        { text: 'OK', style: 'default' },
-        {
-          text: 'Try Demo Login',
-          style: 'default',
-          onPress: () => {
-            // Use demo credentials
-            reset({
-              email: 'demo@productscanner.com',
-              password: 'demo123456',
-            });
-          },
-        },
-      ]
-    );
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -149,7 +126,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           <Controller
             control={control}
             name="email"
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Email Address"
                 value={value}
@@ -168,7 +145,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           <Controller
             control={control}
             name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Password"
                 value={value}
@@ -208,14 +185,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             size="large"
           />
 
-          {/* Demo Mode Button */}
-          <Button
-            title="Demo Mode"
-            onPress={handleDemoLogin}
-            disabled={state.isLoading}
-            variant="outline"
-            size="medium"
-          />
         </View>
 
         {/* Footer */}
