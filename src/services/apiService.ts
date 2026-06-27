@@ -3,7 +3,7 @@
  */
 
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import * as SecureStore from 'expo-secure-store';
+import { tokenStorage } from '@/utils/tokenStorage';
 import {
   IUser,
   IUserCredentials,
@@ -65,7 +65,7 @@ class BaseApiClient {
     // Request interceptor: attach access token
     this.axiosInstance.interceptors.request.use(
       async (config) => {
-        const token = await SecureStore.getItemAsync(ApiConfig.TOKEN_KEY);
+        const token = await tokenStorage.getItem(ApiConfig.TOKEN_KEY);
         if (token && config.headers) {
           config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -83,14 +83,14 @@ class BaseApiClient {
         if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
           originalRequest._retry = true;
           try {
-            const refreshToken = await SecureStore.getItemAsync(ApiConfig.REFRESH_TOKEN_KEY);
+            const refreshToken = await tokenStorage.getItem(ApiConfig.REFRESH_TOKEN_KEY);
             if (refreshToken) {
               const refreshResponse = await axios.post(
                 `${ApiConfig.BASE_URL}/api/v1/auth/refresh`,
                 { refresh_token: refreshToken }
               );
               const newAccessToken = refreshResponse.data.tokens?.access_token || refreshResponse.data.access_token;
-              await SecureStore.setItemAsync(ApiConfig.TOKEN_KEY, newAccessToken);
+              await tokenStorage.setItem(ApiConfig.TOKEN_KEY, newAccessToken);
 
               if (originalRequest.headers) {
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
@@ -108,8 +108,8 @@ class BaseApiClient {
   }
 
   private async clearTokens(): Promise<void> {
-    await SecureStore.deleteItemAsync(ApiConfig.TOKEN_KEY);
-    await SecureStore.deleteItemAsync(ApiConfig.REFRESH_TOKEN_KEY);
+    await tokenStorage.deleteItem(ApiConfig.TOKEN_KEY);
+    await tokenStorage.deleteItem(ApiConfig.REFRESH_TOKEN_KEY);
   }
 
   private transformError(error: AxiosError): ApiError {
@@ -167,8 +167,8 @@ export class AuthRepository {
       throw new ApiError('Invalid response format', 400, 'INVALID_RESPONSE');
     }
 
-    await SecureStore.setItemAsync('auth_token', data.tokens.access_token);
-    await SecureStore.setItemAsync('refresh_token', data.tokens.refresh_token);
+    await tokenStorage.setItem('auth_token', data.tokens.access_token);
+    await tokenStorage.setItem('refresh_token', data.tokens.refresh_token);
 
     return {
       user: data.user,
@@ -197,8 +197,8 @@ export class AuthRepository {
     } catch {
       // fire and forget — always clear local tokens
     } finally {
-      await SecureStore.deleteItemAsync('auth_token');
-      await SecureStore.deleteItemAsync('refresh_token');
+      await tokenStorage.deleteItem('auth_token');
+      await tokenStorage.deleteItem('refresh_token');
     }
   }
 
@@ -224,7 +224,7 @@ export class AuthRepository {
   }
 
   public async isAuthenticated(): Promise<boolean> {
-    const token = await SecureStore.getItemAsync('auth_token');
+    const token = await tokenStorage.getItem('auth_token');
     return Boolean(token);
   }
 
@@ -240,6 +240,10 @@ export class ScannerRepository {
 
   public async scanBarcode(barcode: string): Promise<ScanResult> {
     return this.apiClient.post<ScanResult>('/api/v2/scan', { barcode });
+  }
+
+  public async getProductByBarcode(barcode: string): Promise<ScanResult> {
+    return this.apiClient.get<ScanResult>(`/api/v2/scan/${barcode}`);
   }
 
   public async getScanHistory(page = 1, perPage = 20): Promise<ScanHistory> {
@@ -261,13 +265,7 @@ export class UserRepository {
 }
 
 // Legacy ProductRepository kept for compatibility
-export class ProductRepository {
-  private readonly apiClient = BaseApiClient.getInstance();
-
-  public async getScanHistory(): Promise<ScanHistory> {
-    return this.apiClient.get<ScanHistory>('/api/v1/scan/history');
-  }
-}
+export class ProductRepository {}
 
 // API Service Factory
 export class ApiServiceFactory {

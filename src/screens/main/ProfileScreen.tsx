@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Text,
   Alert,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm } from 'react-hook-form';
@@ -106,6 +107,13 @@ const ProfileScreen: React.FC = () => {
   };
 
   const handleLogout = (): void => {
+    if (Platform.OS === 'web') {
+      // Alert.alert uses window.confirm on web which doesn't invoke onPress callbacks
+      if (window.confirm('Are you sure you want to logout?')) {
+        logout();
+      }
+      return;
+    }
     Alert.alert('Logout', 'Are you sure you want to logout?', [
       { text: 'Cancel', style: 'cancel' },
       {

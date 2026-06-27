@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
+import { Text, View } from 'react-native';
 
 const mockNavigate = jest.fn();
 
@@ -13,81 +14,96 @@ jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: {
     scanBarcode: jest.fn(),
     getScanHistory: jest.fn(),
+    getProductByBarcode: jest.fn(),
   },
 }));
 
-// BarCodeScanner must be a React component (function), not a plain object.
-jest.mock('expo-barcode-scanner', () => {
-  const MockBarCodeScanner = ({ children }: any) => children ?? null;
-  MockBarCodeScanner.requestPermissionsAsync = jest.fn(() =>
-    Promise.resolve({ status: 'granted' })
-  );
-  MockBarCodeScanner.Constants = {
-    BarCodeType: { ean13: 'ean13', ean8: 'ean8', qr: 'qr' },
-  };
-  return { BarCodeScanner: MockBarCodeScanner };
-});
+// Capture onScanned prop so tests can trigger scan events
+let capturedOnScanned: ((barcode: string) => void) | null = null;
+let mockBarcodeScannerOutput: React.ReactNode = null;
+
+jest.mock('../../../src/components/BarcodeScanner', () => ({
+  __esModule: true,
+  default: (props: any) => {
+    capturedOnScanned = props.onScanned;
+    return mockBarcodeScannerOutput;
+  },
+}));
+
+jest.mock('react-native-safe-area-context', () => ({
+  SafeAreaView: ({ children }: any) => children,
+  useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
+}));
 
 import ScannerScreen from '../../../src/screens/main/ScannerScreen';
-// Import the mocked module to access mock functions
-import { BarCodeScanner } from 'expo-barcode-scanner';
 import { scannerRepository } from '../../../src/services/apiService';
 
-const mockRequestPermissions = (BarCodeScanner as any).requestPermissionsAsync as jest.Mock;
 const mockScanBarcode = scannerRepository.scanBarcode as jest.Mock;
 
 describe('ScannerScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockRequestPermissions.mockResolvedValue({ status: 'granted' });
+    capturedOnScanned = null;
+    mockBarcodeScannerOutput = null;
   });
 
-  it('shows permission request state initially', () => {
-    // Make the promise never resolve so we're stuck in "undetermined" state
-    mockRequestPermissions.mockReturnValue(new Promise(() => {}));
+  it('renders without crashing', () => {
     const { getByText } = render(<ScannerScreen />);
-    expect(getByText('Requesting camera permission...')).toBeTruthy();
+    expect(getByText('Scan Product')).toBeTruthy();
   });
 
-  it('shows denied state when permission is denied', async () => {
-    mockRequestPermissions.mockResolvedValueOnce({ status: 'denied' });
+  it('shows instruction text when camera is active', async () => {
     const { findByText } = render(<ScannerScreen />);
-    const denied = await findByText('Camera Access Required');
-    expect(denied).toBeTruthy();
+    expect(await findByText(/Point camera at barcode/)).toBeTruthy();
   });
 
-  it('shows Open Settings button when permission denied', async () => {
-    mockRequestPermissions.mockResolvedValueOnce({ status: 'denied' });
+  it('shows denied state from BarcodeScanner component', async () => {
+    mockBarcodeScannerOutput = (
+      <View>
+        <Text>Camera Required</Text>
+        <Text>Allow camera access to scan barcodes.</Text>
+      </View>
+    );
     const { findByText } = render(<ScannerScreen />);
-    const settings = await findByText('Open Settings');
-    expect(settings).toBeTruthy();
+    expect(await findByText('Camera Required')).toBeTruthy();
   });
 
-  it('shows instruction text when permission granted', async () => {
-    mockRequestPermissions.mockResolvedValueOnce({ status: 'granted' });
-    const { findByText } = render(<ScannerScreen />);
-    const instruction = await findByText('Point camera at barcode');
-    expect(instruction).toBeTruthy();
-  });
-
-  it('requests permissions on mount', async () => {
+  it('calls scanBarcode after barcode is detected', () => {
     render(<ScannerScreen />);
-    await waitFor(() => {
-      expect(mockRequestPermissions).toHaveBeenCalled();
-    });
+    expect(mockScanBarcode).toBeDefined();
   });
 
-  it('calls scanBarcode when a barcode is scanned', () => {
+  it('navigates to ScanResult after successful scan', async () => {
     mockScanBarcode.mockResolvedValueOnce({
-      product: { barcode: '123', name: 'Test', ingredients: [], images: [], allergens: [], additives: [], ingredients_analysis: [] },
-      safety_score: 85,
-      safety_grade: 'A',
-      rating_breakdown: {},
+      product: {
+        barcode: '3017620422003',
+        name: 'Nutella',
+        ingredients: [],
+        images: [],
+        allergens: [],
+        additives: [],
+        ingredients_analysis: [],
+      },
+      safety_score: 37,
+      safety_grade: 'E',
       warnings: [],
-      saved_to_history: true,
-      cached: false,
     });
-    // Scanbarcode would be called via the BarCodeScanner callback; in test we verify the fn is set up
-    expect(mockScanBarcode).toBeDefined();
+
+    render(<ScannerScreen />);
+    await waitFor(() => expect(capturedOnScanned).not.toBeNull());
+
+    capturedOnScanned!('3017620422003');
+
+    await waitFor(() => {
+      expect(mockScanBarcode).toHaveBeenCalledWith('3017620422003');
+    });
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith(
+        'ScanResult',
+        expect.objectContaining({
+          scanResult: expect.objectContaining({ safety_grade: 'E' }),
+        }),
+      );
+    });
   });
 });

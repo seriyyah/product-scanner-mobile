@@ -4,9 +4,9 @@
  */
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import * as SecureStore from 'expo-secure-store';
 import { IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
 import { authRepository, ApiError } from '@/services/apiService';
+import { tokenStorage } from '@/utils/tokenStorage';
 
 // Initial Auth State
 const initialAuthState: IAuthState = {
@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   const checkAuthStatus = async (): Promise<void> => {
     try {
-      const token = await SecureStore.getItemAsync('auth_token');
+      const token = await tokenStorage.getItem('auth_token');
       if (!token) {
         dispatch({ type: 'LOGOUT' });
         return;
@@ -103,11 +103,11 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         if (apiErr?.statusCode === 401) {
           // Try to refresh
           try {
-            const refreshToken = await SecureStore.getItemAsync('refresh_token');
+            const refreshToken = await tokenStorage.getItem('refresh_token');
             if (refreshToken) {
               const newTokens = await authRepository.refreshToken(refreshToken);
-              await SecureStore.setItemAsync('auth_token', newTokens.access_token);
-              await SecureStore.setItemAsync('refresh_token', newTokens.refresh_token);
+              await tokenStorage.setItem('auth_token', newTokens.access_token);
+              await tokenStorage.setItem('refresh_token', newTokens.refresh_token);
               const user = await authRepository.getCurrentUser();
               dispatch({
                 type: 'LOGIN_SUCCESS',
@@ -135,8 +135,8 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   };
 
   const clearTokensAndLogout = async (): Promise<void> => {
-    await SecureStore.deleteItemAsync('auth_token');
-    await SecureStore.deleteItemAsync('refresh_token');
+    await tokenStorage.deleteItem('auth_token');
+    await tokenStorage.deleteItem('refresh_token');
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -144,6 +144,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const result = await authRepository.login(credentials);
+      // Tokens are already persisted inside authRepository.login()
       dispatch({ type: 'LOGIN_SUCCESS', payload: result });
     } catch (error) {
       const errorMessage = error instanceof ApiError
@@ -169,8 +170,9 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   };
 
   const logout = async (): Promise<void> => {
-    // Fire and forget — always clear local state
     authRepository.logout().catch(() => {});
+    await tokenStorage.deleteItem('auth_token');
+    await tokenStorage.deleteItem('refresh_token');
     dispatch({ type: 'LOGOUT' });
   };
 

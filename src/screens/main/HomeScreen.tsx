@@ -30,7 +30,7 @@ const HomeScreen: React.FC = () => {
   const loadRecentScans = useCallback(async () => {
     try {
       const history = await scannerRepository.getScanHistory(1, 3);
-      setRecentScans(history.items);
+      setRecentScans(history.scans ?? []);
     } catch {
       setRecentScans([]);
     } finally {
@@ -97,7 +97,7 @@ const HomeScreen: React.FC = () => {
     <SafeAreaView style={styles.safeArea}>
       <FlatList
         data={recentScans}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => `${item.id ?? item.barcode ?? 'item'}-${index}`}
         renderItem={renderScanItem}
         refreshControl={
           <RefreshControl

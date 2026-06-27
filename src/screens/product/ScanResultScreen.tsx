@@ -20,7 +20,7 @@ const ScanResultScreen: React.FC = () => {
   const route = useRoute<ScanResultRouteProp>();
   const navigation = useNavigation<any>();
   const { scanResult } = route.params;
-  const { product, safety_score, safety_grade, rating_breakdown, warnings } = scanResult;
+  const { product, safety_score, safety_grade, safety_summary, rating_breakdown, warnings } = scanResult;
 
   const [showAllIngredients, setShowAllIngredients] = useState(false);
   const INGREDIENT_PREVIEW = 5;
@@ -29,7 +29,7 @@ const ScanResultScreen: React.FC = () => {
     navigation.navigate('MainTabs', { screen: 'Scanner' });
   };
 
-  const scoreColor = gradeColor(safety_grade);
+  const scoreColor = gradeColor(safety_grade ?? '');
 
   const renderNutritionRow = (label: string, value?: number, unit = 'g') => {
     if (value === undefined || value === null) return null;
@@ -96,23 +96,34 @@ const ScanResultScreen: React.FC = () => {
         </View>
 
         {/* Safety Score Circle */}
-        <View style={styles.scoreSection}>
-          <View style={[styles.scoreCircle, { borderColor: scoreColor }]}>
-            <Text style={[styles.scoreNumber, { color: scoreColor }]}>
-              {safety_score.toFixed(0)}
-            </Text>
-            <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+        {safety_score != null && (
+          <View style={styles.scoreSection}>
+            <View style={[styles.scoreCircle, { borderColor: scoreColor }]}>
+              <Text style={[styles.scoreNumber, { color: scoreColor }]}>
+                {safety_score.toFixed(0)}
+              </Text>
+              {safety_grade ? (
+                <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+              ) : null}
+            </View>
+            {safety_grade ? (
+              <Text style={[styles.gradeLabel, { color: scoreColor }]}>
+                Grade {safety_grade} — {gradeLabel(safety_grade)}
+              </Text>
+            ) : null}
+            {safety_summary ? (
+              <Text style={[styles.gradeLabel, { color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm }]}>
+                {safety_summary}
+              </Text>
+            ) : null}
           </View>
-          <Text style={[styles.gradeLabel, { color: scoreColor }]}>
-            Grade {safety_grade} — {gradeLabel(safety_grade)}
-          </Text>
-        </View>
+        )}
 
         {/* Warnings */}
-        {warnings.length > 0 && (
+        {(warnings ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Warnings</Text>
-            {warnings.map((w, i) => (
+            {(warnings ?? []).map((w, i) => (
               <View key={i} style={styles.warningChip}>
                 <Ionicons name="warning" size={14} color={theme.colors.error} />
                 <Text style={styles.warningText}>{w}</Text>
@@ -122,7 +133,7 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Rating Breakdown */}
-        {renderBreakdown(rating_breakdown)}
+        {rating_breakdown && renderBreakdown(rating_breakdown)}
 
         {/* Nutrition Facts */}
         {product.nutrition && (
@@ -140,13 +151,16 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Ingredients */}
-        {product.ingredients.length > 0 && (
+        {(product.ingredients ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients</Text>
-            {(showAllIngredients ? product.ingredients : product.ingredients.slice(0, INGREDIENT_PREVIEW)).map((ing, i) => (
+            {(showAllIngredients
+              ? product.ingredients
+              : (product.ingredients ?? []).slice(0, INGREDIENT_PREVIEW)
+            ).map((ing, i) => (
               <Text key={i} style={styles.ingredientText}>• {ing}</Text>
             ))}
-            {product.ingredients.length > INGREDIENT_PREVIEW && (
+            {(product.ingredients ?? []).length > INGREDIENT_PREVIEW && (
               <TouchableOpacity
                 onPress={() => setShowAllIngredients((v) => !v)}
                 activeOpacity={0.8}
@@ -155,7 +169,7 @@ const ScanResultScreen: React.FC = () => {
                 <Text style={styles.showMoreText}>
                   {showAllIngredients
                     ? 'Show less'
-                    : `Show all ${product.ingredients.length} ingredients`}
+                    : `Show all ${(product.ingredients ?? []).length} ingredients`}
                 </Text>
               </TouchableOpacity>
             )}
@@ -163,11 +177,11 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Allergens */}
-        {product.allergens.length > 0 && (
+        {(product.allergens ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Allergens</Text>
             <View style={styles.chipsRow}>
-              {product.allergens.map((a, i) => (
+              {(product.allergens ?? []).map((a, i) => (
                 <View key={i} style={styles.allergenChip}>
                   <Text style={styles.allergenChipText}>{a}</Text>
                 </View>
@@ -177,11 +191,11 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Ingredients Analysis */}
-        {product.ingredients_analysis.length > 0 && (
+        {(product.ingredients_analysis ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients Analysis</Text>
             <View style={styles.chipsRow}>
-              {product.ingredients_analysis.map((a, i) => (
+              {(product.ingredients_analysis ?? []).map((a, i) => (
                 <View key={i} style={styles.analysisChip}>
                   <Text style={styles.analysisChipText}>{a}</Text>
                 </View>

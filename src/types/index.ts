@@ -156,28 +156,35 @@ export interface IApiError {
 // Scanner Service Types (matching backend)
 export interface ScanResult {
   product: Product;
-  safety_score: number;
-  safety_grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-  rating_breakdown: RatingBreakdown;
-  warnings: string[];
-  saved_to_history: boolean;
-  cached: boolean;
+  safety_score: number | null;
+  safety_grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | null;
+  safety_summary?: string | null;
+  rating_breakdown?: RatingBreakdown;
+  warnings?: string[];
+  saved_to_history?: boolean;
+  cached?: boolean;
 }
 
 export interface Product {
   barcode: string;
   name: string;
   brand?: string;
+  generic_name?: string;
+  quantity?: string;
   category?: string;
-  ingredients: string[];
+  ingredients?: string[];
+  ingredients_text?: string;
   nutrition?: Nutrition;
-  images: string[];
-  allergens: string[];
-  additives: string[];
-  ingredients_analysis: string[];
+  images?: string[];
+  allergens?: string[];
+  additives?: string[];
+  ingredients_analysis?: string[];
+  packaging?: string[];
   nutriscore_grade?: string;
   nova_group?: number;
   ecoscore_grade?: string;
+  product_type?: string;
+  source?: string;
 }
 
 export interface Nutrition {
@@ -210,10 +217,9 @@ export interface ScanHistoryItem {
 }
 
 export interface ScanHistory {
-  items: ScanHistoryItem[];
+  scans: ScanHistoryItem[];
   total: number;
-  page: number;
-  per_page: number;
+  user_id?: string;
 }
 
 export interface UserProfile {

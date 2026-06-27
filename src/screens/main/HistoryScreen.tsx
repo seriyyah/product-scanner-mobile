@@ -31,7 +31,7 @@ const HistoryScreen: React.FC = () => {
     if (pageNum === 1) setError('');
     try {
       const data = await scannerRepository.getScanHistory(pageNum, PER_PAGE);
-      const newItems = data.items;
+      const newItems = data.scans ?? [];
       if (reset || pageNum === 1) {
         setItems(newItems);
       } else {
@@ -135,7 +135,7 @@ const HistoryScreen: React.FC = () => {
       </View>
       <FlatList
         data={items}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => `${item.id ?? item.barcode ?? 'item'}-${index}`}
         renderItem={renderItem}
         refreshControl={
           <RefreshControl
