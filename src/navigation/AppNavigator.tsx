@@ -1,7 +1,6 @@
 /**
  * Main Navigation Structure for Product Scanner Mobile App
- * Implements React Navigation with Auth Flow and Main App Flow
- * Following Clean Architecture principles with proper type safety
+ * React Navigation v6 with auth flow and main app flow
  */
 
 import React from 'react';
@@ -12,297 +11,148 @@ import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// Context and Types
 import { useAuth } from '@/contexts/AuthContext';
 import {
-  RootStackParamList,
   AuthStackParamList,
   MainTabParamList,
-  ProductStackParamList,
+  MainStackParamList,
 } from '@/types';
 import theme from '@/constants/theme';
 
-// Screens (will be implemented)
+// Auth screens
 import LoginScreen from '@/screens/auth/LoginScreen';
 import RegisterScreen from '@/screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '@/screens/auth/ForgotPasswordScreen';
+
+// Main tab screens
 import HomeScreen from '@/screens/main/HomeScreen';
 import ScannerScreen from '@/screens/main/ScannerScreen';
 import HistoryScreen from '@/screens/main/HistoryScreen';
 import ProfileScreen from '@/screens/main/ProfileScreen';
+
+// Product screens
 import ProductDetailScreen from '@/screens/product/ProductDetailScreen';
 import ScanResultScreen from '@/screens/product/ScanResultScreen';
 
-// Navigation Stacks
-const RootStack = createStackNavigator<RootStackParamList>();
+// Subscription screen
+import SubscriptionScreen from '@/screens/subscription/SubscriptionScreen';
+
+type AuthRootParamList = { Auth: undefined };
+type MainRootParamList = { Main: undefined };
+
+const RootStack = createStackNavigator<AuthRootParamList & MainRootParamList>();
 const AuthStack = createStackNavigator<AuthStackParamList>();
+const MainStack = createStackNavigator<MainStackParamList>();
 const MainTab = createBottomTabNavigator<MainTabParamList>();
-const ProductStack = createStackNavigator<ProductStackParamList>();
 
-// Tab Bar Icon Component with Ionicons
-const TabBarIcon: React.FC<{ 
-  name: string; 
-  color: string; 
-  size: number; 
-}> = ({ name, color, size }) => {
-  const iconMap: Record<string, keyof typeof Ionicons.glyphMap> = {
-    home: 'home',
-    scan: 'scan',
-    history: 'time',
-    profile: 'person',
-  };
-  const mapped = iconMap[name] || 'home';
-  return <Ionicons name={mapped} size={size} color={color} />;
-};
-
-// Loading Component
+// Loading Screen
 const LoadingScreen: React.FC = () => (
-  <View style={{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.background,
-  }}>
+  <View
+    style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.background,
+    }}
+  >
     <ActivityIndicator size="large" color={theme.colors.primary} />
   </View>
 );
 
-// Authentication Stack Navigator
+// Auth Stack
 const AuthNavigator: React.FC = () => (
-  <AuthStack.Navigator
-    screenOptions={{
-      headerShown: false,
-      gestureEnabled: true,
-      cardStyleInterpolator: ({ current, layouts }) => ({
-        cardStyle: {
-          transform: [
-            {
-              translateX: current.progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [layouts.screen.width, 0],
-              }),
-            },
-          ],
-        },
-      }),
-    }}
-  >
-    <AuthStack.Screen 
-      name="Login" 
-      component={LoginScreen}
-      options={{ title: 'Sign In' }}
-    />
-    <AuthStack.Screen 
-      name="Register" 
-      component={RegisterScreen}
-      options={{ title: 'Create Account' }}
-    />
-    <AuthStack.Screen 
-      name="ForgotPassword" 
-      component={ForgotPasswordScreen}
-      options={{ title: 'Reset Password' }}
-    />
+  <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStack.Screen name="Login" component={LoginScreen} />
+    <AuthStack.Screen name="Register" component={RegisterScreen} />
+    <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
   </AuthStack.Navigator>
 );
 
-// Main Tab Navigator
-const MainNavigator: React.FC = () => (
+// Bottom Tabs
+const TabNavigator: React.FC = () => (
   <MainTab.Navigator
     screenOptions={({ route }) => ({
+      headerShown: false,
       tabBarIcon: ({ focused, color, size }) => {
-        let iconName: keyof typeof Ionicons.glyphMap;
-        switch (route.name) {
-          case 'Home':
-            iconName = focused ? 'home' : 'home-outline';
-            break;
-          case 'Scanner':
-            iconName = focused ? 'scan' : 'scan-outline';
-            break;
-          case 'History':
-            iconName = focused ? 'time' : 'time-outline';
-            break;
-          case 'Profile':
-            iconName = focused ? 'person' : 'person-outline';
-            break;
-          default:
-            iconName = 'home';
-        }
+        let iconName: keyof typeof Ionicons.glyphMap = 'home';
+        if (route.name === 'Home') iconName = focused ? 'home' : 'home-outline';
+        else if (route.name === 'Scanner') iconName = focused ? 'scan' : 'scan-outline';
+        else if (route.name === 'History') iconName = focused ? 'time' : 'time-outline';
+        else if (route.name === 'Profile') iconName = focused ? 'person' : 'person-outline';
         return <Ionicons name={iconName} size={size} color={color} />;
       },
       tabBarActiveTintColor: theme.colors.primary,
-      tabBarInactiveTintColor: theme.colors.textSecondary,
+      tabBarInactiveTintColor: '#B3B3B3',
       tabBarStyle: {
-        backgroundColor: theme.colors.surface,
+        backgroundColor: '#1E1E1E',
         borderTopColor: theme.colors.border,
         borderTopWidth: 1,
-        paddingBottom: 5,
-        paddingTop: 5,
         height: 65,
+        paddingBottom: 8,
+        paddingTop: 5,
       },
       tabBarLabelStyle: {
         fontSize: theme.typography.fontSizes.xs,
-        fontWeight: '500' as any,
+        fontWeight: '500' as const,
       },
-      headerStyle: {
-        backgroundColor: theme.colors.surface,
-        borderBottomColor: theme.colors.border,
-        borderBottomWidth: 1,
-      },
-      headerTitleStyle: {
-        color: theme.colors.text,
-        fontSize: theme.typography.fontSizes.lg,
-        fontWeight: '600' as any,
-      },
-      headerTintColor: theme.colors.text,
     })}
   >
-    <MainTab.Screen 
-      name="Home" 
-      component={HomeScreen}
-      options={{
-        title: 'Home',
-        headerTitle: 'Product Scanner',
-      }}
-    />
-    <MainTab.Screen 
-      name="Scanner" 
-      component={ScannerScreen}
-      options={{
-        title: 'Scan',
-        headerShown: false, // Scanner needs full screen
-      }}
-    />
-    <MainTab.Screen 
-      name="History" 
-      component={HistoryScreen}
-      options={{
-        title: 'History',
-        headerTitle: 'Scan History',
-      }}
-    />
-    <MainTab.Screen 
-      name="Profile" 
-      component={ProfileScreen}
-      options={{
-        title: 'Profile',
-        headerTitle: 'My Profile',
-      }}
-    />
+    <MainTab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+    <MainTab.Screen name="Scanner" component={ScannerScreen} options={{ title: 'Scan' }} />
+    <MainTab.Screen name="History" component={HistoryScreen} options={{ title: 'History' }} />
+    <MainTab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile' }} />
   </MainTab.Navigator>
 );
 
-// Product Stack Navigator (for product detail views)
-const ProductNavigator: React.FC = () => (
-  <ProductStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: theme.colors.surface,
-        borderBottomColor: theme.colors.border,
-        borderBottomWidth: 1,
-      },
-      headerTitleStyle: {
-        color: theme.colors.text,
-        fontSize: theme.typography.fontSizes.lg,
-        fontWeight: '600' as any,
-      },
-      headerTintColor: theme.colors.primary,
-      gestureEnabled: true,
-      cardStyleInterpolator: ({ current, layouts }) => ({
-        cardStyle: {
-          transform: [
-            {
-              translateX: current.progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [layouts.screen.width, 0],
-              }),
-            },
-          ],
-        },
-      }),
-    }}
-  >
-    <ProductStack.Screen 
-      name="ProductDetail" 
-      component={ProductDetailScreen}
-      options={{ 
-        title: 'Product Details',
-        headerBackTitleVisible: false,
-      }}
+// Main Stack (wraps tabs + modal screens)
+const MainNavigator: React.FC = () => (
+  <MainStack.Navigator screenOptions={{ headerShown: false }}>
+    <MainStack.Screen name="MainTabs" component={TabNavigator} />
+    <MainStack.Screen
+      name="Subscription"
+      component={SubscriptionScreen}
+      options={{ presentation: 'card' }}
     />
-    <ProductStack.Screen 
-      name="ScanResult" 
+    <MainStack.Screen
+      name="ScanResult"
       component={ScanResultScreen}
-      options={{ 
-        title: 'Scan Result',
-        headerBackTitleVisible: false,
-      }}
+      options={{ presentation: 'modal' }}
     />
-  </ProductStack.Navigator>
+    <MainStack.Screen
+      name="ProductDetail"
+      component={ProductDetailScreen}
+      options={{ presentation: 'modal' }}
+    />
+  </MainStack.Navigator>
 );
 
-// Root Navigator - Handles Auth/Main flow switching
+// Root Navigator
 const RootNavigator: React.FC = () => {
   const { state } = useAuth();
 
-  // Show loading screen while checking auth status
   if (state.isLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <RootStack.Navigator
-      screenOptions={{
-        headerShown: false,
-        gestureEnabled: false, // Disable gesture for root level
-        animationEnabled: true,
-      }}
-    >
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
       {state.isAuthenticated ? (
-        // User is authenticated - show main app
-        <>
-          <RootStack.Screen 
-            name="Main" 
-            component={MainNavigator}
-            options={{
-              animationTypeForReplace: state.isAuthenticated ? 'push' : 'pop',
-            }}
-          />
-          {/* Add product screens as modals */}
-          <RootStack.Group screenOptions={{ presentation: 'modal' }}>
-            <RootStack.Screen 
-              name="ProductModal" 
-              component={ProductNavigator}
-              options={{
-                headerShown: false,
-                gestureEnabled: true,
-              }}
-            />
-          </RootStack.Group>
-        </>
+        <RootStack.Screen name="Main" component={MainNavigator} />
       ) : (
-        // User not authenticated - show auth flow
-        <RootStack.Screen 
-          name="Auth" 
-          component={AuthNavigator}
-          options={{
-            animationTypeForReplace: !state.isAuthenticated ? 'push' : 'pop',
-          }}
-        />
+        <RootStack.Screen name="Auth" component={AuthNavigator} />
       )}
     </RootStack.Navigator>
   );
 };
 
-// Main App Navigator Component
-const AppNavigator: React.FC = () => {
-  return (
-    <>
-      <StatusBar style="light" backgroundColor={theme.colors.background} />
-      <NavigationContainer fallback={<LoadingScreen />}>
-        <RootNavigator />
-      </NavigationContainer>
-    </>
-  );
-};
+// App Navigator
+const AppNavigator: React.FC = () => (
+  <>
+    <StatusBar style="light" backgroundColor={theme.colors.background} />
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
+  </>
+);
 
 export default AppNavigator;

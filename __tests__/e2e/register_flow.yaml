@@ -1,0 +1,17 @@
+appId: com.productscanner.mobile
+---
+- launchApp
+- tapOn: "Create Account"
+- assertVisible: "First Name"
+- inputText: "John"
+- tapOn: "Last Name"
+- inputText: "Doe"
+- tapOn: "Email"
+- inputText: "john@example.com"
+- tapOn: "Password"
+- inputText: "Password123!"
+- tapOn: "Confirm Password"
+- inputText: "Password123!"
+- tapOn: "I agree"
+- tapOn: "Create Account"
+- assertVisible: "Check your email"

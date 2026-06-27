@@ -5,21 +5,25 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  Text as RNText,
+  Text,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
-import { authRepository } from '@/services/apiService';
+import { userRepository } from '@/services/apiService';
+import { UserProfile, UserRole } from '@/types';
 import theme from '@/constants/theme';
 import TextInput from '@/components/forms/TextInput';
+import Button from '@/components/common/Button';
 
 interface ProfileFormData {
   firstName: string;
   lastName: string;
-  email: string;
   phoneNumber: string;
   bio: string;
 }
@@ -27,263 +31,262 @@ interface ProfileFormData {
 const profileSchema = yup.object().shape({
   firstName: yup.string().min(2, 'First name must be at least 2 characters'),
   lastName: yup.string().min(2, 'Last name must be at least 2 characters'),
-  email: yup.string().email('Invalid email'),
   phoneNumber: yup.string(),
   bio: yup.string(),
 });
 
+const ROLE_BADGE: Record<UserRole, { label: string; color: string }> = {
+  admin: { label: 'Admin', color: theme.colors.primary },
+  premium_user: { label: 'Premium', color: '#FFD700' },
+  ai_premium: { label: 'AI Premium', color: '#9C27B0' },
+  free_user: { label: 'Free', color: theme.colors.textSecondary },
+  guest: { label: 'Guest', color: theme.colors.textSecondary },
+};
+
 const ProfileScreen: React.FC = () => {
+  const navigation = useNavigation<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const { state, logout } = useAuth();
 
+  const role = (state.user?.role || 'free_user') as UserRole;
+  const badge = ROLE_BADGE[role] || ROLE_BADGE.free_user;
+
   const { control, handleSubmit, formState: { errors }, reset } = useForm<ProfileFormData>({
-    resolver: yupResolver(profileSchema),
+    resolver: yupResolver(profileSchema) as any,
   });
 
   useEffect(() => {
     loadProfile();
   }, []);
 
-  const loadProfile = async () => {
-    const userId = (state.user as any)?.id;
+  const loadProfile = async (): Promise<void> => {
+    const userId = state.user?.id;
     if (!userId) {
       setIsLoading(false);
-      Alert.alert('Error', 'User ID not found');
       return;
     }
-
     setIsLoading(true);
     try {
-      const profile = await authRepository.getUserProfile(userId);
-      setProfileData(profile);
+      const data = await userRepository.getUserProfile(userId);
+      setProfile(data);
       reset({
-        firstName: profile.first_name || '',
-        lastName: profile.last_name || '',
-        email: profile.email || '',
-        phoneNumber: profile.phone_number || '',
-        bio: profile.bio || '',
+        firstName: data.first_name || '',
+        lastName: data.last_name || '',
+        phoneNumber: data.phone_number || '',
+        bio: data.bio || '',
       });
-    } catch (error: any) {
-      // If profile doesn't exist (404), create it from login data
-      if (error.response?.status === 404 || error.statusCode === 404) {
-        try {
-          const user = state.user as any;
-          const newProfile = await authRepository.createUserProfile({
-            user_id: userId,
-            email: user?.email || '',
-            first_name: user?.first_name || '',
-            last_name: user?.last_name || '',
-            bio: '',
-            phone_number: '',
-            avatar_url: user?.avatar_url || '',
-          });
-          setProfileData(newProfile);
-          reset({
-            firstName: newProfile.first_name || '',
-            lastName: newProfile.last_name || '',
-            email: newProfile.email || '',
-            phoneNumber: newProfile.phone_number || '',
-            bio: newProfile.bio || '',
-          });
-        } catch (createErr) {
-          Alert.alert('Error', 'Failed to create profile');
-        }
-      } else {
-        Alert.alert('Error', 'Failed to load profile');
-      }
+    } catch {
+      Alert.alert('Error', 'Failed to load profile');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const onSubmit = async (data: ProfileFormData) => {
+  const onSubmit = async (data: ProfileFormData): Promise<void> => {
     if (!state.user?.id) return;
     setIsSaving(true);
     try {
-      await authRepository.updateUserProfile(state.user.id, {
+      const updated = await userRepository.updateUserProfile(state.user.id, {
         first_name: data.firstName,
         last_name: data.lastName,
         phone_number: data.phoneNumber,
         bio: data.bio,
       });
-      Alert.alert('Success', 'Profile updated successfully');
+      setProfile(updated);
       setIsEditing(false);
-      await loadProfile();
-    } catch (error) {
+      Alert.alert('Success', 'Profile updated successfully');
+    } catch {
       Alert.alert('Error', 'Failed to update profile');
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Logout',
         style: 'destructive',
-        onPress: async () => {
-          await logout();
-        },
+        onPress: () => logout(),
       },
     ]);
   };
 
+  const displayName = profile
+    ? [profile.first_name, profile.last_name].filter(Boolean).join(' ') || profile.display_name || 'User'
+    : state.user?.first_name || 'User';
+
+  const initials = displayName
+    .split(' ')
+    .map((n) => n[0] ?? '')
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+
   if (isLoading) {
     return (
-      <View style={styles.centerContainer}>
+      <View style={styles.centered}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <View style={styles.profileHeader}>
-        <View style={styles.avatarPlaceholder}>
-          <RNText style={styles.initials}>
-            {profileData?.first_name?.[0]}{profileData?.last_name?.[0]}
-          </RNText>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Profile Header */}
+        <View style={styles.profileHeader}>
+          <View style={styles.avatar}>
+            <Text style={styles.initials}>{initials}</Text>
+          </View>
+          <View style={styles.nameRow}>
+            <Text style={styles.displayName}>{displayName}</Text>
+            <View style={[styles.badge, { backgroundColor: badge.color + '22' }]}>
+              <Text style={[styles.badgeText, { color: badge.color }]}>{badge.label}</Text>
+            </View>
+          </View>
+          <Text style={styles.email}>{state.user?.email || ''}</Text>
         </View>
-        <RNText style={styles.fullName}>
-          {profileData?.full_name}
-        </RNText>
-        <RNText style={styles.email}>{profileData?.email}</RNText>
-      </View>
 
-      {isEditing ? (
-        <View style={styles.form}>
-          <TextInput
-            name="firstName"
-            control={control}
-            label="First Name"
-            editable={!isSaving}
-            error={errors.firstName?.message}
-          />
-
-          <TextInput
-            name="lastName"
-            control={control}
-            label="Last Name"
-            editable={!isSaving}
-            error={errors.lastName?.message}
-          />
-
-          <TextInput
-            name="email"
-            control={control}
-            label="Email"
-            editable={false}
-          />
-
-          <TextInput
-            name="phoneNumber"
-            control={control}
-            label="Phone Number"
-            placeholder="+1234567890"
-            editable={!isSaving}
-            error={errors.phoneNumber?.message}
-          />
-
-          <TextInput
-            name="bio"
-            control={control}
-            label="Bio"
-            placeholder="Tell us about yourself"
-            multiline
-            numberOfLines={4}
-            editable={!isSaving}
-            error={errors.bio?.message}
-          />
-
-          <View style={styles.buttonGroup}>
-            <TouchableOpacity
-              style={[styles.button, styles.saveButton]}
-              onPress={handleSubmit(onSubmit)}
+        {/* Edit form or info view */}
+        {isEditing ? (
+          <View style={styles.section}>
+            <TextInput
+              label="First Name"
+              name="firstName"
+              control={control}
               disabled={isSaving}
-            >
-              <RNText style={styles.buttonText}>
-                {isSaving ? 'Saving...' : 'Save'}
-              </RNText>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.button, styles.cancelButton]}
-              onPress={() => setIsEditing(false)}
+              error={errors.firstName?.message}
+            />
+            <TextInput
+              label="Last Name"
+              name="lastName"
+              control={control}
               disabled={isSaving}
-            >
-              <RNText style={styles.cancelButtonText}>Cancel</RNText>
-            </TouchableOpacity>
+              error={errors.lastName?.message}
+            />
+            <TextInput
+              label="Phone Number"
+              name="phoneNumber"
+              control={control}
+              placeholder="+1234567890"
+              keyboardType="phone-pad"
+              disabled={isSaving}
+              error={errors.phoneNumber?.message}
+            />
+            <TextInput
+              label="Bio"
+              name="bio"
+              control={control}
+              placeholder="Tell us about yourself"
+              multiline
+              numberOfLines={4}
+              disabled={isSaving}
+              error={errors.bio?.message}
+            />
+            <View style={styles.buttonRow}>
+              <Button
+                title={isSaving ? 'Saving...' : 'Save'}
+                onPress={handleSubmit(onSubmit)}
+                loading={isSaving}
+                disabled={isSaving}
+                variant="primary"
+                size="medium"
+              />
+              <View style={styles.buttonSpacer} />
+              <Button
+                title="Cancel"
+                onPress={() => setIsEditing(false)}
+                disabled={isSaving}
+                variant="outline"
+                size="medium"
+              />
+            </View>
           </View>
-        </View>
-      ) : (
-        <View style={styles.infoSection}>
-          <View style={styles.infoRow}>
-            <RNText style={styles.label}>Phone</RNText>
-            <RNText style={styles.value}>
-              {profileData?.phone_number || 'Not set'}
-            </RNText>
+        ) : (
+          <View style={styles.section}>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Phone</Text>
+              <Text style={styles.infoValue}>{profile?.phone_number || 'Not set'}</Text>
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Bio</Text>
+              <Text style={styles.infoValue}>{profile?.bio || 'No bio added'}</Text>
+            </View>
+            {profile?.created_at ? (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Member since</Text>
+                <Text style={styles.infoValue}>
+                  {new Date(profile.created_at).toLocaleDateString()}
+                </Text>
+              </View>
+            ) : null}
+            <Button
+              title="Edit Profile"
+              onPress={() => setIsEditing(true)}
+              variant="primary"
+              size="medium"
+            />
           </View>
+        )}
 
-          <View style={styles.infoRow}>
-            <RNText style={styles.label}>Bio</RNText>
-            <RNText style={styles.value}>
-              {profileData?.bio || 'No bio added'}
-            </RNText>
-          </View>
-
-          <View style={styles.infoRow}>
-            <RNText style={styles.label}>Member Since</RNText>
-            <RNText style={styles.value}>
-              {new Date(profileData?.created_at).toLocaleDateString()}
-            </RNText>
-          </View>
-
+        {/* Settings list */}
+        <View style={styles.settingsList}>
           <TouchableOpacity
-            style={[styles.button, styles.editButton]}
-            onPress={() => setIsEditing(true)}
+            style={styles.settingsRow}
+            onPress={() => navigation.navigate('Subscription')}
+            activeOpacity={0.8}
           >
-            <RNText style={styles.buttonText}>Edit Profile</RNText>
+            <Ionicons name="star-outline" size={22} color={theme.colors.primary} />
+            <Text style={styles.settingsLabel}>Subscription</Text>
+            <View style={styles.settingsRight}>
+              {role === 'admin' ? (
+                <Text style={styles.settingsValue}>Admin — Full Access</Text>
+              ) : (
+                <Text style={styles.settingsValue}>{badge.label}</Text>
+              )}
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </View>
           </TouchableOpacity>
         </View>
-      )}
 
-      <TouchableOpacity
-        style={[styles.button, styles.logoutButton]}
-        onPress={handleLogout}
-      >
-        <RNText style={styles.logoutButtonText}>Logout</RNText>
-      </TouchableOpacity>
-    </ScrollView>
+        {/* Logout */}
+        <View style={styles.section}>
+          <Button
+            title="Logout"
+            onPress={handleLogout}
+            variant="outline"
+            size="large"
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-  content: {
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.lg,
-  },
-  centerContainer: {
+  centered: {
     flex: 1,
+    backgroundColor: theme.colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
   },
   profileHeader: {
     alignItems: 'center',
-    marginBottom: theme.spacing.lg,
-    paddingBottom: theme.spacing.lg,
+    paddingVertical: theme.spacing.xl,
+    paddingHorizontal: theme.spacing.lg,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
-  avatarPlaceholder: {
+  avatar: {
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -294,83 +297,86 @@ const styles = StyleSheet.create({
   },
   initials: {
     fontSize: theme.typography.fontSizes.xl,
-    fontWeight: '700' as any,
+    fontWeight: '700' as const,
     color: theme.colors.text,
   },
-  fullName: {
-    fontSize: theme.typography.fontSizes.lg,
-    fontWeight: '600' as any,
-    color: theme.colors.text,
+  nameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.sm,
     marginBottom: theme.spacing.xs,
+  },
+  displayName: {
+    fontSize: theme.typography.fontSizes.lg,
+    fontWeight: '600' as const,
+    color: theme.colors.text,
+  },
+  badge: {
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: 2,
+    borderRadius: theme.borderRadius.round,
+  },
+  badgeText: {
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: '600' as const,
   },
   email: {
     fontSize: theme.typography.fontSizes.sm,
     color: theme.colors.textSecondary,
   },
-  form: {
-    gap: theme.spacing.md,
-    marginBottom: theme.spacing.lg,
-  },
-  infoSection: {
-    gap: theme.spacing.md,
-    marginBottom: theme.spacing.lg,
+  section: {
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
   infoRow: {
     paddingVertical: theme.spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
+    marginBottom: theme.spacing.sm,
   },
-  label: {
+  infoLabel: {
     fontSize: theme.typography.fontSizes.sm,
     color: theme.colors.textSecondary,
-    marginBottom: theme.spacing.xs,
+    marginBottom: 4,
   },
-  value: {
+  infoValue: {
     fontSize: theme.typography.fontSizes.md,
     color: theme.colors.text,
   },
-  button: {
-    paddingVertical: theme.spacing.md,
-    borderRadius: theme.borderRadius.medium,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  editButton: {
-    backgroundColor: theme.colors.primary,
+  buttonRow: {
+    flexDirection: 'row',
     marginTop: theme.spacing.md,
   },
-  saveButton: {
-    backgroundColor: theme.colors.primary,
-    flex: 1,
+  buttonSpacer: {
+    width: theme.spacing.md,
   },
-  cancelButton: {
-    backgroundColor: theme.colors.surface,
-    flex: 1,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+  settingsList: {
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
-  logoutButton: {
-    backgroundColor: theme.colors.error,
-    marginTop: theme.spacing.lg,
-  },
-  buttonText: {
-    color: theme.colors.text,
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: '600' as any,
-  },
-  cancelButtonText: {
-    color: theme.colors.textSecondary,
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: '600' as any,
-  },
-  logoutButtonText: {
-    color: theme.colors.text,
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: '600' as any,
-  },
-  buttonGroup: {
+  settingsRow: {
     flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.md,
     gap: theme.spacing.md,
+  },
+  settingsLabel: {
+    flex: 1,
+    fontSize: theme.typography.fontSizes.md,
+    color: theme.colors.text,
+  },
+  settingsRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+  },
+  settingsValue: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: theme.colors.textSecondary,
   },
 });
 
