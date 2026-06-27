@@ -44,7 +44,7 @@ const registerSchema = yup.object().shape({
     .required('Email is required'),
   password: yup
     .string()
-    .min(8, 'Password must be at least 8 characters')
+    .min(12, 'Password must be at least 12 characters')
     .required('Password is required'),
   confirmPassword: yup
     .string()
@@ -82,6 +82,7 @@ const RegisterScreen: React.FC = () => {
   });
 
   const termsAccepted = watch('termsAccepted');
+  const passwordValue = watch('password') ?? '';
 
   const onSubmit = async (data: RegisterFormData): Promise<void> => {
     setIsSubmitting(true);
@@ -174,12 +175,22 @@ const RegisterScreen: React.FC = () => {
             label="Password"
             name="password"
             control={control}
-            placeholder="At least 8 characters"
+            placeholder="At least 12 characters"
             secureTextEntry
             error={errors.password?.message}
             required
             disabled={isSubmitting}
           />
+          <View style={styles.passwordHint}>
+            <Text style={[
+              styles.passwordCount,
+              passwordValue.length >= 12
+                ? styles.passwordCountOk
+                : styles.passwordCountWarn,
+            ]}>
+              {passwordValue.length}/12 characters
+            </Text>
+          </View>
 
           <TextInput
             label="Confirm Password"
@@ -324,6 +335,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
     marginBottom: theme.spacing.lg,
+  },
+  passwordHint: {
+    alignItems: 'flex-end',
+    marginTop: -theme.spacing.sm,
+    marginBottom: theme.spacing.sm,
+  },
+  passwordCount: {
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: '500' as const,
+  },
+  passwordCountWarn: {
+    color: theme.colors.error,
+  },
+  passwordCountOk: {
+    color: '#4CAF50',
   },
 });
 

@@ -115,7 +115,10 @@ class BaseApiClient {
   private transformError(error: AxiosError): ApiError {
     if (error.response) {
       const data = error.response.data as any;
-      const message = data?.detail || data?.message || error.message || 'Request failed';
+      const detail = data?.detail;
+      const message = Array.isArray(detail)
+        ? detail.map((e: any) => e.msg ?? String(e)).join('. ')
+        : detail || data?.message || error.message || 'Request failed';
       return new ApiError(message, error.response.status, 'API_ERROR', data?.details);
     }
     if (error.request) {
