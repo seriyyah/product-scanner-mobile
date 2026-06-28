@@ -97,7 +97,7 @@ const HomeScreen: React.FC = () => {
     <SafeAreaView style={styles.safeArea}>
       <FlatList
         data={recentScans}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item.id ?? item.barcode ?? `scan-${index}`}
         renderItem={renderScanItem}
         refreshControl={
           <RefreshControl
