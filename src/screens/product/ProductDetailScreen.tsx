@@ -81,7 +81,7 @@ const ProductDetailScreen: React.FC = () => {
     );
   }
 
-  const { product, safety_score, safety_grade, rating_breakdown, warnings } = scanResult;
+  const { product, safety_score, safety_grade, rating_breakdown, warnings = [] } = scanResult;
   const scoreColor = gradeColor(safety_grade);
 
   const renderNutritionRow = (label: string, value?: number, unit = 'g') => {
@@ -178,7 +178,7 @@ const ProductDetailScreen: React.FC = () => {
           </View>
         )}
 
-        {renderBreakdown(rating_breakdown)}
+        {rating_breakdown && renderBreakdown(rating_breakdown)}
 
         {/* Nutrition */}
         {product.nutrition && (
@@ -196,7 +196,7 @@ const ProductDetailScreen: React.FC = () => {
         )}
 
         {/* Ingredients */}
-        {product.ingredients.length > 0 && (
+        {(product.ingredients ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients</Text>
             {(showAllIngredients ? product.ingredients : product.ingredients.slice(0, INGREDIENT_PREVIEW)).map((ing, i) => (
@@ -213,7 +213,7 @@ const ProductDetailScreen: React.FC = () => {
         )}
 
         {/* Allergens */}
-        {product.allergens.length > 0 && (
+        {(product.allergens ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Allergens</Text>
             <View style={styles.chipsRow}>
@@ -227,7 +227,7 @@ const ProductDetailScreen: React.FC = () => {
         )}
 
         {/* Ingredients Analysis */}
-        {product.ingredients_analysis.length > 0 && (
+        {(product.ingredients_analysis ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients Analysis</Text>
             <View style={styles.chipsRow}>
@@ -241,7 +241,7 @@ const ProductDetailScreen: React.FC = () => {
         )}
 
         {/* Images */}
-        {product.images.length > 0 && (
+        {(product.images ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Product Images</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>

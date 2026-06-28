@@ -135,7 +135,7 @@ const HistoryScreen: React.FC = () => {
       </View>
       <FlatList
         data={items}
-        keyExtractor={(item, index) => item.id ?? item.barcode ?? `scan-${index}`}
+        keyExtractor={(item, index) => item.id ?? `${item.barcode}-${index}`}
         renderItem={renderItem}
         refreshControl={
           <RefreshControl
