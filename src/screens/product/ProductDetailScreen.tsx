@@ -81,7 +81,9 @@ const ProductDetailScreen: React.FC = () => {
     );
   }
 
-  const { product, safety_score, safety_grade, rating_breakdown, warnings = [] } = scanResult;
+  const { product, rating_breakdown, warnings = [] } = scanResult;
+  const safety_score: number = scanResult.safety_score ?? 0;
+  const safety_grade: string = scanResult.safety_grade ?? '?';
   const scoreColor = gradeColor(safety_grade);
 
   const renderNutritionRow = (label: string, value?: number, unit = 'g') => {
@@ -103,7 +105,7 @@ const ProductDetailScreen: React.FC = () => {
           <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade) }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
-          <Text style={styles.breakdownScore}>{rb.nutriscore.score.toFixed(0)}</Text>
+          <Text style={styles.breakdownScore}>{(rb.nutriscore.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
       {rb.nova && (
