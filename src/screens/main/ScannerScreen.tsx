@@ -6,49 +6,45 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Linking,
+  Platform,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { Camera, CameraType } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { scannerRepository } from '@/services/apiService';
 
-type PermissionStatus = 'undetermined' | 'granted' | 'denied';
-
 const ScannerScreen: React.FC = () => {
   const navigation = useNavigation<any>();
-  const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>('undetermined');
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [manualBarcode, setManualBarcode] = useState('');
+  const [showManual, setShowManual] = useState(Platform.OS === 'web');
   const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    requestPermission();
+    if (Platform.OS !== 'web') {
+      Camera.requestCameraPermissionsAsync().then(({ status }) => {
+        setHasPermission(status === 'granted');
+      });
+    }
     return () => {
       if (retryTimeout.current) clearTimeout(retryTimeout.current);
     };
   }, []);
 
-  const requestPermission = async (): Promise<void> => {
-    const { status } = await BarCodeScanner.requestPermissionsAsync();
-    setPermissionStatus(status as PermissionStatus);
-  };
-
-  const handleBarCodeScanned = async ({
-    data,
-  }: {
-    type: string;
-    data: string;
-  }): Promise<void> => {
-    if (scanned || isLoading) return;
-
+  const scanProduct = async (barcode: string): Promise<void> => {
+    const code = barcode.trim();
+    if (!code || isLoading) return;
     setScanned(true);
     setIsLoading(true);
     setErrorMessage('');
-
     try {
-      const result = await scannerRepository.scanBarcode(data);
+      const result = await scannerRepository.scanBarcode(code);
       navigation.navigate('ScanResult', { scanResult: result });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to scan product. Please try again.';
@@ -56,7 +52,7 @@ const ScannerScreen: React.FC = () => {
       retryTimeout.current = setTimeout(() => {
         setScanned(false);
         setErrorMessage('');
-      }, 2000);
+      }, 2500);
     } finally {
       setIsLoading(false);
     }
@@ -66,14 +62,57 @@ const ScannerScreen: React.FC = () => {
     setScanned(false);
     setIsLoading(false);
     setErrorMessage('');
+    setManualBarcode('');
     if (retryTimeout.current) clearTimeout(retryTimeout.current);
   };
 
-  const openSettings = (): void => {
-    Linking.openSettings();
-  };
+  const manualInput = (
+    <View style={styles.manualInputRow}>
+      <TextInput
+        style={styles.manualInput}
+        placeholder="Enter barcode number…"
+        placeholderTextColor={theme.colors.textSecondary}
+        value={manualBarcode}
+        onChangeText={setManualBarcode}
+        keyboardType="default"
+        returnKeyType="search"
+        onSubmitEditing={() => scanProduct(manualBarcode)}
+        editable={!isLoading}
+        autoCorrect={false}
+        autoCapitalize="none"
+      />
+      <TouchableOpacity
+        style={[styles.manualSubmit, (!manualBarcode.trim() || isLoading) && styles.manualSubmitDisabled]}
+        onPress={() => scanProduct(manualBarcode)}
+        disabled={!manualBarcode.trim() || isLoading}
+        activeOpacity={0.8}
+      >
+        {isLoading
+          ? <ActivityIndicator size="small" color={theme.colors.text} />
+          : <Ionicons name="search" size={20} color={theme.colors.text} />}
+      </TouchableOpacity>
+    </View>
+  );
 
-  if (permissionStatus === 'undetermined') {
+  // ── Web: manual entry only ─────────────────────────────────────────────────
+  if (Platform.OS === 'web') {
+    return (
+      <KeyboardAvoidingView style={styles.centered} behavior="padding">
+        <Ionicons name="barcode-outline" size={64} color={theme.colors.primary} />
+        <Text style={styles.deniedTitle}>Scan a Product</Text>
+        <Text style={styles.deniedText}>
+          Enter the barcode number from the product packaging.
+        </Text>
+        {manualInput}
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
+      </KeyboardAvoidingView>
+    );
+  }
+
+  // ── Native: waiting for permission ────────────────────────────────────────
+  if (hasPermission === null) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
@@ -82,43 +121,61 @@ const ScannerScreen: React.FC = () => {
     );
   }
 
-  if (permissionStatus === 'denied') {
+  // ── Native: permission denied ─────────────────────────────────────────────
+  if (hasPermission === false) {
     return (
-      <View style={styles.centered}>
+      <KeyboardAvoidingView style={styles.centered} behavior="padding">
         <Ionicons name="camera-outline" size={64} color={theme.colors.textSecondary} />
         <Text style={styles.deniedTitle}>Camera Access Required</Text>
         <Text style={styles.deniedText}>
-          Please allow camera access to scan product barcodes.
+          Allow camera access to scan barcodes, or enter them manually below.
         </Text>
-        <TouchableOpacity style={styles.settingsButton} onPress={openSettings} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.settingsButton} onPress={() => Linking.openSettings()} activeOpacity={0.8}>
           <Text style={styles.settingsButtonText}>Open Settings</Text>
         </TouchableOpacity>
-      </View>
+        <Text style={styles.orText}>— or —</Text>
+        {manualInput}
+        {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
+      </KeyboardAvoidingView>
     );
   }
 
+  // ── Native: manual mode ───────────────────────────────────────────────────
+  if (showManual) {
+    return (
+      <KeyboardAvoidingView style={styles.centered} behavior="padding">
+        <Ionicons name="barcode-outline" size={64} color={theme.colors.primary} />
+        <Text style={styles.deniedTitle}>Enter Barcode</Text>
+        <Text style={styles.deniedText}>Type the barcode number from the product.</Text>
+        {manualInput}
+        {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
+        <TouchableOpacity onPress={() => { setShowManual(false); handleScanAgain(); }} activeOpacity={0.8} style={styles.switchLink}>
+          <Ionicons name="camera-outline" size={16} color={theme.colors.primary} />
+          <Text style={styles.switchLinkText}>Use camera instead</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    );
+  }
+
+  // ── Native: camera scanner ────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        {...(!scanned && { onBarCodeScanned: handleBarCodeScanned })}
+      <Camera
         style={StyleSheet.absoluteFillObject}
-        barCodeTypes={[
-          BarCodeScanner.Constants.BarCodeType.ean13,
-          BarCodeScanner.Constants.BarCodeType.ean8,
-          BarCodeScanner.Constants.BarCodeType.qr,
-        ]}
+        type={CameraType.back}
+        onBarCodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
+        barCodeScannerSettings={{
+          barCodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
+        }}
       />
 
-      {/* Dark overlay with transparent center */}
+      {/* Overlay */}
       <View style={styles.overlay}>
-        {/* Top dark area */}
         <View style={styles.overlaySection} />
 
-        {/* Middle row: dark | transparent | dark */}
         <View style={styles.overlayMiddle}>
           <View style={styles.overlaySide} />
           <View style={styles.scanWindow}>
-            {/* Corner brackets */}
             <View style={[styles.corner, styles.cornerTopLeft]} />
             <View style={[styles.corner, styles.cornerTopRight]} />
             <View style={[styles.corner, styles.cornerBottomLeft]} />
@@ -127,32 +184,32 @@ const ScannerScreen: React.FC = () => {
           <View style={styles.overlaySide} />
         </View>
 
-        {/* Bottom dark area */}
         <View style={styles.overlaySection}>
           {isLoading ? (
-            <View style={styles.loadingOverlay}>
+            <View style={styles.feedbackBox}>
               <ActivityIndicator size="large" color={theme.colors.primary} />
-              <Text style={styles.loadingText}>Scanning...</Text>
+              <Text style={styles.feedbackText}>Scanning…</Text>
             </View>
           ) : errorMessage ? (
-            <View style={styles.errorContainer}>
+            <View style={styles.feedbackBox}>
               <Ionicons name="alert-circle" size={24} color={theme.colors.error} />
               <Text style={styles.errorText}>{errorMessage}</Text>
-              <Text style={styles.tapText}>Tap to scan again</Text>
             </View>
           ) : scanned ? (
-            <View style={styles.scanAgainContainer}>
-              <TouchableOpacity
-                style={styles.scanAgainButton}
-                onPress={handleScanAgain}
-                activeOpacity={0.8}
-              >
-                <Ionicons name="refresh" size={20} color={theme.colors.text} />
-                <Text style={styles.scanAgainText}>Scan Again</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.scanAgainButton} onPress={handleScanAgain} activeOpacity={0.8}>
+              <Ionicons name="refresh" size={20} color={theme.colors.text} />
+              <Text style={styles.scanAgainText}>Scan Again</Text>
+            </TouchableOpacity>
           ) : (
             <Text style={styles.instructionText}>Point camera at barcode</Text>
+          )}
+
+          {/* Manual entry toggle */}
+          {!isLoading && (
+            <TouchableOpacity onPress={() => setShowManual(true)} activeOpacity={0.8} style={styles.switchLink}>
+              <Ionicons name="keypad-outline" size={16} color={theme.colors.primary} />
+              <Text style={styles.switchLinkText}>Enter manually</Text>
+            </TouchableOpacity>
           )}
         </View>
       </View>
@@ -167,7 +224,7 @@ const CORNER_BORDER = 3;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#000',
   },
   centered: {
     flex: 1,
@@ -186,7 +243,6 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.xl,
     fontWeight: '700' as const,
     textAlign: 'center',
-    marginTop: theme.spacing.md,
   },
   deniedText: {
     color: theme.colors.textSecondary,
@@ -199,12 +255,47 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.xl,
     paddingVertical: theme.spacing.md,
     borderRadius: theme.borderRadius.medium,
-    marginTop: theme.spacing.md,
   },
   settingsButtonText: {
     color: theme.colors.text,
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '600' as const,
+  },
+  orText: {
+    color: theme.colors.textSecondary,
+    fontSize: theme.typography.fontSizes.sm,
+  },
+  manualInputRow: {
+    flexDirection: 'row',
+    width: '100%',
+    gap: theme.spacing.sm,
+  },
+  manualInput: {
+    flex: 1,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadius.medium,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.md,
+    color: theme.colors.text,
+    fontSize: theme.typography.fontSizes.md,
+  },
+  manualSubmit: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.medium,
+    paddingHorizontal: theme.spacing.md,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 48,
+  },
+  manualSubmitDisabled: {
+    opacity: 0.4,
+  },
+  errorText: {
+    color: theme.colors.error,
+    fontSize: theme.typography.fontSizes.sm,
+    textAlign: 'center',
   },
   overlay: {
     flex: 1,
@@ -215,6 +306,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.6)',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: theme.spacing.md,
+    paddingBottom: theme.spacing.lg,
   },
   overlayMiddle: {
     flexDirection: 'row',
@@ -235,59 +328,18 @@ const styles = StyleSheet.create({
     height: CORNER_SIZE,
     borderColor: theme.colors.primary,
   },
-  cornerTopLeft: {
-    top: 0,
-    left: 0,
-    borderTopWidth: CORNER_BORDER,
-    borderLeftWidth: CORNER_BORDER,
-  },
-  cornerTopRight: {
-    top: 0,
-    right: 0,
-    borderTopWidth: CORNER_BORDER,
-    borderRightWidth: CORNER_BORDER,
-  },
-  cornerBottomLeft: {
-    bottom: 0,
-    left: 0,
-    borderBottomWidth: CORNER_BORDER,
-    borderLeftWidth: CORNER_BORDER,
-  },
-  cornerBottomRight: {
-    bottom: 0,
-    right: 0,
-    borderBottomWidth: CORNER_BORDER,
-    borderRightWidth: CORNER_BORDER,
-  },
-  loadingOverlay: {
+  cornerTopLeft:     { top: 0,    left: 0,  borderTopWidth: CORNER_BORDER,    borderLeftWidth: CORNER_BORDER },
+  cornerTopRight:    { top: 0,    right: 0, borderTopWidth: CORNER_BORDER,    borderRightWidth: CORNER_BORDER },
+  cornerBottomLeft:  { bottom: 0, left: 0,  borderBottomWidth: CORNER_BORDER, borderLeftWidth: CORNER_BORDER },
+  cornerBottomRight: { bottom: 0, right: 0, borderBottomWidth: CORNER_BORDER, borderRightWidth: CORNER_BORDER },
+  feedbackBox: {
     alignItems: 'center',
-    gap: theme.spacing.md,
-    paddingTop: theme.spacing.xl,
+    gap: theme.spacing.sm,
   },
-  loadingText: {
+  feedbackText: {
     color: theme.colors.text,
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '500' as const,
-  },
-  errorContainer: {
-    alignItems: 'center',
-    paddingTop: theme.spacing.xl,
-    gap: theme.spacing.sm,
-  },
-  errorText: {
-    color: theme.colors.error,
-    fontSize: theme.typography.fontSizes.sm,
-    textAlign: 'center',
-    paddingHorizontal: theme.spacing.lg,
-  },
-  tapText: {
-    color: theme.colors.textSecondary,
-    fontSize: theme.typography.fontSizes.xs,
-    marginTop: theme.spacing.xs,
-  },
-  scanAgainContainer: {
-    paddingTop: theme.spacing.xl,
-    alignItems: 'center',
   },
   scanAgainButton: {
     flexDirection: 'row',
@@ -307,7 +359,17 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '500' as const,
-    paddingTop: theme.spacing.xl,
+  },
+  switchLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+    paddingVertical: theme.spacing.sm,
+  },
+  switchLinkText: {
+    color: theme.colors.primary,
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '500' as const,
   },
 });
 
