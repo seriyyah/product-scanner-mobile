@@ -245,6 +245,12 @@ export class ScannerRepository {
     return this.apiClient.post<ScanResult>('/api/v2/scan', { barcode });
   }
 
+  // Read-only lookup — fetches product + rating WITHOUT saving to scan history.
+  // Use this whenever displaying a product that was already scanned (history view, detail view).
+  public async getProductDetails(barcode: string): Promise<ScanResult> {
+    return this.apiClient.get<ScanResult>(`/api/v2/scan/${encodeURIComponent(barcode)}`);
+  }
+
   public async getScanHistory(page = 1, perPage = 20): Promise<ScanHistory> {
     return this.apiClient.get<ScanHistory>('/api/v1/scan/history', { page, per_page: perPage });
   }

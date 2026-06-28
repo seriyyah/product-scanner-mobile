@@ -38,6 +38,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: {
     scanBarcode: jest.fn(),
+    getProductDetails: jest.fn(),
     getScanHistory: jest.fn(),
   },
 }));

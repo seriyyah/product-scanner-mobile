@@ -40,7 +40,7 @@ const ProductDetailScreen: React.FC = () => {
     setIsLoading(true);
     setError('');
     try {
-      const result = await scannerRepository.scanBarcode(barcode);
+      const result = await scannerRepository.getProductDetails(barcode);
       setScanResult(result);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to load product';

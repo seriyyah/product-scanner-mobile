@@ -67,6 +67,7 @@ export const authRepository = {
 
 export const scannerRepository = {
   scanBarcode: jest.fn(),
+  getProductDetails: jest.fn(),
   getScanHistory: jest.fn(),
 };
 
