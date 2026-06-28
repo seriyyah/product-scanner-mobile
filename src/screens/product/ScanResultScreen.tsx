@@ -20,7 +20,10 @@ const ScanResultScreen: React.FC = () => {
   const route = useRoute<ScanResultRouteProp>();
   const navigation = useNavigation<any>();
   const { scanResult } = route.params;
-  const { product, safety_score, safety_grade, rating_breakdown, warnings } = scanResult;
+  const { product, rating_breakdown } = scanResult;
+  const safety_score: number = scanResult.safety_score ?? 0;
+  const safety_grade: string = scanResult.safety_grade ?? '?';
+  const warnings: string[] = scanResult.warnings ?? [];
 
   const [showAllIngredients, setShowAllIngredients] = useState(false);
   const INGREDIENT_PREVIEW = 5;
@@ -52,7 +55,7 @@ const ScanResultScreen: React.FC = () => {
           <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade) }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
-          <Text style={styles.breakdownScore}>{rb.nutriscore.score.toFixed(0)}</Text>
+          <Text style={styles.breakdownScore}>{(rb.nutriscore.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
       {rb.nova && (
@@ -77,7 +80,7 @@ const ScanResultScreen: React.FC = () => {
           <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.ecoscore.grade) }]}>
             <Text style={styles.gradeChipText}>{rb.ecoscore.grade?.toUpperCase() || '?'}</Text>
           </View>
-          <Text style={styles.breakdownScore}>{rb.ecoscore.score.toFixed(0)}</Text>
+          <Text style={styles.breakdownScore}>{(rb.ecoscore.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
     </View>
@@ -122,7 +125,7 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Rating Breakdown */}
-        {renderBreakdown(rating_breakdown)}
+        {rating_breakdown && renderBreakdown(rating_breakdown)}
 
         {/* Nutrition Facts */}
         {product.nutrition && (
@@ -140,13 +143,13 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Ingredients */}
-        {product.ingredients.length > 0 && (
+        {(product.ingredients ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients</Text>
-            {(showAllIngredients ? product.ingredients : product.ingredients.slice(0, INGREDIENT_PREVIEW)).map((ing, i) => (
+            {(showAllIngredients ? (product.ingredients ?? []) : (product.ingredients ?? []).slice(0, INGREDIENT_PREVIEW)).map((ing, i) => (
               <Text key={i} style={styles.ingredientText}>• {ing}</Text>
             ))}
-            {product.ingredients.length > INGREDIENT_PREVIEW && (
+            {(product.ingredients ?? []).length > INGREDIENT_PREVIEW && (
               <TouchableOpacity
                 onPress={() => setShowAllIngredients((v) => !v)}
                 activeOpacity={0.8}
@@ -163,11 +166,11 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Allergens */}
-        {product.allergens.length > 0 && (
+        {(product.allergens ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Allergens</Text>
             <View style={styles.chipsRow}>
-              {product.allergens.map((a, i) => (
+              {(product.allergens ?? []).map((a, i) => (
                 <View key={i} style={styles.allergenChip}>
                   <Text style={styles.allergenChipText}>{a}</Text>
                 </View>
@@ -177,11 +180,11 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Ingredients Analysis */}
-        {product.ingredients_analysis.length > 0 && (
+        {(product.ingredients_analysis ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Ingredients Analysis</Text>
             <View style={styles.chipsRow}>
-              {product.ingredients_analysis.map((a, i) => (
+              {(product.ingredients_analysis ?? []).map((a, i) => (
                 <View key={i} style={styles.analysisChip}>
                   <Text style={styles.analysisChipText}>{a}</Text>
                 </View>
@@ -191,11 +194,11 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Product Images */}
-        {product.images.length > 0 && (
+        {(product.images ?? []).length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Product Images</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {product.images.map((uri, i) => (
+              {(product.images ?? []).map((uri, i) => (
                 <Image key={i} source={{ uri }} style={styles.productImage} resizeMode="cover" />
               ))}
             </ScrollView>
