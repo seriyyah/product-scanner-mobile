@@ -30,7 +30,7 @@ const HomeScreen: React.FC = () => {
   const loadRecentScans = useCallback(async () => {
     try {
       const history = await scannerRepository.getScanHistory(1, 3);
-      setRecentScans(history.items);
+      setRecentScans(history.scans ?? []);
     } catch {
       setRecentScans([]);
     } finally {

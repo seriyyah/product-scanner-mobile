@@ -28,7 +28,7 @@ import { scannerRepository } from '../../../src/services/apiService';
 const mockGetHistory = scannerRepository.getScanHistory as jest.Mock;
 
 const mockHistory = {
-  items: [
+  scans: [
     {
       id: '1',
       barcode: '1234567890123',
@@ -49,8 +49,6 @@ const mockHistory = {
     },
   ],
   total: 2,
-  page: 1,
-  per_page: 20,
 };
 
 describe('HistoryScreen', () => {
@@ -73,7 +71,7 @@ describe('HistoryScreen', () => {
   });
 
   it('shows empty state when no history', async () => {
-    mockGetHistory.mockResolvedValueOnce({ items: [], total: 0, page: 1, per_page: 20 });
+    mockGetHistory.mockResolvedValueOnce({ scans: [], total: 0 });
     const { findByText } = render(<HistoryScreen />);
     const empty = await findByText('No scans yet');
     expect(empty).toBeTruthy();

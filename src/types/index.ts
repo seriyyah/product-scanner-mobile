@@ -210,10 +210,8 @@ export interface ScanHistoryItem {
 }
 
 export interface ScanHistory {
-  items: ScanHistoryItem[];
+  scans: ScanHistoryItem[];
   total: number;
-  page: number;
-  per_page: number;
 }
 
 export interface UserProfile {

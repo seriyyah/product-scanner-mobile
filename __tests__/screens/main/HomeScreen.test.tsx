@@ -46,7 +46,7 @@ const mockScanHistory = scannerRepository.getScanHistory as jest.Mock;
 describe('HomeScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockScanHistory.mockResolvedValue({ items: [], total: 0, page: 1, per_page: 3 });
+    mockScanHistory.mockResolvedValue({ scans: [], total: 0 });
   });
 
   it('renders without crashing', async () => {
@@ -69,7 +69,7 @@ describe('HomeScreen', () => {
 
   it('shows recent scans when history is available', async () => {
     mockScanHistory.mockResolvedValueOnce({
-      items: [
+      scans: [
         {
           id: '1',
           barcode: '123',
@@ -81,8 +81,6 @@ describe('HomeScreen', () => {
         },
       ],
       total: 1,
-      page: 1,
-      per_page: 3,
     });
 
     const { findByText } = render(<HomeScreen />);
