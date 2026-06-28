@@ -4,7 +4,7 @@
  */
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import * as SecureStore from 'expo-secure-store';
+import { storage } from '@/utils/storage';
 import { IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
 import { authRepository, ApiError } from '@/services/apiService';
 
@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   const checkAuthStatus = async (): Promise<void> => {
     try {
-      const token = await SecureStore.getItemAsync('auth_token');
+      const token = await storage.getItem('auth_token');
       if (!token) {
         dispatch({ type: 'LOGOUT' });
         return;
@@ -103,11 +103,11 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         if (apiErr?.statusCode === 401) {
           // Try to refresh
           try {
-            const refreshToken = await SecureStore.getItemAsync('refresh_token');
+            const refreshToken = await storage.getItem('refresh_token');
             if (refreshToken) {
               const newTokens = await authRepository.refreshToken(refreshToken);
-              await SecureStore.setItemAsync('auth_token', newTokens.access_token);
-              await SecureStore.setItemAsync('refresh_token', newTokens.refresh_token);
+              await storage.setItem('auth_token', newTokens.access_token);
+              await storage.setItem('refresh_token', newTokens.refresh_token);
               const user = await authRepository.getCurrentUser();
               dispatch({
                 type: 'LOGIN_SUCCESS',
@@ -135,8 +135,8 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   };
 
   const clearTokensAndLogout = async (): Promise<void> => {
-    await SecureStore.deleteItemAsync('auth_token');
-    await SecureStore.deleteItemAsync('refresh_token');
+    await storage.deleteItem('auth_token');
+    await storage.deleteItem('refresh_token');
     dispatch({ type: 'LOGOUT' });
   };
 
