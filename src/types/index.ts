@@ -153,6 +153,8 @@ export interface IApiError {
   readonly statusCode: number;
 }
 
+export type DataQuality = 'full' | 'partial' | 'minimal';
+
 // Scanner Service Types (matching backend)
 export interface ScanResult {
   product: Product;
@@ -161,6 +163,8 @@ export interface ScanResult {
   safety_summary?: string | null;
   rating_breakdown?: RatingBreakdown | null;
   warnings?: string[];
+  confidence?: number | null;
+  data_quality?: DataQuality | null;
   saved_to_history: boolean;
   cached: boolean;
   // Set when the product was not found but is being researched

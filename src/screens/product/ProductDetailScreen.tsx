@@ -85,6 +85,9 @@ const ProductDetailScreen: React.FC = () => {
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
   const scoreColor = gradeColor(safety_grade);
+  const dataQuality = scanResult.data_quality ?? 'full';
+  const confidence = scanResult.confidence ?? 1;
+  const showDisclaimer = dataQuality !== 'full' || confidence < 0.4;
 
   const renderNutritionRow = (label: string, value?: number, unit = 'g') => {
     if (value === undefined || value === null) return null;
@@ -165,6 +168,16 @@ const ProductDetailScreen: React.FC = () => {
           <Text style={[styles.scoreLabelText, { color: scoreColor }]}>
             Grade {safety_grade} — {gradeLabel(safety_grade)}
           </Text>
+          {showDisclaimer && (
+            <View style={styles.disclaimerBadge}>
+              <Ionicons name="information-circle-outline" size={14} color={theme.colors.textSecondary} />
+              <Text style={styles.disclaimerText}>
+                {dataQuality === 'minimal'
+                  ? 'Estimated rating — limited product data available'
+                  : 'Based on partial data — some values derived from ingredient text'}
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Warnings */}
@@ -399,6 +412,22 @@ const styles = StyleSheet.create({
   scoreLabelText: {
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '600' as const,
+  },
+  disclaimerBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadius.small,
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: 4,
+    marginTop: theme.spacing.xs,
+    gap: 4,
+    maxWidth: 280,
+  },
+  disclaimerText: {
+    fontSize: 11,
+    color: theme.colors.textSecondary,
+    flexShrink: 1,
   },
   card: {
     backgroundColor: theme.colors.card,
