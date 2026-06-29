@@ -34,12 +34,31 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.mock('../../../src/contexts/AuthContext', () => ({
+  useAuth: () => ({
+    state: {
+      user: { id: 'u1', email: 'test@test.com', role: 'free_user' },
+      isAuthenticated: true,
+    },
+  }),
+}));
+
 // Hoist-safe mock: define jest.fn() inside factory
 jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: {
     scanBarcode: jest.fn(),
     getProductDetails: jest.fn(),
     getScanHistory: jest.fn(),
+  },
+  mlRepository: {
+    getAlternatives: jest.fn().mockRejectedValue({ statusCode: 403 }),
+  },
+  marketplaceRepository: {
+    getPrices: jest.fn().mockRejectedValue({ statusCode: 403 }),
+  },
+  ApiError: class ApiError extends Error {
+    statusCode: number;
+    constructor(message: string, statusCode: number) { super(message); this.statusCode = statusCode; }
   },
 }));
 

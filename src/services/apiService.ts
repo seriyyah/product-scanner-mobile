@@ -320,6 +320,56 @@ export class SubscriptionRepository {
   }
 }
 
+export interface AlternativeProduct {
+  barcode: string;
+  name: string;
+  safety_score: number;
+  grade: string;
+  reason: string;
+}
+
+export interface RecommendationResponse {
+  user_id: string;
+  scanned_barcode: string;
+  alternatives: AlternativeProduct[];
+  explanation: string;
+}
+
+export interface PriceListing {
+  barcode: string;
+  product_name: string;
+  shop_name: string;
+  price: number;
+  currency: string;
+  url: string;
+  affiliate_url?: string;
+  in_stock: boolean;
+}
+
+export interface PriceComparisonResponse {
+  barcode: string;
+  listings: PriceListing[];
+  cheapest_price?: number;
+  cheapest_shop?: string;
+  affiliate_url?: string;
+}
+
+export class MLRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async getAlternatives(barcode: string): Promise<RecommendationResponse> {
+    return this.apiClient.get<RecommendationResponse>(`/api/v1/recommendations/alternatives/${encodeURIComponent(barcode)}`);
+  }
+}
+
+export class MarketplaceRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async getPrices(barcode: string): Promise<PriceComparisonResponse> {
+    return this.apiClient.get<PriceComparisonResponse>(`/api/v1/marketplace/prices/${encodeURIComponent(barcode)}`);
+  }
+}
+
 // API Service Factory
 export class ApiServiceFactory {
   private static authRepo: AuthRepository;
@@ -327,6 +377,8 @@ export class ApiServiceFactory {
   private static userRepo: UserRepository;
   private static productRepo: ProductRepository;
   private static subscriptionRepo: SubscriptionRepository;
+  private static mlRepo: MLRepository;
+  private static marketplaceRepo: MarketplaceRepository;
 
   public static getAuthRepository(): AuthRepository {
     if (!this.authRepo) this.authRepo = new AuthRepository();
@@ -352,6 +404,16 @@ export class ApiServiceFactory {
     if (!this.subscriptionRepo) this.subscriptionRepo = new SubscriptionRepository();
     return this.subscriptionRepo;
   }
+
+  public static getMLRepository(): MLRepository {
+    if (!this.mlRepo) this.mlRepo = new MLRepository();
+    return this.mlRepo;
+  }
+
+  public static getMarketplaceRepository(): MarketplaceRepository {
+    if (!this.marketplaceRepo) this.marketplaceRepo = new MarketplaceRepository();
+    return this.marketplaceRepo;
+  }
 }
 
 // Export default instances for easy usage
@@ -360,3 +422,5 @@ export const scannerRepository = ApiServiceFactory.getScannerRepository();
 export const userRepository = ApiServiceFactory.getUserRepository();
 export const productRepository = ApiServiceFactory.getProductRepository();
 export const subscriptionRepository = ApiServiceFactory.getSubscriptionRepository();
+export const mlRepository = ApiServiceFactory.getMLRepository();
+export const marketplaceRepository = ApiServiceFactory.getMarketplaceRepository();

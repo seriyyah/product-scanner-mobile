@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Linking,
   View,
   Text,
   StyleSheet,
@@ -14,7 +15,15 @@ import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { MainStackParamList, ScanResult, RatingBreakdown, PriceStats } from '@/types';
-import { scannerRepository } from '@/services/apiService';
+import {
+  scannerRepository,
+  mlRepository,
+  marketplaceRepository,
+  RecommendationResponse,
+  PriceComparisonResponse,
+  ApiError,
+} from '@/services/apiService';
+import { useAuth } from '@/contexts/AuthContext';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 
 type ProductDetailRouteProp = RouteProp<MainStackParamList, 'ProductDetail'>;
@@ -23,6 +32,9 @@ const ProductDetailScreen: React.FC = () => {
   const route = useRoute<ProductDetailRouteProp>();
   const navigation = useNavigation<any>();
   const { barcode, scanResult: initialScanResult } = route.params;
+  const { state: authState } = useAuth();
+  const userRole = authState.user?.role ?? 'free_user';
+  const isAIPremium = userRole === 'ai_premium' || userRole === 'admin' || userRole === 'super_admin';
 
   const [scanResult, setScanResult] = useState<ScanResult | null>(initialScanResult || null);
   const [isLoading, setIsLoading] = useState(!initialScanResult);
@@ -30,9 +42,16 @@ const ProductDetailScreen: React.FC = () => {
   const [showAllIngredients, setShowAllIngredients] = useState(false);
   const INGREDIENT_PREVIEW = 5;
 
+  const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
+  const [prices, setPrices] = useState<PriceComparisonResponse | null>(null);
+  const [recsStatus, setRecsStatus] = useState<'idle' | 'loading' | 'done' | '403' | '503'>('idle');
+  const [pricesStatus, setPricesStatus] = useState<'idle' | 'loading' | 'done' | '403' | '503'>('idle');
+
   useEffect(() => {
     if (!initialScanResult) {
       fetchProduct();
+    } else {
+      loadPhase2Data(barcode);
     }
   }, [barcode]);
 
@@ -42,11 +61,37 @@ const ProductDetailScreen: React.FC = () => {
     try {
       const result = await scannerRepository.getProductDetails(barcode);
       setScanResult(result);
+      loadPhase2Data(barcode);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to load product';
       setError(message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const loadPhase2Data = async (bc: string): Promise<void> => {
+    setRecsStatus('loading');
+    setPricesStatus('loading');
+    const [recsResult, pricesResult] = await Promise.allSettled([
+      mlRepository.getAlternatives(bc),
+      marketplaceRepository.getPrices(bc),
+    ]);
+
+    if (recsResult.status === 'fulfilled') {
+      setRecommendations(recsResult.value);
+      setRecsStatus('done');
+    } else {
+      const code = recsResult.reason instanceof ApiError ? recsResult.reason.statusCode : 0;
+      setRecsStatus(code === 403 ? '403' : '503');
+    }
+
+    if (pricesResult.status === 'fulfilled') {
+      setPrices(pricesResult.value);
+      setPricesStatus('done');
+    } else {
+      const code = pricesResult.reason instanceof ApiError ? pricesResult.reason.statusCode : 0;
+      setPricesStatus(code === 403 ? '403' : '503');
     }
   };
 
@@ -312,6 +357,109 @@ const ProductDetailScreen: React.FC = () => {
             </ScrollView>
           </View>
         )}
+
+        {/* Safer Alternatives (AI Premium) */}
+        <View style={styles.card}>
+          <View style={styles.cardTitleRow}>
+            <Ionicons name="sparkles-outline" size={18} color={theme.colors.primary} />
+            <Text style={styles.cardTitle}>Safer Alternatives</Text>
+            {!isAIPremium && (
+              <View style={styles.premiumBadge}>
+                <Text style={styles.premiumBadgeText}>AI Premium</Text>
+              </View>
+            )}
+          </View>
+          {recsStatus === 'loading' && <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginTop: 8 }} />}
+          {recsStatus === 'done' && recommendations && recommendations.alternatives.length > 0 && (
+            <>
+              <Text style={styles.explanationText}>{recommendations.explanation}</Text>
+              {recommendations.alternatives.map((alt) => (
+                <View key={alt.barcode} style={styles.altCard}>
+                  <View style={[styles.altGrade, { backgroundColor: gradeColor(alt.grade) }]}>
+                    <Text style={styles.altGradeText}>{alt.grade.toUpperCase()}</Text>
+                  </View>
+                  <View style={styles.altInfo}>
+                    <Text style={styles.altName}>{alt.name}</Text>
+                    <Text style={styles.altReason}>{alt.reason}</Text>
+                  </View>
+                  <Text style={styles.altScore}>{alt.safety_score.toFixed(0)}</Text>
+                </View>
+              ))}
+            </>
+          )}
+          {recsStatus === 'done' && recommendations && recommendations.alternatives.length === 0 && (
+            <Text style={styles.emptyNote}>No safer alternatives found for this product.</Text>
+          )}
+          {(recsStatus === '403' || (!isAIPremium && recsStatus !== 'loading')) && (
+            <TouchableOpacity style={styles.upgradeTeaser} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
+              <Ionicons name="lock-closed" size={20} color={theme.colors.primary} />
+              <View style={styles.teaserText}>
+                <Text style={styles.teaserTitle}>Upgrade to AI Premium</Text>
+                <Text style={styles.teaserSub}>Get AI-powered recommendations for safer product alternatives</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </TouchableOpacity>
+          )}
+          {recsStatus === '503' && isAIPremium && (
+            <Text style={styles.emptyNote}>Recommendations feature coming soon.</Text>
+          )}
+        </View>
+
+        {/* Marketplace Prices (AI Premium) */}
+        <View style={styles.card}>
+          <View style={styles.cardTitleRow}>
+            <Ionicons name="cart-outline" size={18} color={theme.colors.primary} />
+            <Text style={styles.cardTitle}>Where to Buy</Text>
+            {!isAIPremium && (
+              <View style={styles.premiumBadge}>
+                <Text style={styles.premiumBadgeText}>AI Premium</Text>
+              </View>
+            )}
+          </View>
+          {pricesStatus === 'loading' && <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginTop: 8 }} />}
+          {pricesStatus === 'done' && prices && prices.listings.length > 0 && (
+            <>
+              {prices.cheapest_shop && (
+                <Text style={styles.cheapestNote}>
+                  Best price: <Text style={styles.cheapestHighlight}>{prices.cheapest_price?.toFixed(2)} {prices.listings[0]?.currency}</Text> at {prices.cheapest_shop}
+                </Text>
+              )}
+              {prices.listings.map((l, i) => (
+                <TouchableOpacity
+                  key={i}
+                  style={styles.listingRow}
+                  onPress={() => Linking.openURL(l.affiliate_url ?? l.url)}
+                  activeOpacity={0.8}
+                >
+                  <View style={styles.listingInfo}>
+                    <Text style={styles.shopName}>{l.shop_name}</Text>
+                    <Text style={styles.listingPrice}>{l.price.toFixed(2)} {l.currency}</Text>
+                  </View>
+                  <View style={styles.listingRight}>
+                    {!l.in_stock && <Text style={styles.outOfStock}>Out of stock</Text>}
+                    <Ionicons name="open-outline" size={16} color={theme.colors.primary} />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </>
+          )}
+          {pricesStatus === 'done' && prices && prices.listings.length === 0 && (
+            <Text style={styles.emptyNote}>No price data available for this product.</Text>
+          )}
+          {(pricesStatus === '403' || (!isAIPremium && pricesStatus !== 'loading')) && (
+            <TouchableOpacity style={styles.upgradeTeaser} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
+              <Ionicons name="lock-closed" size={20} color={theme.colors.primary} />
+              <View style={styles.teaserText}>
+                <Text style={styles.teaserTitle}>Upgrade to AI Premium</Text>
+                <Text style={styles.teaserSub}>Compare prices across Czech shops with affiliate cashback</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </TouchableOpacity>
+          )}
+          {pricesStatus === '503' && isAIPremium && (
+            <Text style={styles.emptyNote}>Marketplace feature coming soon.</Text>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -637,6 +785,48 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '600' as const,
   },
+  cardTitleRow: {
+    flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: theme.spacing.sm,
+  },
+  premiumBadge: {
+    backgroundColor: '#9C27B022', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2,
+  },
+  premiumBadgeText: {
+    color: '#9C27B0', fontSize: 10, fontWeight: '700' as const,
+  },
+  upgradeTeaser: {
+    flexDirection: 'row', alignItems: 'center', gap: theme.spacing.sm,
+    backgroundColor: theme.colors.primary + '11', borderRadius: theme.borderRadius.medium,
+    padding: theme.spacing.md, marginTop: theme.spacing.sm,
+  },
+  teaserText: { flex: 1 },
+  teaserTitle: { fontSize: theme.typography.fontSizes.sm, fontWeight: '700' as const, color: theme.colors.text },
+  teaserSub: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, marginTop: 2 },
+  explanationText: {
+    fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, marginBottom: theme.spacing.sm, fontStyle: 'italic',
+  },
+  altCard: {
+    flexDirection: 'row', alignItems: 'center', gap: theme.spacing.sm,
+    paddingVertical: theme.spacing.sm, borderTopWidth: 1, borderTopColor: theme.colors.border,
+  },
+  altGrade: { width: 36, height: 36, borderRadius: 18, justifyContent: 'center', alignItems: 'center' },
+  altGradeText: { color: '#fff', fontWeight: '700' as const, fontSize: 14 },
+  altInfo: { flex: 1 },
+  altName: { fontSize: theme.typography.fontSizes.sm, fontWeight: '600' as const, color: theme.colors.text },
+  altReason: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, marginTop: 2 },
+  altScore: { fontSize: theme.typography.fontSizes.md, fontWeight: '700' as const, color: theme.colors.textSecondary },
+  emptyNote: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, textAlign: 'center', marginTop: 8 },
+  cheapestNote: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, marginBottom: theme.spacing.sm },
+  cheapestHighlight: { fontWeight: '700' as const, color: theme.colors.text },
+  listingRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingVertical: theme.spacing.sm, borderTopWidth: 1, borderTopColor: theme.colors.border,
+  },
+  listingInfo: { gap: 2 },
+  shopName: { fontSize: theme.typography.fontSizes.sm, fontWeight: '600' as const, color: theme.colors.text },
+  listingPrice: { fontSize: theme.typography.fontSizes.md, fontWeight: '700' as const, color: theme.colors.primary },
+  listingRight: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  outOfStock: { fontSize: 10, color: theme.colors.error },
 });
 
 export default ProductDetailScreen;
