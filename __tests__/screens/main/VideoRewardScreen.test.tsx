@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
@@ -18,24 +18,21 @@ const mockAddListener = jest.fn();
 const mockLoad = jest.fn();
 
 jest.mock('react-native-google-mobile-ads', () => ({
-  InterstitialAd: {
+  RewardedAd: {
     createForAdRequest: jest.fn(() => ({
       addAdEventListener: mockAddListener.mockReturnValue(jest.fn()),
       load: mockLoad,
     })),
   },
-  AdEventType: { LOADED: 'loaded', CLOSED: 'closed', ERROR: 'error' },
-  TestIds: { INTERSTITIAL: 'test-interstitial-id' },
+  RewardedAdEventType: { LOADED: 'loaded', EARNED_REWARD: 'earned_reward' },
+  AdEventType: { CLOSED: 'closed', ERROR: 'error' },
+  TestIds: { REWARDED: 'test-rewarded-id' },
 }));
 
-const mockClaimVideoReward = jest.fn().mockResolvedValue({
-  granted: true,
-  extra_scans: 5,
-  message: 'You earned 5 extra scans!',
-});
-
 jest.mock('../../../src/services/apiService', () => ({
-  subscriptionRepository: { claimVideoReward: () => mockClaimVideoReward() },
+  subscriptionRepository: {
+    claimVideoReward: jest.fn().mockResolvedValue({ granted: true, extra_scans: 5, message: 'ok' }),
+  },
 }));
 
 import VideoRewardScreen from '../../../src/screens/main/VideoRewardScreen';
@@ -53,20 +50,21 @@ describe('VideoRewardScreen', () => {
     expect(getByText('Watch & Earn')).toBeTruthy();
   });
 
-  it('creates an interstitial ad on mount', () => {
-    const { InterstitialAd } = require('react-native-google-mobile-ads');
+  it('creates a rewarded ad on mount with GDPR flag', () => {
+    const { RewardedAd } = require('react-native-google-mobile-ads');
     render(<VideoRewardScreen />);
-    expect(InterstitialAd.createForAdRequest).toHaveBeenCalledWith(
-      'test-interstitial-id',
+    expect(RewardedAd.createForAdRequest).toHaveBeenCalledWith(
+      'test-rewarded-id',
       expect.objectContaining({ requestNonPersonalizedAdsOnly: true }),
     );
     expect(mockLoad).toHaveBeenCalled();
   });
 
-  it('registers LOADED, CLOSED, and ERROR listeners', () => {
+  it('registers LOADED, EARNED_REWARD, CLOSED, and ERROR listeners', () => {
     render(<VideoRewardScreen />);
     const eventTypes = mockAddListener.mock.calls.map((c: any[]) => c[0]);
     expect(eventTypes).toContain('loaded');
+    expect(eventTypes).toContain('earned_reward');
     expect(eventTypes).toContain('closed');
     expect(eventTypes).toContain('error');
   });

@@ -11,7 +11,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import {
-  InterstitialAd,
+  RewardedAd,
+  RewardedAdEventType,
   AdEventType,
   TestIds,
 } from 'react-native-google-mobile-ads';
@@ -19,40 +20,51 @@ import theme from '@/constants/theme';
 import { subscriptionRepository } from '@/services/apiService';
 
 const TEST_MODE = process.env.EXPO_PUBLIC_ADMOB_TEST_MODE === 'true';
-const INTERSTITIAL_ID = TEST_MODE
-  ? TestIds.INTERSTITIAL
-  : (process.env.EXPO_PUBLIC_ADMOB_INTERSTITIAL_ID ?? TestIds.INTERSTITIAL);
+const REWARDED_ID = TEST_MODE
+  ? TestIds.REWARDED
+  : (process.env.EXPO_PUBLIC_ADMOB_REWARDED_ID ?? TestIds.REWARDED);
 
-type Phase = 'loading' | 'ready' | 'claiming' | 'done' | 'already_claimed' | 'error';
+type Phase = 'loading' | 'ready' | 'claiming' | 'done' | 'already_claimed';
 
 const VideoRewardScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const [phase, setPhase] = useState<Phase>('loading');
-  const adRef = useRef<InterstitialAd | null>(null);
+  // Track whether the user completed the ad — only EARNED_REWARD sets this true
+  const earnedRef = useRef(false);
   const claimedRef = useRef(false);
 
   useEffect(() => {
-    const ad = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
-      requestNonPersonalizedAdsOnly: true, // GDPR safe default
+    const ad = RewardedAd.createForAdRequest(REWARDED_ID, {
+      requestNonPersonalizedAdsOnly: true, // GDPR safe default for EU users
     });
-    adRef.current = ad;
 
-    const unsubLoaded = ad.addAdEventListener(AdEventType.LOADED, () => {
+    const unsubLoaded = ad.addAdEventListener(RewardedAdEventType.LOADED, () => {
       setPhase('ready');
       ad.show();
     });
 
+    // This fires ONLY when the user watches the full video — this is how you enforce completion
+    const unsubEarned = ad.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
+      earnedRef.current = true;
+    });
+
+    // Ad dismissed — check if they actually earned the reward
     const unsubClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
-      // Ad dismissed — grant reward (interstitial has no completion guarantee,
-      // swap this for RewardedAd + EARNED_REWARD event once you have a Rewarded unit)
-      if (!claimedRef.current) {
+      if (earnedRef.current && !claimedRef.current) {
         claimedRef.current = true;
         claimReward();
+      } else if (!earnedRef.current) {
+        // User skipped before completion — no reward, go back
+        Alert.alert(
+          'Video not completed',
+          'Watch the full video to earn 5 extra scans.',
+          [{ text: 'OK', onPress: () => navigation.goBack() }],
+        );
       }
     });
 
+    // If ad fails to load (no fill, network issue) — don't penalise the user
     const unsubError = ad.addAdEventListener(AdEventType.ERROR, () => {
-      // Ad failed to load — grant reward anyway so user isn't penalised
       if (!claimedRef.current) {
         claimedRef.current = true;
         claimReward();
@@ -63,6 +75,7 @@ const VideoRewardScreen: React.FC = () => {
 
     return () => {
       unsubLoaded();
+      unsubEarned();
       unsubClosed();
       unsubError();
     };
@@ -93,7 +106,7 @@ const VideoRewardScreen: React.FC = () => {
           <>
             <ActivityIndicator size="large" color={theme.colors.primary} />
             <Text style={styles.hint}>Loading your ad…</Text>
-            <Text style={styles.subHint}>Watch the ad to earn 5 extra scans this hour.</Text>
+            <Text style={styles.subHint}>Watch the full video to earn 5 extra scans this hour.</Text>
           </>
         )}
 
