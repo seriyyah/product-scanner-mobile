@@ -20,11 +20,10 @@ jest.mock('../../../src/services/apiService', () => ({
 // when the factory runs (jest.mock is hoisted above variable declarations).
 jest.mock('expo-camera', () => {
   const mockRequestPermissions = jest.fn(() => Promise.resolve({ status: 'granted' }));
-  const MockCamera = ({ children }: any) => children ?? null;
-  MockCamera.requestCameraPermissionsAsync = mockRequestPermissions;
+  const MockCameraView = ({ children }: any) => children ?? null;
   return {
-    Camera: MockCamera,
-    CameraType: { back: 'back', front: 'front' },
+    CameraView: MockCameraView,
+    Camera: { requestCameraPermissionsAsync: mockRequestPermissions },
   };
 });
 
@@ -32,7 +31,7 @@ import ScannerScreen from '../../../src/screens/main/ScannerScreen';
 import { Camera } from 'expo-camera';
 import { scannerRepository } from '../../../src/services/apiService';
 
-const mockRequestPermissions = Camera.requestCameraPermissionsAsync as jest.Mock;
+const mockRequestPermissions = (Camera as any).requestCameraPermissionsAsync as jest.Mock;
 const mockScanBarcode = scannerRepository.scanBarcode as jest.Mock;
 
 describe('ScannerScreen', () => {

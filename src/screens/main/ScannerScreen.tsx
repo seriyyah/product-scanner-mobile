@@ -10,7 +10,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import { CameraView, Camera } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
@@ -160,12 +160,12 @@ const ScannerScreen: React.FC = () => {
   // ── Native: camera scanner ────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      <Camera
+      <CameraView
         style={StyleSheet.absoluteFillObject}
-        type={CameraType.back}
-        onBarCodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
-        barCodeScannerSettings={{
-          barCodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
+        facing="back"
+        onBarcodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
+        barcodeScannerSettings={{
+          barcodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
         }}
       />
 

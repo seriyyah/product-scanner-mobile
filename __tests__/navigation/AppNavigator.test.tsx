@@ -25,15 +25,12 @@ jest.mock('expo-secure-store', () => ({
   deleteItemAsync: jest.fn(),
 }));
 
-jest.mock('expo-barcode-scanner', () => {
-  const MockBarCodeScanner = ({ children }: any) => children ?? null;
-  MockBarCodeScanner.requestPermissionsAsync = jest.fn(() =>
-    Promise.resolve({ status: 'granted' })
-  );
-  MockBarCodeScanner.Constants = {
-    BarCodeType: { ean13: 'ean13', ean8: 'ean8', qr: 'qr' },
+jest.mock('expo-camera', () => {
+  const MockCameraView = ({ children }: any) => children ?? null;
+  return {
+    CameraView: MockCameraView,
+    Camera: { requestCameraPermissionsAsync: jest.fn(() => Promise.resolve({ status: 'granted' })) },
   };
-  return { BarCodeScanner: MockBarCodeScanner };
 });
 
 jest.mock('react-native-safe-area-context', () => {

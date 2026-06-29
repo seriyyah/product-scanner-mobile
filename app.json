@@ -31,15 +31,9 @@
     },
     "plugins": [
       [
-        "expo-barcode-scanner",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera to scan barcodes"
-        }
-      ],
-      [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan product barcodes"
         }
       ]
     ]
