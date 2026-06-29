@@ -245,6 +245,21 @@ const ProfileScreen: React.FC = () => {
         <View style={styles.settingsList}>
           <TouchableOpacity
             style={styles.settingsRow}
+            onPress={() => navigation.navigate('Preferences')}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="options-outline" size={22} color={theme.colors.primary} />
+            <View style={styles.settingsLabelCol}>
+              <Text style={styles.settingsLabel}>Dietary & Allergens</Text>
+              <Text style={styles.settingsSubLabel}>Personalise ratings and recommendations</Text>
+            </View>
+            <View style={styles.settingsRight}>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.settingsRow}
             onPress={() => navigation.navigate('Subscription')}
             activeOpacity={0.8}
           >

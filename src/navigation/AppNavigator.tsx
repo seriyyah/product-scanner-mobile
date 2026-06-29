@@ -37,6 +37,7 @@ import ScanResultScreen from '@/screens/product/ScanResultScreen';
 // Subscription screen
 import SubscriptionScreen from '@/screens/subscription/SubscriptionScreen';
 import VideoRewardScreen from '@/screens/main/VideoRewardScreen';
+import PreferencesScreen from '@/screens/main/PreferencesScreen';
 
 type AuthRootParamList = { Auth: undefined };
 type MainRootParamList = { Main: undefined };
@@ -118,6 +119,11 @@ const MainNavigator: React.FC = () => (
       name="VideoReward"
       component={VideoRewardScreen}
       options={{ presentation: 'modal' }}
+    />
+    <MainStack.Screen
+      name="Preferences"
+      component={PreferencesScreen}
+      options={{ presentation: 'card' }}
     />
     <MainStack.Screen
       name="ScanResult"

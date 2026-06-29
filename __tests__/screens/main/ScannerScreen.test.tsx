@@ -10,10 +10,20 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => true,
 }));
 
+jest.mock('../../../src/contexts/AuthContext', () => ({
+  useAuth: () => ({
+    state: { isAuthenticated: true, user: { id: 'u1', role: 'free_user' } },
+  }),
+}));
+
 jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: {
     scanBarcode: jest.fn(),
     getScanHistory: jest.fn(),
+  },
+  ApiError: class ApiError extends Error {
+    statusCode: number;
+    constructor(message: string, statusCode: number) { super(message); this.statusCode = statusCode; }
   },
 }));
 

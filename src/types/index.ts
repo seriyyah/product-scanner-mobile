@@ -294,6 +294,7 @@ export type MainStackParamList = {
   MainTabs: undefined;
   Subscription: undefined;
   VideoReward: undefined;
+  Preferences: undefined;
   ProductDetail: { barcode: string; scanResult?: ScanResult };
   ScanResult: { scanResult: ScanResult };
 };

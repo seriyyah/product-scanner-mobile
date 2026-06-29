@@ -14,18 +14,26 @@ import {
 import { CameraView, Camera } from 'expo-camera';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import theme from '@/constants/theme';
 import { scannerRepository, ApiError } from '@/services/apiService';
+import { useAuth } from '@/contexts/AuthContext';
+
+const GUEST_SCAN_KEY = 'guest_scan_count';
+const GUEST_SCAN_LIMIT = 5;
 
 const ScannerScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
+  const { state: authState } = useAuth();
+  const isAuthenticated = authState.isAuthenticated;
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [manualBarcode, setManualBarcode] = useState('');
   const [showManual, setShowManual] = useState(Platform.OS === 'web');
+  const [scansRemaining, setScansRemaining] = useState<number | null>(null);
   const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Ref-based lock: synchronous unlike state, so rapid camera frames can't slip through
   const scanLock = useRef(false);
@@ -71,12 +79,32 @@ const ScannerScreen: React.FC = () => {
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
     if (!code || scanLock.current) return;
+
+    // Guest scan limit: 5 scans before registration required
+    if (!isAuthenticated) {
+      const stored = await AsyncStorage.getItem(GUEST_SCAN_KEY);
+      const count = parseInt(stored ?? '0', 10);
+      if (count >= GUEST_SCAN_LIMIT) {
+        Alert.alert(
+          'Create a free account',
+          `You've used your ${GUEST_SCAN_LIMIT} free guest scans. Sign up for free to get 20 scans per hour and save your history.`,
+          [
+            { text: 'Sign Up', onPress: () => navigation.navigate('Auth') },
+            { text: 'Log In', onPress: () => navigation.navigate('Auth') },
+          ],
+        );
+        return;
+      }
+      await AsyncStorage.setItem(GUEST_SCAN_KEY, String(count + 1));
+    }
+
     scanLock.current = true;
     setScanned(true);
     setIsLoading(true);
     setErrorMessage('');
     try {
       const result = await scannerRepository.scanBarcode(code);
+      if (result.scansRemaining !== undefined) setScansRemaining(result.scansRemaining);
       navigation.navigate('ScanResult', { scanResult: result });
     } catch (err: unknown) {
       if (err instanceof ApiError && err.statusCode === 429) {
@@ -247,6 +275,24 @@ const ScannerScreen: React.FC = () => {
             <Text style={styles.instructionText}>Point camera at barcode</Text>
           )}
 
+          {/* Scan counter — only shown for free users once we know their remaining count */}
+          {scansRemaining !== null && scansRemaining <= 10 && (
+            <TouchableOpacity
+              style={[styles.scanCounter, scansRemaining <= 3 && styles.scanCounterUrgent]}
+              onPress={() => navigation.navigate('Subscription')}
+              activeOpacity={0.8}
+            >
+              <Ionicons
+                name={scansRemaining <= 3 ? 'warning-outline' : 'scan-outline'}
+                size={14}
+                color={scansRemaining <= 3 ? theme.colors.error : theme.colors.textSecondary}
+              />
+              <Text style={[styles.scanCounterText, scansRemaining <= 3 && styles.scanCounterTextUrgent]}>
+                {scansRemaining} scan{scansRemaining !== 1 ? 's' : ''} left this hour
+              </Text>
+            </TouchableOpacity>
+          )}
+
           {/* Manual entry toggle */}
           {!isLoading && (
             <TouchableOpacity onPress={() => setShowManual(true)} activeOpacity={0.8} style={styles.switchLink}>
@@ -414,6 +460,14 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.sm,
     fontWeight: '500' as const,
   },
+  scanCounter: {
+    flexDirection: 'row', alignItems: 'center', gap: 5,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 12, paddingHorizontal: 12, paddingVertical: 5,
+  },
+  scanCounterUrgent: { backgroundColor: 'rgba(244,67,54,0.15)' },
+  scanCounterText: { fontSize: 12, color: theme.colors.textSecondary },
+  scanCounterTextUrgent: { color: theme.colors.error, fontWeight: '600' as const },
 });
 
 export default ScannerScreen;

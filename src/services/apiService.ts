@@ -142,6 +142,11 @@ class BaseApiClient {
     return response.data;
   }
 
+  public async postWithHeaders<T>(url: string, data?: unknown): Promise<{ data: T; headers: Record<string, string> }> {
+    const response = await this.axiosInstance.post<T>(url, data);
+    return { data: response.data, headers: response.headers as Record<string, string> };
+  }
+
   public async delete<T>(url: string): Promise<T> {
     const response = await this.axiosInstance.delete<T>(url);
     return response.data;
@@ -241,8 +246,10 @@ export class AuthRepository {
 export class ScannerRepository {
   private readonly apiClient = BaseApiClient.getInstance();
 
-  public async scanBarcode(barcode: string): Promise<ScanResult> {
-    return this.apiClient.post<ScanResult>('/api/v2/scan', { barcode });
+  public async scanBarcode(barcode: string): Promise<ScanResult & { scansRemaining?: number }> {
+    const { data, headers } = await this.apiClient.postWithHeaders<ScanResult>('/api/v2/scan', { barcode });
+    const remaining = headers['x-ratelimit-remaining'];
+    return { ...data, scansRemaining: remaining !== undefined ? parseInt(remaining, 10) : undefined };
   }
 
   // Read-only lookup — fetches product + rating WITHOUT saving to scan history.
@@ -354,6 +361,38 @@ export interface PriceComparisonResponse {
   affiliate_url?: string;
 }
 
+export interface UserPreferences {
+  dietary_restrictions: string[];
+  allergens: string[];
+  language: string;
+  theme: string;
+  default_currency: string;
+  privacy_analytics: boolean;
+  privacy_marketing: boolean;
+}
+
+export interface PreferencesUpdate {
+  dietary_restrictions?: string[];
+  allergens?: string[];
+  language?: string;
+  theme?: string;
+  default_currency?: string;
+  privacy_analytics?: boolean;
+  privacy_marketing?: boolean;
+}
+
+export class PreferencesRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async get(userId: string): Promise<UserPreferences> {
+    return this.apiClient.get<UserPreferences>(`/api/v2/users/${userId}/preferences`);
+  }
+
+  public async update(userId: string, body: PreferencesUpdate): Promise<UserPreferences> {
+    return this.apiClient.put<UserPreferences>(`/api/v2/users/${userId}/preferences`, body);
+  }
+}
+
 export class MLRepository {
   private readonly apiClient = BaseApiClient.getInstance();
 
@@ -379,6 +418,7 @@ export class ApiServiceFactory {
   private static subscriptionRepo: SubscriptionRepository;
   private static mlRepo: MLRepository;
   private static marketplaceRepo: MarketplaceRepository;
+  private static preferencesRepo: PreferencesRepository;
 
   public static getAuthRepository(): AuthRepository {
     if (!this.authRepo) this.authRepo = new AuthRepository();
@@ -414,6 +454,11 @@ export class ApiServiceFactory {
     if (!this.marketplaceRepo) this.marketplaceRepo = new MarketplaceRepository();
     return this.marketplaceRepo;
   }
+
+  public static getPreferencesRepository(): PreferencesRepository {
+    if (!this.preferencesRepo) this.preferencesRepo = new PreferencesRepository();
+    return this.preferencesRepo;
+  }
 }
 
 // Export default instances for easy usage
@@ -424,3 +469,4 @@ export const productRepository = ApiServiceFactory.getProductRepository();
 export const subscriptionRepository = ApiServiceFactory.getSubscriptionRepository();
 export const mlRepository = ApiServiceFactory.getMLRepository();
 export const marketplaceRepository = ApiServiceFactory.getMarketplaceRepository();
+export const preferencesRepository = ApiServiceFactory.getPreferencesRepository();
