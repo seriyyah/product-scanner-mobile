@@ -11,13 +11,14 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { scannerRepository } from '@/services/apiService';
 
 const ScannerScreen: React.FC = () => {
   const navigation = useNavigation<any>();
+  const isFocused = useIsFocused();
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,14 +41,13 @@ const ScannerScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    if (isFocused) {
       scanLock.current = false;
       setScanned(false);
       setErrorMessage('');
       if (retryTimeout.current) clearTimeout(retryTimeout.current);
-    });
-    return unsubscribe;
-  }, [navigation]);
+    }
+  }, [isFocused]);
 
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
@@ -175,14 +175,16 @@ const ScannerScreen: React.FC = () => {
   // ── Native: camera scanner ────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      <CameraView
-        style={StyleSheet.absoluteFillObject}
-        facing="back"
-        onBarcodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
-        barcodeScannerSettings={{
-          barcodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
-        }}
-      />
+      {isFocused && (
+        <CameraView
+          style={StyleSheet.absoluteFillObject}
+          facing="back"
+          onBarcodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
+          barcodeScannerSettings={{
+            barcodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
+          }}
+        />
+      )}
 
       {/* Overlay */}
       <View style={styles.overlay}>
