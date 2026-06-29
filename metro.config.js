@@ -5,18 +5,25 @@ const config = getDefaultConfig(__dirname);
 
 config.maxWorkers = 2;
 
-// In Expo Go there is no compiled native binary for react-native-google-mobile-ads.
-// Redirect to a stub so the rest of the app loads. The real module is used in
-// development builds created with `expo run:ios` / EAS Build.
-const NATIVE_MODULES_AVAILABLE = process.env.NATIVE_BUILD === '1';
-if (!NATIVE_MODULES_AVAILABLE) {
+// react-native-google-mobile-ads calls TurboModuleRegistry.getEnforcing at
+// require-time, crashing Expo Go which has no compiled native binary for it.
+// resolveRequest intercepts before node_modules resolution so the stub is used
+// in Expo Go. Set NATIVE_BUILD=1 when running expo run:ios / EAS Build.
+const NATIVE_BUILD = process.env.NATIVE_BUILD === '1';
+if (!NATIVE_BUILD) {
+  const originalResolveRequest = config.resolver?.resolveRequest;
   config.resolver = config.resolver ?? {};
-  config.resolver.extraNodeModules = {
-    ...config.resolver.extraNodeModules,
-    'react-native-google-mobile-ads': path.resolve(
-      __dirname,
-      'src/mocks/react-native-google-mobile-ads.js',
-    ),
+  config.resolver.resolveRequest = (context, moduleName, platform) => {
+    if (moduleName === 'react-native-google-mobile-ads') {
+      return {
+        filePath: path.resolve(__dirname, 'src/mocks/react-native-google-mobile-ads.js'),
+        type: 'sourceFile',
+      };
+    }
+    if (originalResolveRequest) {
+      return originalResolveRequest(context, moduleName, platform);
+    }
+    return context.resolveRequest(context, moduleName, platform);
   };
 }
 
