@@ -24,7 +24,9 @@
         "backgroundColor": "#121212"
       },
       "package": "com.productscanner.mobile",
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +36,13 @@
         "expo-camera",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan product barcodes"
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-7901427966550188~2815899433",
+          "iosAppId": "ca-app-pub-7901427966550188~2815899433"
         }
       ]
     ]

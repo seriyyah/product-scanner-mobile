@@ -22,6 +22,27 @@ jest.mock('expo-status-bar', () => ({
   StatusBar: 'StatusBar',
 }));
 
+jest.mock('react-native-google-mobile-ads', () => ({
+  InterstitialAd: {
+    createForAdRequest: jest.fn(() => ({
+      addAdEventListener: jest.fn().mockReturnValue(jest.fn()),
+      load: jest.fn(),
+      show: jest.fn(),
+    })),
+  },
+  RewardedAd: {
+    createForAdRequest: jest.fn(() => ({
+      addAdEventListener: jest.fn().mockReturnValue(jest.fn()),
+      load: jest.fn(),
+    })),
+  },
+  AdEventType: { LOADED: 'loaded', CLOSED: 'closed', ERROR: 'error', OPENED: 'opened' },
+  RewardedAdEventType: { LOADED: 'loaded', EARNED_REWARD: 'earned_reward', ERROR: 'error' },
+  TestIds: { INTERSTITIAL: 'test-interstitial-id', REWARDED: 'test-rewarded-id' },
+  AdsConsent: { requestInfoUpdate: jest.fn(), loadAndShowConsentFormIfRequired: jest.fn() },
+  AdsConsentStatus: { OBTAINED: 'obtained', NOT_REQUIRED: 'not_required' },
+}));
+
 jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
   return {

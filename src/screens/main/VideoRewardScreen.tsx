@@ -10,31 +10,62 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import {
+  InterstitialAd,
+  AdEventType,
+  TestIds,
+} from 'react-native-google-mobile-ads';
 import theme from '@/constants/theme';
 import { subscriptionRepository } from '@/services/apiService';
 
-const AD_DURATION = 5; // seconds — swap for a real ad SDK later
+const TEST_MODE = process.env.EXPO_PUBLIC_ADMOB_TEST_MODE === 'true';
+const INTERSTITIAL_ID = TEST_MODE
+  ? TestIds.INTERSTITIAL
+  : (process.env.EXPO_PUBLIC_ADMOB_INTERSTITIAL_ID ?? TestIds.INTERSTITIAL);
 
-type Phase = 'watching' | 'claiming' | 'done' | 'already_claimed';
+type Phase = 'loading' | 'ready' | 'claiming' | 'done' | 'already_claimed' | 'error';
 
 const VideoRewardScreen: React.FC = () => {
   const navigation = useNavigation<any>();
-  const [phase, setPhase] = useState<Phase>('watching');
-  const [countdown, setCountdown] = useState(AD_DURATION);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [phase, setPhase] = useState<Phase>('loading');
+  const adRef = useRef<InterstitialAd | null>(null);
+  const claimedRef = useRef(false);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          claimReward();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    const ad = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
+      requestNonPersonalizedAdsOnly: true, // GDPR safe default
+    });
+    adRef.current = ad;
+
+    const unsubLoaded = ad.addAdEventListener(AdEventType.LOADED, () => {
+      setPhase('ready');
+      ad.show();
+    });
+
+    const unsubClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
+      // Ad dismissed — grant reward (interstitial has no completion guarantee,
+      // swap this for RewardedAd + EARNED_REWARD event once you have a Rewarded unit)
+      if (!claimedRef.current) {
+        claimedRef.current = true;
+        claimReward();
+      }
+    });
+
+    const unsubError = ad.addAdEventListener(AdEventType.ERROR, () => {
+      // Ad failed to load — grant reward anyway so user isn't penalised
+      if (!claimedRef.current) {
+        claimedRef.current = true;
+        claimReward();
+      }
+    });
+
+    ad.load();
+
+    return () => {
+      unsubLoaded();
+      unsubClosed();
+      unsubError();
+    };
   }, []);
 
   const claimReward = async (): Promise<void> => {
@@ -49,8 +80,6 @@ const VideoRewardScreen: React.FC = () => {
     }
   };
 
-  const progressPct = ((AD_DURATION - countdown) / AD_DURATION) * 100;
-
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topNav}>
@@ -60,17 +89,11 @@ const VideoRewardScreen: React.FC = () => {
       </View>
 
       <View style={styles.body}>
-        {phase === 'watching' && (
+        {(phase === 'loading' || phase === 'ready') && (
           <>
-            <View style={styles.adBox}>
-              <Ionicons name="play-circle" size={64} color={theme.colors.primary} />
-              <Text style={styles.adLabel}>Ad playing…</Text>
-              <Text style={styles.countdown}>{countdown}s</Text>
-              <View style={styles.progressTrack}>
-                <View style={[styles.progressFill, { width: `${progressPct}%` as any }]} />
-              </View>
-            </View>
-            <Text style={styles.hint}>Watch the full ad to earn 5 extra scans this hour.</Text>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
+            <Text style={styles.hint}>Loading your ad…</Text>
+            <Text style={styles.subHint}>Watch the ad to earn 5 extra scans this hour.</Text>
           </>
         )}
 
@@ -86,20 +109,13 @@ const VideoRewardScreen: React.FC = () => {
             <Ionicons name="checkmark-circle" size={80} color={theme.colors.success} />
             <Text style={styles.successTitle}>+5 Scans Granted!</Text>
             <Text style={styles.hint}>
-              You have 5 extra scans for this hour. Keep scanning or upgrade to Premium for unlimited.
+              You have 5 extra scans for this hour.{'\n'}
+              Upgrade to Premium for unlimited scans with no ads.
             </Text>
-            <TouchableOpacity
-              style={styles.primaryBtn}
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.8}
-            >
+            <TouchableOpacity style={styles.primaryBtn} onPress={() => navigation.goBack()} activeOpacity={0.8}>
               <Text style={styles.primaryBtnText}>Back to Scanner</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.secondaryBtn}
-              onPress={() => navigation.navigate('Subscription')}
-              activeOpacity={0.8}
-            >
+            <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
               <Text style={styles.secondaryBtnText}>Upgrade for Unlimited</Text>
             </TouchableOpacity>
           </>
@@ -110,20 +126,13 @@ const VideoRewardScreen: React.FC = () => {
             <Ionicons name="time-outline" size={80} color={theme.colors.textSecondary} />
             <Text style={styles.successTitle}>Already Claimed</Text>
             <Text style={styles.hint}>
-              You already watched a video this hour. Come back later or upgrade to Premium for unlimited scans.
+              You already earned extra scans this hour.{'\n'}
+              Come back later or upgrade to Premium.
             </Text>
-            <TouchableOpacity
-              style={styles.primaryBtn}
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.8}
-            >
+            <TouchableOpacity style={styles.primaryBtn} onPress={() => navigation.goBack()} activeOpacity={0.8}>
               <Text style={styles.primaryBtnText}>Back to Scanner</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.secondaryBtn}
-              onPress={() => navigation.navigate('Subscription')}
-              activeOpacity={0.8}
-            >
+            <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
               <Text style={styles.secondaryBtnText}>Upgrade to Premium</Text>
             </TouchableOpacity>
           </>
@@ -143,20 +152,9 @@ const styles = StyleSheet.create({
   navTitle: { fontSize: theme.typography.fontSizes.lg, fontWeight: '700' as const, color: theme.colors.text },
   navSpacer: { width: 40 },
   body: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: theme.spacing.xl, gap: theme.spacing.lg },
-  adBox: {
-    width: '100%', backgroundColor: theme.colors.card, borderRadius: theme.borderRadius.large,
-    padding: theme.spacing.xl, alignItems: 'center', gap: theme.spacing.md,
-    borderWidth: 1, borderColor: theme.colors.border,
-  },
-  adLabel: { fontSize: theme.typography.fontSizes.md, color: theme.colors.textSecondary },
-  countdown: { fontSize: 48, fontWeight: '700' as const, color: theme.colors.text },
-  progressTrack: {
-    width: '100%', height: 6, backgroundColor: theme.colors.border,
-    borderRadius: 3, overflow: 'hidden',
-  },
-  progressFill: { height: '100%', backgroundColor: theme.colors.primary, borderRadius: 3 },
-  hint: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, textAlign: 'center', lineHeight: 20 },
-  successTitle: { fontSize: theme.typography.fontSizes.xxl ?? 28, fontWeight: '700' as const, color: theme.colors.text },
+  hint: { fontSize: theme.typography.fontSizes.md, color: theme.colors.textSecondary, textAlign: 'center', lineHeight: 22 },
+  subHint: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textLight, textAlign: 'center' },
+  successTitle: { fontSize: 28, fontWeight: '700' as const, color: theme.colors.text },
   primaryBtn: {
     width: '100%', backgroundColor: theme.colors.primary,
     borderRadius: theme.borderRadius.medium, padding: theme.spacing.md, alignItems: 'center',
