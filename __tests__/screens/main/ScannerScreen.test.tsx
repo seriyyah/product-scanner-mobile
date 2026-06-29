@@ -5,9 +5,8 @@ const mockNavigate = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
-  useNavigation: () => ({ navigate: mockNavigate, goBack: jest.fn() }),
+  useNavigation: () => ({ navigate: mockNavigate, goBack: jest.fn(), addListener: jest.fn(() => jest.fn()) }),
   useRoute: () => ({ params: {} }),
-  useFocusEffect: (cb: () => void) => { cb(); },
 }));
 
 jest.mock('../../../src/services/apiService', () => ({
