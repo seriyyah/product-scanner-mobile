@@ -25,6 +25,8 @@ const ScannerScreen: React.FC = () => {
   const [manualBarcode, setManualBarcode] = useState('');
   const [showManual, setShowManual] = useState(Platform.OS === 'web');
   const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Ref-based lock: synchronous unlike state, so rapid camera frames can't slip through
+  const scanLock = useRef(false);
 
   useEffect(() => {
     if (Platform.OS !== 'web') {
@@ -39,7 +41,8 @@ const ScannerScreen: React.FC = () => {
 
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
-    if (!code || isLoading) return;
+    if (!code || scanLock.current) return;
+    scanLock.current = true;
     setScanned(true);
     setIsLoading(true);
     setErrorMessage('');
@@ -50,6 +53,7 @@ const ScannerScreen: React.FC = () => {
       const message = err instanceof Error ? err.message : 'Failed to scan product. Please try again.';
       setErrorMessage(message);
       retryTimeout.current = setTimeout(() => {
+        scanLock.current = false;
         setScanned(false);
         setErrorMessage('');
       }, 2500);
@@ -59,6 +63,7 @@ const ScannerScreen: React.FC = () => {
   };
 
   const handleScanAgain = (): void => {
+    scanLock.current = false;
     setScanned(false);
     setIsLoading(false);
     setErrorMessage('');
