@@ -278,12 +278,51 @@ export class ProductRepository {
   }
 }
 
+export interface SubscriptionStatus {
+  tier: 'free' | 'premium' | 'ai_premium';
+  is_active: boolean;
+  features: string[];
+  expires_at?: string;
+  upgrade_url?: string;
+}
+
+export interface CheckoutSession {
+  checkout_url: string;
+  session_id: string;
+  tier: string;
+  interval: string;
+  currency: string;
+}
+
+export class SubscriptionRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async getStatus(): Promise<SubscriptionStatus> {
+    return this.apiClient.get<SubscriptionStatus>('/api/v1/auth/subscription');
+  }
+
+  public async createCheckout(
+    tier: 'premium' | 'ai_premium',
+    interval: 'month' | 'year' = 'month',
+    currency: 'usd' | 'eur' = 'eur',
+  ): Promise<CheckoutSession> {
+    return this.apiClient.post<CheckoutSession>('/api/v1/payments/stripe/checkout', {
+      tier,
+      interval,
+      currency,
+      success_url: 'https://productscanner.app/subscription/success',
+      cancel_url: 'https://productscanner.app/subscription/cancel',
+    });
+  }
+}
+
 // API Service Factory
 export class ApiServiceFactory {
   private static authRepo: AuthRepository;
   private static scannerRepo: ScannerRepository;
   private static userRepo: UserRepository;
   private static productRepo: ProductRepository;
+  private static subscriptionRepo: SubscriptionRepository;
 
   public static getAuthRepository(): AuthRepository {
     if (!this.authRepo) this.authRepo = new AuthRepository();
@@ -304,6 +343,11 @@ export class ApiServiceFactory {
     if (!this.productRepo) this.productRepo = new ProductRepository();
     return this.productRepo;
   }
+
+  public static getSubscriptionRepository(): SubscriptionRepository {
+    if (!this.subscriptionRepo) this.subscriptionRepo = new SubscriptionRepository();
+    return this.subscriptionRepo;
+  }
 }
 
 // Export default instances for easy usage
@@ -311,3 +355,4 @@ export const authRepository = ApiServiceFactory.getAuthRepository();
 export const scannerRepository = ApiServiceFactory.getScannerRepository();
 export const userRepository = ApiServiceFactory.getUserRepository();
 export const productRepository = ApiServiceFactory.getProductRepository();
+export const subscriptionRepository = ApiServiceFactory.getSubscriptionRepository();

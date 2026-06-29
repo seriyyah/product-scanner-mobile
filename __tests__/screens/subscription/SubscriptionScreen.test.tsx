@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { Linking } from 'react-native';
 
 const mockNavigate = jest.fn();
 const mockGoBack = jest.fn();
@@ -8,6 +9,7 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => ({ navigate: mockNavigate, goBack: mockGoBack }),
   useRoute: () => ({ params: {} }),
+  useIsFocused: () => true,
 }));
 
 jest.mock('../../../src/contexts/AuthContext', () => ({
@@ -18,11 +20,6 @@ jest.mock('../../../src/contexts/AuthContext', () => ({
       isLoading: false,
       error: null,
     },
-    login: jest.fn(),
-    logout: jest.fn(),
-    register: jest.fn(),
-    clearError: jest.fn(),
-    checkAuthStatus: jest.fn(),
   }),
 }));
 
@@ -31,46 +28,70 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
 
+const mockGetStatus = jest.fn().mockResolvedValue({
+  tier: 'free', is_active: true, features: [], upgrade_url: '/premium',
+});
+const mockCreateCheckout = jest.fn().mockResolvedValue({
+  checkout_url: 'https://checkout.stripe.com/test', session_id: 'sess_123',
+  tier: 'premium', interval: 'month', currency: 'EUR',
+});
+
+jest.mock('../../../src/services/apiService', () => ({
+  subscriptionRepository: {
+    getStatus: () => mockGetStatus(),
+    createCheckout: (...args: any[]) => mockCreateCheckout(...args),
+  },
+  UserRole: {},
+}));
+
+jest.spyOn(Linking, 'openURL').mockResolvedValue(true as any);
+
 import SubscriptionScreen from '../../../src/screens/subscription/SubscriptionScreen';
 
 describe('SubscriptionScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockGetStatus.mockResolvedValue({ tier: 'free', is_active: true, features: [] });
   });
 
-  it('renders without crashing', () => {
+  it('renders without crashing', async () => {
     const { getByText } = render(<SubscriptionScreen />);
     expect(getByText('ProductScanner Premium')).toBeTruthy();
   });
 
-  it('shows all tier cards for free user', () => {
+  it('shows all tier cards', async () => {
     const { getByText } = render(<SubscriptionScreen />);
     expect(getByText('Free')).toBeTruthy();
     expect(getByText('Premium')).toBeTruthy();
     expect(getByText('AI Premium')).toBeTruthy();
   });
 
-  it('marks Free as current tier for free user', () => {
-    const { getAllByText } = render(<SubscriptionScreen />);
-    const currentBadges = getAllByText('Current');
-    expect(currentBadges.length).toBeGreaterThan(0);
-  });
-
-  it('shows Coming Soon badges', () => {
-    const { getAllByText } = render(<SubscriptionScreen />);
-    const comingSoon = getAllByText('Coming Soon');
-    expect(comingSoon.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it('shows Notify Me buttons for non-current tiers', () => {
-    const { getAllByText } = render(<SubscriptionScreen />);
-    const notifyBtns = getAllByText('Notify Me');
-    expect(notifyBtns.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it('shows coming soon message', () => {
+  it('shows current plan badge for free user', async () => {
     const { getByText } = render(<SubscriptionScreen />);
-    expect(getByText(/Premium subscriptions are coming soon/)).toBeTruthy();
+    await waitFor(() => expect(getByText('Your current plan')).toBeTruthy());
+  });
+
+  it('shows upgrade buttons for paid tiers', async () => {
+    const { getByText } = render(<SubscriptionScreen />);
+    await waitFor(() => {
+      expect(getByText('Upgrade to Premium')).toBeTruthy();
+      expect(getByText('Upgrade to AI Premium')).toBeTruthy();
+    });
+  });
+
+  it('calls checkout API and opens URL on upgrade tap', async () => {
+    const { getByText } = render(<SubscriptionScreen />);
+    await waitFor(() => getByText('Upgrade to Premium'));
+    fireEvent.press(getByText('Upgrade to Premium'));
+    await waitFor(() => {
+      expect(mockCreateCheckout).toHaveBeenCalledWith('premium', 'month', 'eur');
+      expect(Linking.openURL).toHaveBeenCalledWith('https://checkout.stripe.com/test');
+    });
+  });
+
+  it('shows Stripe disclaimer', async () => {
+    const { getByText } = render(<SubscriptionScreen />);
+    await waitFor(() => expect(getByText(/Payments processed securely by Stripe/)).toBeTruthy());
   });
 
   it('shows admin view for admin role', () => {
