@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
-import { userRepository } from '@/services/apiService';
+import { userRepository, subscriptionRepository, SubscriptionStatus } from '@/services/apiService';
 import { UserProfile, UserRole } from '@/types';
 import theme from '@/constants/theme';
 import TextInput from '@/components/forms/TextInput';
@@ -49,6 +49,7 @@ const ProfileScreen: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
   const { state, logout } = useAuth();
 
   const role = (state.user?.role || 'free_user') as UserRole;
@@ -70,16 +71,22 @@ const ProfileScreen: React.FC = () => {
     }
     setIsLoading(true);
     try {
-      const data = await userRepository.getUserProfile(userId);
-      setProfile(data);
-      reset({
-        firstName: data.first_name || '',
-        lastName: data.last_name || '',
-        phoneNumber: data.phone_number || '',
-        bio: data.bio || '',
-      });
-    } catch {
-      Alert.alert('Error', 'Failed to load profile');
+      const [data, sub] = await Promise.allSettled([
+        userRepository.getUserProfile(userId),
+        subscriptionRepository.getStatus(),
+      ]);
+      if (data.status === 'fulfilled') {
+        setProfile(data.value);
+        reset({
+          firstName: data.value.first_name || '',
+          lastName: data.value.last_name || '',
+          phoneNumber: data.value.phone_number || '',
+          bio: data.value.bio || '',
+        });
+      } else {
+        Alert.alert('Error', 'Failed to load profile');
+      }
+      if (sub.status === 'fulfilled') setSubscription(sub.value);
     } finally {
       setIsLoading(false);
     }
@@ -242,12 +249,21 @@ const ProfileScreen: React.FC = () => {
             activeOpacity={0.8}
           >
             <Ionicons name="star-outline" size={22} color={theme.colors.primary} />
-            <Text style={styles.settingsLabel}>Subscription</Text>
+            <View style={styles.settingsLabelCol}>
+              <Text style={styles.settingsLabel}>Subscription</Text>
+              {subscription?.expires_at && subscription.tier !== 'free' ? (
+                <Text style={styles.settingsSubLabel}>
+                  Renews {new Date(subscription.expires_at).toLocaleDateString()}
+                </Text>
+              ) : subscription?.tier === 'free' ? (
+                <Text style={styles.settingsSubLabel}>20 scans / hour</Text>
+              ) : null}
+            </View>
             <View style={styles.settingsRight}>
-              {role === 'admin' ? (
+              {role === 'admin' || role === 'super_admin' ? (
                 <Text style={styles.settingsValue}>Admin — Full Access</Text>
               ) : (
-                <Text style={styles.settingsValue}>{badge.label}</Text>
+                <Text style={[styles.settingsValue, { color: badge.color }]}>{badge.label}</Text>
               )}
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
             </View>
@@ -364,10 +380,17 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.md,
     gap: theme.spacing.md,
   },
-  settingsLabel: {
+  settingsLabelCol: {
     flex: 1,
+    gap: 2,
+  },
+  settingsLabel: {
     fontSize: theme.typography.fontSizes.md,
     color: theme.colors.text,
+  },
+  settingsSubLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    color: theme.colors.textSecondary,
   },
   settingsRight: {
     flexDirection: 'row',

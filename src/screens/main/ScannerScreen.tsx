@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -14,7 +15,7 @@ import { CameraView, Camera } from 'expo-camera';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
-import { scannerRepository } from '@/services/apiService';
+import { scannerRepository, ApiError } from '@/services/apiService';
 
 const ScannerScreen: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -49,6 +50,24 @@ const ScannerScreen: React.FC = () => {
     }
   }, [isFocused]);
 
+  const _showRateLimitDialog = (): void => {
+    Alert.alert(
+      'Scan limit reached',
+      "You've used all 20 free scans this hour. Watch a short video to get 5 more, or upgrade to Premium for unlimited scans.",
+      [
+        {
+          text: 'Watch Video (+5 scans)',
+          onPress: () => navigation.navigate('VideoReward'),
+        },
+        {
+          text: 'Upgrade to Premium',
+          onPress: () => navigation.navigate('Subscription'),
+        },
+        { text: 'Cancel', style: 'cancel' },
+      ],
+    );
+  };
+
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
     if (!code || scanLock.current) return;
@@ -60,6 +79,13 @@ const ScannerScreen: React.FC = () => {
       const result = await scannerRepository.scanBarcode(code);
       navigation.navigate('ScanResult', { scanResult: result });
     } catch (err: unknown) {
+      if (err instanceof ApiError && err.statusCode === 429) {
+        setIsLoading(false);
+        scanLock.current = false;
+        setScanned(false);
+        _showRateLimitDialog();
+        return;
+      }
       const message = err instanceof Error ? err.message : 'Failed to scan product. Please try again.';
       setErrorMessage(message);
       retryTimeout.current = setTimeout(() => {

@@ -119,7 +119,7 @@ class BaseApiClient {
       const message = Array.isArray(detail)
         ? detail.map((e: any) => e.msg ?? String(e)).join('. ')
         : detail || data?.message || error.message || 'Request failed';
-      return new ApiError(message, error.response.status, 'API_ERROR', data?.details);
+      return new ApiError(message, error.response.status, 'API_ERROR', data);
     }
     if (error.request) {
       return new ApiError('Network error - please check your connection', 0, 'NETWORK_ERROR');
@@ -313,6 +313,10 @@ export class SubscriptionRepository {
       success_url: 'https://productscanner.app/subscription/success',
       cancel_url: 'https://productscanner.app/subscription/cancel',
     });
+  }
+
+  public async claimVideoReward(): Promise<{ granted: boolean; extra_scans: number; message: string }> {
+    return this.apiClient.post('/api/v1/scans/video-reward', {});
   }
 }
 

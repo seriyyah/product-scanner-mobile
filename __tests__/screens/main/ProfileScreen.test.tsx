@@ -31,6 +31,9 @@ jest.mock('../../../src/services/apiService', () => ({
     getUserProfile: jest.fn(),
     updateUserProfile: jest.fn(),
   },
+  subscriptionRepository: {
+    getStatus: jest.fn().mockResolvedValue({ tier: 'free', is_active: true, features: [] }),
+  },
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
