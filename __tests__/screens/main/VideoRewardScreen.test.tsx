@@ -1,6 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+// Force test mode so real unit IDs are not needed
+process.env.EXPO_PUBLIC_ADMOB_TEST_MODE = 'true';
+
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
 
