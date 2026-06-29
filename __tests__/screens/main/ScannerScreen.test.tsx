@@ -10,12 +10,6 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => true,
 }));
 
-jest.mock('../../../src/contexts/AuthContext', () => ({
-  useAuth: () => ({
-    state: { isAuthenticated: true, user: { id: 'u1', role: 'free_user' } },
-  }),
-}));
-
 jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: {
     scanBarcode: jest.fn(),

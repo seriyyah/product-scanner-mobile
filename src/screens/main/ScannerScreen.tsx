@@ -14,19 +14,12 @@ import {
 import { CameraView, Camera } from 'expo-camera';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import theme from '@/constants/theme';
 import { scannerRepository, ApiError } from '@/services/apiService';
-import { useAuth } from '@/contexts/AuthContext';
-
-const GUEST_SCAN_KEY = 'guest_scan_count';
-const GUEST_SCAN_LIMIT = 5;
 
 const ScannerScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
-  const { state: authState } = useAuth();
-  const isAuthenticated = authState.isAuthenticated;
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,24 +72,6 @@ const ScannerScreen: React.FC = () => {
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
     if (!code || scanLock.current) return;
-
-    // Guest scan limit: 5 scans before registration required
-    if (!isAuthenticated) {
-      const stored = await AsyncStorage.getItem(GUEST_SCAN_KEY);
-      const count = parseInt(stored ?? '0', 10);
-      if (count >= GUEST_SCAN_LIMIT) {
-        Alert.alert(
-          'Create a free account',
-          `You've used your ${GUEST_SCAN_LIMIT} free guest scans. Sign up for free to get 20 scans per hour and save your history.`,
-          [
-            { text: 'Sign Up', onPress: () => navigation.navigate('Auth') },
-            { text: 'Log In', onPress: () => navigation.navigate('Auth') },
-          ],
-        );
-        return;
-      }
-      await AsyncStorage.setItem(GUEST_SCAN_KEY, String(count + 1));
-    }
 
     scanLock.current = true;
     setScanned(true);
