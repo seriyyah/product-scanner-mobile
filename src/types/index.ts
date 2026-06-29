@@ -248,6 +248,7 @@ export interface ScanHistoryItem {
   brand?: string;
   safety_score: number;
   safety_grade: string;
+  image_url?: string;
   scanned_at: string;
 }
 

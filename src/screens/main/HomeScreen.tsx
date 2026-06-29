@@ -16,6 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { scannerRepository } from '@/services/apiService';
 import { ScanHistoryItem } from '@/types';
 import { gradeColor } from '@/utils/safetyColors';
+import ProductThumbnail from '@/components/common/ProductThumbnail';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -79,11 +80,16 @@ const HomeScreen: React.FC = () => {
       onPress={() => handleItemPress(item)}
       activeOpacity={0.8}
     >
-      <View style={[styles.gradeCircle, { backgroundColor: gradeColor(item.safety_grade) }]}>
-        <Text style={styles.gradeText}>{item.safety_grade}</Text>
-      </View>
+      <ProductThumbnail imageUrl={item.image_url} grade={item.safety_grade} size={48} />
       <View style={styles.scanItemInfo}>
-        <Text style={styles.productName} numberOfLines={1}>{item.product_name}</Text>
+        <View style={styles.nameRow}>
+          <Text style={styles.productName} numberOfLines={1}>{item.product_name}</Text>
+          {item.safety_grade ? (
+            <View style={[styles.gradeBadge, { backgroundColor: gradeColor(item.safety_grade) }]}>
+              <Text style={styles.gradeBadgeText}>{item.safety_grade}</Text>
+            </View>
+          ) : null}
+        </View>
         {item.brand ? (
           <Text style={styles.brandName} numberOfLines={1}>{item.brand}</Text>
         ) : null}
@@ -253,27 +259,33 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.sm,
     borderRadius: theme.borderRadius.large,
     padding: theme.spacing.md,
-  },
-  gradeCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: theme.spacing.md,
-  },
-  gradeText: {
-    color: theme.colors.text,
-    fontSize: theme.typography.fontSizes.lg,
-    fontWeight: '700' as const,
+    gap: theme.spacing.md,
   },
   scanItemInfo: {
     flex: 1,
   },
+  nameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
   productName: {
+    flex: 1,
     fontSize: theme.typography.fontSizes.md,
     fontWeight: '600' as const,
     color: theme.colors.text,
+  },
+  gradeBadge: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    minWidth: 22,
+    alignItems: 'center',
+  },
+  gradeBadgeText: {
+    color: theme.colors.text,
+    fontSize: 11,
+    fontWeight: '700' as const,
   },
   brandName: {
     fontSize: theme.typography.fontSizes.sm,
