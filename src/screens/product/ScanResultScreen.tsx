@@ -20,6 +20,26 @@ const ScanResultScreen: React.FC = () => {
   const route = useRoute<ScanResultRouteProp>();
   const navigation = useNavigation<any>();
   const { scanResult } = route.params;
+
+  // Product not found — show researching state
+  if (scanResult.researching) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.researchingContainer}>
+          <Ionicons name="search-circle-outline" size={80} color={theme.colors.primary} />
+          <Text style={styles.researchingTitle}>Product Not Found Yet</Text>
+          <Text style={styles.researchingText}>
+            {scanResult.message ?? "We don't recognise this barcode yet. We're researching it — check your history in a few minutes."}
+          </Text>
+          <TouchableOpacity style={styles.scanAgainBtn} onPress={() => navigation.navigate('MainTabs', { screen: 'Scanner' })} activeOpacity={0.8}>
+            <Ionicons name="scan-outline" size={20} color={theme.colors.text} />
+            <Text style={styles.scanAgainBtnText}>Scan Another</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   const { product, rating_breakdown } = scanResult;
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
@@ -223,6 +243,40 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  researchingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.xl,
+    gap: theme.spacing.lg,
+  },
+  researchingTitle: {
+    fontSize: theme.typography.fontSizes.xl,
+    fontWeight: '700' as const,
+    color: theme.colors.text,
+    textAlign: 'center',
+  },
+  researchingText: {
+    fontSize: theme.typography.fontSizes.md,
+    color: theme.colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
+  scanAgainBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadius.medium,
+    gap: theme.spacing.sm,
+    marginTop: theme.spacing.md,
+  },
+  scanAgainBtnText: {
+    color: theme.colors.text,
+    fontSize: theme.typography.fontSizes.md,
+    fontWeight: '600' as const,
   },
   content: {
     paddingBottom: theme.spacing.xxl,

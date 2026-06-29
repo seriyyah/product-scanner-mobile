@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
-import { MainStackParamList, ScanResult, RatingBreakdown } from '@/types';
+import { MainStackParamList, ScanResult, RatingBreakdown, PriceStats } from '@/types';
 import { scannerRepository } from '@/services/apiService';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 
@@ -225,6 +225,52 @@ const ProductDetailScreen: React.FC = () => {
                 </View>
               ))}
             </View>
+          </View>
+        )}
+
+        {/* Origin & Geography */}
+        {((product.origins ?? []).length > 0 || (product.manufacturing_places ?? []).length > 0 || (product.countries ?? []).length > 0) && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Origin & Distribution</Text>
+            {(product.origins ?? []).length > 0 && (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Ingredient Origin</Text>
+                <Text style={styles.infoValue}>{product.origins.join(', ')}</Text>
+              </View>
+            )}
+            {(product.manufacturing_places ?? []).length > 0 && (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Made in</Text>
+                <Text style={styles.infoValue}>{product.manufacturing_places.join(', ')}</Text>
+              </View>
+            )}
+            {(product.countries ?? []).length > 0 && (
+              <View style={styles.infoRow}>
+                <Text style={styles.infoLabel}>Sold in</Text>
+                <Text style={styles.infoValue}>{product.countries.slice(0, 8).join(', ')}{product.countries.length > 8 ? ` +${product.countries.length - 8} more` : ''}</Text>
+              </View>
+            )}
+          </View>
+        )}
+
+        {/* Prices */}
+        {(product.prices ?? []).length > 0 && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Price Data</Text>
+            {product.prices.map((p: PriceStats) => (
+              <View style={styles.priceRow} key={p.currency}>
+                <Text style={styles.priceCurrency}>{p.currency}</Text>
+                <View style={styles.priceStats}>
+                  <Text style={styles.priceStatLabel}>Min</Text>
+                  <Text style={styles.priceStatValue}>{p.min_price.toFixed(2)}</Text>
+                  <Text style={styles.priceStatLabel}>Avg</Text>
+                  <Text style={[styles.priceStatValue, styles.priceAvg]}>{p.avg_price.toFixed(2)}</Text>
+                  <Text style={styles.priceStatLabel}>Max</Text>
+                  <Text style={styles.priceStatValue}>{p.max_price.toFixed(2)}</Text>
+                </View>
+                <Text style={styles.priceSamples}>{p.sample_count} samples</Text>
+              </View>
+            ))}
           </View>
         )}
 
@@ -484,6 +530,60 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: theme.borderRadius.medium,
     marginRight: theme.spacing.sm,
+  },
+  infoRow: {
+    paddingVertical: theme.spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+    gap: 4,
+  },
+  infoLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    color: theme.colors.textSecondary,
+    textTransform: 'uppercase' as const,
+    letterSpacing: 0.5,
+  },
+  infoValue: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: theme.colors.text,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+    gap: theme.spacing.sm,
+  },
+  priceCurrency: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '700' as const,
+    color: theme.colors.primary,
+    width: 40,
+  },
+  priceStats: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+  },
+  priceStatLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    color: theme.colors.textSecondary,
+  },
+  priceStatValue: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: theme.colors.text,
+    fontWeight: '500' as const,
+    marginRight: theme.spacing.sm,
+  },
+  priceAvg: {
+    color: theme.colors.primary,
+    fontWeight: '700' as const,
+  },
+  priceSamples: {
+    fontSize: theme.typography.fontSizes.xs,
+    color: theme.colors.textLight,
   },
   errorContainer: {
     flex: 1,

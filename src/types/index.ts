@@ -156,28 +156,58 @@ export interface IApiError {
 // Scanner Service Types (matching backend)
 export interface ScanResult {
   product: Product;
-  safety_score: number;
-  safety_grade: 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-  rating_breakdown: RatingBreakdown;
-  warnings: string[];
+  safety_score?: number | null;
+  safety_grade?: string | null;
+  safety_summary?: string | null;
+  rating_breakdown?: RatingBreakdown | null;
+  warnings?: string[];
   saved_to_history: boolean;
   cached: boolean;
+  // Set when the product was not found but is being researched
+  researching?: boolean;
+  message?: string | null;
+}
+
+export interface PriceStats {
+  currency: string;
+  min_price: number;
+  max_price: number;
+  avg_price: number;
+  sample_count: number;
 }
 
 export interface Product {
   barcode: string;
   name: string;
   brand?: string;
+  generic_name?: string;
+  quantity?: string;
+  serving_size?: string;
   category?: string;
   ingredients: string[];
+  ingredients_text?: string;
   nutrition?: Nutrition;
   images: string[];
+  // Geography
+  countries: string[];
+  origins: string[];
+  manufacturing_places: string[];
+  purchase_places: string[];
+  stores: string[];
+  // Classification
   allergens: string[];
   additives: string[];
   ingredients_analysis: string[];
+  labels: string[];
+  packaging: string[];
+  // Scores
   nutriscore_grade?: string;
   nova_group?: number;
   ecoscore_grade?: string;
+  // Popularity
+  scans_count?: number;
+  // Prices
+  prices: PriceStats[];
 }
 
 export interface Nutrition {
@@ -190,6 +220,14 @@ export interface Nutrition {
   fiber_g?: number;
   sodium_mg?: number;
   salt_g?: number;
+  // Extended
+  calcium_mg?: number;
+  iron_mg?: number;
+  potassium_mg?: number;
+  magnesium_mg?: number;
+  vitamin_c_mg?: number;
+  caffeine_mg?: number;
+  alcohol_percent?: number;
 }
 
 export interface RatingBreakdown {
