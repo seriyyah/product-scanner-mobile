@@ -27,9 +27,13 @@ const ScanResultScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.researchingContainer}>
           <Ionicons name="search-circle-outline" size={80} color={theme.colors.primary} />
-          <Text style={styles.researchingTitle}>Product Not Found Yet</Text>
+          <Text style={styles.researchingTitle}>Product Not in Our Database</Text>
           <Text style={styles.researchingText}>
-            {scanResult.message ?? "We don't recognise this barcode yet. We're researching it — check your history in a few minutes."}
+            {scanResult.message ??
+              "We don't recognise this barcode. We're checking our sources — if found, it will appear in your history within a minute."}
+          </Text>
+          <Text style={styles.researchingHint}>
+            Products like lighters, local brands, or items from some regions may not be in any public database yet.
           </Text>
           <TouchableOpacity style={styles.scanAgainBtn} onPress={() => navigation.navigate('MainTabs', { screen: 'Scanner' })} activeOpacity={0.8}>
             <Ionicons name="scan-outline" size={20} color={theme.colors.text} />
@@ -262,6 +266,15 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary,
     textAlign: 'center',
     lineHeight: 24,
+  },
+  researchingHint: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: theme.colors.textSecondary,
+    textAlign: 'center',
+    opacity: 0.6,
+    marginTop: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.xl,
+    lineHeight: 20,
   },
   scanAgainBtn: {
     flexDirection: 'row',
