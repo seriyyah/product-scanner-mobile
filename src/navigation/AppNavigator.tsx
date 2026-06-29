@@ -3,7 +3,7 @@
  * React Navigation v6 with auth flow and main app flow
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,6 +12,8 @@ import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useApp } from '@/contexts/AppContext';
+import LocationPermissionModal from '@/components/common/LocationPermissionModal';
 import {
   AuthStackParamList,
   MainTabParamList,
@@ -141,19 +143,36 @@ const MainNavigator: React.FC = () => (
 // Root Navigator
 const RootNavigator: React.FC = () => {
   const { state } = useAuth();
+  const { locationAsked } = useApp();
+  const [showLocationModal, setShowLocationModal] = useState(false);
+
+  // Show location prompt once after the user logs in and hasn't been asked yet
+  useEffect(() => {
+    if (state.isAuthenticated && !locationAsked) {
+      const timer = setTimeout(() => setShowLocationModal(true), 800);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [state.isAuthenticated, locationAsked]);
 
   if (state.isLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {state.isAuthenticated ? (
-        <RootStack.Screen name="Main" component={MainNavigator} />
-      ) : (
-        <RootStack.Screen name="Auth" component={AuthNavigator} />
-      )}
-    </RootStack.Navigator>
+    <>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        {state.isAuthenticated ? (
+          <RootStack.Screen name="Main" component={MainNavigator} />
+        ) : (
+          <RootStack.Screen name="Auth" component={AuthNavigator} />
+        )}
+      </RootStack.Navigator>
+      <LocationPermissionModal
+        visible={showLocationModal}
+        onDismiss={() => setShowLocationModal(false)}
+      />
+    </>
   );
 };
 

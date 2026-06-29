@@ -20,6 +20,12 @@ if (!NATIVE_BUILD) {
         type: 'sourceFile',
       };
     }
+    if (moduleName === 'expo-location') {
+      return {
+        filePath: path.resolve(__dirname, 'src/mocks/expo-location.js'),
+        type: 'sourceFile',
+      };
+    }
     if (originalResolveRequest) {
       return originalResolveRequest(context, moduleName, platform);
     }

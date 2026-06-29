@@ -24,6 +24,8 @@ import {
   ApiError,
 } from '@/services/apiService';
 import { useAuth } from '@/contexts/AuthContext';
+import { useApp } from '@/contexts/AppContext';
+import { preferencesRepository } from '@/services/apiService';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 
 type ProductDetailRouteProp = RouteProp<MainStackParamList, 'ProductDetail'>;
@@ -33,9 +35,19 @@ const ProductDetailScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const { barcode, scanResult: initialScanResult } = route.params;
   const { state: authState } = useAuth();
+  const { location } = useApp();
   const userRole = authState.user?.role ?? 'free_user';
   const isAIPremium = userRole === 'ai_premium' || userRole === 'admin';
   const userId = authState.user?.id ?? '';
+  const [userCurrency, setUserCurrency] = useState('EUR');
+
+  useEffect(() => {
+    if (userId) {
+      preferencesRepository.get(userId)
+        .then((p) => { if (p.default_currency) setUserCurrency(p.default_currency); })
+        .catch(() => {});
+    }
+  }, [userId]);
 
   const [scanResult, setScanResult] = useState<ScanResult | null>(initialScanResult || null);
   const [isLoading, setIsLoading] = useState(!initialScanResult);
@@ -84,7 +96,12 @@ const ProductDetailScreen: React.FC = () => {
     if (isAIPremium) {
       setDiscoveryStatus('loading');
       try {
-        const result = await discoveryRepository.getDiscovery(bc);
+        const result = await discoveryRepository.getDiscovery(
+          bc,
+          location?.lat,
+          location?.lng,
+          userCurrency,
+        );
         setDiscovery(result);
         setDiscoveryStatus('done');
       } catch {

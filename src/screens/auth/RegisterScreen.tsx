@@ -15,10 +15,14 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
+import { useApp } from '@/contexts/AppContext';
 import { useNavigation } from '@react-navigation/native';
 import theme from '@/constants/theme';
 import TextInput from '@/components/forms/TextInput';
 import Button from '@/components/common/Button';
+import { SUPPORTED_LANGUAGES } from '@/i18n';
+
+const CURRENCY_OPTIONS = ['EUR', 'CZK', 'USD', 'GBP', 'PLN', 'HUF', 'RON', 'SEK', 'DKK', 'CHF'];
 
 interface RegisterFormData {
   email: string;
@@ -59,8 +63,11 @@ const registerSchema = yup.object().shape({
 const RegisterScreen: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedCurrency, setSelectedCurrency] = useState('EUR');
   const navigation = useNavigation<any>();
   const { register: registerUser } = useAuth();
+  const { setLanguage } = useApp();
 
   const {
     control,
@@ -94,6 +101,13 @@ const RegisterScreen: React.FC = () => {
         lastName: data.lastName,
         termsAccepted: data.termsAccepted,
       });
+      // Apply language immediately in this session
+      setLanguage(selectedLanguage);
+      // Persist selected language/currency so PreferencesScreen shows correct defaults
+      // after email verification + login (stored in AsyncStorage, applied on first pref load)
+      const { storage } = await import('@/utils/storage');
+      await storage.setItem('reg:language', selectedLanguage);
+      await storage.setItem('reg:currency', selectedCurrency);
       setRegistered(true);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Registration failed. Please try again.';
@@ -220,6 +234,48 @@ const RegisterScreen: React.FC = () => {
           {errors.termsAccepted && (
             <Text style={styles.errorText}>{errors.termsAccepted.message}</Text>
           )}
+
+          {/* Language selection */}
+          <View style={styles.prefSection}>
+            <Text style={styles.prefLabel}>App Language</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.prefChips}>
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <TouchableOpacity
+                    key={lang.code}
+                    style={[styles.prefChip, selectedLanguage === lang.code && styles.prefChipActive]}
+                    onPress={() => setSelectedLanguage(lang.code)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.prefChipText, selectedLanguage === lang.code && styles.prefChipTextActive]}>
+                      {lang.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+          {/* Currency selection */}
+          <View style={styles.prefSection}>
+            <Text style={styles.prefLabel}>Preferred Currency</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.prefChips}>
+                {CURRENCY_OPTIONS.map((cur) => (
+                  <TouchableOpacity
+                    key={cur}
+                    style={[styles.prefChip, selectedCurrency === cur && styles.prefChipActive]}
+                    onPress={() => setSelectedCurrency(cur)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.prefChipText, selectedCurrency === cur && styles.prefChipTextActive]}>
+                      {cur}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
 
           <Button
             title={isSubmitting ? 'Creating Account...' : 'Create Account'}
@@ -350,6 +406,40 @@ const styles = StyleSheet.create({
   },
   passwordCountOk: {
     color: '#4CAF50',
+  },
+  prefSection: {
+    marginBottom: theme.spacing.md,
+  },
+  prefLabel: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '600' as const,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.sm,
+  },
+  prefChips: {
+    flexDirection: 'row',
+    paddingBottom: 4,
+  },
+  prefChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+    marginRight: 8,
+  },
+  prefChipActive: {
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+  },
+  prefChipText: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: theme.colors.textSecondary,
+  },
+  prefChipTextActive: {
+    color: '#fff',
+    fontWeight: '600' as const,
   },
 });
 

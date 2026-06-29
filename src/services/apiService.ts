@@ -410,17 +410,32 @@ export class MarketplaceRepository {
   }
 }
 
+export interface CurrencyRates {
+  base: string;
+  rates: Record<string, number>;
+}
+
 export class DiscoveryRepository {
   private readonly apiClient = BaseApiClient.getInstance();
 
-  public async getDiscovery(barcode: string, lat?: number, lng?: number): Promise<DiscoveryResult> {
+  public async getDiscovery(
+    barcode: string,
+    lat?: number,
+    lng?: number,
+    currency?: string,
+  ): Promise<DiscoveryResult> {
     const params: Record<string, unknown> = {};
     if (lat !== undefined) params.lat = lat;
     if (lng !== undefined) params.lng = lng;
+    if (currency) params.currency = currency;
     return this.apiClient.get<DiscoveryResult>(
       `/api/v1/marketplace/discovery/${encodeURIComponent(barcode)}`,
       params,
     );
+  }
+
+  public async getCurrencyRates(): Promise<CurrencyRates> {
+    return this.apiClient.get<CurrencyRates>('/api/v1/marketplace/currency/rates');
   }
 }
 
