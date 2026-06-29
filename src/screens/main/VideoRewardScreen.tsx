@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -22,7 +23,9 @@ import { subscriptionRepository } from '@/services/apiService';
 const TEST_MODE = process.env.EXPO_PUBLIC_ADMOB_TEST_MODE === 'true';
 const REWARDED_ID = TEST_MODE
   ? TestIds.REWARDED
-  : (process.env.EXPO_PUBLIC_ADMOB_REWARDED_ID ?? TestIds.REWARDED);
+  : Platform.OS === 'ios'
+    ? (process.env.EXPO_PUBLIC_ADMOB_REWARDED_ID_IOS ?? TestIds.REWARDED)
+    : (process.env.EXPO_PUBLIC_ADMOB_REWARDED_ID_ANDROID ?? TestIds.REWARDED);
 
 type Phase = 'loading' | 'ready' | 'claiming' | 'done' | 'already_claimed';
 
