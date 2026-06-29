@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { scannerRepository } from '@/services/apiService';
@@ -38,6 +38,17 @@ const ScannerScreen: React.FC = () => {
       if (retryTimeout.current) clearTimeout(retryTimeout.current);
     };
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset scan state every time this screen comes into focus so the
+      // camera is ready immediately after returning from history/home.
+      scanLock.current = false;
+      setScanned(false);
+      setErrorMessage('');
+      if (retryTimeout.current) clearTimeout(retryTimeout.current);
+    }, [])
+  );
 
   const scanProduct = async (barcode: string): Promise<void> => {
     const code = barcode.trim();
