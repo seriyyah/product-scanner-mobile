@@ -18,7 +18,7 @@ export interface IUser {
   readonly preferences?: IUserPreferences;
 }
 
-export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'ai_premium' | 'admin';
+export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'ai_premium' | 'admin' | 'super_admin';
 
 export interface IUserCredentials {
   readonly email: string;
@@ -316,6 +316,8 @@ export type AuthStackParamList = {
   readonly Login: undefined;
   readonly Register: undefined;
   readonly ForgotPassword: undefined;
+  readonly VerifyEmail: { token?: string };
+  readonly ResetPassword: { token?: string };
 };
 
 export type MainTabParamList = {

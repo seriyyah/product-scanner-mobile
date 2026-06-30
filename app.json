@@ -3,6 +3,7 @@
     "name": "Product Scanner",
     "slug": "product-scanner-mobile",
     "version": "1.0.0",
+    "scheme": "productscanner",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -43,6 +44,14 @@
         {
           "androidAppId": "ca-app-pub-7901427966550188~6992350531",
           "iosAppId": "ca-app-pub-7901427966550188~2815899433"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#e86c2c",
+          "iosDisplayInForeground": true
         }
       ]
     ]

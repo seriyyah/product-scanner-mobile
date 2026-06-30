@@ -25,6 +25,8 @@ import theme from '@/constants/theme';
 import LoginScreen from '@/screens/auth/LoginScreen';
 import RegisterScreen from '@/screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '@/screens/auth/ForgotPasswordScreen';
+import VerifyEmailScreen from '@/screens/auth/VerifyEmailScreen';
+import ResetPasswordScreen from '@/screens/auth/ResetPasswordScreen';
 
 // Main tab screens
 import HomeScreen from '@/screens/main/HomeScreen';
@@ -66,6 +68,8 @@ const LoadingScreen: React.FC = () => (
 // Auth Stack
 const AuthNavigator: React.FC = () => (
   <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
+    <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
     <AuthStack.Screen name="Login" component={LoginScreen} />
     <AuthStack.Screen name="Register" component={RegisterScreen} />
     <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
@@ -143,17 +147,18 @@ const MainNavigator: React.FC = () => (
 // Root Navigator
 const RootNavigator: React.FC = () => {
   const { state } = useAuth();
-  const { locationAsked } = useApp();
+  const { locationAsked, locationLoaded } = useApp();
   const [showLocationModal, setShowLocationModal] = useState(false);
 
-  // Show location prompt once after the user logs in and hasn't been asked yet
+  // Show location prompt once after the user logs in and hasn't been asked yet.
+  // Guard on locationLoaded so we don't ask again after a restart while AsyncStorage loads.
   useEffect(() => {
-    if (state.isAuthenticated && !locationAsked) {
+    if (state.isAuthenticated && locationLoaded && !locationAsked) {
       const timer = setTimeout(() => setShowLocationModal(true), 800);
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [state.isAuthenticated, locationAsked]);
+  }, [state.isAuthenticated, locationLoaded, locationAsked]);
 
   if (state.isLoading) {
     return <LoadingScreen />;
@@ -176,11 +181,31 @@ const RootNavigator: React.FC = () => {
   );
 };
 
+const linking = {
+  prefixes: ['productscanner://'],
+  config: {
+    screens: {
+      Auth: {
+        screens: {
+          VerifyEmail: {
+            path: 'verify-email',
+            parse: { token: (token: string) => token },
+          },
+          ResetPassword: {
+            path: 'reset-password',
+            parse: { token: (token: string) => token },
+          },
+        },
+      },
+    },
+  },
+};
+
 // App Navigator
 const AppNavigator: React.FC = () => (
   <>
     <StatusBar style="light" backgroundColor={theme.colors.background} />
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <RootNavigator />
     </NavigationContainer>
   </>

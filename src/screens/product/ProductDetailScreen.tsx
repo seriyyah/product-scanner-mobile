@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Linking,
   View,
@@ -27,6 +28,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
 import { preferencesRepository } from '@/services/apiService';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
+import { countryFromLang } from '@/utils/countryFromLang';
 
 type ProductDetailRouteProp = RouteProp<MainStackParamList, 'ProductDetail'>;
 
@@ -34,25 +36,18 @@ const ProductDetailScreen: React.FC = () => {
   const route = useRoute<ProductDetailRouteProp>();
   const navigation = useNavigation<any>();
   const { barcode, scanResult: initialScanResult } = route.params;
+  const { t, i18n } = useTranslation();
   const { state: authState } = useAuth();
   const { location } = useApp();
   const userRole = authState.user?.role ?? 'free_user';
-  const isAIPremium = userRole === 'ai_premium' || userRole === 'admin';
+  const isAIPremium = userRole === 'ai_premium' || userRole === 'admin' || userRole === 'super_admin';
+  const isFreeOrGuest = userRole === 'free_user' || userRole === 'guest';
   const userId = authState.user?.id ?? '';
-  const [userCurrency, setUserCurrency] = useState('EUR');
-
-  useEffect(() => {
-    if (userId) {
-      preferencesRepository.get(userId)
-        .then((p) => { if (p.default_currency) setUserCurrency(p.default_currency); })
-        .catch(() => {});
-    }
-  }, [userId]);
-
   const [scanResult, setScanResult] = useState<ScanResult | null>(initialScanResult || null);
   const [isLoading, setIsLoading] = useState(!initialScanResult);
   const [error, setError] = useState('');
   const [showAllIngredients, setShowAllIngredients] = useState(false);
+  const [userCurrency, setUserCurrency] = useState('EUR');
   const INGREDIENT_PREVIEW = 5;
 
   // AI Premium — unified discovery data
@@ -63,13 +58,31 @@ const ProductDetailScreen: React.FC = () => {
   const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
   const [recsStatus, setRecsStatus] = useState<'idle' | 'loading' | 'done' | '403' | '503'>('idle');
 
+  // Load everything sequentially so discovery gets the right currency
   useEffect(() => {
-    if (!initialScanResult) {
-      fetchProduct();
-    } else {
-      loadPhase2Data(barcode);
-    }
-  }, [barcode]);
+    let cancelled = false;
+    const init = async () => {
+      // 1. Resolve user's preferred currency first
+      let currency = 'EUR';
+      if (userId) {
+        try {
+          const prefs = await preferencesRepository.get(userId);
+          if (prefs.default_currency) currency = prefs.default_currency;
+        } catch {}
+      }
+      if (!cancelled) {
+        setUserCurrency(currency);
+        // 2. Load product if not already provided
+        if (!initialScanResult) {
+          await loadProduct(currency);
+        } else {
+          loadPhase2Data(barcode, currency);
+        }
+      }
+    };
+    init();
+    return () => { cancelled = true; };
+  }, [barcode, userId]);
 
   // Track product view for personalization
   useEffect(() => {
@@ -78,13 +91,13 @@ const ProductDetailScreen: React.FC = () => {
     }
   }, [barcode, userId]);
 
-  const fetchProduct = async (): Promise<void> => {
+  const loadProduct = async (currency: string): Promise<void> => {
     setIsLoading(true);
     setError('');
     try {
       const result = await scannerRepository.getProductDetails(barcode);
       setScanResult(result);
-      loadPhase2Data(barcode);
+      loadPhase2Data(barcode, currency);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load product');
     } finally {
@@ -92,22 +105,27 @@ const ProductDetailScreen: React.FC = () => {
     }
   };
 
-  const loadPhase2Data = async (bc: string): Promise<void> => {
+  const loadPhase2Data = async (bc: string, currency: string): Promise<void> => {
     if (isAIPremium) {
       setDiscoveryStatus('loading');
       try {
+        // Country hint: GPS geocoding takes priority on the backend;
+        // language preference is the fallback when no location is available.
+        const country = countryFromLang(i18n.language);
         const result = await discoveryRepository.getDiscovery(
           bc,
           location?.lat,
           location?.lng,
-          userCurrency,
+          currency,
+          country,
         );
         setDiscovery(result);
         setDiscoveryStatus('done');
       } catch {
         setDiscoveryStatus('error');
       }
-    } else {
+    } else if (!isFreeOrGuest) {
+      // premium_user: fetch ML alternatives
       setRecsStatus('loading');
       try {
         const result = await mlRepository.getAlternatives(bc);
@@ -118,6 +136,7 @@ const ProductDetailScreen: React.FC = () => {
         setRecsStatus(code === 403 ? '403' : '503');
       }
     }
+    // free_user / guest: nothing to load — UI shows upgrade message
   };
 
   const handleShare = (): void => {
@@ -142,7 +161,7 @@ const ProductDetailScreen: React.FC = () => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text style={styles.loadingText}>Loading product...</Text>
+        <Text style={styles.loadingText}>{t('product.loading')}</Text>
       </View>
     );
   }
@@ -152,13 +171,13 @@ const ProductDetailScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <TouchableOpacity style={styles.backRow} onPress={() => navigation.goBack()} activeOpacity={0.8}>
           <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
-          <Text style={styles.backText}>Back</Text>
+          <Text style={styles.backText}>{t('common.back')}</Text>
         </TouchableOpacity>
         <View style={styles.errorContainer}>
           <Ionicons name="alert-circle-outline" size={64} color={theme.colors.error} />
-          <Text style={styles.errorText}>{error || 'Product not found'}</Text>
-          <TouchableOpacity onPress={fetchProduct} style={styles.retryButton} activeOpacity={0.8}>
-            <Text style={styles.retryText}>Retry</Text>
+          <Text style={styles.errorText}>{error || t('product.notFound')}</Text>
+          <TouchableOpacity onPress={() => loadProduct(userCurrency)} style={styles.retryButton} activeOpacity={0.8}>
+            <Text style={styles.retryText}>{t('common.retry')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -185,10 +204,10 @@ const ProductDetailScreen: React.FC = () => {
 
   const renderBreakdown = (rb: RatingBreakdown) => (
     <View style={styles.card}>
-      <Text style={styles.cardTitle}>Rating Breakdown</Text>
+      <Text style={styles.cardTitle}>{t('product.ratingBreakdown')}</Text>
       {rb.nutriscore && (
         <View style={styles.breakdownRow}>
-          <Text style={styles.breakdownLabel}>NutriScore</Text>
+          <Text style={styles.breakdownLabel}>{t('product.nutriscore')}</Text>
           <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade) }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
@@ -197,23 +216,23 @@ const ProductDetailScreen: React.FC = () => {
       )}
       {rb.nova && (
         <View style={styles.breakdownRow}>
-          <Text style={styles.breakdownLabel}>NOVA</Text>
-          <Text style={styles.breakdownValue}>Group {rb.nova.group}</Text>
-          <Text style={styles.breakdownMeta}>{novaLabel(rb.nova.group)}</Text>
+          <Text style={styles.breakdownLabel}>{t('product.nova')}</Text>
+          <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova.group })}</Text>
+          <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova.group}`, { defaultValue: novaLabel(rb.nova.group) })}</Text>
         </View>
       )}
       {rb.additives && (
         <View style={styles.breakdownRow}>
-          <Text style={styles.breakdownLabel}>Additives</Text>
-          <Text style={styles.breakdownValue}>{rb.additives.count} total</Text>
+          <Text style={styles.breakdownLabel}>{t('product.additives')}</Text>
+          <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.count })}</Text>
           <Text style={[styles.breakdownMeta, rb.additives.high_risk_count > 0 && styles.riskText]}>
-            High risk: {rb.additives.high_risk_count}
+            {t('product.highRisk', { count: rb.additives.high_risk_count })}
           </Text>
         </View>
       )}
       {rb.ecoscore && (
         <View style={styles.breakdownRow}>
-          <Text style={styles.breakdownLabel}>EcoScore</Text>
+          <Text style={styles.breakdownLabel}>{t('product.ecoscore')}</Text>
           <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.ecoscore.grade) }]}>
             <Text style={styles.gradeChipText}>{rb.ecoscore.grade?.toUpperCase() || '?'}</Text>
           </View>
@@ -264,17 +283,36 @@ const ProductDetailScreen: React.FC = () => {
       return (
         <>
           <Text style={styles.explanationText}>{discovery.explanation}</Text>
-          <Text style={styles.emptyNote}>Scan more products — alternatives improve as the database grows.</Text>
+          <Text style={styles.emptyNote}>{t('product.noAlternatives')}</Text>
         </>
       );
     }
     if (discoveryStatus === 'error') {
-      return <Text style={styles.emptyNote}>Could not load alternatives. Please try again.</Text>;
+      return <Text style={styles.emptyNote}>{t('product.alternativesUnavailable')}</Text>;
     }
     return null;
   };
 
   const renderFreeAlternatives = () => {
+    // Free / guest users: feature not available
+    if (isFreeOrGuest) {
+      return (
+        <View style={styles.unavailableBox}>
+          <Ionicons name="lock-closed-outline" size={22} color={theme.colors.textSecondary} />
+          <Text style={styles.unavailableTitle}>{t('product.featureNotAvailable')}</Text>
+          <Text style={styles.unavailableSub}>{t('product.featureNotAvailableAlternatives')}</Text>
+          <TouchableOpacity
+            style={styles.unavailableBtn}
+            onPress={() => navigation.navigate('Subscription')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.unavailableBtnText}>{t('product.upgradeSubscription')}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+
+    // premium_user: ML alternatives
     if (recsStatus === 'loading') {
       return <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginTop: 8 }} />;
     }
@@ -338,15 +376,15 @@ const ProductDetailScreen: React.FC = () => {
             <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
           </View>
           <Text style={[styles.scoreLabelText, { color: scoreColor }]}>
-            Grade {safety_grade} — {gradeLabel(safety_grade)}
+            {t('product.grade', { grade: safety_grade })} — {t(`grades.${safety_grade}`, { defaultValue: gradeLabel(safety_grade) })}
           </Text>
           {showDisclaimer && (
             <View style={styles.disclaimerBadge}>
               <Ionicons name="information-circle-outline" size={14} color={theme.colors.textSecondary} />
               <Text style={styles.disclaimerText}>
                 {dataQuality === 'minimal'
-                  ? 'Estimated rating — limited product data available'
-                  : 'Based on partial data — some values derived from ingredient text'}
+                  ? t('product.estimatedRating')
+                  : t('product.partialRating')}
               </Text>
             </View>
           )}
@@ -355,7 +393,7 @@ const ProductDetailScreen: React.FC = () => {
         {/* Warnings */}
         {warnings.length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Warnings</Text>
+            <Text style={styles.cardTitle}>{t('product.warnings')}</Text>
             {warnings.map((w, i) => (
               <View key={i} style={styles.warningChip}>
                 <Ionicons name="warning" size={14} color={theme.colors.error} />
@@ -370,29 +408,29 @@ const ProductDetailScreen: React.FC = () => {
         {/* Nutrition */}
         {product.nutrition && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Nutrition per 100g</Text>
-            {renderNutritionRow('Energy', product.nutrition.energy_kcal, 'kcal')}
-            {renderNutritionRow('Fat', product.nutrition.fat_g)}
-            {renderNutritionRow('Saturated Fat', product.nutrition.saturated_fat_g)}
-            {renderNutritionRow('Carbohydrates', product.nutrition.carbohydrates_g)}
-            {renderNutritionRow('Sugars', product.nutrition.sugars_g)}
-            {renderNutritionRow('Fiber', product.nutrition.fiber_g)}
-            {renderNutritionRow('Proteins', product.nutrition.proteins_g)}
-            {renderNutritionRow('Salt', product.nutrition.salt_g)}
+            <Text style={styles.cardTitle}>{t('product.nutritionPer100g')}</Text>
+            {renderNutritionRow(t('Energy'), product.nutrition.energy_kcal, 'kcal')}
+            {renderNutritionRow(t('Fat'), product.nutrition.fat_g)}
+            {renderNutritionRow(t('Saturated Fat'), product.nutrition.saturated_fat_g)}
+            {renderNutritionRow(t('Carbohydrates'), product.nutrition.carbohydrates_g)}
+            {renderNutritionRow(t('Sugars'), product.nutrition.sugars_g)}
+            {renderNutritionRow(t('Fiber'), product.nutrition.fiber_g)}
+            {renderNutritionRow(t('Proteins'), product.nutrition.proteins_g)}
+            {renderNutritionRow(t('Salt'), product.nutrition.salt_g)}
           </View>
         )}
 
         {/* Ingredients */}
         {(product.ingredients ?? []).length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Ingredients</Text>
+            <Text style={styles.cardTitle}>{t('product.ingredients')}</Text>
             {(showAllIngredients ? product.ingredients : product.ingredients.slice(0, INGREDIENT_PREVIEW)).map((ing, i) => (
               <Text key={i} style={styles.ingredientText}>• {ing}</Text>
             ))}
             {product.ingredients.length > INGREDIENT_PREVIEW && (
               <TouchableOpacity onPress={() => setShowAllIngredients((v) => !v)} activeOpacity={0.8}>
                 <Text style={styles.showMoreText}>
-                  {showAllIngredients ? 'Show less' : `Show all ${product.ingredients.length} ingredients`}
+                  {showAllIngredients ? t('product.showLess') : t('product.showAll', { count: product.ingredients.length })}
                 </Text>
               </TouchableOpacity>
             )}
@@ -402,7 +440,7 @@ const ProductDetailScreen: React.FC = () => {
         {/* Allergens */}
         {(product.allergens ?? []).length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Allergens</Text>
+            <Text style={styles.cardTitle}>{t('product.allergens')}</Text>
             <View style={styles.chipsRow}>
               {product.allergens.map((a, i) => (
                 <View key={i} style={styles.allergenChip}>
@@ -416,16 +454,16 @@ const ProductDetailScreen: React.FC = () => {
         {/* Origin & Geography */}
         {((product.origins ?? []).length > 0 || (product.manufacturing_places ?? []).length > 0) && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Origin & Distribution</Text>
+            <Text style={styles.cardTitle}>{t('product.origin')}</Text>
             {(product.origins ?? []).length > 0 && (
               <View style={styles.infoRow}>
-                <Text style={styles.infoLabel}>Ingredient Origin</Text>
+                <Text style={styles.infoLabel}>{t('product.ingredientOrigin')}</Text>
                 <Text style={styles.infoValue}>{product.origins.join(', ')}</Text>
               </View>
             )}
             {(product.manufacturing_places ?? []).length > 0 && (
               <View style={styles.infoRow}>
-                <Text style={styles.infoLabel}>Made in</Text>
+                <Text style={styles.infoLabel}>{t('product.madeIn')}</Text>
                 <Text style={styles.infoValue}>{product.manufacturing_places.join(', ')}</Text>
               </View>
             )}
@@ -435,7 +473,7 @@ const ProductDetailScreen: React.FC = () => {
         {/* Ingredients Analysis */}
         {(product.ingredients_analysis ?? []).length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Ingredients Analysis</Text>
+            <Text style={styles.cardTitle}>{t('product.ingredientsAnalysis')}</Text>
             <View style={styles.chipsRow}>
               {product.ingredients_analysis.map((a, i) => (
                 <View key={i} style={styles.analysisChip}>
@@ -462,7 +500,7 @@ const ProductDetailScreen: React.FC = () => {
         <View style={styles.card}>
           <View style={styles.cardTitleRow}>
             <Ionicons name="sparkles-outline" size={18} color={theme.colors.primary} />
-            <Text style={styles.cardTitle}>Safer Alternatives</Text>
+            <Text style={styles.cardTitle}>{t('product.saferAlternatives')}</Text>
             {!isAIPremium && (
               <View style={styles.premiumBadge}>
                 <Text style={styles.premiumBadgeText}>AI Premium</Text>
@@ -473,12 +511,12 @@ const ProductDetailScreen: React.FC = () => {
             ? renderDiscoveryAlternatives()
             : renderFreeAlternatives()
           }
-          {!isAIPremium && (
+          {!isAIPremium && !isFreeOrGuest && (
             <TouchableOpacity style={styles.upgradeTeaser} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
               <Ionicons name="lock-closed" size={20} color={theme.colors.primary} />
               <View style={styles.teaserText}>
-                <Text style={styles.teaserTitle}>Upgrade to AI Premium</Text>
-                <Text style={styles.teaserSub}>AI-powered alternatives with real prices and vector similarity matching</Text>
+                <Text style={styles.teaserTitle}>{t('product.upgradeAIPremium')}</Text>
+                <Text style={styles.teaserSub}>{t('product.upgradeAIPremiumAlternatives')}</Text>
               </View>
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
             </TouchableOpacity>
@@ -489,7 +527,7 @@ const ProductDetailScreen: React.FC = () => {
         <View style={styles.card}>
           <View style={styles.cardTitleRow}>
             <Ionicons name="cart-outline" size={18} color={theme.colors.primary} />
-            <Text style={styles.cardTitle}>Where to Buy</Text>
+            <Text style={styles.cardTitle}>{t('product.whereToBuy')}</Text>
             {!isAIPremium && (
               <View style={styles.premiumBadge}>
                 <Text style={styles.premiumBadgeText}>AI Premium</Text>
@@ -517,7 +555,7 @@ const ProductDetailScreen: React.FC = () => {
                       <View style={styles.listingInfo}>
                         <Text style={styles.shopName}>{p.shop_name}</Text>
                         {p.distance_km != null && (
-                          <Text style={styles.distanceText}>{p.distance_km} km away</Text>
+                          <Text style={styles.distanceText}>{t('product.kmAway', { distance: p.distance_km })}</Text>
                         )}
                       </View>
                       <Text style={styles.listingPrice}>{p.price.toFixed(2)} {p.currency}</Text>
@@ -529,7 +567,7 @@ const ProductDetailScreen: React.FC = () => {
               {/* Web search results */}
               {discovery.search_results.length > 0 && (
                 <>
-                  <Text style={[styles.sectionSubtitle, discovery.prices.length > 0 && { marginTop: 12 }]}>Find Online</Text>
+                  <Text style={[styles.sectionSubtitle, discovery.prices.length > 0 && { marginTop: 12 }]}>{t('product.findOnline')}</Text>
                   {discovery.search_results.map((r, i) => (
                     <TouchableOpacity
                       key={i}
@@ -550,21 +588,35 @@ const ProductDetailScreen: React.FC = () => {
               )}
 
               {discovery.prices.length === 0 && discovery.search_results.length === 0 && (
-                <Text style={styles.emptyNote}>No price data available yet for this product.</Text>
+                <Text style={styles.emptyNote}>{t('product.noPrices')}</Text>
               )}
             </>
           )}
 
           {isAIPremium && discoveryStatus === 'error' && (
-            <Text style={styles.emptyNote}>Could not load price data. Please try again.</Text>
+            <Text style={styles.emptyNote}>{t('product.pricesUnavailable')}</Text>
           )}
 
-          {!isAIPremium && (
+          {!isAIPremium && isFreeOrGuest && (
+            <View style={styles.unavailableBox}>
+              <Ionicons name="cart-outline" size={22} color={theme.colors.textSecondary} />
+              <Text style={styles.unavailableTitle}>{t('product.featureNotAvailable')}</Text>
+              <Text style={styles.unavailableSub}>{t('product.featureNotAvailableWhereToBuy')}</Text>
+              <TouchableOpacity
+                style={styles.unavailableBtn}
+                onPress={() => navigation.navigate('Subscription')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.unavailableBtnText}>{t('product.upgradeSubscription')}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {!isAIPremium && !isFreeOrGuest && (
             <TouchableOpacity style={styles.upgradeTeaser} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
               <Ionicons name="lock-closed" size={20} color={theme.colors.primary} />
               <View style={styles.teaserText}>
-                <Text style={styles.teaserTitle}>Upgrade to AI Premium</Text>
-                <Text style={styles.teaserSub}>Real prices from Czech shops + web search, all in one place</Text>
+                <Text style={styles.teaserTitle}>{t('product.upgradeAIPremium')}</Text>
+                <Text style={styles.teaserSub}>{t('product.upgradeAIPremiumPrices')}</Text>
               </View>
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
             </TouchableOpacity>
@@ -653,6 +705,11 @@ const styles = StyleSheet.create({
   altRight: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   altScore: { fontSize: theme.typography.fontSizes.md, fontWeight: '700' as const, color: theme.colors.textSecondary },
   emptyNote: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, textAlign: 'center', marginTop: 8 },
+  unavailableBox: { alignItems: 'center', paddingVertical: theme.spacing.lg, gap: theme.spacing.sm },
+  unavailableTitle: { fontSize: theme.typography.fontSizes.md, fontWeight: '700' as const, color: theme.colors.text },
+  unavailableSub: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, textAlign: 'center', lineHeight: 20 },
+  unavailableBtn: { marginTop: theme.spacing.xs, backgroundColor: theme.colors.primary, borderRadius: theme.borderRadius.medium, paddingHorizontal: theme.spacing.lg, paddingVertical: theme.spacing.sm },
+  unavailableBtnText: { fontSize: theme.typography.fontSizes.sm, fontWeight: '700' as const, color: '#fff' },
   sectionSubtitle: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, textTransform: 'uppercase' as const, letterSpacing: 0.5, marginBottom: theme.spacing.xs },
   listingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: theme.spacing.sm, borderTopWidth: 1, borderTopColor: theme.colors.border },
   listingInfo: { gap: 2 },

@@ -19,6 +19,7 @@ interface CurrencyRates {
 interface AppContextValue {
   location: UserLocation | null;
   locationAsked: boolean;
+  locationLoaded: boolean;
   setLocation: (loc: UserLocation | null) => void;
   markLocationAsked: () => void;
   currencyRates: CurrencyRates | null;
@@ -31,6 +32,7 @@ const AppContext = createContext<AppContextValue | null>(null);
 
 const LOCATION_KEY = 'app:user_location';
 const LOCATION_ASKED_KEY = 'app:location_asked';
+const LANGUAGE_KEY = 'app:language';
 
 // ---- Provider ----
 
@@ -38,20 +40,24 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const { i18n } = useTranslation();
   const [location, setLocationState] = useState<UserLocation | null>(null);
   const [locationAsked, setLocationAsked] = useState(false);
+  const [locationLoaded, setLocationLoaded] = useState(false);
   const [currencyRates, setCurrencyRates] = useState<CurrencyRates | null>(null);
   const ratesTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Restore persisted location on mount
+  // Restore persisted location + language on mount
   useEffect(() => {
     (async () => {
-      const [storedLoc, storedAsked] = await Promise.all([
+      const [storedLoc, storedAsked, storedLang] = await Promise.all([
         storage.getItem(LOCATION_KEY),
         storage.getItem(LOCATION_ASKED_KEY),
+        storage.getItem(LANGUAGE_KEY),
       ]);
       if (storedLoc) {
         try { setLocationState(JSON.parse(storedLoc)); } catch {}
       }
       if (storedAsked === 'true') setLocationAsked(true);
+      if (storedLang) i18n.changeLanguage(storedLang);
+      setLocationLoaded(true);
     })();
   }, []);
 
@@ -98,7 +104,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   );
 
   const setLanguage = useCallback(
-    (lang: string) => { i18n.changeLanguage(lang); },
+    (lang: string) => {
+      i18n.changeLanguage(lang);
+      storage.setItem(LANGUAGE_KEY, lang);
+    },
     [i18n],
   );
 
@@ -107,6 +116,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       value={{
         location,
         locationAsked,
+        locationLoaded,
         setLocation,
         markLocationAsked,
         currencyRates,

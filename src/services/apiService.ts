@@ -232,6 +232,10 @@ export class AuthRepository {
     });
   }
 
+  public async verifyEmail(token: string): Promise<{ message: string; success: boolean }> {
+    return this.apiClient.post<{ message: string; success: boolean }>('/api/v1/auth/verify-email', { token });
+  }
+
   public async isAuthenticated(): Promise<boolean> {
     const token = await storage.getItem('auth_token');
     return Boolean(token);
@@ -423,11 +427,13 @@ export class DiscoveryRepository {
     lat?: number,
     lng?: number,
     currency?: string,
+    country?: string,
   ): Promise<DiscoveryResult> {
     const params: Record<string, unknown> = {};
     if (lat !== undefined) params.lat = lat;
     if (lng !== undefined) params.lng = lng;
     if (currency) params.currency = currency;
+    if (country) params.country = country;
     return this.apiClient.get<DiscoveryResult>(
       `/api/v1/marketplace/discovery/${encodeURIComponent(barcode)}`,
       params,
@@ -534,3 +540,8 @@ export const marketplaceRepository = ApiServiceFactory.getMarketplaceRepository(
 export const preferencesRepository = ApiServiceFactory.getPreferencesRepository();
 export const discoveryRepository = ApiServiceFactory.getDiscoveryRepository();
 export const behaviorRepository = ApiServiceFactory.getBehaviorRepository();
+
+export async function updatePushToken(userId: string, token: string): Promise<void> {
+  const client = BaseApiClient.getInstance();
+  await client.put(`/api/v2/users/${userId}/push-token`, { token });
+}
