@@ -4,9 +4,11 @@
  * Sets up providers and navigation
  */
 
+import './src/i18n';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { AuthProvider } from './src/contexts/AuthContext';
+import { AppProvider } from './src/contexts/AppContext';
 import AppNavigator from './src/navigation/AppNavigator';
 
 class ErrorBoundary extends React.Component<
@@ -73,7 +75,9 @@ export default function App(): React.ReactElement {
   return (
     <ErrorBoundary>
       <AuthProvider>
-        <AppNavigator />
+        <AppProvider>
+          <AppNavigator />
+        </AppProvider>
       </AuthProvider>
     </ErrorBoundary>
   );

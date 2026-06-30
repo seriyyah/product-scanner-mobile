@@ -7,6 +7,8 @@ import React, { createContext, useContext, useReducer, useEffect, ReactNode } fr
 import { storage } from '@/utils/storage';
 import { IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
 import { authRepository, ApiError } from '@/services/apiService';
+import { registerForPushNotificationsAsync } from '@/utils/usePushNotifications';
+import { updatePushToken } from '@/services/apiService';
 
 // Initial Auth State
 const initialAuthState: IAuthState = {
@@ -98,6 +100,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
           type: 'LOGIN_SUCCESS',
           payload: { user, tokens: { accessToken: token, refreshToken: '' } },
         });
+        if (user?.id) _registerPushToken(user.id);
       } catch (userError: unknown) {
         const apiErr = userError as ApiError;
         if (apiErr?.statusCode === 401) {
@@ -140,11 +143,19 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     dispatch({ type: 'LOGOUT' });
   };
 
+  const _registerPushToken = async (userId: string) => {
+    try {
+      const token = await registerForPushNotificationsAsync();
+      if (token) await updatePushToken(userId, token);
+    } catch {}
+  };
+
   const login = async (credentials: IUserCredentials): Promise<void> => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const result = await authRepository.login(credentials);
       dispatch({ type: 'LOGIN_SUCCESS', payload: result });
+      if (result.user?.id) _registerPushToken(result.user.id);
     } catch (error) {
       const errorMessage = error instanceof ApiError
         ? error.message

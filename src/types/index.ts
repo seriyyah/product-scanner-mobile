@@ -18,7 +18,7 @@ export interface IUser {
   readonly preferences?: IUserPreferences;
 }
 
-export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'ai_premium' | 'admin';
+export type UserRole = 'guest' | 'free_user' | 'premium_user' | 'ai_premium' | 'admin' | 'super_admin';
 
 export interface IUserCredentials {
   readonly email: string;
@@ -257,6 +257,41 @@ export interface ScanHistory {
   total: number;
 }
 
+// Discovery (AI-powered marketplace) types
+export interface DiscoveryPrice {
+  price: number;
+  currency: string;
+  shop_name: string;
+  location_name: string;
+  distance_km?: number | null;
+}
+
+export interface DiscoveryAlternative {
+  barcode: string;
+  name: string;
+  safety_score: number;
+  grade: string;
+  similarity_score: number;
+  prices: DiscoveryPrice[];
+}
+
+export interface DiscoverySearchResult {
+  title: string;
+  url: string;
+  snippet: string;
+}
+
+export interface DiscoveryResult {
+  barcode: string;
+  product_name: string;
+  safety_score: number;
+  grade: string;
+  prices: DiscoveryPrice[];
+  alternatives: DiscoveryAlternative[];
+  search_results: DiscoverySearchResult[];
+  explanation: string;
+}
+
 export interface UserProfile {
   user_id: string;
   first_name?: string;
@@ -281,6 +316,8 @@ export type AuthStackParamList = {
   readonly Login: undefined;
   readonly Register: undefined;
   readonly ForgotPassword: undefined;
+  readonly VerifyEmail: { token?: string };
+  readonly ResetPassword: { token?: string };
 };
 
 export type MainTabParamList = {
