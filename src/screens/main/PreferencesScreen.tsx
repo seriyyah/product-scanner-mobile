@@ -14,7 +14,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
+import { useApp } from '@/contexts/AppContext';
 import { preferencesRepository, UserPreferences } from '@/services/apiService';
+import { SUPPORTED_LANGUAGES } from '@/i18n';
 
 const DIETARY_OPTIONS = [
   { key: 'vegan', label: 'Vegan' },
@@ -42,15 +44,12 @@ const ALLERGEN_OPTIONS = [
   { key: 'sulphites', label: 'Sulphites' },
 ];
 
-const CURRENCY_OPTIONS = ['CZK', 'EUR', 'USD'];
-const LANGUAGE_OPTIONS = [
-  { key: 'cs', label: 'Czech' },
-  { key: 'en', label: 'English' },
-];
+const CURRENCY_OPTIONS = ['CZK', 'EUR', 'USD', 'GBP', 'PLN', 'HUF', 'RON', 'SEK', 'DKK', 'NOK', 'CHF'];
 
 const PreferencesScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const { state } = useAuth();
+  const { setLanguage } = useApp();
   const userId = state.user?.id;
 
   const [prefs, setPrefs] = useState<UserPreferences | null>(null);
@@ -92,6 +91,7 @@ const PreferencesScreen: React.FC = () => {
       const updated = await preferencesRepository.update(userId, prefs);
       setPrefs(updated);
       setIsDirty(false);
+      if (prefs.language) setLanguage(prefs.language);
       Alert.alert('Saved', 'Your preferences have been updated.');
     } catch {
       Alert.alert('Error', 'Failed to save preferences. Please try again.');
@@ -178,40 +178,44 @@ const PreferencesScreen: React.FC = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>App Settings</Text>
 
-          <View style={styles.row}>
+          <View style={styles.colRow}>
             <Text style={styles.rowLabel}>Language</Text>
-            <View style={styles.segmented}>
-              {LANGUAGE_OPTIONS.map((lang) => (
-                <TouchableOpacity
-                  key={lang.key}
-                  style={[styles.segmentBtn, prefs.language === lang.key && styles.segmentBtnActive]}
-                  onPress={() => patch({ language: lang.key })}
-                  activeOpacity={0.8}
-                >
-                  <Text style={[styles.segmentText, prefs.language === lang.key && styles.segmentTextActive]}>
-                    {lang.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
+              <View style={styles.chipsRow}>
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <TouchableOpacity
+                    key={lang.code}
+                    style={[styles.segmentBtn, prefs.language === lang.code && styles.segmentBtnActive]}
+                    onPress={() => patch({ language: lang.code })}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.segmentText, prefs.language === lang.code && styles.segmentTextActive]}>
+                      {lang.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
 
-          <View style={styles.row}>
+          <View style={styles.colRow}>
             <Text style={styles.rowLabel}>Currency</Text>
-            <View style={styles.segmented}>
-              {CURRENCY_OPTIONS.map((cur) => (
-                <TouchableOpacity
-                  key={cur}
-                  style={[styles.segmentBtn, prefs.default_currency === cur && styles.segmentBtnActive]}
-                  onPress={() => patch({ default_currency: cur })}
-                  activeOpacity={0.8}
-                >
-                  <Text style={[styles.segmentText, prefs.default_currency === cur && styles.segmentTextActive]}>
-                    {cur}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
+              <View style={styles.chipsRow}>
+                {CURRENCY_OPTIONS.map((cur) => (
+                  <TouchableOpacity
+                    key={cur}
+                    style={[styles.segmentBtn, prefs.default_currency === cur && styles.segmentBtnActive]}
+                    onPress={() => patch({ default_currency: cur })}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.segmentText, prefs.default_currency === cur && styles.segmentTextActive]}>
+                      {cur}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
         </View>
 
@@ -290,10 +294,12 @@ const styles = StyleSheet.create({
   rowLabel: { fontSize: theme.typography.fontSizes.md, color: theme.colors.text },
   rowSub: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, marginTop: 2 },
   segmented: { flexDirection: 'row', borderRadius: 8, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border },
-  segmentBtn: { paddingHorizontal: 14, paddingVertical: 6, backgroundColor: theme.colors.background },
-  segmentBtnActive: { backgroundColor: theme.colors.primary },
+  segmentBtn: { paddingHorizontal: 14, paddingVertical: 6, backgroundColor: theme.colors.background, borderRadius: 8, borderWidth: 1, borderColor: theme.colors.border, marginRight: 6 },
+  segmentBtnActive: { backgroundColor: theme.colors.primary, borderColor: theme.colors.primary },
   segmentText: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary },
   segmentTextActive: { color: '#fff', fontWeight: '600' as const },
+  chipsRow: { flexDirection: 'row', paddingBottom: 4 },
+  colRow: { paddingVertical: theme.spacing.xs },
 });
 
 export default PreferencesScreen;

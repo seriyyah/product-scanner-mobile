@@ -11,6 +11,7 @@ import {
   ScanResult,
   ScanHistory,
   UserProfile,
+  DiscoveryResult,
 } from '@/types';
 
 // API Configuration
@@ -231,6 +232,10 @@ export class AuthRepository {
     });
   }
 
+  public async verifyEmail(token: string): Promise<{ message: string; success: boolean }> {
+    return this.apiClient.post<{ message: string; success: boolean }>('/api/v1/auth/verify-email', { token });
+  }
+
   public async isAuthenticated(): Promise<boolean> {
     const token = await storage.getItem('auth_token');
     return Boolean(token);
@@ -409,6 +414,57 @@ export class MarketplaceRepository {
   }
 }
 
+export interface CurrencyRates {
+  base: string;
+  rates: Record<string, number>;
+}
+
+export class DiscoveryRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async getDiscovery(
+    barcode: string,
+    lat?: number,
+    lng?: number,
+    currency?: string,
+    country?: string,
+  ): Promise<DiscoveryResult> {
+    const params: Record<string, unknown> = {};
+    if (lat !== undefined) params.lat = lat;
+    if (lng !== undefined) params.lng = lng;
+    if (currency) params.currency = currency;
+    if (country) params.country = country;
+    return this.apiClient.get<DiscoveryResult>(
+      `/api/v1/marketplace/discovery/${encodeURIComponent(barcode)}`,
+      params,
+    );
+  }
+
+  public async getCurrencyRates(): Promise<CurrencyRates> {
+    return this.apiClient.get<CurrencyRates>('/api/v1/marketplace/currency/rates');
+  }
+}
+
+export class BehaviorRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async track(
+    barcode: string,
+    interactionType: 'view' | 'click_alternative' | 'click_price' | 'click_search',
+    metadata?: Record<string, unknown>,
+  ): Promise<void> {
+    try {
+      await this.apiClient.post('/api/v1/marketplace/track', {
+        barcode,
+        interaction_type: interactionType,
+        metadata: metadata ?? {},
+      });
+    } catch {
+      // fire-and-forget — never block UX on tracking
+    }
+  }
+}
+
 // API Service Factory
 export class ApiServiceFactory {
   private static authRepo: AuthRepository;
@@ -419,6 +475,8 @@ export class ApiServiceFactory {
   private static mlRepo: MLRepository;
   private static marketplaceRepo: MarketplaceRepository;
   private static preferencesRepo: PreferencesRepository;
+  private static discoveryRepo: DiscoveryRepository;
+  private static behaviorRepo: BehaviorRepository;
 
   public static getAuthRepository(): AuthRepository {
     if (!this.authRepo) this.authRepo = new AuthRepository();
@@ -459,6 +517,16 @@ export class ApiServiceFactory {
     if (!this.preferencesRepo) this.preferencesRepo = new PreferencesRepository();
     return this.preferencesRepo;
   }
+
+  public static getDiscoveryRepository(): DiscoveryRepository {
+    if (!this.discoveryRepo) this.discoveryRepo = new DiscoveryRepository();
+    return this.discoveryRepo;
+  }
+
+  public static getBehaviorRepository(): BehaviorRepository {
+    if (!this.behaviorRepo) this.behaviorRepo = new BehaviorRepository();
+    return this.behaviorRepo;
+  }
 }
 
 // Export default instances for easy usage
@@ -470,3 +538,10 @@ export const subscriptionRepository = ApiServiceFactory.getSubscriptionRepositor
 export const mlRepository = ApiServiceFactory.getMLRepository();
 export const marketplaceRepository = ApiServiceFactory.getMarketplaceRepository();
 export const preferencesRepository = ApiServiceFactory.getPreferencesRepository();
+export const discoveryRepository = ApiServiceFactory.getDiscoveryRepository();
+export const behaviorRepository = ApiServiceFactory.getBehaviorRepository();
+
+export async function updatePushToken(userId: string, token: string): Promise<void> {
+  const client = BaseApiClient.getInstance();
+  await client.put(`/api/v2/users/${userId}/push-token`, { token });
+}
