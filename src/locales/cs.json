@@ -173,7 +173,19 @@
       "aiAlternatives": "Alternativy s umělou inteligencí",
       "priceComparison": "Porovnání cen",
       "priceAlerts": "Cenové upozornění"
-    }
+    },
+    "comingSoon": "Již brzy",
+    "comingSoonTitle": "Již brzy",
+    "comingSoonBody": "Předplatné bude brzy dostupné přes App Store a Google Play.",
+    "storeBillingNotice": "Předplatné je účtováno přes App Store nebo Google Play. Spravovat nebo zrušit můžete kdykoli ve svém účtu obchodu.",
+    "restore": "Obnovit nákupy",
+    "restoreTitle": "Obnovit nákupy",
+    "restoreDone": "Předchozí nákup byl obnoven.",
+    "restoreUnavailable": "Obnovení nákupů zatím není dostupné.",
+    "purchaseCompleteTitle": "Děkujeme",
+    "purchaseCompleteBody": "Vaše předplatné je aktivní. Může chvíli trvat, než se zobrazí.",
+    "purchaseFailedTitle": "Nákup není dostupný",
+    "purchaseFailedBody": "Obchod nemohl nákup dokončit. Zkuste to prosím později."
   },
   "grades": {
     "A": "Výborný",

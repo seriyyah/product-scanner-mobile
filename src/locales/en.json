@@ -169,7 +169,19 @@
       "aiAlternatives": "AI-powered alternatives",
       "priceComparison": "Price comparison",
       "priceAlerts": "Price alerts"
-    }
+    },
+    "comingSoon": "Coming soon",
+    "comingSoonTitle": "Coming soon",
+    "comingSoonBody": "Subscriptions will be available through the App Store and Google Play shortly.",
+    "storeBillingNotice": "Subscriptions are billed through the App Store or Google Play. Manage or cancel anytime in your store account.",
+    "restore": "Restore purchases",
+    "restoreTitle": "Restore purchases",
+    "restoreDone": "Any previous purchase has been restored.",
+    "restoreUnavailable": "Restoring purchases is not available yet.",
+    "purchaseCompleteTitle": "Thank you",
+    "purchaseCompleteBody": "Your subscription is active. It may take a moment to appear.",
+    "purchaseFailedTitle": "Purchase unavailable",
+    "purchaseFailedBody": "The store could not complete this purchase. Please try again later."
   },
   "grades": {
     "A": "Excellent",

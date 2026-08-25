@@ -37,6 +37,22 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
 
+jest.mock('../../../src/contexts/AppContext', () => ({
+  useApp: () => ({
+    location: null,
+    locationAsked: true,
+    locationLoaded: true,
+    setLocation: jest.fn(),
+    markLocationAsked: jest.fn(),
+    currencyRates: null,
+    convertPrice: (amount: number) => amount,
+    refreshRates: jest.fn(),
+    setLanguage: jest.fn(),
+  }),
+  AppProvider: ({ children }: any) => children,
+}));
+
+
 import RegisterScreen from '../../../src/screens/auth/RegisterScreen';
 
 describe('RegisterScreen', () => {

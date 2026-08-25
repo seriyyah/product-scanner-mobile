@@ -173,7 +173,19 @@
       "aiAlternatives": "Alternatywy AI",
       "priceComparison": "Porównanie cen",
       "priceAlerts": "Alerty cenowe"
-    }
+    },
+    "comingSoon": "Wkrótce",
+    "comingSoonTitle": "Wkrótce",
+    "comingSoonBody": "Subskrypcje będą wkrótce dostępne w App Store i Google Play.",
+    "storeBillingNotice": "Subskrypcje są rozliczane przez App Store lub Google Play. Możesz nimi zarządzać lub anulować w swoim koncie sklepu.",
+    "restore": "Przywróć zakupy",
+    "restoreTitle": "Przywróć zakupy",
+    "restoreDone": "Poprzednie zakupy zostały przywrócone.",
+    "restoreUnavailable": "Przywracanie zakupów nie jest jeszcze dostępne.",
+    "purchaseCompleteTitle": "Dziękujemy",
+    "purchaseCompleteBody": "Twoja subskrypcja jest aktywna. Może chwilę potrwać, zanim się pojawi.",
+    "purchaseFailedTitle": "Zakup niedostępny",
+    "purchaseFailedBody": "Sklep nie mógł zrealizować zakupu. Spróbuj ponownie później."
   },
   "grades": {
     "A": "Doskonały",

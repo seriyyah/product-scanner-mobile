@@ -7,6 +7,7 @@ import React, { createContext, useContext, useReducer, useEffect, ReactNode } fr
 import { storage } from '@/utils/storage';
 import { IAuthState, AuthAction, IUserCredentials, IUserRegistration } from '@/types';
 import { authRepository, ApiError } from '@/services/apiService';
+import { purchasesService } from '@/services/purchasesService';
 import { registerForPushNotificationsAsync } from '@/utils/usePushNotifications';
 import { updatePushToken } from '@/services/apiService';
 
@@ -100,7 +101,12 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
           type: 'LOGIN_SUCCESS',
           payload: { user, tokens: { accessToken: token, refreshToken: '' } },
         });
-        if (user?.id) _registerPushToken(user.id);
+        if (user?.id) {
+          _registerPushToken(user.id);
+          // RevenueCat must carry our user id or the purchase webhook
+          // cannot link the entitlement to this account.
+          void purchasesService.identify(user.id);
+        }
       } catch (userError: unknown) {
         const apiErr = userError as ApiError;
         if (apiErr?.statusCode === 401) {
@@ -155,7 +161,10 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     try {
       const result = await authRepository.login(credentials);
       dispatch({ type: 'LOGIN_SUCCESS', payload: result });
-      if (result.user?.id) _registerPushToken(result.user.id);
+      if (result.user?.id) {
+        _registerPushToken(result.user.id);
+        void purchasesService.identify(result.user.id);
+      }
     } catch (error) {
       const errorMessage = error instanceof ApiError
         ? error.message
@@ -182,6 +191,8 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const logout = async (): Promise<void> => {
     // Fire and forget — always clear local state
     authRepository.logout().catch(() => {});
+    // Detach the store account so the next user does not inherit entitlements.
+    void purchasesService.forgetUser();
     dispatch({ type: 'LOGOUT' });
   };
 

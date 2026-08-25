@@ -173,7 +173,19 @@
       "aiAlternatives": "AI-alternatívák",
       "priceComparison": "Árak összehasonlítása",
       "priceAlerts": "Ár-riasztások"
-    }
+    },
+    "comingSoon": "Hamarosan",
+    "comingSoonTitle": "Hamarosan",
+    "comingSoonBody": "Az előfizetések hamarosan elérhetők lesznek az App Store-ban és a Google Play-en.",
+    "storeBillingNotice": "Az előfizetéseket az App Store vagy a Google Play számlázza. Bármikor kezelheti vagy lemondhatja a fiókjában.",
+    "restore": "Vásárlások visszaállítása",
+    "restoreTitle": "Vásárlások visszaállítása",
+    "restoreDone": "A korábbi vásárlás visszaállt.",
+    "restoreUnavailable": "A visszaállítás még nem érhető el.",
+    "purchaseCompleteTitle": "Köszönjük",
+    "purchaseCompleteBody": "Az előfizetése aktív. Eltarthat egy pillanatig, míg megjelenik.",
+    "purchaseFailedTitle": "A vásárlás nem érhető el",
+    "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja újra később."
   },
   "grades": {
     "A": "Kiváló",

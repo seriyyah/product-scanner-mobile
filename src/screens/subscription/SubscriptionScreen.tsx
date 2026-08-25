@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   Alert,
-  Linking,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,6 +14,8 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
+import type { ProductCatalogue } from '@/services/apiService';
+import { purchasesService } from '@/services/purchasesService';
 import { subscriptionRepository, SubscriptionStatus } from '@/services/apiService';
 import { UserRole } from '@/types';
 
@@ -60,6 +62,8 @@ const SubscriptionScreen: React.FC = () => {
 
   const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionStatus | null>(null);
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
+  const [catalogue, setCatalogue] = useState<ProductCatalogue | null>(null);
+  const { t } = useTranslation();
   const [isLoadingStatus, setIsLoadingStatus] = useState(true);
 
   const loadStatus = useCallback(async () => {
@@ -77,24 +81,97 @@ const SubscriptionScreen: React.FC = () => {
     if (isFocused) loadStatus();
   }, [isFocused, loadStatus]);
 
+  useEffect(() => {
+    let cancelled = false;
+    // Presentational only: a missing or failing catalogue must never stop the
+    // paywall rendering, so this is guarded rather than assumed.
+    void Promise.resolve()
+      .then(() => subscriptionRepository.getProducts?.())
+      .then((result) => {
+        if (!cancelled && result) setCatalogue(result);
+      })
+      .catch(() => {
+        if (!cancelled) setCatalogue(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const currentTier = subscriptionStatus?.tier ?? (
     role === 'premium_user' ? 'premium' :
     role === 'ai_premium' ? 'ai_premium' : 'free'
   );
 
   const handleSubscribe = async (tier: 'premium' | 'ai_premium'): Promise<void> => {
+    // Subscriptions are sold through the App Store and Play Store, so there is no
+    // hosted checkout to open. Until the stores are configured the backend reports
+    // purchasable: false and this explains rather than fails.
+    if (!catalogue?.purchasable) {
+      Alert.alert(
+        t('subscription.comingSoonTitle', 'Coming soon'),
+        t(
+          'subscription.comingSoonBody',
+          'Subscriptions will be available through the App Store and Google Play shortly.',
+        ),
+      );
+      return;
+    }
     setLoadingTier(tier);
     try {
-      const session = await subscriptionRepository.createCheckout(tier, 'month', 'eur');
-      await Linking.openURL(session.checkout_url);
-    } catch (err: any) {
-      const msg = err?.message?.includes('503')
-        ? 'Payments are not available yet. Check back soon!'
-        : 'Could not start checkout. Please try again.';
-      Alert.alert('Checkout failed', msg);
+      // The store owns the payment sheet. Entitlement state is authoritative on the
+      // backend, which learns about the purchase from RevenueCat's webhook — so on
+      // success we re-read the subscription rather than trusting the client.
+      const entitlement = catalogue?.tiers?.[tier]?.entitlement ?? tier;
+      const packages = await purchasesService.getPackages();
+      const match =
+        packages.find((pkg) => pkg.identifier.includes(entitlement)) ?? packages[0];
+
+      if (!match) {
+        Alert.alert(
+          t('subscription.comingSoonTitle', 'Coming soon'),
+          t(
+            'subscription.comingSoonBody',
+            'Subscriptions will be available through the App Store and Google Play shortly.',
+          ),
+        );
+        return;
+      }
+
+      const outcome = await purchasesService.purchase(match.identifier);
+      if (outcome === 'purchased') {
+        await loadStatus();
+        Alert.alert(
+          t('subscription.purchaseCompleteTitle', 'Thank you'),
+          t(
+            'subscription.purchaseCompleteBody',
+            'Your subscription is active. It may take a moment to appear.',
+          ),
+        );
+      } else if (outcome === 'unavailable') {
+        Alert.alert(
+          t('subscription.purchaseFailedTitle', 'Purchase unavailable'),
+          t(
+            'subscription.purchaseFailedBody',
+            'The store could not complete this purchase. Please try again later.',
+          ),
+        );
+      }
+      // A cancelled purchase is a deliberate choice — say nothing.
     } finally {
       setLoadingTier(null);
     }
+  };
+
+  const handleRestore = async (): Promise<void> => {
+    const restored = await purchasesService.restore();
+    if (restored) await loadStatus();
+    Alert.alert(
+      t('subscription.restoreTitle', 'Restore purchases'),
+      restored
+        ? t('subscription.restoreDone', 'Any previous purchase has been restored.')
+        : t('subscription.restoreUnavailable', 'Restoring purchases is not available yet.'),
+    );
   };
 
   if (role === 'admin' || role === 'super_admin') {
@@ -187,7 +264,11 @@ const SubscriptionScreen: React.FC = () => {
                   {isLoading ? (
                     <ActivityIndicator size="small" color={theme.colors.text} />
                   ) : (
-                    <Text style={styles.upgradeButtonText}>Upgrade to {tier.title}</Text>
+                    <Text style={styles.upgradeButtonText}>
+                      {catalogue?.purchasable === false
+                        ? t('subscription.comingSoon', 'Coming soon')
+                        : `Upgrade to ${tier.title}`}
+                    </Text>
                   )}
                 </TouchableOpacity>
               ) : null}
@@ -195,9 +276,18 @@ const SubscriptionScreen: React.FC = () => {
           );
         })}
 
+        <TouchableOpacity onPress={handleRestore} activeOpacity={0.8}>
+          <Text style={styles.restoreLink}>
+            {t('subscription.restore', 'Restore purchases')}
+          </Text>
+        </TouchableOpacity>
+
         <Text style={styles.disclaimer}>
-          Payments processed securely by Stripe. Cancel anytime from your account settings.
-          {'\n'}Test mode active — use card 4242 4242 4242 4242.
+          {t(
+            'subscription.storeBillingNotice',
+            'Subscriptions are billed through the App Store or Google Play. '
+              + 'Manage or cancel anytime in your store account.',
+          )}
         </Text>
       </ScrollView>
     </SafeAreaView>
@@ -251,6 +341,12 @@ const styles = StyleSheet.create({
   },
   upgradeButtonLoading: { opacity: 0.7 },
   upgradeButtonText: { color: theme.colors.text, fontWeight: '700' as const, fontSize: theme.typography.fontSizes.md },
+  restoreLink: {
+    color: theme.colors.primary,
+    textAlign: 'center',
+    marginTop: theme.spacing.md,
+    fontSize: 14,
+  },
   disclaimer: {
     fontSize: 11, color: theme.colors.textLight, textAlign: 'center',
     marginTop: theme.spacing.md, lineHeight: 16,

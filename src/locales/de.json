@@ -173,7 +173,19 @@
       "aiAlternatives": "KI-gestützte Alternativen",
       "priceComparison": "Preisvergleich",
       "priceAlerts": "Preisalarme"
-    }
+    },
+    "comingSoon": "Demnächst",
+    "comingSoonTitle": "Demnächst verfügbar",
+    "comingSoonBody": "Abonnements sind in Kürze über den App Store und Google Play erhältlich.",
+    "storeBillingNotice": "Abonnements werden über den App Store oder Google Play abgerechnet. Verwaltung und Kündigung jederzeit in Ihrem Store-Konto.",
+    "restore": "Käufe wiederherstellen",
+    "restoreTitle": "Käufe wiederherstellen",
+    "restoreDone": "Frühere Käufe wurden wiederhergestellt.",
+    "restoreUnavailable": "Die Wiederherstellung ist noch nicht verfügbar.",
+    "purchaseCompleteTitle": "Vielen Dank",
+    "purchaseCompleteBody": "Ihr Abonnement ist aktiv. Es kann einen Moment dauern, bis es erscheint.",
+    "purchaseFailedTitle": "Kauf nicht möglich",
+    "purchaseFailedBody": "Der Store konnte den Kauf nicht abschließen. Bitte später erneut versuchen."
   },
   "grades": {
     "A": "Ausgezeichnet",

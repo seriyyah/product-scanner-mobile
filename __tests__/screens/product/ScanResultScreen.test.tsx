@@ -48,6 +48,40 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
 
+jest.mock('../../../src/contexts/AuthContext', () => ({
+  useAuth: () => ({
+    state: {
+      user: { id: 'user-123', email: 'test@test.com', first_name: 'Jane', role: 'free_user' },
+      isAuthenticated: true,
+      isLoading: false,
+      error: null,
+    },
+    login: jest.fn(),
+    logout: jest.fn(),
+    register: jest.fn(),
+    clearError: jest.fn(),
+    checkAuthStatus: jest.fn(),
+  }),
+  AuthProvider: ({ children }: any) => children,
+}));
+
+jest.mock('../../../src/contexts/AppContext', () => ({
+  useApp: () => ({
+    location: null,
+    locationAsked: true,
+    locationLoaded: true,
+    setLocation: jest.fn(),
+    markLocationAsked: jest.fn(),
+    currencyRates: null,
+    convertPrice: (amount: number) => amount,
+    refreshRates: jest.fn(),
+    setLanguage: jest.fn(),
+  }),
+  AppProvider: ({ children }: any) => children,
+}));
+
+
+
 import ScanResultScreen from '../../../src/screens/product/ScanResultScreen';
 
 describe('ScanResultScreen', () => {

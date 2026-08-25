@@ -298,12 +298,23 @@ export interface SubscriptionStatus {
   upgrade_url?: string;
 }
 
-export interface CheckoutSession {
-  checkout_url: string;
-  session_id: string;
-  tier: string;
-  interval: string;
-  currency: string;
+export interface StoreProductIds {
+  app_store: string;
+  play_store: string;
+}
+
+export interface StoreTier {
+  name: string;
+  description: string;
+  entitlement: string;
+  products: Record<string, StoreProductIds>;
+}
+
+export interface ProductCatalogue {
+  /** False until the stores and RevenueCat are configured — show "coming soon". */
+  purchasable: boolean;
+  status: 'available' | 'coming_soon';
+  tiers: Record<string, StoreTier>;
 }
 
 export class SubscriptionRepository {
@@ -313,18 +324,15 @@ export class SubscriptionRepository {
     return this.apiClient.get<SubscriptionStatus>('/api/v1/auth/subscription');
   }
 
-  public async createCheckout(
-    tier: 'premium' | 'ai_premium',
-    interval: 'month' | 'year' = 'month',
-    currency: 'usd' | 'eur' = 'eur',
-  ): Promise<CheckoutSession> {
-    return this.apiClient.post<CheckoutSession>('/api/v1/payments/stripe/checkout', {
-      tier,
-      interval,
-      currency,
-      success_url: 'https://productscanner.app/subscription/success',
-      cancel_url: 'https://productscanner.app/subscription/cancel',
-    });
+  /**
+   * Store product identifiers for the paywall.
+   *
+   * Subscriptions are sold through App Store and Play Store in-app purchases, so
+   * there is no hosted checkout to open. Until the stores are configured the
+   * backend reports purchasable: false and the paywall shows a coming-soon state.
+   */
+  public async getProducts(): Promise<ProductCatalogue> {
+    return this.apiClient.get<ProductCatalogue>('/api/v1/payments/products');
   }
 
   public async claimVideoReward(): Promise<{ granted: boolean; extra_scans: number; message: string }> {

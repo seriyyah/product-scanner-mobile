@@ -173,7 +173,19 @@
       "aiAlternatives": "Alternatives IA",
       "priceComparison": "Comparaison de prix",
       "priceAlerts": "Alertes de prix"
-    }
+    },
+    "comingSoon": "Bientôt disponible",
+    "comingSoonTitle": "Bientôt disponible",
+    "comingSoonBody": "Les abonnements seront bientôt disponibles via l’App Store et Google Play.",
+    "storeBillingNotice": "Les abonnements sont facturés via l’App Store ou Google Play. Gérez ou résiliez à tout moment depuis votre compte.",
+    "restore": "Restaurer les achats",
+    "restoreTitle": "Restaurer les achats",
+    "restoreDone": "Vos achats précédents ont été restaurés.",
+    "restoreUnavailable": "La restauration n’est pas encore disponible.",
+    "purchaseCompleteTitle": "Merci",
+    "purchaseCompleteBody": "Votre abonnement est actif. Son affichage peut prendre un instant.",
+    "purchaseFailedTitle": "Achat indisponible",
+    "purchaseFailedBody": "La boutique n’a pas pu finaliser cet achat. Réessayez plus tard."
   },
   "grades": {
     "A": "Excellent",

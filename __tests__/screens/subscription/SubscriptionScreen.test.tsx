@@ -31,15 +31,16 @@ jest.mock('react-native-safe-area-context', () => ({
 const mockGetStatus = jest.fn().mockResolvedValue({
   tier: 'free', is_active: true, features: [], upgrade_url: '/premium',
 });
-const mockCreateCheckout = jest.fn().mockResolvedValue({
-  checkout_url: 'https://checkout.stripe.com/test', session_id: 'sess_123',
-  tier: 'premium', interval: 'month', currency: 'EUR',
+const mockGetProducts = jest.fn().mockResolvedValue({
+  purchasable: false,
+  status: 'coming_soon',
+  tiers: {},
 });
 
 jest.mock('../../../src/services/apiService', () => ({
   subscriptionRepository: {
     getStatus: () => mockGetStatus(),
-    createCheckout: (...args: any[]) => mockCreateCheckout(...args),
+    getProducts: () => mockGetProducts(),
   },
   UserRole: {},
 }));
@@ -79,19 +80,27 @@ describe('SubscriptionScreen', () => {
     });
   });
 
-  it('calls checkout API and opens URL on upgrade tap', async () => {
-    const { getByText } = render(<SubscriptionScreen />);
-    await waitFor(() => getByText('Upgrade to Premium'));
-    fireEvent.press(getByText('Upgrade to Premium'));
-    await waitFor(() => {
-      expect(mockCreateCheckout).toHaveBeenCalledWith('premium', 'month', 'eur');
-      expect(Linking.openURL).toHaveBeenCalledWith('https://checkout.stripe.com/test');
-    });
+  it('shows a coming-soon label while store purchases are unavailable', async () => {
+    const { findAllByText } = render(<SubscriptionScreen />);
+    // The backend reports purchasable: false until the stores are configured.
+    expect((await findAllByText('Coming soon')).length).toBeGreaterThan(0);
   });
 
-  it('shows Stripe disclaimer', async () => {
-    const { getByText } = render(<SubscriptionScreen />);
-    await waitFor(() => expect(getByText(/Payments processed securely by Stripe/)).toBeTruthy());
+  it('offers the upgrade action once purchases are available', async () => {
+    mockGetProducts.mockResolvedValueOnce({
+      purchasable: true,
+      status: 'available',
+      tiers: {},
+    });
+    const { findByText } = render(<SubscriptionScreen />);
+    expect(await findByText('Upgrade to Premium')).toBeTruthy();
+  });
+
+  it('states that billing goes through the app stores', async () => {
+    const { findByText } = render(<SubscriptionScreen />);
+    expect(
+      await findByText(/billed through the App Store or Google Play/i),
+    ).toBeTruthy();
   });
 
   it('shows admin view for admin role', () => {

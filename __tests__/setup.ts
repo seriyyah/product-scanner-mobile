@@ -56,3 +56,36 @@ jest.mock('@react-navigation/native', () => {
     useIsFocused: () => true,
   };
 });
+
+// The screens were translated in "feat: i18n, GPS location, currency conversion"
+// but the tests still assert English copy, and jest never initialises i18next — so
+// every t() call rendered empty. Resolving against the real English resources keeps
+// those assertions meaningful and exercises the translation layer rather than a stub.
+jest.mock('react-i18next', () => {
+  const en = jest.requireActual('../src/locales/en.json');
+
+  const lookup = (key: string): string | undefined =>
+    key.split('.').reduce<any>((node, part) => (node == null ? undefined : node[part]), en);
+
+  const translate = (key: string, options?: any): string => {
+    const found = lookup(key);
+    const fallback =
+      typeof options === 'string' ? options : options?.defaultValue;
+    let result = typeof found === 'string' ? found : (fallback ?? key);
+    if (options && typeof options === 'object') {
+      for (const [name, value] of Object.entries(options)) {
+        result = result.split(`{{${name}}}`).join(String(value));
+      }
+    }
+    return result;
+  };
+
+  return {
+    useTranslation: () => ({
+      t: translate,
+      i18n: { language: 'en', changeLanguage: jest.fn() },
+    }),
+    initReactI18next: { type: '3rdParty', init: jest.fn() },
+    Trans: ({ children }: any) => children,
+  };
+});

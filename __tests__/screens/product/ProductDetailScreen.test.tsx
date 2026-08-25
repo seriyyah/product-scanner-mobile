@@ -55,6 +55,11 @@ jest.mock('../../../src/services/apiService', () => ({
   },
   marketplaceRepository: {
     getPrices: jest.fn().mockRejectedValue({ statusCode: 403 }),
+    getDiscovery: jest.fn().mockRejectedValue({ statusCode: 403 }),
+  },
+  // The screen records a 'view' interaction on mount.
+  behaviorRepository: {
+    track: jest.fn().mockResolvedValue(undefined),
   },
   ApiError: class ApiError extends Error {
     statusCode: number;
@@ -66,6 +71,22 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: ({ children }: any) => children,
   useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
+
+jest.mock('../../../src/contexts/AppContext', () => ({
+  useApp: () => ({
+    location: null,
+    locationAsked: true,
+    locationLoaded: true,
+    setLocation: jest.fn(),
+    markLocationAsked: jest.fn(),
+    currencyRates: null,
+    convertPrice: (amount: number) => amount,
+    refreshRates: jest.fn(),
+    setLanguage: jest.fn(),
+  }),
+  AppProvider: ({ children }: any) => children,
+}));
+
 
 import ProductDetailScreen from '../../../src/screens/product/ProductDetailScreen';
 import { scannerRepository } from '../../../src/services/apiService';
