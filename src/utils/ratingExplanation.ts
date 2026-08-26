@@ -9,13 +9,60 @@ export interface RatingReason {
   key: string;
   fallback: string;
   params?: Record<string, string | number>;
+  /**
+   * Translation keys the caller must resolve and join into `params[name]` before
+   * rendering — allergen names have to pass through t() themselves.
+   */
+  listKeys?: { param: string; keys: string[] };
+}
+
+export interface ServerWarning {
+  code: string;
+  severity: 'danger' | 'caution' | 'info';
+  text: string;
+  params?: Record<string, string | number>;
 }
 
 interface ExplainOptions {
   dataQuality?: string | null | undefined;
   /** False when the product had no ingredient list to analyse. */
   hasIngredients?: boolean | undefined;
+  /** Severity-tagged warnings from the rating service. */
+  warnings?: ServerWarning[] | undefined;
+  /** Plain warning strings, used only when no severity-tagged list is available. */
+  warningTexts?: string[] | undefined;
 }
+
+const SEVERITY_TONE: Record<ServerWarning['severity'], ReasonTone> = {
+  danger: 'negative',
+  caution: 'neutral',
+  info: 'unknown',
+};
+
+/**
+ * Warnings the breakdown already accounts for. Showing "NOVA group 4" as a
+ * component and "Ultra-processed food (NOVA Group 4)" as a warning turned one fact
+ * into two list items and made the screen read as though it were repeating itself.
+ */
+const WARNING_SUPERSEDES: Record<string, string> = {
+  ultra_processed: 'nova',
+  poor_nutrition: 'nutriscore',
+  allergens_declared: 'allergens',
+  // "Contains 1 additive(s) of concern" says less than "Contains Aspartame
+  // (E951), a high-risk additive", and saying both says it twice.
+  banned_additive: 'additives',
+  high_risk_additive: 'additives',
+};
+
+/**
+ * Allergen names arrive as Open Food Facts tags in the product's own language.
+ * They are a fixed, short list, so they resolve to translation keys; anything
+ * unrecognised passes through unchanged rather than being dropped.
+ */
+const allergenKey = (name: string): string => {
+  const slug = name.trim().toLowerCase().replace(/^[a-z]{2}:/, '').replace(/[^a-z]/g, '');
+  return slug ? `allergen.${slug}` : name;
+};
 
 const GOOD_GRADES = ['a', 'b'];
 const POOR_GRADES = ['d', 'e', 'f'];
@@ -28,11 +75,15 @@ const gradeTone = (grade?: string | null): ReasonTone => {
   return 'neutral';
 };
 
+/**
+ * Hazards first, then what we know, then what we don't. An unknown is the weakest
+ * kind of information and must not outrank a real finding either way.
+ */
 const TONE_ORDER: Record<ReasonTone, number> = {
   negative: 0,
-  unknown: 1,
-  neutral: 2,
-  positive: 3,
+  neutral: 1,
+  positive: 2,
+  unknown: 3,
 };
 
 /**
@@ -130,12 +181,51 @@ export const explainRating = (
   if (allergens?.found?.length) {
     reasons.push({
       id: 'allergens',
-      tone: 'negative',
+      // A caution, matching the rating service: a declared allergen matters a great
+      // deal to some readers and not at all to others, so it must not outrank a
+      // banned additive. The personalised score is what reacts to the user's own
+      // declared allergies.
+      tone: 'neutral',
       key: 'ratingReason.allergens.negative',
       fallback: 'Declares {{count}} allergen(s): {{list}}.',
-      params: { count: allergens.found.length, list: allergens.found.join(', ') },
+      params: {
+        count: allergens.found.length,
+        list: allergens.found.join(', '),
+      },
+      listKeys: { param: 'list', keys: allergens.found.map(allergenKey) },
     });
   }
+
+  // Server warnings carry their own severity and name specific hazards — a banned
+  // additive is more use to a reader than "additives: 9 total".
+  // Fall back to the plain list so a response without severities still shows its
+  // warnings; unclassified means caution, never a quiet note.
+  const warnings: ServerWarning[] = options.warnings?.length
+    ? options.warnings
+    : (options.warningTexts ?? []).map((text, index) => ({
+        code: `legacy_${index}`,
+        severity: 'caution' as const,
+        text,
+      }));
+  const superseded = new Set(
+    warnings.map((w) => WARNING_SUPERSEDES[w.code]).filter(Boolean) as string[],
+  );
+
+  const kept = reasons.filter((reason) => !superseded.has(reason.id));
+  kept.push(
+    ...warnings.map((warning) => ({
+      id: `warning:${warning.code}`,
+      tone: SEVERITY_TONE[warning.severity] ?? 'neutral',
+      key: `ratingWarning.${warning.code}`,
+      // The service always sends readable English, so an untranslated code still
+      // shows the real sentence rather than an identifier.
+      fallback: warning.text,
+      params: warning.params ?? {},
+    })),
+  );
+
+  reasons.length = 0;
+  reasons.push(...kept);
 
   reasons.sort((a, b) => TONE_ORDER[a.tone] - TONE_ORDER[b.tone]);
 

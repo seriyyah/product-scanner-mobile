@@ -39,7 +39,18 @@
     "firstNameMin": "Fornavnet skal have mindst 2 tegn",
     "lastNameMin": "Efternavnet skal have mindst 2 tegn",
     "loginError": "Login mislykkedes. Kontroller dine oplysninger.",
-    "registerSuccess": "Konto oprettet! Kontroller din e-mail for bekræftelse."
+    "registerSuccess": "Konto oprettet! Kontroller din e-mail for bekræftelse.",
+    "noAccountRegister": "Har du ikke en konto? Opret en med denne e-mail",
+    "passwordRules": "Adgangskoden skal indeholde:",
+    "resendFailed": "Kunne ikke anmode om en ny e-mail. Prøv igen.",
+    "resendPrompt": "Indtast den e-mail, du registrerede dig med",
+    "resendSent": "Hvis der findes en ubekræftet konto med den adresse, er en ny e-mail på vej.",
+    "resendVerification": "Send bekræftelsesmail igen",
+    "ruleDigit": "Et tal",
+    "ruleLength": "Mindst 12 tegn",
+    "ruleLowercase": "Et lille bogstav",
+    "ruleSpecial": "Et specialtegn (!@#$…)",
+    "ruleUppercase": "Et stort bogstav"
   },
   "onboarding": {
     "locationTitle": "Tillad placering",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Høj risiko: {{count}}",
     "novaGroup": "Gruppe {{group}}",
-    "total": "{{count}} i alt"
+    "total": "{{count}} i alt",
+    "estimatedRating": "Anslået vurdering — begrænsede produktdata tilgængelige",
+    "explanation": "AI-forklaring",
+    "from": "Fra {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Baseret på delvise data — nogle værdier udledt af ingredienslisten",
+    "whyThisRating": "Hvorfor denne vurdering"
   },
   "history": {
-    "title": "Historik",
+    "title": "Scanningshistorik",
     "noHistory": "Ingen scanningshistorik",
     "noHistoryBody": "Dine scannede produkter vises her",
-    "scanFirst": "Scan et produkt"
+    "scanFirst": "Scan et produkt",
+    "loadFailed": "Historikken kunne ikke indlæses.",
+    "tapToRetry": "Tryk for at prøve igen",
+    "limitTitle": "Timegrænse for scanninger nået",
+    "limitBody": "Du har brugt dine gratis scanninger for denne time. Din historik er gemt og er snart tilbage.",
+    "limitAction": "Se Premium"
   },
   "profile": {
     "title": "Profil",
@@ -173,7 +194,21 @@
       "aiAlternatives": "AI-alternativer",
       "priceComparison": "Prissammenligning",
       "priceAlerts": "Prisadvarsler"
-    }
+    },
+    "bestValue": "Bedste værdi",
+    "comingSoon": "Kommer snart",
+    "comingSoonBody": "Abonnementer bliver snart tilgængelige via App Store og Google Play.",
+    "comingSoonTitle": "Kommer snart",
+    "mostPopular": "Mest populære",
+    "purchaseCompleteBody": "Dit abonnement er aktivt. Det kan tage et øjeblik at vises.",
+    "purchaseCompleteTitle": "Tak",
+    "purchaseFailedBody": "Butikken kunne ikke gennemføre købet. Prøv igen senere.",
+    "purchaseFailedTitle": "Køb utilgængeligt",
+    "restore": "Gendan køb",
+    "restoreDone": "Tidligere køb er gendannet.",
+    "restoreTitle": "Gendan køb",
+    "restoreUnavailable": "Gendannelse af køb er ikke tilgængelig endnu.",
+    "storeBillingNotice": "Abonnementer faktureres via App Store eller Google Play. Administrer eller annuller når som helst i din butikskonto."
   },
   "grades": {
     "A": "Fremragende",
@@ -208,5 +243,68 @@
     "da": "Dansk",
     "fi": "Finsk",
     "el": "Græsk"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Ernæringskvaliteten er vurderet til {{grade}}.",
+      "neutral": "Ernæringskvaliteten er vurderet til {{grade}}.",
+      "negative": "Ernæringskvaliteten er vurderet til {{grade}}.",
+      "unknown": "Ernæringskvaliteten kunne ikke vurderes."
+    },
+    "nova": {
+      "positive": "Forarbejdningsgrad: NOVA-gruppe {{group}}.",
+      "neutral": "Forarbejdningsgrad: NOVA-gruppe {{group}}.",
+      "negative": "Forarbejdningsgrad: NOVA-gruppe {{group}}.",
+      "unknown": "Hvor forarbejdet dette produkt er, vides ikke."
+    },
+    "additives": {
+      "positive": "Der blev ikke fundet bekymrende tilsætningsstoffer.",
+      "neutral": "Indeholder {{total}} tilsætningsstoffer, ingen markeret som højrisiko.",
+      "negative": "Indeholder {{count}} bekymrende tilsætningsstoffer.",
+      "unknown": "Der var ingen ingrediensliste, så tilsætningsstoffer kunne ikke kontrolleres."
+    },
+    "eco": {
+      "positive": "Miljøpåvirkningen er vurderet til {{grade}}.",
+      "neutral": "Miljøpåvirkningen er vurderet til {{grade}}.",
+      "negative": "Miljøpåvirkningen er vurderet til {{grade}}.",
+      "unknown": "Der findes ingen miljødata for dette produkt."
+    },
+    "allergens": {
+      "negative": "Angiver {{count}} allergener: {{list}}."
+    },
+    "dataQuality": "Dette betyder ufuldstændige data og kan ændre sig."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultraforarbejdet fødevare (NOVA-gruppe 4), forbundet med øget risiko for kroniske sygdomme",
+    "banned_additive": "Indeholder {{name}} ({{code_ref}}), et tilsætningsstof forbudt i EU",
+    "high_risk_additive": "Indeholder {{name}} ({{code_ref}}), et højrisiko-tilsætningsstof",
+    "poor_nutrition": "Lav ernæringskvalitet (Nutri-Score {{grade}})",
+    "allergens_declared": "Angivne allergener: {{list}}",
+    "nutriscore_disagreement": "Den angivne Nutri-Score ({{declared}}) passer ikke til sammensætningen, som giver {{computed}}. Den laveste karakter vises.",
+    "limited_data": "Begrænsede produktdata — vurderingen er et skøn",
+    "derived_from_text": "Nogle værdier er udledt af ingredienslisten",
+    "nutriscore_computed": "Nutri-Score {{grade}} beregnet ud fra næringsindholdstabellen"
+  },
+  "nav": {
+    "home": "Hjem",
+    "scan": "Scan",
+    "history": "Historik",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "krebsdyr",
+    "eggs": "æg",
+    "fish": "fisk",
+    "peanuts": "jordnødder",
+    "soybeans": "soja",
+    "milk": "mælk",
+    "nuts": "nødder",
+    "celery": "selleri",
+    "mustard": "sennep",
+    "sesameseeds": "sesamfrø",
+    "sulphurdioxideandsulphites": "svovldioxid og sulfitter",
+    "lupin": "lupin",
+    "molluscs": "bløddyr"
   }
 }

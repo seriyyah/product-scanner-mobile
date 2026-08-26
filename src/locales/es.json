@@ -39,7 +39,18 @@
     "firstNameMin": "El nombre debe tener al menos 2 caracteres",
     "lastNameMin": "El apellido debe tener al menos 2 caracteres",
     "loginError": "Error al iniciar sesión. Verifique sus datos.",
-    "registerSuccess": "¡Cuenta creada! Revise su correo para verificación."
+    "registerSuccess": "¡Cuenta creada! Revise su correo para verificación.",
+    "noAccountRegister": "¿Aún no tienes cuenta? Crea una con este correo",
+    "passwordRules": "La contraseña debe contener:",
+    "resendFailed": "No se pudo solicitar un nuevo correo. Inténtalo de nuevo.",
+    "resendPrompt": "Introduce el correo con el que te registraste",
+    "resendSent": "Si esa dirección tiene una cuenta sin verificar, un nuevo correo está en camino.",
+    "resendVerification": "Reenviar correo de verificación",
+    "ruleDigit": "Un número",
+    "ruleLength": "Al menos 12 caracteres",
+    "ruleLowercase": "Una letra minúscula",
+    "ruleSpecial": "Un carácter especial (!@#$…)",
+    "ruleUppercase": "Una letra mayúscula"
   },
   "onboarding": {
     "locationTitle": "Permitir ubicación",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Alto riesgo: {{count}}",
     "novaGroup": "Grupo {{group}}",
-    "total": "{{count}} en total"
+    "total": "{{count}} en total",
+    "estimatedRating": "Valoración estimada — datos del producto limitados",
+    "explanation": "Explicación de IA",
+    "from": "Desde {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Basado en datos parciales — algunos valores derivados de los ingredientes",
+    "whyThisRating": "Por qué esta valoración"
   },
   "history": {
-    "title": "Historial",
+    "title": "Historial de escaneos",
     "noHistory": "Sin historial de escaneos",
     "noHistoryBody": "Sus productos escaneados aparecerán aquí",
-    "scanFirst": "Escanear un producto"
+    "scanFirst": "Escanear un producto",
+    "loadFailed": "No se pudo cargar tu historial.",
+    "tapToRetry": "Toca para reintentar",
+    "limitTitle": "Límite de escaneos por hora alcanzado",
+    "limitBody": "Has usado tus escaneos gratuitos de esta hora. Tu historial está a salvo y volverá pronto.",
+    "limitAction": "Ver Premium"
   },
   "profile": {
     "title": "Perfil",
@@ -173,7 +194,21 @@
       "aiAlternatives": "Alternativas IA",
       "priceComparison": "Comparación de precios",
       "priceAlerts": "Alertas de precio"
-    }
+    },
+    "bestValue": "Mejor valor",
+    "comingSoon": "Próximamente",
+    "comingSoonBody": "Las suscripciones estarán disponibles en breve a través de App Store y Google Play.",
+    "comingSoonTitle": "Próximamente",
+    "mostPopular": "Más popular",
+    "purchaseCompleteBody": "Tu suscripción está activa. Puede tardar un momento en aparecer.",
+    "purchaseCompleteTitle": "Gracias",
+    "purchaseFailedBody": "La tienda no pudo completar esta compra. Inténtalo más tarde.",
+    "purchaseFailedTitle": "Compra no disponible",
+    "restore": "Restaurar compras",
+    "restoreDone": "Se han restaurado las compras anteriores.",
+    "restoreTitle": "Restaurar compras",
+    "restoreUnavailable": "La restauración de compras aún no está disponible.",
+    "storeBillingNotice": "Las suscripciones se cobran a través de App Store o Google Play. Gestiona o cancela cuando quieras en tu cuenta de la tienda."
   },
   "grades": {
     "A": "Excelente",
@@ -208,5 +243,68 @@
     "da": "Danés",
     "fi": "Finlandés",
     "el": "Griego"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "La calidad nutricional está valorada como {{grade}}.",
+      "neutral": "La calidad nutricional está valorada como {{grade}}.",
+      "negative": "La calidad nutricional está valorada como {{grade}}.",
+      "unknown": "No se pudo evaluar la calidad nutricional."
+    },
+    "nova": {
+      "positive": "Nivel de procesado: grupo NOVA {{group}}.",
+      "neutral": "Nivel de procesado: grupo NOVA {{group}}.",
+      "negative": "Nivel de procesado: grupo NOVA {{group}}.",
+      "unknown": "No se sabe cuán procesado está este producto."
+    },
+    "additives": {
+      "positive": "No se encontraron aditivos preocupantes.",
+      "neutral": "Contiene {{total}} aditivos, ninguno de alto riesgo.",
+      "negative": "Contiene {{count}} aditivos preocupantes.",
+      "unknown": "No había lista de ingredientes, así que no se pudieron comprobar los aditivos."
+    },
+    "eco": {
+      "positive": "El impacto ambiental está valorado como {{grade}}.",
+      "neutral": "El impacto ambiental está valorado como {{grade}}.",
+      "negative": "El impacto ambiental está valorado como {{grade}}.",
+      "unknown": "No hay datos ambientales para este producto."
+    },
+    "allergens": {
+      "negative": "Declara {{count}} alérgenos: {{list}}."
+    },
+    "dataQuality": "Esta puntuación se basa en datos incompletos y puede cambiar."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Alimento ultraprocesado (grupo NOVA 4), asociado a mayor riesgo de enfermedades crónicas",
+    "banned_additive": "Contiene {{name}} ({{code_ref}}), un aditivo prohibido en la UE",
+    "high_risk_additive": "Contiene {{name}} ({{code_ref}}), un aditivo de alto riesgo",
+    "poor_nutrition": "Baja calidad nutricional (Nutri-Score {{grade}})",
+    "allergens_declared": "Alérgenos declarados: {{list}}",
+    "nutriscore_disagreement": "El Nutri-Score declarado ({{declared}}) no coincide con la composición, que da {{computed}}. Se muestra la nota más baja.",
+    "limited_data": "Datos del producto limitados — esta valoración es una estimación",
+    "derived_from_text": "Algunos valores se dedujeron de la lista de ingredientes",
+    "nutriscore_computed": "Nutri-Score {{grade}} calculado a partir de la tabla nutricional"
+  },
+  "nav": {
+    "home": "Inicio",
+    "scan": "Escanear",
+    "history": "Historial",
+    "profile": "Perfil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "crustáceos",
+    "eggs": "huevos",
+    "fish": "pescado",
+    "peanuts": "cacahuetes",
+    "soybeans": "soja",
+    "milk": "leche",
+    "nuts": "frutos de cáscara",
+    "celery": "apio",
+    "mustard": "mostaza",
+    "sesameseeds": "sésamo",
+    "sulphurdioxideandsulphites": "dióxido de azufre y sulfitos",
+    "lupin": "altramuces",
+    "molluscs": "moluscos"
   }
 }

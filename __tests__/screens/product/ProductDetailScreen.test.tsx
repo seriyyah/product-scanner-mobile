@@ -126,9 +126,12 @@ describe('ProductDetailScreen', () => {
     expect(mockScanBarcode).not.toHaveBeenCalled();
   });
 
-  it('shows warnings section', () => {
-    const { getByText } = render(<ProductDetailScreen />);
-    expect(getByText('Warnings')).toBeTruthy();
+  it('shows warnings inside the explanation rather than as a second list', () => {
+    // The separate red "Warnings" card repeated the breakdown and gave method
+    // notes the same alarming styling as a banned additive.
+    const { getByText, queryByText } = render(<ProductDetailScreen />);
+    expect(queryByText('Warnings')).toBeNull();
+    expect(getByText('Why this rating')).toBeTruthy();
     expect(getByText('High sugar')).toBeTruthy();
   });
 });

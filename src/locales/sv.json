@@ -39,7 +39,18 @@
     "firstNameMin": "Förnamnet måste ha minst 2 tecken",
     "lastNameMin": "Efternamnet måste ha minst 2 tecken",
     "loginError": "Inloggning misslyckades. Kontrollera dina uppgifter.",
-    "registerSuccess": "Konto skapat! Kontrollera din e-post för verifiering."
+    "registerSuccess": "Konto skapat! Kontrollera din e-post för verifiering.",
+    "noAccountRegister": "Har du inget konto? Skapa ett med den här e-postadressen",
+    "passwordRules": "Lösenordet måste innehålla:",
+    "resendFailed": "Kunde inte begära ett nytt e-postmeddelande. Försök igen.",
+    "resendPrompt": "Ange e-postadressen du registrerade dig med",
+    "resendSent": "Om adressen har ett overifierat konto är ett nytt meddelande på väg.",
+    "resendVerification": "Skicka verifieringsmejl igen",
+    "ruleDigit": "En siffra",
+    "ruleLength": "Minst 12 tecken",
+    "ruleLowercase": "En liten bokstav",
+    "ruleSpecial": "Ett specialtecken (!@#$…)",
+    "ruleUppercase": "En stor bokstav"
   },
   "onboarding": {
     "locationTitle": "Tillåt plats",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Hög risk: {{count}}",
     "novaGroup": "Grupp {{group}}",
-    "total": "{{count}} totalt"
+    "total": "{{count}} totalt",
+    "estimatedRating": "Uppskattat betyg — begränsade produktdata tillgängliga",
+    "explanation": "AI-förklaring",
+    "from": "Från {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Baserat på ofullständiga data — vissa värden härledda ur ingredienserna",
+    "whyThisRating": "Varför detta betyg"
   },
   "history": {
-    "title": "Historik",
+    "title": "Skanningshistorik",
     "noHistory": "Ingen skanningshistorik",
     "noHistoryBody": "Dina skannade produkter visas här",
-    "scanFirst": "Skanna en produkt"
+    "scanFirst": "Skanna en produkt",
+    "loadFailed": "Historiken kunde inte laddas.",
+    "tapToRetry": "Tryck för att försöka igen",
+    "limitTitle": "Timgräns för skanningar nådd",
+    "limitBody": "Du har använt dina gratis skanningar för den här timmen. Din historik är kvar och är snart tillbaka.",
+    "limitAction": "Se Premium"
   },
   "profile": {
     "title": "Profil",
@@ -173,7 +194,21 @@
       "aiAlternatives": "AI-alternativ",
       "priceComparison": "Prisjämförelse",
       "priceAlerts": "Prisaviseringar"
-    }
+    },
+    "bestValue": "Bäst värde",
+    "comingSoon": "Kommer snart",
+    "comingSoonBody": "Prenumerationer blir snart tillgängliga via App Store och Google Play.",
+    "comingSoonTitle": "Kommer snart",
+    "mostPopular": "Populärast",
+    "purchaseCompleteBody": "Din prenumeration är aktiv. Det kan ta ett ögonblick innan den visas.",
+    "purchaseCompleteTitle": "Tack",
+    "purchaseFailedBody": "Butiken kunde inte slutföra köpet. Försök igen senare.",
+    "purchaseFailedTitle": "Köp ej tillgängligt",
+    "restore": "Återställ köp",
+    "restoreDone": "Tidigare köp har återställts.",
+    "restoreTitle": "Återställ köp",
+    "restoreUnavailable": "Återställning av köp är inte tillgängligt ännu.",
+    "storeBillingNotice": "Prenumerationer faktureras via App Store eller Google Play. Hantera eller avsluta när som helst i ditt butikskonto."
   },
   "grades": {
     "A": "Utmärkt",
@@ -208,5 +243,68 @@
     "da": "Danska",
     "fi": "Finska",
     "el": "Grekiska"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Näringskvaliteten är bedömd till {{grade}}.",
+      "neutral": "Näringskvaliteten är bedömd till {{grade}}.",
+      "negative": "Näringskvaliteten är bedömd till {{grade}}.",
+      "unknown": "Näringskvaliteten kunde inte bedömas."
+    },
+    "nova": {
+      "positive": "Bearbetningsgrad: NOVA-grupp {{group}}.",
+      "neutral": "Bearbetningsgrad: NOVA-grupp {{group}}.",
+      "negative": "Bearbetningsgrad: NOVA-grupp {{group}}.",
+      "unknown": "Hur bearbetad denna produkt är vet vi inte."
+    },
+    "additives": {
+      "positive": "Inga oroande tillsatser hittades.",
+      "neutral": "Innehåller {{total}} tillsatser, ingen med hög risk.",
+      "negative": "Innehåller {{count}} oroande tillsatser.",
+      "unknown": "Ingen ingredienslista fanns, så tillsatser kunde inte kontrolleras."
+    },
+    "eco": {
+      "positive": "Miljöpåverkan är bedömd till {{grade}}.",
+      "neutral": "Miljöpåverkan är bedömd till {{grade}}.",
+      "negative": "Miljöpåverkan är bedömd till {{grade}}.",
+      "unknown": "Det finns inga miljödata för denna produkt."
+    },
+    "allergens": {
+      "negative": "Anger {{count}} allergener: {{list}}."
+    },
+    "dataQuality": "Detta betyg bygger på ofullständiga data och kan ändras."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultraprocessad livsmedelsprodukt (NOVA-grupp 4), kopplad till högre risk för kroniska sjukdomar",
+    "banned_additive": "Innehåller {{name}} ({{code_ref}}), en tillsats som är förbjuden i EU",
+    "high_risk_additive": "Innehåller {{name}} ({{code_ref}}), en tillsats med hög risk",
+    "poor_nutrition": "Låg näringskvalitet (Nutri-Score {{grade}})",
+    "allergens_declared": "Angivna allergener: {{list}}",
+    "nutriscore_disagreement": "Det angivna Nutri-Score ({{declared}}) stämmer inte med sammansättningen, som ger {{computed}}. Det lägre betyget visas.",
+    "limited_data": "Begränsade produktdata — detta betyg är en uppskattning",
+    "derived_from_text": "Vissa värden härleddes ur ingredienslistan",
+    "nutriscore_computed": "Nutri-Score {{grade}} beräknat från näringstabellen"
+  },
+  "nav": {
+    "home": "Hem",
+    "scan": "Skanna",
+    "history": "Historik",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "kräftdjur",
+    "eggs": "ägg",
+    "fish": "fisk",
+    "peanuts": "jordnötter",
+    "soybeans": "soja",
+    "milk": "mjölk",
+    "nuts": "nötter",
+    "celery": "selleri",
+    "mustard": "senap",
+    "sesameseeds": "sesamfrön",
+    "sulphurdioxideandsulphites": "svaveldioxid och sulfiter",
+    "lupin": "lupin",
+    "molluscs": "blötdjur"
   }
 }

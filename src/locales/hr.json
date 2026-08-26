@@ -39,7 +39,18 @@
     "firstNameMin": "Ime mora imati najmanje 2 znaka",
     "lastNameMin": "Prezime mora imati najmanje 2 znaka",
     "loginError": "Prijava nije uspjela. Provjerite podatke.",
-    "registerSuccess": "Račun stvoren! Provjerite e-poštu za potvrdu."
+    "registerSuccess": "Račun stvoren! Provjerite e-poštu za potvrdu.",
+    "noAccountRegister": "Još nemate račun? Otvorite ga s ovom e-poštom",
+    "passwordRules": "Lozinka mora sadržavati:",
+    "resendFailed": "Nije bilo moguće zatražiti novu poruku. Pokušajte ponovno.",
+    "resendPrompt": "Unesite e-poštu kojom ste se registrirali",
+    "resendSent": "Ako za tu adresu postoji nepotvrđeni račun, nova poruka je na putu.",
+    "resendVerification": "Ponovno pošalji poruku za potvrdu",
+    "ruleDigit": "Broj",
+    "ruleLength": "Najmanje 12 znakova",
+    "ruleLowercase": "Malo slovo",
+    "ruleSpecial": "Poseban znak (!@#$…)",
+    "ruleUppercase": "Veliko slovo"
   },
   "onboarding": {
     "locationTitle": "Dopusti lokaciju",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Visoki rizik: {{count}}",
     "novaGroup": "Skupina {{group}}",
-    "total": "{{count}} ukupno"
+    "total": "{{count}} ukupno",
+    "estimatedRating": "Procijenjena ocjena — dostupni su ograničeni podaci",
+    "explanation": "AI objašnjenje",
+    "from": "Od {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Na temelju djelomičnih podataka — neke vrijednosti izvedene iz sastojaka",
+    "whyThisRating": "Zašto ova ocjena"
   },
   "history": {
-    "title": "Povijest",
+    "title": "Povijest skeniranja",
     "noHistory": "Nema povijesti skeniranja",
     "noHistoryBody": "Vaši skenirani proizvodi pojavit će se ovdje",
-    "scanFirst": "Skenirajte proizvod"
+    "scanFirst": "Skenirajte proizvod",
+    "loadFailed": "Povijest nije bilo moguće učitati.",
+    "tapToRetry": "Dodirnite za ponovni pokušaj",
+    "limitTitle": "Dosegnut satni limit skeniranja",
+    "limitBody": "Iskoristili ste besplatna skeniranja za ovaj sat. Vaša je povijest sigurna i uskoro se vraća.",
+    "limitAction": "Pogledaj Premium"
   },
   "profile": {
     "title": "Profil",
@@ -173,7 +194,21 @@
       "aiAlternatives": "AI alternative",
       "priceComparison": "Usporedba cijena",
       "priceAlerts": "Upozorenja o cijenama"
-    }
+    },
+    "bestValue": "Najbolja vrijednost",
+    "comingSoon": "Uskoro",
+    "comingSoonBody": "Pretplate će uskoro biti dostupne putem App Storea i Google Playa.",
+    "comingSoonTitle": "Uskoro",
+    "mostPopular": "Najpopularnije",
+    "purchaseCompleteBody": "Vaša je pretplata aktivna. Prikaz može potrajati trenutak.",
+    "purchaseCompleteTitle": "Hvala",
+    "purchaseFailedBody": "Trgovina nije mogla dovršiti kupnju. Pokušajte kasnije.",
+    "purchaseFailedTitle": "Kupnja nije dostupna",
+    "restore": "Vrati kupnje",
+    "restoreDone": "Prethodne kupnje su vraćene.",
+    "restoreTitle": "Vrati kupnje",
+    "restoreUnavailable": "Vraćanje kupnji još nije dostupno.",
+    "storeBillingNotice": "Pretplate se naplaćuju putem App Storea ili Google Playa. Upravljajte ili otkažite bilo kada u svom računu trgovine."
   },
   "grades": {
     "A": "Odličan",
@@ -208,5 +243,68 @@
     "da": "Danski",
     "fi": "Finski",
     "el": "Grčki"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Nutritivna kvaliteta ocijenjena je {{grade}}.",
+      "neutral": "Nutritivna kvaliteta ocijenjena je {{grade}}.",
+      "negative": "Nutritivna kvaliteta ocijenjena je {{grade}}.",
+      "unknown": "Nutritivnu kvalitetu nije bilo moguće procijeniti."
+    },
+    "nova": {
+      "positive": "Stupanj prerade: NOVA skupina {{group}}.",
+      "neutral": "Stupanj prerade: NOVA skupina {{group}}.",
+      "negative": "Stupanj prerade: NOVA skupina {{group}}.",
+      "unknown": "Nije poznato koliko je ovaj proizvod prerađen."
+    },
+    "additives": {
+      "positive": "Nisu pronađeni zabrinjavajući aditivi.",
+      "neutral": "Sadrži {{total}} aditiva, nijedan visokorizičan.",
+      "negative": "Sadrži {{count}} zabrinjavajućih aditiva.",
+      "unknown": "Nije bilo popisa sastojaka pa aditivi nisu provjereni."
+    },
+    "eco": {
+      "positive": "Utjecaj na okoliš ocijenjen je {{grade}}.",
+      "neutral": "Utjecaj na okoliš ocijenjen je {{grade}}.",
+      "negative": "Utjecaj na okoliš ocijenjen je {{grade}}.",
+      "unknown": "Za ovaj proizvod nema podataka o okolišu."
+    },
+    "allergens": {
+      "negative": "Navodi {{count}} alergena: {{list}}."
+    },
+    "dataQuality": "Ocjena se temelji na nepotpunim podacima i može se promijeniti."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultraprerađena hrana (NOVA skupina 4), povezana s višim rizikom od kroničnih bolesti",
+    "banned_additive": "Sadrži {{name}} ({{code_ref}}), aditiv zabranjen u EU",
+    "high_risk_additive": "Sadrži {{name}} ({{code_ref}}), visokorizični aditiv",
+    "poor_nutrition": "Niska nutritivna kvaliteta (Nutri-Score {{grade}})",
+    "allergens_declared": "Navedeni alergeni: {{list}}",
+    "nutriscore_disagreement": "Navedeni Nutri-Score ({{declared}}) ne odgovara sastavu, koji daje {{computed}}. Prikazana je niža ocjena.",
+    "limited_data": "Ograničeni podaci o proizvodu — ocjena je procjena",
+    "derived_from_text": "Neke vrijednosti izvedene su iz popisa sastojaka",
+    "nutriscore_computed": "Nutri-Score {{grade}} izračunat iz nutritivne tablice"
+  },
+  "nav": {
+    "home": "Početna",
+    "scan": "Skeniraj",
+    "history": "Povijest",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "rakovi",
+    "eggs": "jaja",
+    "fish": "riba",
+    "peanuts": "kikiriki",
+    "soybeans": "soja",
+    "milk": "mlijeko",
+    "nuts": "orašasti plodovi",
+    "celery": "celer",
+    "mustard": "gorušica",
+    "sesameseeds": "sezam",
+    "sulphurdioxideandsulphites": "sumporov dioksid i sulfiti",
+    "lupin": "lupina",
+    "molluscs": "mekušci"
   }
 }

@@ -18,6 +18,7 @@ import theme from '@/constants/theme';
 import { MainStackParamList, RatingBreakdown } from '@/types';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
+import { ingredientList } from '@/utils/ingredientLocale';
 import { countryFromLang } from '@/utils/countryFromLang';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
@@ -44,6 +45,20 @@ const REASON_ICON: Record<ReasonTone, keyof typeof Ionicons.glyphMap> = {
   neutral: 'remove-circle',
   negative: 'alert-circle',
   unknown: 'help-circle',
+};
+
+/** Resolves the translation keys a reason carries, such as allergen names. */
+const useResolveParams = () => {
+  const { t } = useTranslation();
+  return (reason: { params?: Record<string, string | number>; listKeys?: { param: string; keys: string[] } }) => {
+    const params = { ...(reason.params ?? {}) };
+    if (reason.listKeys) {
+      params[reason.listKeys.param] = reason.listKeys.keys
+        .map((key) => t(key, { defaultValue: key.replace(/^allergen\./, '') }))
+        .join(', ');
+    }
+    return params;
+  };
 };
 
 const reasonColor = (tone: ReasonTone): string => {
@@ -142,10 +157,14 @@ const ScanResultScreen: React.FC = () => {
   const reasons = explainRating(rating_breakdown, {
     dataQuality: scanResult.data_quality,
     hasIngredients: Boolean(product?.ingredients_text),
+    warnings: scanResult.warning_details,
+    warningTexts: scanResult.warnings,
   });
+  // Read in the user's language, not whichever one the record was entered in.
+  const ingredients = ingredientList(product ?? {}, i18n.language);
+  const resolveParams = useResolveParams();
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
-  const warnings: string[] = scanResult.warnings ?? [];
   const scoreColor = gradeColor(safety_grade);
 
   const [showAllIngredients, setShowAllIngredients] = useState(false);
@@ -167,7 +186,8 @@ const ScanResultScreen: React.FC = () => {
       {rb.nutriscore && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nutriscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade ?? '') }]}>
+            <Text style={styles.breakdownWeight}>{weightLabel(rb.nutriscore.weight)}</Text>
+          <View style={[styles.gradeChip, { backgroundColor: rb.nutriscore.grade ? gradeColor(rb.nutriscore.grade) : theme.colors.textSecondary }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
           <Text style={styles.breakdownScore}>{(rb.nutriscore.score ?? 0).toFixed(0)}</Text>
@@ -176,6 +196,7 @@ const ScanResultScreen: React.FC = () => {
       {rb.nova_group && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nova')}</Text>
+            <Text style={styles.breakdownWeight}>{weightLabel(rb.nova_group.weight)}</Text>
           <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova_group.group ?? '?' })}</Text>
           <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova_group.group}`, { defaultValue: novaLabel(rb.nova_group.group ?? 0) })}</Text>
         </View>
@@ -183,6 +204,7 @@ const ScanResultScreen: React.FC = () => {
       {rb.additives && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.additives')}</Text>
+            <Text style={styles.breakdownWeight}>{weightLabel(rb.additives.weight)}</Text>
           <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.total_count })}</Text>
           <Text style={[styles.breakdownMeta, (rb.additives.high_risk?.length ?? 0) > 0 && styles.riskText]}>
             {t('product.highRisk', { count: rb.additives.high_risk?.length ?? 0 })}
@@ -192,7 +214,8 @@ const ScanResultScreen: React.FC = () => {
       {rb.eco_score && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.ecoscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.eco_score.grade ?? '') }]}>
+            <Text style={styles.breakdownWeight}>{weightLabel(rb.eco_score.weight)}</Text>
+          <View style={[styles.gradeChip, { backgroundColor: rb.eco_score.grade ? gradeColor(rb.eco_score.grade) : theme.colors.textSecondary }]}>
             <Text style={styles.gradeChipText}>{rb.eco_score.grade?.toUpperCase() || '?'}</Text>
           </View>
           <Text style={styles.breakdownScore}>{(rb.eco_score.score ?? 0).toFixed(0)}</Text>
@@ -417,21 +440,8 @@ const ScanResultScreen: React.FC = () => {
                   style={styles.reasonIcon}
                 />
                 <Text style={styles.reasonText}>
-                  {t(reason.key, { ...(reason.params ?? {}), defaultValue: reason.fallback })}
+                  {t(reason.key, { ...resolveParams(reason), defaultValue: reason.fallback })}
                 </Text>
-              </View>
-            ))}
-          </View>
-        )}
-
-        {/* Warnings */}
-        {warnings.length > 0 && (
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>{t('product.warnings')}</Text>
-            {warnings.map((w, i) => (
-              <View key={i} style={styles.warningChip}>
-                <Ionicons name="warning" size={14} color={theme.colors.error} />
-                <Text style={styles.warningText}>{w}</Text>
               </View>
             ))}
           </View>
@@ -484,19 +494,19 @@ const ScanResultScreen: React.FC = () => {
         )}
 
         {/* Ingredients */}
-        {(product.ingredients ?? []).length > 0 && (
+        {ingredients.length > 0 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>{t('product.ingredients')}</Text>
             {(showAllIngredients
-              ? (product.ingredients ?? [])
-              : (product.ingredients ?? []).slice(0, INGREDIENT_PREVIEW)
+              ? ingredients
+              : ingredients.slice(0, INGREDIENT_PREVIEW)
             ).map((ing, i) => (
               <Text key={i} style={styles.ingredientText}>• {ing}</Text>
             ))}
-            {(product.ingredients ?? []).length > INGREDIENT_PREVIEW && (
+            {ingredients.length > INGREDIENT_PREVIEW && (
               <TouchableOpacity onPress={() => setShowAllIngredients((v) => !v)} activeOpacity={0.8} style={styles.showMoreButton}>
                 <Text style={styles.showMoreText}>
-                  {showAllIngredients ? t('product.showLess') : t('product.showAll', { count: product.ingredients.length })}
+                  {showAllIngredients ? t('product.showLess') : t('product.showAll', { count: ingredients.length })}
                 </Text>
               </TouchableOpacity>
             )}
@@ -553,6 +563,11 @@ const ScanResultScreen: React.FC = () => {
   );
 };
 
+/** Each component counts for a share of the overall score; showing it is what
+ *  stops a B on one row under a D overall from reading as a contradiction. */
+const weightLabel = (weight?: number): string =>
+  weight ? `${Math.round(weight * 100)}%` : '';
+
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: theme.colors.background },
   researchingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: theme.spacing.xl, gap: theme.spacing.lg },
@@ -583,6 +598,7 @@ const styles = StyleSheet.create({
   warningChip: { flexDirection: 'row', alignItems: 'center', backgroundColor: theme.colors.error + '22', borderRadius: theme.borderRadius.medium, paddingHorizontal: theme.spacing.sm, paddingVertical: 6, marginBottom: theme.spacing.xs, gap: theme.spacing.xs },
   warningText: { color: theme.colors.error, fontSize: theme.typography.fontSizes.sm, flex: 1 },
   breakdownRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: theme.spacing.sm, borderBottomWidth: 1, borderBottomColor: theme.colors.border, gap: theme.spacing.sm },
+  breakdownWeight: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, marginLeft: 6 },
   breakdownLabel: { width: 90, fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary },
   breakdownValue: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.text, fontWeight: '500' as const },
   breakdownScore: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.text, fontWeight: '500' as const },

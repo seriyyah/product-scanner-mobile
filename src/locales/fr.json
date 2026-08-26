@@ -42,7 +42,7 @@
     "registerSuccess": "Compte créé ! Vérifiez votre e-mail pour la confirmation.",
     "resendVerification": "Renvoyer l'e-mail de vérification",
     "resendPrompt": "Saisissez l'e-mail utilisé lors de l'inscription",
-    "resendSent": "Si un compte non vérifié existe pour cette adresse, l'e-mail est en route.",
+    "resendSent": "Si un compte non vérifié existe pour cette adresse, un nouvel e-mail est en route.",
     "resendFailed": "Impossible de demander un nouvel e-mail. Veuillez réessayer.",
     "passwordRules": "Le mot de passe doit contenir :",
     "ruleLength": "Au moins 12 caractères",
@@ -137,13 +137,22 @@
     "highRisk": "Risque élevé : {{count}}",
     "novaGroup": "Groupe {{group}}",
     "total": "{{count}} au total",
-    "whyThisRating": "Pourquoi cette note"
+    "whyThisRating": "Pourquoi cette note",
+    "estimatedRating": "Note estimée — données produit limitées",
+    "explanation": "Explication IA",
+    "from": "À partir de {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Basé sur des données partielles — certaines valeurs déduites des ingrédients"
   },
   "history": {
-    "title": "Historique",
+    "title": "Historique des scans",
     "noHistory": "Aucun historique de scan",
     "noHistoryBody": "Vos produits scannés apparaîtront ici",
-    "scanFirst": "Scanner un produit"
+    "scanFirst": "Scanner un produit",
+    "loadFailed": "L'historique n'a pas pu être chargé.",
+    "tapToRetry": "Appuyez pour réessayer",
+    "limitTitle": "Limite horaire de scans atteinte",
+    "limitBody": "Vous avez utilisé vos scans gratuits pour cette heure. Votre historique est conservé et reviendra bientôt.",
+    "limitAction": "Voir Premium"
   },
   "profile": {
     "title": "Profil",
@@ -188,12 +197,12 @@
     },
     "comingSoon": "Bientôt disponible",
     "comingSoonTitle": "Bientôt disponible",
-    "comingSoonBody": "Les abonnements seront bientôt disponibles via l’App Store et Google Play.",
-    "storeBillingNotice": "Les abonnements sont facturés via l’App Store ou Google Play. Gérez ou résiliez à tout moment depuis votre compte.",
+    "comingSoonBody": "Les abonnements seront bientôt disponibles via l'App Store et Google Play.",
+    "storeBillingNotice": "Les abonnements sont facturés via l'App Store ou Google Play. Gérez ou annulez à tout moment dans votre compte.",
     "restore": "Restaurer les achats",
     "restoreTitle": "Restaurer les achats",
-    "restoreDone": "Vos achats précédents ont été restaurés.",
-    "restoreUnavailable": "La restauration n’est pas encore disponible.",
+    "restoreDone": "Les achats précédents ont été restaurés.",
+    "restoreUnavailable": "La restauration des achats n’est pas encore disponible.",
     "purchaseCompleteTitle": "Merci",
     "purchaseCompleteBody": "Votre abonnement est actif. Son affichage peut prendre un instant.",
     "purchaseFailedTitle": "Achat indisponible",
@@ -264,5 +273,38 @@
       "negative": "Déclare {{count}} allergène(s) : {{list}}."
     },
     "dataQuality": "Cette note repose sur des données incomplètes et peut évoluer."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Aliment ultra-transformé (groupe NOVA 4), associé à un risque accru de maladies chroniques",
+    "banned_additive": "Contient {{name}} ({{code_ref}}), un additif interdit dans l'UE",
+    "high_risk_additive": "Contient {{name}} ({{code_ref}}), un additif à haut risque",
+    "poor_nutrition": "Faible qualité nutritionnelle (Nutri-Score {{grade}})",
+    "allergens_declared": "Allergènes déclarés : {{list}}",
+    "nutriscore_disagreement": "Le Nutri-Score déclaré ({{declared}}) ne correspond pas à la composition, qui donne {{computed}}. La note la plus basse est affichée.",
+    "limited_data": "Données produit limitées — cette note est une estimation",
+    "derived_from_text": "Certaines valeurs ont été déduites de la liste des ingrédients",
+    "nutriscore_computed": "Nutri-Score {{grade}} calculé à partir du tableau nutritionnel"
+  },
+  "nav": {
+    "home": "Accueil",
+    "scan": "Scanner",
+    "history": "Historique",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "crustacés",
+    "eggs": "œufs",
+    "fish": "poisson",
+    "peanuts": "arachides",
+    "soybeans": "soja",
+    "milk": "lait",
+    "nuts": "fruits à coque",
+    "celery": "céleri",
+    "mustard": "moutarde",
+    "sesameseeds": "sésame",
+    "sulphurdioxideandsulphites": "anhydride sulfureux et sulfites",
+    "lupin": "lupin",
+    "molluscs": "mollusques"
   }
 }

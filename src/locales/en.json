@@ -141,10 +141,15 @@
     "whyThisRating": "Why this rating"
   },
   "history": {
-    "title": "History",
+    "title": "Scan History",
     "noHistory": "No scan history yet",
     "noHistoryBody": "Your scanned products will appear here",
-    "scanFirst": "Scan a product"
+    "scanFirst": "Scan a product",
+    "loadFailed": "Could not load your history.",
+    "tapToRetry": "Tap to retry",
+    "limitTitle": "Hourly scan limit reached",
+    "limitBody": "You have used your free scans for this hour. Your history is safe — it will be back shortly.",
+    "limitAction": "See Premium"
   },
   "profile": {
     "title": "Profile",
@@ -265,5 +270,38 @@
       "negative": "Declares {{count}} allergen(s): {{list}}."
     },
     "dataQuality": "This score is based on incomplete data and may change as more is found."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultra-processed food (NOVA group 4), linked to higher chronic disease risk",
+    "banned_additive": "Contains {{name}} ({{code_ref}}), an additive banned in the EU",
+    "high_risk_additive": "Contains {{name}} ({{code_ref}}), a high-risk additive",
+    "poor_nutrition": "Low nutritional quality (Nutri-Score {{grade}})",
+    "allergens_declared": "Declared allergens: {{list}}",
+    "nutriscore_disagreement": "The declared Nutri-Score ({{declared}}) does not match the composition, which computes to {{computed}}. The lower grade is shown.",
+    "limited_data": "Limited product data — this rating is an estimate",
+    "derived_from_text": "Some values were derived from the ingredient list",
+    "nutriscore_computed": "Nutri-Score {{grade}} calculated from the nutrition table"
+  },
+  "nav": {
+    "home": "Home",
+    "scan": "Scan",
+    "history": "History",
+    "profile": "Profile"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "crustaceans",
+    "eggs": "eggs",
+    "fish": "fish",
+    "peanuts": "peanuts",
+    "soybeans": "soybeans",
+    "milk": "milk",
+    "nuts": "nuts",
+    "celery": "celery",
+    "mustard": "mustard",
+    "sesameseeds": "sesameseeds",
+    "sulphurdioxideandsulphites": "sulphurdioxideandsulphites",
+    "lupin": "lupin",
+    "molluscs": "molluscs"
   }
 }

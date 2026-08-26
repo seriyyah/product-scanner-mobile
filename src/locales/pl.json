@@ -40,10 +40,10 @@
     "lastNameMin": "Nazwisko musi mieć co najmniej 2 znaki",
     "loginError": "Logowanie nie powiodło się. Sprawdź swoje dane.",
     "registerSuccess": "Konto utworzone! Sprawdź e-mail w celu weryfikacji.",
-    "resendVerification": "Wyślij ponownie e-mail weryfikacyjny",
+    "resendVerification": "Wyślij ponownie wiadomość weryfikacyjną",
     "resendPrompt": "Podaj adres e-mail użyty przy rejestracji",
-    "resendSent": "Jeśli do tego adresu należy niezweryfikowane konto, e-mail jest w drodze.",
-    "resendFailed": "Nie udało się wysłać nowego e-maila. Spróbuj ponownie.",
+    "resendSent": "Jeśli do tego adresu należy niezweryfikowane konto, nowa wiadomość jest w drodze.",
+    "resendFailed": "Nie udało się poprosić o nową wiadomość. Spróbuj ponownie.",
     "passwordRules": "Hasło musi zawierać:",
     "ruleLength": "Co najmniej 12 znaków",
     "ruleUppercase": "Wielką literę",
@@ -137,13 +137,22 @@
     "highRisk": "Wysokie ryzyko: {{count}}",
     "novaGroup": "Grupa {{group}}",
     "total": "{{count}} łącznie",
-    "whyThisRating": "Dlaczego taka ocena"
+    "whyThisRating": "Dlaczego taka ocena",
+    "estimatedRating": "Ocena szacunkowa — dostępne ograniczone dane",
+    "explanation": "Wyjaśnienie AI",
+    "from": "Od {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Na podstawie częściowych danych — niektóre wartości wywnioskowane ze składu"
   },
   "history": {
-    "title": "Historia",
+    "title": "Historia skanów",
     "noHistory": "Brak historii skanów",
     "noHistoryBody": "Twoje zeskanowane produkty pojawią się tutaj",
-    "scanFirst": "Zeskanuj produkt"
+    "scanFirst": "Zeskanuj produkt",
+    "loadFailed": "Nie udało się wczytać historii.",
+    "tapToRetry": "Dotknij, aby spróbować ponownie",
+    "limitTitle": "Osiągnięto godzinny limit skanów",
+    "limitBody": "Wykorzystałeś darmowe skany w tej godzinie. Twoja historia jest bezpieczna i wkrótce wróci.",
+    "limitAction": "Zobacz Premium"
   },
   "profile": {
     "title": "Profil",
@@ -189,7 +198,7 @@
     "comingSoon": "Wkrótce",
     "comingSoonTitle": "Wkrótce",
     "comingSoonBody": "Subskrypcje będą wkrótce dostępne w App Store i Google Play.",
-    "storeBillingNotice": "Subskrypcje są rozliczane przez App Store lub Google Play. Możesz nimi zarządzać lub anulować w swoim koncie sklepu.",
+    "storeBillingNotice": "Subskrypcje są rozliczane przez App Store lub Google Play. Zarządzaj lub anuluj w dowolnym momencie na koncie sklepu.",
     "restore": "Przywróć zakupy",
     "restoreTitle": "Przywróć zakupy",
     "restoreDone": "Poprzednie zakupy zostały przywrócone.",
@@ -197,7 +206,7 @@
     "purchaseCompleteTitle": "Dziękujemy",
     "purchaseCompleteBody": "Twoja subskrypcja jest aktywna. Może chwilę potrwać, zanim się pojawi.",
     "purchaseFailedTitle": "Zakup niedostępny",
-    "purchaseFailedBody": "Sklep nie mógł zrealizować zakupu. Spróbuj ponownie później.",
+    "purchaseFailedBody": "Sklep nie mógł dokończyć tego zakupu. Spróbuj później.",
     "mostPopular": "Najpopularniejszy",
     "bestValue": "Najlepsza wartość"
   },
@@ -264,5 +273,38 @@
       "negative": "Deklaruje {{count}} alergenów: {{list}}."
     },
     "dataQuality": "Ta ocena opiera się na niepełnych danych i może się zmienić."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Żywność wysoko przetworzona (grupa NOVA 4), wiązana z wyższym ryzykiem chorób przewlekłych",
+    "banned_additive": "Zawiera {{name}} ({{code_ref}}), dodatek zakazany w UE",
+    "high_risk_additive": "Zawiera {{name}} ({{code_ref}}), dodatek wysokiego ryzyka",
+    "poor_nutrition": "Niska jakość odżywcza (Nutri-Score {{grade}})",
+    "allergens_declared": "Deklarowane alergeny: {{list}}",
+    "nutriscore_disagreement": "Deklarowany Nutri-Score ({{declared}}) nie odpowiada składowi, z którego wychodzi {{computed}}. Pokazano niższą ocenę.",
+    "limited_data": "Ograniczone dane o produkcie — ocena jest szacunkowa",
+    "derived_from_text": "Niektóre wartości wywnioskowano ze składu",
+    "nutriscore_computed": "Nutri-Score {{grade}} obliczony z tabeli wartości odżywczych"
+  },
+  "nav": {
+    "home": "Start",
+    "scan": "Skanuj",
+    "history": "Historia",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "skorupiaki",
+    "eggs": "jaja",
+    "fish": "ryby",
+    "peanuts": "orzeszki ziemne",
+    "soybeans": "soja",
+    "milk": "mleko",
+    "nuts": "orzechy",
+    "celery": "seler",
+    "mustard": "gorczyca",
+    "sesameseeds": "sezam",
+    "sulphurdioxideandsulphites": "dwutlenek siarki i siarczyny",
+    "lupin": "łubin",
+    "molluscs": "mięczaki"
   }
 }

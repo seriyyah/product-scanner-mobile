@@ -39,7 +39,18 @@
     "firstNameMin": "Prenumele trebuie să aibă cel puțin 2 caractere",
     "lastNameMin": "Numele de familie trebuie să aibă cel puțin 2 caractere",
     "loginError": "Autentificare eșuată. Verificați datele.",
-    "registerSuccess": "Cont creat! Verificați e-mailul pentru confirmare."
+    "registerSuccess": "Cont creat! Verificați e-mailul pentru confirmare.",
+    "noAccountRegister": "Încă nu aveți cont? Creați unul cu acest email",
+    "passwordRules": "Parola trebuie să conțină:",
+    "resendFailed": "Nu am putut solicita un email nou. Încercați din nou.",
+    "resendPrompt": "Introduceți emailul cu care v-ați înregistrat",
+    "resendSent": "Dacă există un cont neconfirmat pentru această adresă, un email nou este pe drum.",
+    "resendVerification": "Retrimite emailul de verificare",
+    "ruleDigit": "O cifră",
+    "ruleLength": "Cel puțin 12 caractere",
+    "ruleLowercase": "O literă mică",
+    "ruleSpecial": "Un caracter special (!@#$…)",
+    "ruleUppercase": "O literă mare"
   },
   "onboarding": {
     "locationTitle": "Permite localizarea",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Risc ridicat: {{count}}",
     "novaGroup": "Grupa {{group}}",
-    "total": "{{count}} total"
+    "total": "{{count}} total",
+    "estimatedRating": "Evaluare estimată — date limitate despre produs",
+    "explanation": "Explicație AI",
+    "from": "De la {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Pe baza unor date parțiale — unele valori deduse din ingrediente",
+    "whyThisRating": "De ce această evaluare"
   },
   "history": {
-    "title": "Istoric",
+    "title": "Istoric scanări",
     "noHistory": "Niciun istoric de scanări",
     "noHistoryBody": "Produsele scanate vor apărea aici",
-    "scanFirst": "Scanați un produs"
+    "scanFirst": "Scanați un produs",
+    "loadFailed": "Istoricul nu a putut fi încărcat.",
+    "tapToRetry": "Atingeți pentru a reîncerca",
+    "limitTitle": "Limita orară de scanări atinsă",
+    "limitBody": "Ați folosit scanările gratuite pentru această oră. Istoricul este în siguranță și va reveni în curând.",
+    "limitAction": "Vedeți Premium"
   },
   "profile": {
     "title": "Profil",
@@ -173,7 +194,21 @@
       "aiAlternatives": "Alternative AI",
       "priceComparison": "Comparare prețuri",
       "priceAlerts": "Alerte de preț"
-    }
+    },
+    "bestValue": "Cel mai bun raport",
+    "comingSoon": "În curând",
+    "comingSoonBody": "Abonamentele vor fi disponibile în curând prin App Store și Google Play.",
+    "comingSoonTitle": "În curând",
+    "mostPopular": "Cel mai popular",
+    "purchaseCompleteBody": "Abonamentul dvs. este activ. Poate dura un moment până apare.",
+    "purchaseCompleteTitle": "Vă mulțumim",
+    "purchaseFailedBody": "Magazinul nu a putut finaliza această achiziție. Încercați mai târziu.",
+    "purchaseFailedTitle": "Achiziție indisponibilă",
+    "restore": "Restaurați achizițiile",
+    "restoreDone": "Achizițiile anterioare au fost restaurate.",
+    "restoreTitle": "Restaurați achizițiile",
+    "restoreUnavailable": "Restaurarea achizițiilor nu este încă disponibilă.",
+    "storeBillingNotice": "Abonamentele sunt facturate prin App Store sau Google Play. Gestionați sau anulați oricând din contul dvs."
   },
   "grades": {
     "A": "Excelent",
@@ -208,5 +243,68 @@
     "da": "Daneză",
     "fi": "Finlandeză",
     "el": "Greacă"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Calitatea nutrițională este evaluată cu {{grade}}.",
+      "neutral": "Calitatea nutrițională este evaluată cu {{grade}}.",
+      "negative": "Calitatea nutrițională este evaluată cu {{grade}}.",
+      "unknown": "Calitatea nutrițională nu a putut fi evaluată."
+    },
+    "nova": {
+      "positive": "Nivel de procesare: grupa NOVA {{group}}.",
+      "neutral": "Nivel de procesare: grupa NOVA {{group}}.",
+      "negative": "Nivel de procesare: grupa NOVA {{group}}.",
+      "unknown": "Nu se știe cât de procesat este acest produs."
+    },
+    "additives": {
+      "positive": "Nu au fost găsiți aditivi îngrijorători.",
+      "neutral": "Conține {{total}} aditivi, niciunul cu risc ridicat.",
+      "negative": "Conține {{count}} aditivi îngrijorători.",
+      "unknown": "Nu a existat o listă de ingrediente, deci aditivii nu au putut fi verificați."
+    },
+    "eco": {
+      "positive": "Impactul asupra mediului este evaluat cu {{grade}}.",
+      "neutral": "Impactul asupra mediului este evaluat cu {{grade}}.",
+      "negative": "Impactul asupra mediului este evaluat cu {{grade}}.",
+      "unknown": "Nu există date de mediu pentru acest produs."
+    },
+    "allergens": {
+      "negative": "Declară {{count}} alergeni: {{list}}."
+    },
+    "dataQuality": "Acest scor se bazează pe date incomplete și se poate schimba."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Aliment ultraprocesat (grupa NOVA 4), asociat cu un risc mai mare de boli cronice",
+    "banned_additive": "Conține {{name}} ({{code_ref}}), un aditiv interzis în UE",
+    "high_risk_additive": "Conține {{name}} ({{code_ref}}), un aditiv cu risc ridicat",
+    "poor_nutrition": "Calitate nutrițională scăzută (Nutri-Score {{grade}})",
+    "allergens_declared": "Alergeni declarați: {{list}}",
+    "nutriscore_disagreement": "Nutri-Score declarat ({{declared}}) nu corespunde compoziției, care dă {{computed}}. Este afișată nota mai mică.",
+    "limited_data": "Date limitate despre produs — această evaluare este o estimare",
+    "derived_from_text": "Unele valori au fost deduse din lista de ingrediente",
+    "nutriscore_computed": "Nutri-Score {{grade}} calculat din tabelul nutrițional"
+  },
+  "nav": {
+    "home": "Acasă",
+    "scan": "Scanează",
+    "history": "Istoric",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "crustacee",
+    "eggs": "ouă",
+    "fish": "pește",
+    "peanuts": "arahide",
+    "soybeans": "soia",
+    "milk": "lapte",
+    "nuts": "fructe cu coajă",
+    "celery": "țelină",
+    "mustard": "muștar",
+    "sesameseeds": "susan",
+    "sulphurdioxideandsulphites": "dioxid de sulf și sulfiți",
+    "lupin": "lupin",
+    "molluscs": "moluște"
   }
 }

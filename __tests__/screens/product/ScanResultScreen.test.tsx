@@ -112,9 +112,12 @@ describe('ScanResultScreen', () => {
     expect(getByText(/Grade B — Good/)).toBeTruthy();
   });
 
-  it('shows warnings section', () => {
-    const { getByText } = render(<ScanResultScreen />);
-    expect(getByText('Warnings')).toBeTruthy();
+  it('shows warnings inside the explanation rather than as a second list', () => {
+    // A separate "Warnings" card repeated what the breakdown already said, and
+    // rendered method notes in the same red as real hazards.
+    const { getByText, queryByText } = render(<ScanResultScreen />);
+    expect(queryByText('Warnings')).toBeNull();
+    expect(getByText('Why this rating')).toBeTruthy();
     expect(getByText('Contains added sugars')).toBeTruthy();
   });
 

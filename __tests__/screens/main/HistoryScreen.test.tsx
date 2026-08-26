@@ -80,8 +80,19 @@ describe('HistoryScreen', () => {
   it('shows error state on API failure', async () => {
     mockGetHistory.mockRejectedValueOnce(new Error('Network error'));
     const { findByText } = render(<HistoryScreen />);
-    const error = await findByText('Failed to load history. Tap to retry.');
-    expect(error).toBeTruthy();
+    expect(await findByText('Could not load your history.')).toBeTruthy();
+    expect(await findByText('Tap to retry')).toBeTruthy();
+  });
+
+  it('explains a spent scan quota instead of reporting a failure', async () => {
+    // The history endpoint used to sit under the rate-limited scan prefix, so a
+    // free user who used their 20 scans saw "Failed to load history. Tap to retry."
+    // Retrying could not help, and their history was never actually lost.
+    mockGetHistory.mockRejectedValueOnce(Object.assign(new Error('rate limited'), { statusCode: 429 }));
+    const { findByText, queryByText } = render(<HistoryScreen />);
+    expect(await findByText('Hourly scan limit reached')).toBeTruthy();
+    expect(queryByText('Could not load your history.')).toBeNull();
+    expect(queryByText('Tap to retry')).toBeNull();
   });
 
   it('navigates to ProductDetail on item press', async () => {

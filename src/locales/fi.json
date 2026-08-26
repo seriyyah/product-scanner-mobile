@@ -39,7 +39,18 @@
     "firstNameMin": "Etunimessä on oltava vähintään 2 merkkiä",
     "lastNameMin": "Sukunimessä on oltava vähintään 2 merkkiä",
     "loginError": "Kirjautuminen epäonnistui. Tarkista tietosi.",
-    "registerSuccess": "Tili luotu! Tarkista sähköpostisi vahvistusta varten."
+    "registerSuccess": "Tili luotu! Tarkista sähköpostisi vahvistusta varten.",
+    "noAccountRegister": "Eikö sinulla ole tiliä? Luo se tällä sähköpostilla",
+    "passwordRules": "Salasanan on sisällettävä:",
+    "resendFailed": "Uutta viestiä ei voitu pyytää. Yritä uudelleen.",
+    "resendPrompt": "Anna sähköposti, jolla rekisteröidyit",
+    "resendSent": "Jos osoitteella on vahvistamaton tili, uusi viesti on matkalla.",
+    "resendVerification": "Lähetä vahvistusviesti uudelleen",
+    "ruleDigit": "Numero",
+    "ruleLength": "Vähintään 12 merkkiä",
+    "ruleLowercase": "Pieni kirjain",
+    "ruleSpecial": "Erikoismerkki (!@#$…)",
+    "ruleUppercase": "Iso kirjain"
   },
   "onboarding": {
     "locationTitle": "Salli sijainti",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Korkea riski: {{count}}",
     "novaGroup": "Ryhmä {{group}}",
-    "total": "{{count}} yhteensä"
+    "total": "{{count}} yhteensä",
+    "estimatedRating": "Arvioitu luokitus — tuotetietoja rajallisesti",
+    "explanation": "Tekoälyn selitys",
+    "from": "Alkaen {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Perustuu osittaisiin tietoihin — osa arvoista johdettu ainesosista",
+    "whyThisRating": "Miksi tämä luokitus"
   },
   "history": {
-    "title": "Historia",
+    "title": "Skannaushistoria",
     "noHistory": "Ei skannaushistoriaa",
     "noHistoryBody": "Skannatut tuotteesi näkyvät tässä",
-    "scanFirst": "Skannaa tuote"
+    "scanFirst": "Skannaa tuote",
+    "loadFailed": "Historiaa ei voitu ladata.",
+    "tapToRetry": "Yritä uudelleen napauttamalla",
+    "limitTitle": "Tunnin skannausraja saavutettu",
+    "limitBody": "Olet käyttänyt tämän tunnin ilmaiset skannaukset. Historiasi on tallessa ja palaa pian.",
+    "limitAction": "Katso Premium"
   },
   "profile": {
     "title": "Profiili",
@@ -173,7 +194,21 @@
       "aiAlternatives": "Tekoälyvaihtoehdot",
       "priceComparison": "Hintavertailu",
       "priceAlerts": "Hintahälytykset"
-    }
+    },
+    "bestValue": "Paras arvo",
+    "comingSoon": "Tulossa pian",
+    "comingSoonBody": "Tilaukset ovat pian saatavilla App Storen ja Google Playn kautta.",
+    "comingSoonTitle": "Tulossa pian",
+    "mostPopular": "Suosituin",
+    "purchaseCompleteBody": "Tilauksesi on aktiivinen. Sen näkyminen voi kestää hetken.",
+    "purchaseCompleteTitle": "Kiitos",
+    "purchaseFailedBody": "Kauppa ei voinut viimeistellä ostosta. Yritä myöhemmin uudelleen.",
+    "purchaseFailedTitle": "Osto ei ole käytettävissä",
+    "restore": "Palauta ostokset",
+    "restoreDone": "Aiemmat ostokset on palautettu.",
+    "restoreTitle": "Palauta ostokset",
+    "restoreUnavailable": "Ostosten palauttaminen ei ole vielä käytettävissä.",
+    "storeBillingNotice": "Tilaukset laskutetaan App Storen tai Google Playn kautta. Hallinnoi tai peru milloin tahansa kauppatilissäsi."
   },
   "grades": {
     "A": "Erinomainen",
@@ -208,5 +243,68 @@
     "da": "Tanska",
     "fi": "Suomi",
     "el": "Kreikka"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Ravitsemuksellinen laatu on luokiteltu {{grade}}.",
+      "neutral": "Ravitsemuksellinen laatu on luokiteltu {{grade}}.",
+      "negative": "Ravitsemuksellinen laatu on luokiteltu {{grade}}.",
+      "unknown": "Ravitsemuksellista laatua ei voitu arvioida."
+    },
+    "nova": {
+      "positive": "Prosessointiaste: NOVA-ryhmä {{group}}.",
+      "neutral": "Prosessointiaste: NOVA-ryhmä {{group}}.",
+      "negative": "Prosessointiaste: NOVA-ryhmä {{group}}.",
+      "unknown": "Ei tiedetä, kuinka prosessoitu tämä tuote on."
+    },
+    "additives": {
+      "positive": "Huolestuttavia lisäaineita ei löytynyt.",
+      "neutral": "Sisältää {{total}} lisäainetta, ei korkean riskin aineita.",
+      "negative": "Sisältää {{count}} huolestuttavaa lisäainetta.",
+      "unknown": "Ainesosaluetteloa ei ollut, joten lisäaineita ei voitu tarkistaa."
+    },
+    "eco": {
+      "positive": "Ympäristövaikutus on luokiteltu {{grade}}.",
+      "neutral": "Ympäristövaikutus on luokiteltu {{grade}}.",
+      "negative": "Ympäristövaikutus on luokiteltu {{grade}}.",
+      "unknown": "Tälle tuotteelle ei ole ympäristötietoja."
+    },
+    "allergens": {
+      "negative": "Ilmoittaa {{count}} allergeenia: {{list}}."
+    },
+    "dataQuality": "Tämä arvio perustuu puutteellisiin tietoihin ja voi muuttua."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Erittäin pitkälle prosessoitu elintarvike (NOVA-ryhmä 4), yhdistetty suurempaan kroonisten sairauksien riskiin",
+    "banned_additive": "Sisältää {{name}} ({{code_ref}}), EU:ssa kielletyn lisäaineen",
+    "high_risk_additive": "Sisältää {{name}} ({{code_ref}}), korkean riskin lisäaineen",
+    "poor_nutrition": "Heikko ravitsemuksellinen laatu (Nutri-Score {{grade}})",
+    "allergens_declared": "Ilmoitetut allergeenit: {{list}}",
+    "nutriscore_disagreement": "Ilmoitettu Nutri-Score ({{declared}}) ei vastaa koostumusta, josta tulee {{computed}}. Alempi arvosana näytetään.",
+    "limited_data": "Rajalliset tuotetiedot — tämä arvio on suuntaa antava",
+    "derived_from_text": "Osa arvoista johdettiin ainesosaluettelosta",
+    "nutriscore_computed": "Nutri-Score {{grade}} laskettu ravintosisältötaulukosta"
+  },
+  "nav": {
+    "home": "Koti",
+    "scan": "Skannaa",
+    "history": "Historia",
+    "profile": "Profiili"
+  },
+  "allergen": {
+    "gluten": "gluteeni",
+    "crustaceans": "äyriäiset",
+    "eggs": "kananmunat",
+    "fish": "kala",
+    "peanuts": "maapähkinät",
+    "soybeans": "soija",
+    "milk": "maito",
+    "nuts": "pähkinät",
+    "celery": "selleri",
+    "mustard": "sinappi",
+    "sesameseeds": "seesaminsiemenet",
+    "sulphurdioxideandsulphites": "rikkidioksidi ja sulfiitit",
+    "lupin": "lupiini",
+    "molluscs": "nilviäiset"
   }
 }

@@ -1,6 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import { deviceLanguage } from '@/utils/deviceLanguage';
+
 import en from '@/locales/en.json';
 import cs from '@/locales/cs.json';
 import sk from '@/locales/sk.json';
@@ -62,7 +64,9 @@ i18n.use(initReactI18next).init({
     fi: { translation: fi },
     el: { translation: el },
   },
-  lng: 'en',
+  // Open in the phone's language. A stored preference, restored by AppContext on
+  // mount, overrides this — an explicit choice always beats the device setting.
+  lng: deviceLanguage(),
   fallbackLng: 'en',
   interpolation: { escapeValue: false },
   compatibilityJSON: 'v4',

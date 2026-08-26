@@ -39,7 +39,18 @@
     "firstNameMin": "Voornaam moet minimaal 2 tekens hebben",
     "lastNameMin": "Achternaam moet minimaal 2 tekens hebben",
     "loginError": "Inloggen mislukt. Controleer uw gegevens.",
-    "registerSuccess": "Account aangemaakt! Controleer uw e-mail voor verificatie."
+    "registerSuccess": "Account aangemaakt! Controleer uw e-mail voor verificatie.",
+    "noAccountRegister": "Nog geen account? Maak er een met dit e-mailadres",
+    "passwordRules": "Het wachtwoord moet bevatten:",
+    "resendFailed": "Kon geen nieuwe e-mail aanvragen. Probeer het opnieuw.",
+    "resendPrompt": "Voer het e-mailadres in waarmee u zich hebt geregistreerd",
+    "resendSent": "Als er een niet-geverifieerd account bij dat adres hoort, is een nieuwe e-mail onderweg.",
+    "resendVerification": "Verificatie-e-mail opnieuw versturen",
+    "ruleDigit": "Een cijfer",
+    "ruleLength": "Minstens 12 tekens",
+    "ruleLowercase": "Een kleine letter",
+    "ruleSpecial": "Een speciaal teken (!@#$…)",
+    "ruleUppercase": "Een hoofdletter"
   },
   "onboarding": {
     "locationTitle": "Locatie toestaan",
@@ -125,13 +136,23 @@
     "ecoscore": "EcoScore",
     "highRisk": "Hoog risico: {{count}}",
     "novaGroup": "Groep {{group}}",
-    "total": "{{count}} totaal"
+    "total": "{{count}} totaal",
+    "estimatedRating": "Geschatte beoordeling — beperkte productgegevens beschikbaar",
+    "explanation": "AI-uitleg",
+    "from": "Vanaf {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Gebaseerd op gedeeltelijke gegevens — sommige waarden afgeleid uit de ingrediënten",
+    "whyThisRating": "Waarom deze beoordeling"
   },
   "history": {
-    "title": "Geschiedenis",
+    "title": "Scangeschiedenis",
     "noHistory": "Geen scangeschiedenis",
     "noHistoryBody": "Uw gescande producten verschijnen hier",
-    "scanFirst": "Een product scannen"
+    "scanFirst": "Een product scannen",
+    "loadFailed": "Geschiedenis kon niet worden geladen.",
+    "tapToRetry": "Tik om opnieuw te proberen",
+    "limitTitle": "Uurlimiet voor scans bereikt",
+    "limitBody": "U hebt uw gratis scans voor dit uur gebruikt. Uw geschiedenis blijft bewaard en is zo weer beschikbaar.",
+    "limitAction": "Premium bekijken"
   },
   "profile": {
     "title": "Profiel",
@@ -173,7 +194,21 @@
       "aiAlternatives": "AI-alternatieven",
       "priceComparison": "Prijsvergelijking",
       "priceAlerts": "Prijswaarschuwingen"
-    }
+    },
+    "bestValue": "Beste waarde",
+    "comingSoon": "Binnenkort",
+    "comingSoonBody": "Abonnementen zijn binnenkort beschikbaar via de App Store en Google Play.",
+    "comingSoonTitle": "Binnenkort",
+    "mostPopular": "Meest gekozen",
+    "purchaseCompleteBody": "Uw abonnement is actief. Het kan even duren voordat het verschijnt.",
+    "purchaseCompleteTitle": "Bedankt",
+    "purchaseFailedBody": "De store kon deze aankoop niet voltooien. Probeer het later opnieuw.",
+    "purchaseFailedTitle": "Aankoop niet beschikbaar",
+    "restore": "Aankopen herstellen",
+    "restoreDone": "Eerdere aankopen zijn hersteld.",
+    "restoreTitle": "Aankopen herstellen",
+    "restoreUnavailable": "Aankopen herstellen is nog niet beschikbaar.",
+    "storeBillingNotice": "Abonnementen worden gefactureerd via de App Store of Google Play. Beheer of annuleer altijd in uw store-account."
   },
   "grades": {
     "A": "Uitstekend",
@@ -208,5 +243,68 @@
     "da": "Deens",
     "fi": "Fins",
     "el": "Grieks"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "De voedingskwaliteit is beoordeeld met {{grade}}.",
+      "neutral": "De voedingskwaliteit is beoordeeld met {{grade}}.",
+      "negative": "De voedingskwaliteit is beoordeeld met {{grade}}.",
+      "unknown": "De voedingskwaliteit kon niet worden beoordeeld."
+    },
+    "nova": {
+      "positive": "Bewerkingsgraad: NOVA-groep {{group}}.",
+      "neutral": "Bewerkingsgraad: NOVA-groep {{group}}.",
+      "negative": "Bewerkingsgraad: NOVA-groep {{group}}.",
+      "unknown": "Hoe sterk dit product bewerkt is, is niet bekend."
+    },
+    "additives": {
+      "positive": "Er zijn geen zorgwekkende additieven gevonden.",
+      "neutral": "Bevat {{total}} additieven, geen daarvan hoog risico.",
+      "negative": "Bevat {{count}} zorgwekkende additieven.",
+      "unknown": "Er was geen ingrediëntenlijst, dus additieven konden niet worden gecontroleerd."
+    },
+    "eco": {
+      "positive": "De milieu-impact is beoordeeld met {{grade}}.",
+      "neutral": "De milieu-impact is beoordeeld met {{grade}}.",
+      "negative": "De milieu-impact is beoordeeld met {{grade}}.",
+      "unknown": "Er zijn geen milieugegevens voor dit product."
+    },
+    "allergens": {
+      "negative": "Vermeldt {{count}} allergenen: {{list}}."
+    },
+    "dataQuality": "Deze score is gebaseerd op onvolledige gegevens en kan veranderen."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultrabewerkt voedingsmiddel (NOVA-groep 4), gelinkt aan een hoger risico op chronische ziekten",
+    "banned_additive": "Bevat {{name}} ({{code_ref}}), een in de EU verboden additief",
+    "high_risk_additive": "Bevat {{name}} ({{code_ref}}), een additief met hoog risico",
+    "poor_nutrition": "Lage voedingskwaliteit (Nutri-Score {{grade}})",
+    "allergens_declared": "Vermelde allergenen: {{list}}",
+    "nutriscore_disagreement": "De vermelde Nutri-Score ({{declared}}) komt niet overeen met de samenstelling, die {{computed}} oplevert. De laagste score wordt getoond.",
+    "limited_data": "Beperkte productgegevens — deze beoordeling is een schatting",
+    "derived_from_text": "Sommige waarden zijn afgeleid uit de ingrediëntenlijst",
+    "nutriscore_computed": "Nutri-Score {{grade}} berekend uit de voedingswaardetabel"
+  },
+  "nav": {
+    "home": "Start",
+    "scan": "Scannen",
+    "history": "Geschiedenis",
+    "profile": "Profiel"
+  },
+  "allergen": {
+    "gluten": "gluten",
+    "crustaceans": "schaaldieren",
+    "eggs": "eieren",
+    "fish": "vis",
+    "peanuts": "pinda’s",
+    "soybeans": "soja",
+    "milk": "melk",
+    "nuts": "noten",
+    "celery": "selderij",
+    "mustard": "mosterd",
+    "sesameseeds": "sesamzaad",
+    "sulphurdioxideandsulphites": "zwaveldioxide en sulfieten",
+    "lupin": "lupine",
+    "molluscs": "weekdieren"
   }
 }

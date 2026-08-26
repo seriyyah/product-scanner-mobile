@@ -41,8 +41,8 @@
     "loginError": "Bejelentkezés sikertelen. Ellenőrizze adatait.",
     "registerSuccess": "Fiók létrehozva! Ellenőrizze e-mailjét a megerősítéshez.",
     "resendVerification": "Megerősítő e-mail újraküldése",
-    "resendPrompt": "Adja meg a regisztrációkor használt e-mail címet",
-    "resendSent": "Ha ehhez a címhez tartozik meg nem erősített fiók, az e-mail úton van.",
+    "resendPrompt": "Adja meg az e-mail-címet, amellyel regisztrált",
+    "resendSent": "Ha ehhez a címhez tartozik megerősítetlen fiók, új e-mail van úton.",
     "resendFailed": "Nem sikerült új e-mailt kérni. Kérjük, próbálja újra.",
     "passwordRules": "A jelszónak tartalmaznia kell:",
     "ruleLength": "Legalább 12 karaktert",
@@ -137,13 +137,22 @@
     "highRisk": "Magas kockázat: {{count}}",
     "novaGroup": "{{group}}. csoport",
     "total": "Összesen: {{count}}",
-    "whyThisRating": "Miért ez az értékelés"
+    "whyThisRating": "Miért ez az értékelés",
+    "estimatedRating": "Becsült értékelés — korlátozott termékadatok érhetők el",
+    "explanation": "AI-magyarázat",
+    "from": "{{price}} {{currency}}-tól · {{shop}}",
+    "partialRating": "Részleges adatok alapján — egyes értékek az összetevőkből származnak"
   },
   "history": {
-    "title": "Előzmények",
+    "title": "Beolvasási előzmények",
     "noHistory": "Nincs beolvasási előzmény",
     "noHistoryBody": "A beolvasott termékei itt jelennek meg",
-    "scanFirst": "Termék beolvasása"
+    "scanFirst": "Termék beolvasása",
+    "loadFailed": "Az előzményeket nem sikerült betölteni.",
+    "tapToRetry": "Koppintson az újrapróbáláshoz",
+    "limitTitle": "Elérte az órás beolvasási korlátot",
+    "limitBody": "Elhasználta az ingyenes beolvasásait erre az órára. Az előzményei biztonságban vannak, hamarosan visszatérnek.",
+    "limitAction": "Premium megtekintése"
   },
   "profile": {
     "title": "Profil",
@@ -188,16 +197,16 @@
     },
     "comingSoon": "Hamarosan",
     "comingSoonTitle": "Hamarosan",
-    "comingSoonBody": "Az előfizetések hamarosan elérhetők lesznek az App Store-ban és a Google Play-en.",
-    "storeBillingNotice": "Az előfizetéseket az App Store vagy a Google Play számlázza. Bármikor kezelheti vagy lemondhatja a fiókjában.",
+    "comingSoonBody": "Az előfizetések hamarosan elérhetők lesznek az App Store-on és a Google Play-en keresztül.",
+    "storeBillingNotice": "Az előfizetéseket az App Store vagy a Google Play számlázza. Bármikor kezelheti vagy lemondhatja az áruházfiókjában.",
     "restore": "Vásárlások visszaállítása",
     "restoreTitle": "Vásárlások visszaállítása",
-    "restoreDone": "A korábbi vásárlás visszaállt.",
-    "restoreUnavailable": "A visszaállítás még nem érhető el.",
+    "restoreDone": "A korábbi vásárlások visszaálltak.",
+    "restoreUnavailable": "A vásárlások visszaállítása még nem érhető el.",
     "purchaseCompleteTitle": "Köszönjük",
-    "purchaseCompleteBody": "Az előfizetése aktív. Eltarthat egy pillanatig, míg megjelenik.",
+    "purchaseCompleteBody": "Előfizetése aktív. Megjelenése eltarthat egy pillanatig.",
     "purchaseFailedTitle": "A vásárlás nem érhető el",
-    "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja újra később.",
+    "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja meg később.",
     "mostPopular": "Legnépszerűbb",
     "bestValue": "Legjobb ár-érték arány"
   },
@@ -264,5 +273,38 @@
       "negative": "{{count}} allergént jelöl: {{list}}."
     },
     "dataQuality": "Ez az értékelés hiányos adatokon alapul, és változhat."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultrafeldolgozott élelmiszer (NOVA 4. csoport), amely magasabb krónikus betegségkockázattal jár",
+    "banned_additive": "Tartalmaz {{name}} ({{code_ref}}) adalékanyagot, amely az EU-ban tiltott",
+    "high_risk_additive": "Tartalmaz {{name}} ({{code_ref}}) magas kockázatú adalékanyagot",
+    "poor_nutrition": "Alacsony tápérték (Nutri-Score {{grade}})",
+    "allergens_declared": "Jelölt allergének: {{list}}",
+    "nutriscore_disagreement": "A megadott Nutri-Score ({{declared}}) nem egyezik az összetétellel, amelyből {{computed}} adódik. Az alacsonyabb érték jelenik meg.",
+    "limited_data": "Korlátozott termékadatok — az értékelés becslés",
+    "derived_from_text": "Egyes értékek az összetevőlistából származnak",
+    "nutriscore_computed": "Nutri-Score {{grade}} a tápértéktáblázatból számítva"
+  },
+  "nav": {
+    "home": "Kezdőlap",
+    "scan": "Beolvasás",
+    "history": "Előzmények",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "glutén",
+    "crustaceans": "rákfélék",
+    "eggs": "tojás",
+    "fish": "hal",
+    "peanuts": "földimogyoró",
+    "soybeans": "szója",
+    "milk": "tej",
+    "nuts": "diófélék",
+    "celery": "zeller",
+    "mustard": "mustár",
+    "sesameseeds": "szezámmag",
+    "sulphurdioxideandsulphites": "kén-dioxid és szulfitok",
+    "lupin": "csillagfürt",
+    "molluscs": "puhatestűek"
   }
 }

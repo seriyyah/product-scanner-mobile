@@ -1,3 +1,4 @@
+import type { ServerWarning } from '@/utils/ratingExplanation';
 /**
  * Core TypeScript type definitions for Product Scanner Mobile App
  * Following Domain-Driven Design principles with strict typing
@@ -163,6 +164,8 @@ export interface ScanResult {
   safety_summary?: string | null;
   rating_breakdown?: RatingBreakdown | null;
   warnings?: string[];
+  /** The same warnings with a severity and code, for ranking and translation. */
+  warning_details?: ServerWarning[];
   confidence?: number | null;
   data_quality?: DataQuality | null;
   saved_to_history: boolean;
@@ -190,6 +193,8 @@ export interface Product {
   category?: string;
   ingredients: string[];
   ingredients_text?: string;
+  /** Ingredient list per language code, so it can be read in the user's language. */
+  ingredients_text_i18n?: Record<string, string>;
   nutrition?: Nutrition;
   images: string[];
   // Geography

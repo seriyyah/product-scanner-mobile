@@ -41,8 +41,8 @@
     "loginError": "Anmeldung fehlgeschlagen. Überprüfen Sie Ihre Daten.",
     "registerSuccess": "Konto erstellt! Bitte E-Mail zur Verifizierung prüfen.",
     "resendVerification": "Bestätigungs-E-Mail erneut senden",
-    "resendPrompt": "Geben Sie die E-Mail-Adresse Ihrer Registrierung ein",
-    "resendSent": "Falls zu dieser Adresse ein unbestätigtes Konto gehört, ist die E-Mail unterwegs.",
+    "resendPrompt": "Geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert haben",
+    "resendSent": "Falls zu dieser Adresse ein unbestätigtes Konto besteht, ist eine neue E-Mail unterwegs.",
     "resendFailed": "Neue E-Mail konnte nicht angefordert werden. Bitte erneut versuchen.",
     "passwordRules": "Das Passwort muss enthalten:",
     "ruleLength": "Mindestens 12 Zeichen",
@@ -137,13 +137,22 @@
     "highRisk": "Hohes Risiko: {{count}}",
     "novaGroup": "Gruppe {{group}}",
     "total": "{{count}} gesamt",
-    "whyThisRating": "Warum diese Bewertung"
+    "whyThisRating": "Warum diese Bewertung",
+    "estimatedRating": "Geschätzte Bewertung — nur begrenzte Produktdaten verfügbar",
+    "explanation": "KI-Erklärung",
+    "from": "Ab {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Basierend auf Teildaten — einige Werte aus der Zutatenliste abgeleitet"
   },
   "history": {
-    "title": "Verlauf",
+    "title": "Scan-Verlauf",
     "noHistory": "Noch kein Scanverlauf",
     "noHistoryBody": "Ihre gescannten Produkte erscheinen hier",
-    "scanFirst": "Produkt scannen"
+    "scanFirst": "Produkt scannen",
+    "loadFailed": "Verlauf konnte nicht geladen werden.",
+    "tapToRetry": "Zum Wiederholen tippen",
+    "limitTitle": "Stündliches Scan-Limit erreicht",
+    "limitBody": "Sie haben Ihre kostenlosen Scans für diese Stunde aufgebraucht. Ihr Verlauf bleibt erhalten und ist bald wieder da.",
+    "limitAction": "Premium ansehen"
   },
   "profile": {
     "title": "Profil",
@@ -187,17 +196,17 @@
       "priceAlerts": "Preisalarme"
     },
     "comingSoon": "Demnächst",
-    "comingSoonTitle": "Demnächst verfügbar",
-    "comingSoonBody": "Abonnements sind in Kürze über den App Store und Google Play erhältlich.",
+    "comingSoonTitle": "Demnächst",
+    "comingSoonBody": "Abonnements werden in Kürze über den App Store und Google Play verfügbar sein.",
     "storeBillingNotice": "Abonnements werden über den App Store oder Google Play abgerechnet. Verwaltung und Kündigung jederzeit in Ihrem Store-Konto.",
     "restore": "Käufe wiederherstellen",
     "restoreTitle": "Käufe wiederherstellen",
     "restoreDone": "Frühere Käufe wurden wiederhergestellt.",
-    "restoreUnavailable": "Die Wiederherstellung ist noch nicht verfügbar.",
+    "restoreUnavailable": "Das Wiederherstellen von Käufen ist noch nicht verfügbar.",
     "purchaseCompleteTitle": "Vielen Dank",
     "purchaseCompleteBody": "Ihr Abonnement ist aktiv. Es kann einen Moment dauern, bis es erscheint.",
-    "purchaseFailedTitle": "Kauf nicht möglich",
-    "purchaseFailedBody": "Der Store konnte den Kauf nicht abschließen. Bitte später erneut versuchen.",
+    "purchaseFailedTitle": "Kauf nicht verfügbar",
+    "purchaseFailedBody": "Der Store konnte diesen Kauf nicht abschließen. Bitte später erneut versuchen.",
     "mostPopular": "Am beliebtesten",
     "bestValue": "Bestes Preis-Leistungs-Verhältnis"
   },
@@ -264,5 +273,38 @@
       "negative": "Deklariert {{count}} Allergene: {{list}}."
     },
     "dataQuality": "Diese Bewertung beruht auf unvollständigen Daten und kann sich ändern."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Hochverarbeitetes Lebensmittel (NOVA-Gruppe 4), verbunden mit höherem Risiko für chronische Krankheiten",
+    "banned_additive": "Enthält {{name}} ({{code_ref}}), einen in der EU verbotenen Zusatzstoff",
+    "high_risk_additive": "Enthält {{name}} ({{code_ref}}), einen Zusatzstoff mit hohem Risiko",
+    "poor_nutrition": "Geringe Nährwertqualität (Nutri-Score {{grade}})",
+    "allergens_declared": "Deklarierte Allergene: {{list}}",
+    "nutriscore_disagreement": "Der angegebene Nutri-Score ({{declared}}) passt nicht zur Zusammensetzung, die {{computed}} ergibt. Die niedrigere Note wird angezeigt.",
+    "limited_data": "Begrenzte Produktdaten — diese Bewertung ist eine Schätzung",
+    "derived_from_text": "Einige Werte wurden aus der Zutatenliste abgeleitet",
+    "nutriscore_computed": "Nutri-Score {{grade}} aus der Nährwerttabelle berechnet"
+  },
+  "nav": {
+    "home": "Start",
+    "scan": "Scannen",
+    "history": "Verlauf",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "Gluten",
+    "crustaceans": "Krebstiere",
+    "eggs": "Eier",
+    "fish": "Fisch",
+    "peanuts": "Erdnüsse",
+    "soybeans": "Soja",
+    "milk": "Milch",
+    "nuts": "Schalenfrüchte",
+    "celery": "Sellerie",
+    "mustard": "Senf",
+    "sesameseeds": "Sesam",
+    "sulphurdioxideandsulphites": "Schwefeldioxid und Sulfite",
+    "lupin": "Lupinen",
+    "molluscs": "Weichtiere"
   }
 }

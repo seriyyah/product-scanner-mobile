@@ -40,10 +40,10 @@
     "lastNameMin": "Priezvisko musí mať aspoň 2 znaky",
     "loginError": "Prihlásenie zlyhalo. Skontrolujte údaje.",
     "registerSuccess": "Účet vytvorený! Skontrolujte e-mail pre overenie.",
-    "resendVerification": "Znova odoslať overovací e-mail",
+    "resendVerification": "Znova poslať overovací e-mail",
     "resendPrompt": "Zadajte e-mail, s ktorým ste sa registrovali",
-    "resendSent": "Ak k tejto adrese patrí neoverený účet, e-mail je na ceste.",
-    "resendFailed": "Nepodarilo sa odoslať nový e-mail. Skúste to prosím znova.",
+    "resendSent": "Ak k tejto adrese existuje nepotvrdený účet, nový e-mail je na ceste.",
+    "resendFailed": "Nový e-mail sa nepodarilo vyžiadať. Skúste to znova.",
     "passwordRules": "Heslo musí obsahovať:",
     "ruleLength": "Aspoň 12 znakov",
     "ruleUppercase": "Veľké písmeno",
@@ -137,13 +137,22 @@
     "highRisk": "Vysoké riziko: {{count}}",
     "novaGroup": "Skupina {{group}}",
     "total": "{{count}} celkom",
-    "whyThisRating": "Prečo toto hodnotenie"
+    "whyThisRating": "Prečo toto hodnotenie",
+    "estimatedRating": "Odhadované hodnotenie — k dispozícii sú obmedzené dáta",
+    "explanation": "Vysvetlenie AI",
+    "from": "Od {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Na základe čiastočných dát — niektoré hodnoty odvodené zo zloženia"
   },
   "history": {
-    "title": "História",
+    "title": "História skenov",
     "noHistory": "Zatiaľ žiadna história skenovania",
     "noHistoryBody": "Vaše naskenované produkty sa zobrazia tu",
-    "scanFirst": "Naskenovať produkt"
+    "scanFirst": "Naskenovať produkt",
+    "loadFailed": "Históriu sa nepodarilo načítať.",
+    "tapToRetry": "Klepnutím to skúste znova",
+    "limitTitle": "Dosiahnutý hodinový limit skenov",
+    "limitBody": "Vyčerpali ste bezplatné skeny na túto hodinu. Vaša história je v bezpečí — čoskoro sa vráti.",
+    "limitAction": "Zobraziť Premium"
   },
   "profile": {
     "title": "Profil",
@@ -189,15 +198,15 @@
     "comingSoon": "Už čoskoro",
     "comingSoonTitle": "Už čoskoro",
     "comingSoonBody": "Predplatné bude čoskoro dostupné cez App Store a Google Play.",
-    "storeBillingNotice": "Predplatné sa účtuje cez App Store alebo Google Play. Spravovať alebo zrušiť môžete kedykoľvek vo svojom účte obchodu.",
+    "storeBillingNotice": "Predplatné je účtované cez App Store alebo Google Play. Spravovať či zrušiť môžete kedykoľvek vo svojom účte obchodu.",
     "restore": "Obnoviť nákupy",
     "restoreTitle": "Obnoviť nákupy",
-    "restoreDone": "Predchádzajúci nákup bol obnovený.",
+    "restoreDone": "Predchádzajúce nákupy boli obnovené.",
     "restoreUnavailable": "Obnovenie nákupov zatiaľ nie je dostupné.",
     "purchaseCompleteTitle": "Ďakujeme",
-    "purchaseCompleteBody": "Vaše predplatné je aktívne. Môže chvíľu trvať, kým sa zobrazí.",
+    "purchaseCompleteBody": "Vaše predplatné je aktívne. Zobrazenie môže chvíľu trvať.",
     "purchaseFailedTitle": "Nákup nie je dostupný",
-    "purchaseFailedBody": "Obchod nemohol nákup dokončiť. Skúste to prosím neskôr.",
+    "purchaseFailedBody": "Obchod nemohol dokončiť tento nákup. Skúste to neskôr.",
     "mostPopular": "Najobľúbenejšie",
     "bestValue": "Najlepšia hodnota"
   },
@@ -264,5 +273,38 @@
       "negative": "Uvádza {{count}} alergénov: {{list}}."
     },
     "dataQuality": "Toto hodnotenie vychádza z neúplných dát a môže sa zmeniť."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultraspracovaná potravina (NOVA skupina 4), spájaná s vyšším rizikom chronických ochorení",
+    "banned_additive": "Obsahuje {{name}} ({{code_ref}}), prídavnú látku zakázanú v EÚ",
+    "high_risk_additive": "Obsahuje {{name}} ({{code_ref}}), vysoko rizikovú prídavnú látku",
+    "poor_nutrition": "Nízka nutričná kvalita (Nutri-Score {{grade}})",
+    "allergens_declared": "Deklarované alergény: {{list}}",
+    "nutriscore_disagreement": "Deklarované Nutri-Score ({{declared}}) nezodpovedá zloženiu, ktoré vychádza na {{computed}}. Zobrazené je nižšie hodnotenie.",
+    "limited_data": "Obmedzené dáta o produkte — hodnotenie je odhad",
+    "derived_from_text": "Niektoré hodnoty boli odvodené zo zloženia",
+    "nutriscore_computed": "Nutri-Score {{grade}} vypočítané z nutričnej tabuľky"
+  },
+  "nav": {
+    "home": "Domov",
+    "scan": "Skenovať",
+    "history": "História",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "lepok",
+    "crustaceans": "kôrovce",
+    "eggs": "vajcia",
+    "fish": "ryby",
+    "peanuts": "arašidy",
+    "soybeans": "sója",
+    "milk": "mlieko",
+    "nuts": "orechy",
+    "celery": "zeler",
+    "mustard": "horčica",
+    "sesameseeds": "sezam",
+    "sulphurdioxideandsulphites": "oxid siričitý a siričitany",
+    "lupin": "vlčí bôb",
+    "molluscs": "mäkkýše"
   }
 }

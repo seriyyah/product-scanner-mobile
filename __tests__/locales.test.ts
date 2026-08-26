@@ -48,7 +48,25 @@ describe('translations', () => {
     expect(usedKeys().size).toBeGreaterThan(20);
   });
 
-  describe.each(['cs', 'sk', 'de', 'fr', 'pl', 'hu'])('%s', (lang) => {
+  const ALL_LOCALES = ['bg', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hr',
+                       'hu', 'it', 'nl', 'pl', 'pt', 'ro', 'sk', 'sv'];
+
+  it.each(ALL_LOCALES)('%s translates every key English defines', (lang) => {
+    // The app offers 18 languages in Settings. Offering a language and then showing
+    // English for part of the screen is worse than not offering it.
+    const locale = JSON.parse(fs.readFileSync(path.join(LOCALES, `${lang}.json`), 'utf8'));
+    const enKeys: string[] = [];
+    const collect = (node: any, prefix = ''): void => {
+      for (const [key, value] of Object.entries(node)) {
+        if (value && typeof value === 'object') collect(value, `${prefix}${key}.`);
+        else enKeys.push(`${prefix}${key}`);
+      }
+    };
+    collect(en);
+    expect(enKeys.filter((key) => typeof resolve(locale, key) !== 'string')).toEqual([]);
+  });
+
+  describe.each(ALL_LOCALES)('%s', (lang) => {
     const locale = JSON.parse(fs.readFileSync(path.join(LOCALES, `${lang}.json`), 'utf8'));
 
     it('translates the rating explanations', () => {

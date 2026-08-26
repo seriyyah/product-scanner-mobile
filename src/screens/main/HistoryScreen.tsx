@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { scannerRepository } from '@/services/apiService';
@@ -19,6 +20,8 @@ import ProductThumbnail from '@/components/common/ProductThumbnail';
 
 const HistoryScreen: React.FC = () => {
   const navigation = useNavigation<any>();
+  const { t } = useTranslation();
+  const [rateLimited, setRateLimited] = useState(false);
   const [items, setItems] = useState<ScanHistoryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -40,14 +43,18 @@ const HistoryScreen: React.FC = () => {
       }
       setHasMore(data.total > pageNum * PER_PAGE);
       setPage(pageNum);
-    } catch {
-      setError('Failed to load history. Tap to retry.');
+    } catch (err) {
+      // A spent scan quota is not a failure to load — the history is intact and
+      // says so, rather than inviting a retry that cannot succeed.
+      const status = (err as { statusCode?: number })?.statusCode;
+      setRateLimited(status === 429);
+      setError(status === 429 ? '' : t('history.loadFailed', 'Could not load your history.'));
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
       setIsLoadingMore(false);
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     loadHistory(1, true);
@@ -122,13 +129,32 @@ const HistoryScreen: React.FC = () => {
     );
   }
 
+  if (rateLimited && items.length === 0) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.errorContainer}>
+          <Ionicons name="time-outline" size={48} color={theme.colors.primary} />
+          <Text style={styles.limitTitle}>
+            {t('history.limitTitle', 'Hourly scan limit reached')}
+          </Text>
+          <Text style={styles.limitBody}>
+            {t('history.limitBody', 'You have used your free scans for this hour. Your history is safe — it will be back shortly.')}
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
+            <Text style={styles.retryText}>{t('history.limitAction', 'See Premium')}</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   if (error && items.length === 0) {
     return (
       <SafeAreaView style={styles.safeArea}>
         <TouchableOpacity style={styles.errorContainer} onPress={() => loadHistory(1, true)} activeOpacity={0.8}>
-          <Ionicons name="alert-circle-outline" size={48} color={theme.colors.error} />
+          <Ionicons name="alert-circle-outline" size={48} color={theme.colors.textSecondary} />
           <Text style={styles.errorText}>{error}</Text>
-          <Text style={styles.retryText}>Tap to retry</Text>
+          <Text style={styles.retryText}>{t('history.tapToRetry', 'Tap to retry')}</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -137,7 +163,7 @@ const HistoryScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Scan History</Text>
+        <Text style={styles.headerTitle}>{t('history.title', 'Scan History')}</Text>
       </View>
       <FlatList
         data={items}
@@ -257,6 +283,8 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.md,
     textAlign: 'center',
   },
+  limitTitle: { fontSize: theme.typography.fontSizes.lg, fontWeight: '700' as const, color: theme.colors.text, marginTop: theme.spacing.md, textAlign: 'center' as const },
+  limitBody: { fontSize: theme.typography.fontSizes.sm, color: theme.colors.textSecondary, textAlign: 'center' as const, marginTop: theme.spacing.sm, lineHeight: 20 },
   retryText: {
     color: theme.colors.textSecondary,
     fontSize: theme.typography.fontSizes.sm,

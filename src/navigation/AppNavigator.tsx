@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -80,7 +81,9 @@ const AuthNavigator: React.FC = () => (
 );
 
 // Bottom Tabs
-const TabNavigator: React.FC = () => (
+const TabNavigator: React.FC = () => {
+  const { t } = useTranslation();
+  return (
   <MainTab.Navigator
     screenOptions={({ route }) => ({
       headerShown: false,
@@ -108,12 +111,13 @@ const TabNavigator: React.FC = () => (
       },
     })}
   >
-    <MainTab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
-    <MainTab.Screen name="Scanner" component={ScannerScreen} options={{ title: 'Scan' }} />
-    <MainTab.Screen name="History" component={HistoryScreen} options={{ title: 'History' }} />
-    <MainTab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile' }} />
-  </MainTab.Navigator>
-);
+    <MainTab.Screen name="Home" component={HomeScreen} options={{ title: t('nav.home', 'Home') }} />
+    <MainTab.Screen name="Scanner" component={ScannerScreen} options={{ title: t('nav.scan', 'Scan') }} />
+    <MainTab.Screen name="History" component={HistoryScreen} options={{ title: t('nav.history', 'History') }} />
+    <MainTab.Screen name="Profile" component={ProfileScreen} options={{ title: t('nav.profile', 'Profile') }} />
+    </MainTab.Navigator>
+  );
+};
 
 // Main Stack (wraps tabs + modal screens)
 const MainNavigator: React.FC = () => (

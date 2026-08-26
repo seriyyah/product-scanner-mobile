@@ -40,10 +40,10 @@
     "lastNameMin": "Příjmení musí mít alespoň 2 znaky",
     "loginError": "Přihlášení selhalo. Zkontrolujte údaje.",
     "registerSuccess": "Účet vytvořen! Zkontrolujte e-mail pro ověření.",
-    "resendVerification": "Znovu odeslat ověřovací e-mail",
+    "resendVerification": "Poslat ověřovací e-mail znovu",
     "resendPrompt": "Zadejte e-mail, se kterým jste se registrovali",
-    "resendSent": "Pokud k této adrese patří neověřený účet, e-mail je na cestě.",
-    "resendFailed": "Nepodařilo se odeslat nový e-mail. Zkuste to prosím znovu.",
+    "resendSent": "Pokud k této adrese existuje nepotvrzený účet, nový e-mail je na cestě.",
+    "resendFailed": "Nový e-mail se nepodařilo vyžádat. Zkuste to prosím znovu.",
     "passwordRules": "Heslo musí obsahovat:",
     "ruleLength": "Alespoň 12 znaků",
     "ruleUppercase": "Velké písmeno",
@@ -137,13 +137,22 @@
     "highRisk": "Vysoké riziko: {{count}}",
     "novaGroup": "Skupina {{group}}",
     "total": "{{count}} celkem",
-    "whyThisRating": "Proč toto hodnocení"
+    "whyThisRating": "Proč toto hodnocení",
+    "estimatedRating": "Odhadované hodnocení — k dispozici jsou omezená data",
+    "explanation": "Vysvětlení AI",
+    "from": "Od {{price}} {{currency}} · {{shop}}",
+    "partialRating": "Na základě částečných dat — některé hodnoty odvozeny ze složení"
   },
   "history": {
-    "title": "Historie",
+    "title": "Historie skenů",
     "noHistory": "Zatím žádná historie skenování",
     "noHistoryBody": "Vaše naskenované produkty se zobrazí zde",
-    "scanFirst": "Naskenovat produkt"
+    "scanFirst": "Naskenovat produkt",
+    "loadFailed": "Historii se nepodařilo načíst.",
+    "tapToRetry": "Klepnutím to zkuste znovu",
+    "limitTitle": "Dosažen hodinový limit skenů",
+    "limitBody": "Vyčerpali jste bezplatné skeny pro tuto hodinu. Vaše historie je v bezpečí — brzy se vrátí.",
+    "limitAction": "Zobrazit Premium"
   },
   "profile": {
     "title": "Profil",
@@ -189,15 +198,15 @@
     "comingSoon": "Již brzy",
     "comingSoonTitle": "Již brzy",
     "comingSoonBody": "Předplatné bude brzy dostupné přes App Store a Google Play.",
-    "storeBillingNotice": "Předplatné je účtováno přes App Store nebo Google Play. Spravovat nebo zrušit můžete kdykoli ve svém účtu obchodu.",
+    "storeBillingNotice": "Předplatné je účtováno přes App Store nebo Google Play. Spravovat či zrušit můžete kdykoli ve svém účtu obchodu.",
     "restore": "Obnovit nákupy",
     "restoreTitle": "Obnovit nákupy",
-    "restoreDone": "Předchozí nákup byl obnoven.",
+    "restoreDone": "Předchozí nákupy byly obnoveny.",
     "restoreUnavailable": "Obnovení nákupů zatím není dostupné.",
     "purchaseCompleteTitle": "Děkujeme",
-    "purchaseCompleteBody": "Vaše předplatné je aktivní. Může chvíli trvat, než se zobrazí.",
+    "purchaseCompleteBody": "Vaše předplatné je aktivní. Zobrazení může chvíli trvat.",
     "purchaseFailedTitle": "Nákup není dostupný",
-    "purchaseFailedBody": "Obchod nemohl nákup dokončit. Zkuste to prosím později.",
+    "purchaseFailedBody": "Obchod nemohl dokončit tento nákup. Zkuste to prosím později.",
     "mostPopular": "Nejoblíbenější",
     "bestValue": "Nejlepší hodnota"
   },
@@ -264,5 +273,38 @@
       "negative": "Uvádí {{count}} alergenů: {{list}}."
     },
     "dataQuality": "Toto hodnocení vychází z neúplných dat a může se změnit."
+  },
+  "ratingWarning": {
+    "ultra_processed": "Ultrazpracovaná potravina (NOVA skupina 4), spojovaná s vyšším rizikem chronických onemocnění",
+    "banned_additive": "Obsahuje {{name}} ({{code_ref}}), přídatnou látku zakázanou v EU",
+    "high_risk_additive": "Obsahuje {{name}} ({{code_ref}}), vysoce rizikovou přídatnou látku",
+    "poor_nutrition": "Nízká nutriční kvalita (Nutri-Score {{grade}})",
+    "allergens_declared": "Deklarované alergeny: {{list}}",
+    "nutriscore_disagreement": "Deklarované Nutri-Score ({{declared}}) neodpovídá složení, které vychází na {{computed}}. Zobrazeno je nižší hodnocení.",
+    "limited_data": "Omezená data o produktu — hodnocení je odhad",
+    "derived_from_text": "Některé hodnoty byly odvozeny ze složení",
+    "nutriscore_computed": "Nutri-Score {{grade}} vypočteno z nutriční tabulky"
+  },
+  "nav": {
+    "home": "Domů",
+    "scan": "Skenovat",
+    "history": "Historie",
+    "profile": "Profil"
+  },
+  "allergen": {
+    "gluten": "lepek",
+    "crustaceans": "korýši",
+    "eggs": "vejce",
+    "fish": "ryby",
+    "peanuts": "arašídy",
+    "soybeans": "sója",
+    "milk": "mléko",
+    "nuts": "ořechy",
+    "celery": "celer",
+    "mustard": "hořčice",
+    "sesameseeds": "sezam",
+    "sulphurdioxideandsulphites": "oxid siřičitý a siřičitany",
+    "lupin": "vlčí bob",
+    "molluscs": "měkkýši"
   }
 }
