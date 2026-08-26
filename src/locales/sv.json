@@ -146,7 +146,8 @@
     "limitReached": "Du har använt dina gratis skanningar för den här timmen. Produkter du redan skannat är fortfarande tillgängliga.",
     "scanResult": "Skanningsresultat",
     "notRated": "Ej bedömd",
-    "notRatedBody": "Det finns för lite information om denna produkt"
+    "notRatedBody": "Det finns för lite information om denna produkt",
+    "alternativesPending": "Jämför fortfarande produkten. Det är klart snart — titta i historiken om en minut."
   },
   "history": {
     "title": "Skanningshistorik",

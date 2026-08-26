@@ -146,7 +146,8 @@
     "limitReached": "Has usado tus escaneos gratuitos de esta hora. Los productos que ya escaneaste siguen disponibles.",
     "scanResult": "Resultado del escaneo",
     "notRated": "Sin valorar",
-    "notRatedBody": "No hay suficiente información sobre este producto"
+    "notRatedBody": "No hay suficiente información sobre este producto",
+    "alternativesPending": "Todavía comparando este producto. Estará listo en breve — mira tu historial en un minuto."
   },
   "history": {
     "title": "Historial de escaneos",

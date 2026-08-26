@@ -146,7 +146,8 @@
     "limitReached": "Usou as suas leituras gratuitas desta hora. Os produtos já lidos continuam disponíveis.",
     "scanResult": "Resultado da leitura",
     "notRated": "Sem classificação",
-    "notRatedBody": "Não há informação suficiente sobre este produto"
+    "notRatedBody": "Não há informação suficiente sobre este produto",
+    "alternativesPending": "Ainda a comparar este produto. Estará pronto em breve — veja o histórico dentro de um minuto."
   },
   "history": {
     "title": "Histórico de leituras",

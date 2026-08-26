@@ -146,7 +146,8 @@
     "limitReached": "Wykorzystałeś darmowe skany w tej godzinie. Produkty już zeskanowane pozostają dostępne.",
     "scanResult": "Wynik skanowania",
     "notRated": "Nieocenione",
-    "notRatedBody": "Za mało informacji o tym produkcie"
+    "notRatedBody": "Za mało informacji o tym produkcie",
+    "alternativesPending": "Trwa porównywanie produktu. Za chwilę będzie gotowe — sprawdź historię za minutę."
   },
   "history": {
     "title": "Historia skanów",

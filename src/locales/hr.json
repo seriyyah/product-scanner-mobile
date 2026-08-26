@@ -146,7 +146,8 @@
     "limitReached": "Iskoristili ste besplatna skeniranja za ovaj sat. Već skenirani proizvodi ostaju dostupni.",
     "scanResult": "Rezultat skeniranja",
     "notRated": "Nije ocijenjeno",
-    "notRatedBody": "Nema dovoljno informacija o ovom proizvodu"
+    "notRatedBody": "Nema dovoljno informacija o ovom proizvodu",
+    "alternativesPending": "Proizvod se još uspoređuje. Uskoro će biti spreman — provjerite povijest za minutu."
   },
   "history": {
     "title": "Povijest skeniranja",

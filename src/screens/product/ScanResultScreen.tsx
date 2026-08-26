@@ -21,6 +21,7 @@ import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { ingredientList } from '@/utils/ingredientLocale';
 import { isRated, displayGrade } from '@/utils/ratingConfidence';
+import { classifyFailure } from '@/utils/requestOutcome';
 import { countryFromLang } from '@/utils/countryFromLang';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
@@ -89,7 +90,7 @@ const ScanResultScreen: React.FC = () => {
   const isFreeOrGuest = userRole === 'free_user' || userRole === 'guest';
 
   const [discovery, setDiscovery] = useState<DiscoveryResult | null>(null);
-  const [discoveryStatus, setDiscoveryStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const [discoveryStatus, setDiscoveryStatus] = useState<'idle' | 'loading' | 'done' | 'pending' | 'error'>('idle');
   const [recommendations, setRecommendations] = useState<RecommendationResponse | null>(null);
   const [recsStatus, setRecsStatus] = useState<'idle' | 'loading' | 'done' | '403' | '503'>('idle');
 
@@ -116,8 +117,10 @@ const ScanResultScreen: React.FC = () => {
           const country = countryFromLang(i18n.language);
           const result = await discoveryRepository.getDiscovery(barcode, location?.lat, location?.lng, currency, country);
           if (!cancelled) { setDiscovery(result as any); setDiscoveryStatus('done'); }
-        } catch {
-          if (!cancelled) setDiscoveryStatus('error');
+        } catch (err) {
+          // A timeout means the server is still working and will cache the answer,
+          // so the next visit has it. That is not the same as a dead end.
+          if (!cancelled) setDiscoveryStatus(classifyFailure(err));
         }
       } else if (!isFreeOrGuest) {
         setRecsStatus('loading');

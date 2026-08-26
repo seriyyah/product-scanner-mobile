@@ -146,7 +146,8 @@
     "limitReached": "Ați folosit scanările gratuite pentru această oră. Produsele deja scanate rămân disponibile.",
     "scanResult": "Rezultatul scanării",
     "notRated": "Neevaluat",
-    "notRatedBody": "Nu există suficiente informații despre acest produs"
+    "notRatedBody": "Nu există suficiente informații despre acest produs",
+    "alternativesPending": "Încă se compară produsul. Va fi gata în curând — verificați istoricul într-un minut."
   },
   "history": {
     "title": "Istoric scanări",

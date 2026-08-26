@@ -146,7 +146,8 @@
     "limitReached": "Elhasználta az ingyenes beolvasásait erre az órára. A már beolvasott termékek elérhetők maradnak.",
     "scanResult": "Beolvasás eredménye",
     "notRated": "Nincs értékelve",
-    "notRatedBody": "Nincs elég információ erről a termékről"
+    "notRatedBody": "Nincs elég információ erről a termékről",
+    "alternativesPending": "Még hasonlítjuk a terméket. Hamarosan kész — nézze meg az előzményeket egy perc múlva."
   },
   "history": {
     "title": "Beolvasási előzmények",

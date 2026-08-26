@@ -146,7 +146,8 @@
     "limitReached": "Vyčerpali ste bezplatné skeny na túto hodinu. Produkty, ktoré ste už naskenovali, zostávajú dostupné.",
     "scanResult": "Výsledok skenu",
     "notRated": "Nehodnotené",
-    "notRatedBody": "O tomto produkte nie je dosť informácií"
+    "notRatedBody": "O tomto produkte nie je dosť informácií",
+    "alternativesPending": "Produkt sa stále porovnáva. Čoskoro bude pripravený — pozrite sa do histórie o minútu."
   },
   "history": {
     "title": "História skenov",

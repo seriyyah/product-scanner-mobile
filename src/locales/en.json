@@ -143,7 +143,8 @@
     "limitReached": "You have used your free scans for this hour. Products you have already scanned stay available.",
     "scanResult": "Scan result",
     "notRated": "Not rated",
-    "notRatedBody": "Not enough information about this product"
+    "notRatedBody": "Not enough information about this product",
+    "alternativesPending": "Still comparing this product. It will be ready here shortly — check your history in a minute."
   },
   "history": {
     "title": "Scan History",

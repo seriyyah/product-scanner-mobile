@@ -146,7 +146,8 @@
     "limitReached": "Du har brugt dine gratis scanninger for denne time. Produkter, du allerede har scannet, er stadig tilgængelige.",
     "scanResult": "Scanningsresultat",
     "notRated": "Ikke vurderet",
-    "notRatedBody": "Der er for lidt information om dette produkt"
+    "notRatedBody": "Der er for lidt information om dette produkt",
+    "alternativesPending": "Sammenligner stadig produktet. Det er klar snart — se historikken om et minut."
   },
   "history": {
     "title": "Scanningshistorik",

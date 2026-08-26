@@ -146,7 +146,8 @@
     "limitReached": "U hebt uw gratis scans voor dit uur gebruikt. Producten die u al hebt gescand blijven beschikbaar.",
     "scanResult": "Scanresultaat",
     "notRated": "Niet beoordeeld",
-    "notRatedBody": "Te weinig informatie over dit product"
+    "notRatedBody": "Te weinig informatie over dit product",
+    "alternativesPending": "Nog bezig met vergelijken. Het is zo klaar — kijk over een minuut in uw geschiedenis."
   },
   "history": {
     "title": "Scangeschiedenis",

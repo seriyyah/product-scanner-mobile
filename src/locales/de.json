@@ -146,7 +146,8 @@
     "limitReached": "Sie haben Ihre kostenlosen Scans für diese Stunde aufgebraucht. Bereits gescannte Produkte bleiben verfügbar.",
     "scanResult": "Scan-Ergebnis",
     "notRated": "Nicht bewertet",
-    "notRatedBody": "Zu diesem Produkt liegen zu wenige Informationen vor"
+    "notRatedBody": "Zu diesem Produkt liegen zu wenige Informationen vor",
+    "alternativesPending": "Der Vergleich läuft noch. Gleich ist er fertig — schauen Sie in einer Minute in den Verlauf."
   },
   "history": {
     "title": "Scan-Verlauf",

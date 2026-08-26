@@ -146,7 +146,8 @@
     "limitReached": "Olet käyttänyt tämän tunnin ilmaiset skannaukset. Jo skannaamasi tuotteet pysyvät saatavilla.",
     "scanResult": "Skannaustulos",
     "notRated": "Ei arvioitu",
-    "notRatedBody": "Tästä tuotteesta ei ole tarpeeksi tietoa"
+    "notRatedBody": "Tästä tuotteesta ei ole tarpeeksi tietoa",
+    "alternativesPending": "Tuotetta vertaillaan yhä. Valmista pian — katso historia minuutin kuluttua."
   },
   "history": {
     "title": "Skannaushistoria",
