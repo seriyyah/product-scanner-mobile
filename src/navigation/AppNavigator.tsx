@@ -67,7 +67,10 @@ const LoadingScreen: React.FC = () => (
 
 // Auth Stack
 const AuthNavigator: React.FC = () => (
-  <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+  // initialRouteName matters: without it React Navigation renders whichever screen
+  // is declared first, so signing out landed on VerifyEmail with no token and showed
+  // "Verification Failed". Deep links still reach VerifyEmail and ResetPassword.
+  <AuthStack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
     <AuthStack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
     <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
     <AuthStack.Screen name="Login" component={LoginScreen} />

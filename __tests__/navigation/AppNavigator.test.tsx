@@ -58,3 +58,24 @@ describe('AppNavigator', () => {
     expect(AppNavigator.length).toBeDefined(); // functions have .length
   });
 });
+
+describe('Auth stack entry point', () => {
+  it('starts on Login, not on the first-declared screen', () => {
+    const source = require('fs').readFileSync(
+      require('path').join(__dirname, '../../src/navigation/AppNavigator.tsx'),
+      'utf8',
+    );
+    // Without initialRouteName, React Navigation renders whichever screen is
+    // declared first — VerifyEmail — so signing out showed "Verification Failed".
+    expect(source).toMatch(/AuthStack\.Navigator[^>]*initialRouteName="Login"/s);
+  });
+
+  it('still routes deep links to VerifyEmail and ResetPassword', () => {
+    const source = require('fs').readFileSync(
+      require('path').join(__dirname, '../../src/navigation/AppNavigator.tsx'),
+      'utf8',
+    );
+    expect(source).toContain("path: 'verify-email'");
+    expect(source).toContain("path: 'reset-password'");
+  });
+});
