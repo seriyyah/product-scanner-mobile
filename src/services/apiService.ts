@@ -337,6 +337,11 @@ export interface ProductCatalogue {
   /** False until the stores and RevenueCat are configured — show "coming soon". */
   purchasable: boolean;
   status: 'available' | 'coming_soon';
+  /**
+   * Tier people subscribe to most, or null when too few subscriptions exist to say.
+   * Derived from paid subscriptions server-side — never assume a value here.
+   */
+  most_popular?: string | null;
   tiers: Record<string, StoreTier>;
 }
 

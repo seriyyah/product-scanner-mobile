@@ -196,7 +196,9 @@
     "purchaseCompleteTitle": "Dziękujemy",
     "purchaseCompleteBody": "Twoja subskrypcja jest aktywna. Może chwilę potrwać, zanim się pojawi.",
     "purchaseFailedTitle": "Zakup niedostępny",
-    "purchaseFailedBody": "Sklep nie mógł zrealizować zakupu. Spróbuj ponownie później."
+    "purchaseFailedBody": "Sklep nie mógł zrealizować zakupu. Spróbuj ponownie później.",
+    "mostPopular": "Najpopularniejszy",
+    "bestValue": "Najlepsza wartość"
   },
   "grades": {
     "A": "Doskonały",

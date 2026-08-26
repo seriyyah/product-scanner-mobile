@@ -196,7 +196,9 @@
     "purchaseCompleteTitle": "Merci",
     "purchaseCompleteBody": "Votre abonnement est actif. Son affichage peut prendre un instant.",
     "purchaseFailedTitle": "Achat indisponible",
-    "purchaseFailedBody": "La boutique n’a pas pu finaliser cet achat. Réessayez plus tard."
+    "purchaseFailedBody": "La boutique n’a pas pu finaliser cet achat. Réessayez plus tard.",
+    "mostPopular": "Le plus populaire",
+    "bestValue": "Meilleur rapport qualité-prix"
   },
   "grades": {
     "A": "Excellent",

@@ -196,7 +196,9 @@
     "purchaseCompleteTitle": "Vielen Dank",
     "purchaseCompleteBody": "Ihr Abonnement ist aktiv. Es kann einen Moment dauern, bis es erscheint.",
     "purchaseFailedTitle": "Kauf nicht möglich",
-    "purchaseFailedBody": "Der Store konnte den Kauf nicht abschließen. Bitte später erneut versuchen."
+    "purchaseFailedBody": "Der Store konnte den Kauf nicht abschließen. Bitte später erneut versuchen.",
+    "mostPopular": "Am beliebtesten",
+    "bestValue": "Bestes Preis-Leistungs-Verhältnis"
   },
   "grades": {
     "A": "Ausgezeichnet",

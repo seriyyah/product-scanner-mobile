@@ -35,7 +35,6 @@ const FREE_FEATURES: TierFeature[] = [
 ];
 
 const PREMIUM_FEATURES: TierFeature[] = [
-  { text: '20 scans per hour', included: true },
   { text: 'Unlimited scans', included: true },
   { text: 'Full 2-year history', included: true },
   { text: 'No ads', included: true },
@@ -193,10 +192,26 @@ const SubscriptionScreen: React.FC = () => {
     );
   }
 
+  /**
+   * "Most Popular" is a claim about what people actually bought, so it comes from the
+   * catalogue rather than being pinned to a card. The backend returns null until
+   * enough subscriptions exist to name a leader, and that means no badge at all.
+   */
+  const badgeFor = (tierId: string): string | null => {
+    if (catalogue?.most_popular && catalogue.most_popular === tierId) {
+      return t('subscription.mostPopular', 'Most Popular');
+    }
+    if (catalogue?.most_popular) {
+      // Another tier earned the badge — don't dilute it with a competing claim.
+      return null;
+    }
+    return tierId === 'ai_premium' ? t('subscription.bestValue', 'Best Value') : null;
+  };
+
   const tiers = [
-    { id: 'free' as const, title: 'Free', price: '€0 / month', features: FREE_FEATURES, badge: null },
-    { id: 'premium' as const, title: 'Premium', price: '€10 / month', features: PREMIUM_FEATURES, badge: 'Most Popular' },
-    { id: 'ai_premium' as const, title: 'AI Premium', price: '€28 / month', features: AI_PREMIUM_FEATURES, badge: 'Best Value' },
+    { id: 'free' as const, title: 'Free', price: '€0 / month', features: FREE_FEATURES },
+    { id: 'premium' as const, title: 'Premium', price: '€10 / month', features: PREMIUM_FEATURES },
+    { id: 'ai_premium' as const, title: 'AI Premium', price: '€28 / month', features: AI_PREMIUM_FEATURES },
   ];
 
   return (
@@ -226,9 +241,9 @@ const SubscriptionScreen: React.FC = () => {
               key={tier.id}
               style={[styles.card, isCurrent && styles.cardCurrent]}
             >
-              {tier.badge ? (
+              {badgeFor(tier.id) ? (
                 <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{tier.badge}</Text>
+                  <Text style={styles.badgeText}>{badgeFor(tier.id)}</Text>
                 </View>
               ) : null}
 

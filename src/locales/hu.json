@@ -196,7 +196,9 @@
     "purchaseCompleteTitle": "Köszönjük",
     "purchaseCompleteBody": "Az előfizetése aktív. Eltarthat egy pillanatig, míg megjelenik.",
     "purchaseFailedTitle": "A vásárlás nem érhető el",
-    "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja újra később."
+    "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja újra később.",
+    "mostPopular": "Legnépszerűbb",
+    "bestValue": "Legjobb ár-érték arány"
   },
   "grades": {
     "A": "Kiváló",

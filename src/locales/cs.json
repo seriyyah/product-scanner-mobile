@@ -196,7 +196,9 @@
     "purchaseCompleteTitle": "Děkujeme",
     "purchaseCompleteBody": "Vaše předplatné je aktivní. Může chvíli trvat, než se zobrazí.",
     "purchaseFailedTitle": "Nákup není dostupný",
-    "purchaseFailedBody": "Obchod nemohl nákup dokončit. Zkuste to prosím později."
+    "purchaseFailedBody": "Obchod nemohl nákup dokončit. Zkuste to prosím později.",
+    "mostPopular": "Nejoblíbenější",
+    "bestValue": "Nejlepší hodnota"
   },
   "grades": {
     "A": "Výborný",

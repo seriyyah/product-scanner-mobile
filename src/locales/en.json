@@ -192,7 +192,9 @@
     "purchaseCompleteTitle": "Thank you",
     "purchaseCompleteBody": "Your subscription is active. It may take a moment to appear.",
     "purchaseFailedTitle": "Purchase unavailable",
-    "purchaseFailedBody": "The store could not complete this purchase. Please try again later."
+    "purchaseFailedBody": "The store could not complete this purchase. Please try again later.",
+    "mostPopular": "Most Popular",
+    "bestValue": "Best Value"
   },
   "grades": {
     "A": "Excellent",

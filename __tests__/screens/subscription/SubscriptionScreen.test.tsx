@@ -103,7 +103,58 @@ describe('SubscriptionScreen', () => {
     ).toBeTruthy();
   });
 
-  it('shows admin view for admin role', () => {
-    jest.resetModules();
+  // Asserts nothing yet: useAuth is mocked at module scope with a free_user, so
+  // covering the admin branch needs the module re-mocked and re-imported. Left
+  // skipped rather than deleted so the gap stays visible. It previously called
+  // jest.resetModules() with no assertion, which emptied the module registry and
+  // made React null for every test declared after it.
+  it.skip('shows admin view for admin role', () => {});
+});
+
+describe('plan descriptions', () => {
+  it('does not advertise both an hourly cap and unlimited scans on Premium', async () => {
+    // Premium listed "20 scans per hour" and "Unlimited scans" as included at once,
+    // which contradicted itself. The cap belongs to Free only.
+    mockGetProducts.mockResolvedValue({ purchasable: false, status: 'coming_soon', tiers: {} });
+    const { queryAllByText } = render(<SubscriptionScreen />);
+    await waitFor(() => {
+      expect(queryAllByText('20 scans per hour')).toHaveLength(1);
+    });
+  });
+});
+
+describe('most popular badge', () => {
+  const catalogue = (most_popular: string | null) => ({
+    purchasable: true,
+    status: 'available',
+    most_popular,
+    tiers: {},
+  });
+
+  it('badges the tier the backend reports', async () => {
+    mockGetProducts.mockResolvedValue(catalogue('premium'));
+    const { queryByText } = render(<SubscriptionScreen />);
+    await waitFor(() => expect(queryByText('Most Popular')).toBeTruthy());
+  });
+
+  it('shows no popularity badge when the backend reports none', async () => {
+    // Nobody has subscribed yet, so claiming a most popular plan would be untrue.
+    mockGetProducts.mockResolvedValue(catalogue(null));
+    const { queryByText } = render(<SubscriptionScreen />);
+    await waitFor(() => expect(queryByText('Most Popular')).toBeNull());
+  });
+
+  it('does not badge Premium when AI Premium is the popular one', async () => {
+    mockGetProducts.mockResolvedValue(catalogue('ai_premium'));
+    const { queryAllByText } = render(<SubscriptionScreen />);
+    await waitFor(() => expect(queryAllByText('Most Popular')).toHaveLength(1));
+    // Premium keeps no badge; the claim moved to the tier that earned it.
+    expect(queryAllByText('Best Value')).toHaveLength(0);
+  });
+
+  it('shows no popularity badge when the catalogue cannot be loaded', async () => {
+    mockGetProducts.mockRejectedValue(new Error('offline'));
+    const { queryByText } = render(<SubscriptionScreen />);
+    await waitFor(() => expect(queryByText('Most Popular')).toBeNull());
   });
 });
