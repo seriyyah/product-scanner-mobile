@@ -43,7 +43,14 @@
     "resendVerification": "Znova odoslať overovací e-mail",
     "resendPrompt": "Zadajte e-mail, s ktorým ste sa registrovali",
     "resendSent": "Ak k tejto adrese patrí neoverený účet, e-mail je na ceste.",
-    "resendFailed": "Nepodarilo sa odoslať nový e-mail. Skúste to prosím znova."
+    "resendFailed": "Nepodarilo sa odoslať nový e-mail. Skúste to prosím znova.",
+    "passwordRules": "Heslo musí obsahovať:",
+    "ruleLength": "Aspoň 12 znakov",
+    "ruleUppercase": "Veľké písmeno",
+    "ruleLowercase": "Malé písmeno",
+    "ruleDigit": "Číslicu",
+    "ruleSpecial": "Špeciálny znak (!@#$…)",
+    "noAccountRegister": "Ešte nemáte účet? Vytvorte si ho s týmto e-mailom"
   },
   "onboarding": {
     "locationTitle": "Povoliť polohu",

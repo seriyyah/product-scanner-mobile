@@ -3,7 +3,7 @@
  * Implements form validation with react-hook-form and yup
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -37,7 +38,8 @@ const loginSchema = yup.object({
   password: yup
     .string()
     .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
+    // Sign-in deliberately does not apply the strength policy: the server does not
+    // either, and an existing password may predate a policy change.
     .max(128, 'Password must be less than 128 characters'),
 });
 
@@ -73,6 +75,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   }, [state.error]);
 
   // Handle form submission
+  const [failedEmail, setFailedEmail] = useState<string | null>(null);
+  const { t } = useTranslation();
+
   const onSubmit = async (data: ILoginForm): Promise<void> => {
     try {
       await login({
@@ -83,10 +88,25 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       // Navigation will be handled automatically by AuthContext
       // when authentication state changes
     } catch (error) {
-      // Error handling is managed by AuthContext
-      // Show additional user-friendly feedback if needed
-      console.error('Login error:', error);
+      // A rejected sign-in is an expected outcome, not a programming fault.
+      // console.error surfaces it as a full-screen LogBox overlay in development,
+      // which buries the form and looks like a crash — the message belongs inline.
+      const status = (error as { statusCode?: number })?.statusCode;
+      setFailedEmail(status === 401 ? data.email.toLowerCase().trim() : null);
     }
+  };
+
+  /**
+   * Offered after any rejected sign-in.
+   *
+   * The server deliberately gives the same answer whether the address is unknown or
+   * the password is wrong — telling them apart would let anyone test which emails
+   * are registered. So rather than guess, both cases get the same honest message and
+   * a way forward: someone without an account taps through to register with their
+   * address already filled in, and someone who mistyped simply tries again.
+   */
+  const handleRegisterWithEmail = (): void => {
+    navigation.navigate('Register', failedEmail ? { email: failedEmail } : undefined);
   };
 
   // Handle navigation to register screen
@@ -163,6 +183,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           {state.error && (
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>{state.error}</Text>
+              {failedEmail && (
+                <TouchableOpacity onPress={handleRegisterWithEmail} activeOpacity={0.8}>
+                  <Text style={styles.errorAction}>
+                    {t('auth.noAccountRegister', 'No account yet? Create one with this email')}
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           )}
 
@@ -249,6 +276,11 @@ const styles = StyleSheet.create({
     borderLeftColor: theme.colors.error,
   },
   
+  errorAction: {
+    color: theme.colors.primary,
+    fontWeight: '600',
+    marginTop: 8,
+  },
   errorText: {
     fontSize: theme.typography.fontSizes.sm,
     color: theme.colors.error,

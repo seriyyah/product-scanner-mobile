@@ -43,7 +43,14 @@
     "resendVerification": "Znovu odeslat ověřovací e-mail",
     "resendPrompt": "Zadejte e-mail, se kterým jste se registrovali",
     "resendSent": "Pokud k této adrese patří neověřený účet, e-mail je na cestě.",
-    "resendFailed": "Nepodařilo se odeslat nový e-mail. Zkuste to prosím znovu."
+    "resendFailed": "Nepodařilo se odeslat nový e-mail. Zkuste to prosím znovu.",
+    "passwordRules": "Heslo musí obsahovat:",
+    "ruleLength": "Alespoň 12 znaků",
+    "ruleUppercase": "Velké písmeno",
+    "ruleLowercase": "Malé písmeno",
+    "ruleDigit": "Číslici",
+    "ruleSpecial": "Speciální znak (!@#$…)",
+    "noAccountRegister": "Ještě nemáte účet? Vytvořte si ho s tímto e-mailem"
   },
   "onboarding": {
     "locationTitle": "Povolit polohu",

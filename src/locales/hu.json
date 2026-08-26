@@ -43,7 +43,14 @@
     "resendVerification": "Megerősítő e-mail újraküldése",
     "resendPrompt": "Adja meg a regisztrációkor használt e-mail címet",
     "resendSent": "Ha ehhez a címhez tartozik meg nem erősített fiók, az e-mail úton van.",
-    "resendFailed": "Nem sikerült új e-mailt kérni. Kérjük, próbálja újra."
+    "resendFailed": "Nem sikerült új e-mailt kérni. Kérjük, próbálja újra.",
+    "passwordRules": "A jelszónak tartalmaznia kell:",
+    "ruleLength": "Legalább 12 karaktert",
+    "ruleUppercase": "Nagybetűt",
+    "ruleLowercase": "Kisbetűt",
+    "ruleDigit": "Számjegyet",
+    "ruleSpecial": "Speciális karaktert (!@#$…)",
+    "noAccountRegister": "Még nincs fiókja? Hozzon létre egyet ezzel az e-mail címmel"
   },
   "onboarding": {
     "locationTitle": "Helyszín engedélyezése",

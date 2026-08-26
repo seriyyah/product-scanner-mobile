@@ -314,7 +314,7 @@ export type RootStackParamList = {
 
 export type AuthStackParamList = {
   readonly Login: undefined;
-  readonly Register: undefined;
+  readonly Register: { email?: string } | undefined;
   readonly ForgotPassword: undefined;
   readonly VerifyEmail: { token?: string };
   readonly ResetPassword: { token?: string };

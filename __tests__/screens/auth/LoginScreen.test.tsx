@@ -84,3 +84,24 @@ describe('LoginScreen', () => {
     expect(getByText('Welcome Back')).toBeTruthy();
   });
 });
+
+describe('failed sign-in guidance', () => {
+  it('does not report a rejected sign-in through console.error', () => {
+    const source = require('fs').readFileSync(
+      require('path').join(__dirname, '../../../src/screens/auth/LoginScreen.tsx'),
+      'utf8',
+    );
+    // console.error renders a full-screen LogBox overlay in development, which
+    // buries the form and looks like a crash for an entirely expected outcome.
+    expect(source).not.toMatch(/console\.error\(\s*'Login error/);
+  });
+
+  it('offers to register with the attempted email after a rejection', () => {
+    const source = require('fs').readFileSync(
+      require('path').join(__dirname, '../../../src/screens/auth/LoginScreen.tsx'),
+      'utf8',
+    );
+    expect(source).toContain("navigation.navigate('Register'");
+    expect(source).toContain('failedEmail');
+  });
+});

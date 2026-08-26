@@ -43,7 +43,14 @@
     "resendVerification": "Bestätigungs-E-Mail erneut senden",
     "resendPrompt": "Geben Sie die E-Mail-Adresse Ihrer Registrierung ein",
     "resendSent": "Falls zu dieser Adresse ein unbestätigtes Konto gehört, ist die E-Mail unterwegs.",
-    "resendFailed": "Neue E-Mail konnte nicht angefordert werden. Bitte erneut versuchen."
+    "resendFailed": "Neue E-Mail konnte nicht angefordert werden. Bitte erneut versuchen.",
+    "passwordRules": "Das Passwort muss enthalten:",
+    "ruleLength": "Mindestens 12 Zeichen",
+    "ruleUppercase": "Einen Großbuchstaben",
+    "ruleLowercase": "Einen Kleinbuchstaben",
+    "ruleDigit": "Eine Ziffer",
+    "ruleSpecial": "Ein Sonderzeichen (!@#$…)",
+    "noAccountRegister": "Noch kein Konto? Mit dieser E-Mail registrieren"
   },
   "onboarding": {
     "locationTitle": "Standort erlauben",

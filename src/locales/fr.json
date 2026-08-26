@@ -43,7 +43,14 @@
     "resendVerification": "Renvoyer l'e-mail de vérification",
     "resendPrompt": "Saisissez l'e-mail utilisé lors de l'inscription",
     "resendSent": "Si un compte non vérifié existe pour cette adresse, l'e-mail est en route.",
-    "resendFailed": "Impossible de demander un nouvel e-mail. Veuillez réessayer."
+    "resendFailed": "Impossible de demander un nouvel e-mail. Veuillez réessayer.",
+    "passwordRules": "Le mot de passe doit contenir :",
+    "ruleLength": "Au moins 12 caractères",
+    "ruleUppercase": "Une majuscule",
+    "ruleLowercase": "Une minuscule",
+    "ruleDigit": "Un chiffre",
+    "ruleSpecial": "Un caractère spécial (!@#$…)",
+    "noAccountRegister": "Pas encore de compte ? Créez-en un avec cet e-mail"
   },
   "onboarding": {
     "locationTitle": "Autoriser la localisation",

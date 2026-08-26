@@ -43,7 +43,14 @@
     "resendVerification": "Wyślij ponownie e-mail weryfikacyjny",
     "resendPrompt": "Podaj adres e-mail użyty przy rejestracji",
     "resendSent": "Jeśli do tego adresu należy niezweryfikowane konto, e-mail jest w drodze.",
-    "resendFailed": "Nie udało się wysłać nowego e-maila. Spróbuj ponownie."
+    "resendFailed": "Nie udało się wysłać nowego e-maila. Spróbuj ponownie.",
+    "passwordRules": "Hasło musi zawierać:",
+    "ruleLength": "Co najmniej 12 znaków",
+    "ruleUppercase": "Wielką literę",
+    "ruleLowercase": "Małą literę",
+    "ruleDigit": "Cyfrę",
+    "ruleSpecial": "Znak specjalny (!@#$…)",
+    "noAccountRegister": "Nie masz konta? Załóż je z tym adresem e-mail"
   },
   "onboarding": {
     "locationTitle": "Zezwól na lokalizację",

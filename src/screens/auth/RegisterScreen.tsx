@@ -11,13 +11,15 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import theme from '@/constants/theme';
+import { checkPassword, isPasswordAcceptable } from '@/utils/passwordPolicy';
 import TextInput from '@/components/forms/TextInput';
 import Button from '@/components/common/Button';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
@@ -32,6 +34,18 @@ interface RegisterFormData {
   lastName: string;
   termsAccepted: boolean;
 }
+
+/** i18n key and English fallback for each policy rule. */
+const RULE_LABELS: Record<
+  'length' | 'uppercase' | 'lowercase' | 'digit' | 'special',
+  { key: string; fallback: string }
+> = {
+  length: { key: 'auth.ruleLength', fallback: 'At least 12 characters' },
+  uppercase: { key: 'auth.ruleUppercase', fallback: 'An uppercase letter' },
+  lowercase: { key: 'auth.ruleLowercase', fallback: 'A lowercase letter' },
+  digit: { key: 'auth.ruleDigit', fallback: 'A number' },
+  special: { key: 'auth.ruleSpecial', fallback: 'A special character (!@#$…)' },
+};
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -48,8 +62,12 @@ const registerSchema = yup.object().shape({
     .required('Email is required'),
   password: yup
     .string()
-    .min(12, 'Password must be at least 12 characters')
-    .required('Password is required'),
+    .required('Password is required')
+    // Mirrors auth-service exactly. Checking only the length here let a password
+    // through that the server then refused.
+    .test('policy', 'Password does not meet all requirements', (value) =>
+      isPasswordAcceptable(value ?? ''),
+    ),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'Passwords must match')
@@ -69,6 +87,11 @@ const RegisterScreen: React.FC = () => {
   const { register: registerUser } = useAuth();
   const { setLanguage } = useApp();
 
+  const { t } = useTranslation();
+  // Arrives when someone was sent here from a rejected sign-in.
+  const route = useRoute<any>();
+  const prefilledEmail: string = route.params?.email ?? '';
+
   const {
     control,
     handleSubmit,
@@ -77,6 +100,7 @@ const RegisterScreen: React.FC = () => {
     setValue,
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema) as any,
+    values: prefilledEmail ? ({ email: prefilledEmail } as any) : undefined,
     mode: 'onBlur',
     defaultValues: {
       firstName: '',
@@ -195,15 +219,30 @@ const RegisterScreen: React.FC = () => {
             required
             disabled={isSubmitting}
           />
+          {/* Every rule the server enforces, shown as it is met. The form used to
+              check the length only, so a password could pass here and be refused on
+              submit with no indication of which rule was missing. */}
           <View style={styles.passwordHint}>
-            <Text style={[
-              styles.passwordCount,
-              passwordValue.length >= 12
-                ? styles.passwordCountOk
-                : styles.passwordCountWarn,
-            ]}>
-              {passwordValue.length}/12 characters
+            <Text style={styles.passwordRulesTitle}>
+              {t('auth.passwordRules', 'Password must contain:')}
             </Text>
+            {checkPassword(passwordValue).map((rule) => (
+              <View key={rule.id} style={styles.passwordRuleRow}>
+                <Ionicons
+                  name={rule.met ? 'checkmark-circle' : 'ellipse-outline'}
+                  size={16}
+                  color={rule.met ? theme.colors.success : theme.colors.textSecondary}
+                />
+                <Text
+                  style={[
+                    styles.passwordRuleText,
+                    rule.met ? styles.passwordRuleMet : styles.passwordRuleUnmet,
+                  ]}
+                >
+                  {t(RULE_LABELS[rule.id].key, RULE_LABELS[rule.id].fallback)}
+                </Text>
+              </View>
+            ))}
           </View>
 
           <TextInput
@@ -397,15 +436,25 @@ const styles = StyleSheet.create({
     marginTop: -theme.spacing.sm,
     marginBottom: theme.spacing.sm,
   },
-  passwordCount: {
-    fontSize: theme.typography.fontSizes.xs,
-    fontWeight: '500' as const,
+  passwordRulesTitle: {
+    color: theme.colors.textSecondary,
+    fontSize: 13,
+    marginBottom: 6,
   },
-  passwordCountWarn: {
-    color: theme.colors.error,
+  passwordRuleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
   },
-  passwordCountOk: {
-    color: '#4CAF50',
+  passwordRuleText: {
+    fontSize: 13,
+    marginLeft: 6,
+  },
+  passwordRuleMet: {
+    color: theme.colors.success,
+  },
+  passwordRuleUnmet: {
+    color: theme.colors.textSecondary,
   },
   prefSection: {
     marginBottom: theme.spacing.md,

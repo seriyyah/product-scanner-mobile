@@ -43,7 +43,14 @@
     "resendVerification": "Resend verification email",
     "resendPrompt": "Enter the email you registered with",
     "resendSent": "If that address has an unverified account, a new email is on its way.",
-    "resendFailed": "Could not request a new email. Please try again."
+    "resendFailed": "Could not request a new email. Please try again.",
+    "passwordRules": "Password must contain:",
+    "ruleLength": "At least 12 characters",
+    "ruleUppercase": "An uppercase letter",
+    "ruleLowercase": "A lowercase letter",
+    "ruleDigit": "A number",
+    "ruleSpecial": "A special character (!@#$…)",
+    "noAccountRegister": "No account yet? Create one with this email"
   },
   "onboarding": {
     "locationTitle": "Enable Location",
