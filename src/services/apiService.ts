@@ -4,6 +4,7 @@
 
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { storage } from '@/utils/storage';
+import { API_BASE_URL } from '@/config/environment';
 import {
   IUser,
   IUserCredentials,
@@ -16,7 +17,9 @@ import {
 
 // API Configuration
 class ApiConfig {
-  public static readonly BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || 'http://localhost:8300';
+  // Resolved from EXPO_PUBLIC_ENV, with EXPO_PUBLIC_API_BASE_URL as an override.
+  // See src/config/environment.ts for what each name points at.
+  public static readonly BASE_URL = API_BASE_URL;
   public static readonly TIMEOUT = 30000;
   public static readonly TOKEN_KEY = 'auth_token';
   public static readonly REFRESH_TOKEN_KEY = 'refresh_token';
