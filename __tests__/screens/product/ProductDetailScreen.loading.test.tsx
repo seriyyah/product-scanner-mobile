@@ -11,6 +11,9 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
 const mockGetProductDetails = jest.fn();
+const mockGetDiscovery = jest.fn();
+let currentRole = 'free_user';
+const mockRole = () => currentRole;
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -26,7 +29,7 @@ jest.mock('react-native-safe-area-context', () => ({
 
 jest.mock('../../../src/contexts/AuthContext', () => ({
   useAuth: () => ({
-    state: { user: { id: 'u1', role: 'free_user' }, isAuthenticated: true, isLoading: false, error: null },
+    state: { user: { id: 'u1', role: mockRole() }, isAuthenticated: true, isLoading: false, error: null },
   }),
 }));
 
@@ -42,7 +45,7 @@ jest.mock('../../../src/contexts/AppContext', () => ({
 
 jest.mock('../../../src/services/apiService', () => ({
   scannerRepository: { getProductDetails: (...a: unknown[]) => mockGetProductDetails(...a) },
-  discoveryRepository: { getDiscovery: jest.fn().mockResolvedValue(null) },
+  discoveryRepository: { getDiscovery: (...a: unknown[]) => mockGetDiscovery(...a) },
   mlRepository: { getRecommendations: jest.fn().mockResolvedValue(null) },
   behaviorRepository: { track: jest.fn().mockResolvedValue(undefined) },
   priceRepository: { getPrices: jest.fn().mockResolvedValue(null) },
@@ -91,5 +94,58 @@ describe('ProductDetailScreen opened from history', () => {
     const { findByText } = render(<ProductDetailScreen />);
     await waitFor(() => expect(mockGetProductDetails).toHaveBeenCalled());
     expect(await findByText(/soy/i)).toBeTruthy();
+  });
+});
+
+
+describe('Safer Alternatives on the detail screen', () => {
+  const DISCOVERY = {
+    barcode: '1234567890123',
+    explanation: 'Prince scores D. Gerble is a safer choice in the same category.',
+    alternatives: [
+      { barcode: '3175681226111', name: 'Gerble sans sucres', grade: 'D', safety_score: 57.3,
+        similarity_score: 0.85, prices: [{ price: 3.05, currency: 'EUR', shop_name: 'Carrefour', location_name: 'Carrefour' }] },
+      { barcode: '3175681226112', name: 'Petits chocos', grade: 'D', safety_score: 54.7,
+        similarity_score: 0.8, prices: [] },
+    ],
+    prices: [], search_results: [],
+  };
+
+  const PRODUCT = {
+    product: { barcode: '1234567890123', name: 'Prince', images: [], ingredients: [], ingredients_text: 'flour' },
+    safety_score: 45, safety_grade: 'D', warnings: [], warning_details: [], data_quality: 'full',
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    currentRole = 'super_admin';
+    mockGetProductDetails.mockResolvedValue(PRODUCT);
+  });
+
+  afterEach(() => { currentRole = 'free_user'; });
+
+  it('lists alternatives when a product is opened from history', async () => {
+    // This is the screen History links to. Only the scan-result screen was covered,
+    // so the same list failing here would have gone unnoticed.
+    mockGetDiscovery.mockResolvedValue(DISCOVERY);
+    const { findByText } = render(<ProductDetailScreen />);
+    expect(await findByText('Gerble sans sucres')).toBeTruthy();
+    expect(await findByText('Petits chocos')).toBeTruthy();
+  });
+
+  it('does not show a paywall to a user who already has access', async () => {
+    mockGetDiscovery.mockResolvedValue(DISCOVERY);
+    const { queryByText, findByText } = render(<ProductDetailScreen />);
+    await findByText('Gerble sans sucres');
+    expect(queryByText('Premium feature')).toBeNull();
+  });
+
+  it('survives an alternative with no prices', async () => {
+    mockGetDiscovery.mockResolvedValue({
+      ...DISCOVERY,
+      alternatives: [{ barcode: '1', name: 'No price product', grade: 'C', safety_score: 60 }],
+    });
+    const { findByText } = render(<ProductDetailScreen />);
+    expect(await findByText('No price product')).toBeTruthy();
   });
 });
