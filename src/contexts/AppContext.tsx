@@ -30,9 +30,9 @@ interface AppContextValue {
 
 const AppContext = createContext<AppContextValue | null>(null);
 
-const LOCATION_KEY = 'app:user_location';
-const LOCATION_ASKED_KEY = 'app:location_asked';
-const LANGUAGE_KEY = 'app:language';
+const LOCATION_KEY = 'app.user_location';
+const LOCATION_ASKED_KEY = 'app.location_asked';
+const LANGUAGE_KEY = 'app.language';
 
 // ---- Provider ----
 
@@ -47,17 +47,24 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Restore persisted location + language on mount
   useEffect(() => {
     (async () => {
-      const [storedLoc, storedAsked, storedLang] = await Promise.all([
-        storage.getItem(LOCATION_KEY),
-        storage.getItem(LOCATION_ASKED_KEY),
-        storage.getItem(LANGUAGE_KEY),
-      ]);
-      if (storedLoc) {
-        try { setLocationState(JSON.parse(storedLoc)); } catch {}
+      try {
+        const [storedLoc, storedAsked, storedLang] = await Promise.all([
+          storage.getItem(LOCATION_KEY),
+          storage.getItem(LOCATION_ASKED_KEY),
+          storage.getItem(LANGUAGE_KEY),
+        ]);
+        if (storedLoc) {
+          try { setLocationState(JSON.parse(storedLoc)); } catch {}
+        }
+        if (storedAsked === 'true') setLocationAsked(true);
+        if (storedLang) i18n.changeLanguage(storedLang);
+      } catch (error) {
+        // Nothing restored is worse than a stuck app: screens gate on locationLoaded,
+        // so this has to be set even when the read fails.
+        console.warn('Could not restore stored app preferences:', error);
+      } finally {
+        setLocationLoaded(true);
       }
-      if (storedAsked === 'true') setLocationAsked(true);
-      if (storedLang) i18n.changeLanguage(storedLang);
-      setLocationLoaded(true);
     })();
   }, []);
 
@@ -106,7 +113,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const setLanguage = useCallback(
     (lang: string) => {
       i18n.changeLanguage(lang);
-      storage.setItem(LANGUAGE_KEY, lang);
+      storage
+        .setItem(LANGUAGE_KEY, lang)
+        .catch((error) => console.warn('Could not persist language:', error));
     },
     [i18n],
   );

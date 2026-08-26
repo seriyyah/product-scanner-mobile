@@ -20,6 +20,7 @@ import { useApp } from '@/contexts/AppContext';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import theme from '@/constants/theme';
 import { checkPassword, isPasswordAcceptable } from '@/utils/passwordPolicy';
+import { persistRegistrationPreferences } from '@/utils/registrationPreferences';
 import TextInput from '@/components/forms/TextInput';
 import Button from '@/components/common/Button';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
@@ -128,10 +129,10 @@ const RegisterScreen: React.FC = () => {
       // Apply language immediately in this session
       setLanguage(selectedLanguage);
       // Persist selected language/currency so PreferencesScreen shows correct defaults
-      // after email verification + login (stored in AsyncStorage, applied on first pref load)
-      const { storage } = await import('@/utils/storage');
-      await storage.setItem('reg:language', selectedLanguage);
-      await storage.setItem('reg:currency', selectedCurrency);
+      // after email verification + login. Cannot reject: the account already exists on
+      // the server by this point, so a storage failure must not report registration
+      // as failed and leave the user unable to sign up again.
+      await persistRegistrationPreferences(selectedLanguage, selectedCurrency);
       setRegistered(true);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Registration failed. Please try again.';
