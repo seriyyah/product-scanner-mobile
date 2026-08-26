@@ -4,9 +4,9 @@ import theme from '@/constants/theme';
 import { gradeColor } from '@/utils/safetyColors';
 
 interface Props {
-  imageUrl?: string | null;
-  grade?: string | null;
-  size?: number;
+  imageUrl?: string | null | undefined;
+  grade?: string | null | undefined;
+  size?: number | undefined;
 }
 
 const ProductThumbnail: React.FC<Props> = ({ imageUrl, grade, size = 48 }) => {
@@ -32,7 +32,7 @@ const ProductThumbnail: React.FC<Props> = ({ imageUrl, grade, size = 48 }) => {
           width: size,
           height: size,
           borderRadius: size / 2,
-          backgroundColor: gradeColor(grade),
+          backgroundColor: gradeColor(grade ?? ''),
         },
       ]}
     >

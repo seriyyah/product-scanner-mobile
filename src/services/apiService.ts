@@ -277,7 +277,11 @@ export class ScannerRepository {
   public async scanBarcode(barcode: string): Promise<ScanResult & { scansRemaining?: number }> {
     const { data, headers } = await this.apiClient.postWithHeaders<ScanResult>('/api/v2/scan', { barcode });
     const remaining = headers['x-ratelimit-remaining'];
-    return { ...data, scansRemaining: remaining !== undefined ? parseInt(remaining, 10) : undefined };
+    // Omitted rather than set to undefined: the header is absent for tiers with no
+    // scan limit, and "no property" is the honest representation of that.
+    return remaining === undefined
+      ? { ...data }
+      : { ...data, scansRemaining: parseInt(remaining, 10) };
   }
 
   // Read-only lookup — fetches product + rating WITHOUT saving to scan history.

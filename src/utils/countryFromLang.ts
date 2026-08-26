@@ -25,7 +25,7 @@ const LANG_TO_COUNTRY: Record<string, string> = {
 };
 
 export function countryFromLang(lang: string): string | undefined {
-  const base = lang.split('-')[0].toLowerCase();
+  const base = (lang.split('-')[0] ?? '').toLowerCase();
   const cc = LANG_TO_COUNTRY[base];
   return cc || undefined;
 }

@@ -280,13 +280,13 @@ const ProductDetailScreen: React.FC = () => {
               onPress={() => handleAlternativeClick(alt)}
               activeOpacity={0.8}
             >
-              <View style={[styles.altGrade, { backgroundColor: gradeColor(alt.grade) }]}>
-                <Text style={styles.altGradeText}>{alt.grade.toUpperCase()}</Text>
+              <View style={[styles.altGrade, { backgroundColor: gradeColor(alt.grade ?? '') }]}>
+                <Text style={styles.altGradeText}>{(alt.grade ?? '?').toUpperCase()}</Text>
               </View>
               <View style={styles.altInfo}>
                 <Text style={styles.altName}>{alt.name}</Text>
-                {alt.prices.length > 0 && (() => {
-                    const p0 = alt.prices[0]!;
+                {(alt.prices?.length ?? 0) > 0 && (() => {
+                    const p0 = alt.prices![0]!;
                     return (
                       <Text style={styles.altPrice}>
                         From {p0.price.toFixed(2)} {p0.currency} · {p0.shop_name}
@@ -295,7 +295,7 @@ const ProductDetailScreen: React.FC = () => {
                   })()}
               </View>
               <View style={styles.altRight}>
-                <Text style={styles.altScore}>{alt.safety_score.toFixed(0)}</Text>
+                <Text style={styles.altScore}>{typeof alt.safety_score === 'number' ? alt.safety_score.toFixed(0) : '—'}</Text>
                 <Ionicons name="chevron-forward" size={14} color={theme.colors.textSecondary} />
               </View>
             </TouchableOpacity>
@@ -351,14 +351,14 @@ const ProductDetailScreen: React.FC = () => {
               onPress={() => navigation.navigate('ProductDetail', { barcode: alt.barcode })}
               activeOpacity={0.8}
             >
-              <View style={[styles.altGrade, { backgroundColor: gradeColor(alt.grade) }]}>
-                <Text style={styles.altGradeText}>{alt.grade.toUpperCase()}</Text>
+              <View style={[styles.altGrade, { backgroundColor: gradeColor(alt.grade ?? '') }]}>
+                <Text style={styles.altGradeText}>{(alt.grade ?? '?').toUpperCase()}</Text>
               </View>
               <View style={styles.altInfo}>
                 <Text style={styles.altName}>{alt.name}</Text>
                 <Text style={styles.altReason}>{alt.reason}</Text>
               </View>
-              <Text style={styles.altScore}>{alt.safety_score.toFixed(0)}</Text>
+              <Text style={styles.altScore}>{typeof alt.safety_score === 'number' ? alt.safety_score.toFixed(0) : '—'}</Text>
             </TouchableOpacity>
           ))}
         </>

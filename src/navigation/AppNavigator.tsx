@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, type LinkingOptions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
@@ -188,7 +188,9 @@ const RootNavigator: React.FC = () => {
   );
 };
 
-const linking = {
+// Typed against the root param list so the screen names in `config` are checked
+// against the navigator they address, rather than inferred as a bare object.
+const linking: LinkingOptions<AuthRootParamList & MainRootParamList> = {
   prefixes: ['productscanner://'],
   config: {
     screens: {

@@ -103,12 +103,8 @@ describe('SubscriptionScreen', () => {
     ).toBeTruthy();
   });
 
-  // Asserts nothing yet: useAuth is mocked at module scope with a free_user, so
-  // covering the admin branch needs the module re-mocked and re-imported. Left
-  // skipped rather than deleted so the gap stays visible. It previously called
-  // jest.resetModules() with no assertion, which emptied the module registry and
-  // made React null for every test declared after it.
-  it.skip('shows admin view for admin role', () => {});
+  // The staff view is covered in SubscriptionScreen.admin.test.tsx: useAuth is
+  // mocked at module scope here, so a different role needs its own file.
 });
 
 describe('plan descriptions', () => {

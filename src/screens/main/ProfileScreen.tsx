@@ -36,6 +36,7 @@ const profileSchema = yup.object().shape({
 });
 
 const ROLE_BADGE: Record<UserRole, { label: string; color: string }> = {
+  super_admin: { label: 'Super Admin', color: theme.colors.primary },
   admin: { label: 'Admin', color: theme.colors.primary },
   premium_user: { label: 'Premium', color: '#FFD700' },
   ai_premium: { label: 'AI Premium', color: '#9C27B0' },
