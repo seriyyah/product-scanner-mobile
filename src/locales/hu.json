@@ -39,7 +39,11 @@
     "firstNameMin": "A keresztnévnek legalább 2 karakterből kell állnia",
     "lastNameMin": "A vezetéknévnek legalább 2 karakterből kell állnia",
     "loginError": "Bejelentkezés sikertelen. Ellenőrizze adatait.",
-    "registerSuccess": "Fiók létrehozva! Ellenőrizze e-mailjét a megerősítéshez."
+    "registerSuccess": "Fiók létrehozva! Ellenőrizze e-mailjét a megerősítéshez.",
+    "resendVerification": "Megerősítő e-mail újraküldése",
+    "resendPrompt": "Adja meg a regisztrációkor használt e-mail címet",
+    "resendSent": "Ha ehhez a címhez tartozik meg nem erősített fiók, az e-mail úton van.",
+    "resendFailed": "Nem sikerült új e-mailt kérni. Kérjük, próbálja újra."
   },
   "onboarding": {
     "locationTitle": "Helyszín engedélyezése",

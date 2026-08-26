@@ -39,7 +39,11 @@
     "firstNameMin": "Imię musi mieć co najmniej 2 znaki",
     "lastNameMin": "Nazwisko musi mieć co najmniej 2 znaki",
     "loginError": "Logowanie nie powiodło się. Sprawdź swoje dane.",
-    "registerSuccess": "Konto utworzone! Sprawdź e-mail w celu weryfikacji."
+    "registerSuccess": "Konto utworzone! Sprawdź e-mail w celu weryfikacji.",
+    "resendVerification": "Wyślij ponownie e-mail weryfikacyjny",
+    "resendPrompt": "Podaj adres e-mail użyty przy rejestracji",
+    "resendSent": "Jeśli do tego adresu należy niezweryfikowane konto, e-mail jest w drodze.",
+    "resendFailed": "Nie udało się wysłać nowego e-maila. Spróbuj ponownie."
   },
   "onboarding": {
     "locationTitle": "Zezwól na lokalizację",

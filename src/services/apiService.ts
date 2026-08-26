@@ -236,6 +236,20 @@ export class AuthRepository {
     return this.apiClient.post<{ message: string; success: boolean }>('/api/v1/auth/verify-email', { token });
   }
 
+  /**
+   * Ask for a fresh verification email.
+   *
+   * The backend always reports success — answering differently for registered and
+   * unregistered addresses would reveal who has an account — so the UI can only say
+   * "if that address has an account, it's on its way".
+   */
+  public async resendVerification(email: string): Promise<{ message: string; success: boolean }> {
+    return this.apiClient.post<{ message: string; success: boolean }>(
+      '/api/v1/auth/resend-verification',
+      { email },
+    );
+  }
+
   public async isAuthenticated(): Promise<boolean> {
     const token = await storage.getItem('auth_token');
     return Boolean(token);

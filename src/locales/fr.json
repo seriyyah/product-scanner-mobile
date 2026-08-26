@@ -39,7 +39,11 @@
     "firstNameMin": "Le prénom doit comporter au moins 2 caractères",
     "lastNameMin": "Le nom doit comporter au moins 2 caractères",
     "loginError": "Connexion échouée. Vérifiez vos identifiants.",
-    "registerSuccess": "Compte créé ! Vérifiez votre e-mail pour la confirmation."
+    "registerSuccess": "Compte créé ! Vérifiez votre e-mail pour la confirmation.",
+    "resendVerification": "Renvoyer l'e-mail de vérification",
+    "resendPrompt": "Saisissez l'e-mail utilisé lors de l'inscription",
+    "resendSent": "Si un compte non vérifié existe pour cette adresse, l'e-mail est en route.",
+    "resendFailed": "Impossible de demander un nouvel e-mail. Veuillez réessayer."
   },
   "onboarding": {
     "locationTitle": "Autoriser la localisation",

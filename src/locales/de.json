@@ -39,7 +39,11 @@
     "firstNameMin": "Vorname muss mindestens 2 Zeichen haben",
     "lastNameMin": "Nachname muss mindestens 2 Zeichen haben",
     "loginError": "Anmeldung fehlgeschlagen. Überprüfen Sie Ihre Daten.",
-    "registerSuccess": "Konto erstellt! Bitte E-Mail zur Verifizierung prüfen."
+    "registerSuccess": "Konto erstellt! Bitte E-Mail zur Verifizierung prüfen.",
+    "resendVerification": "Bestätigungs-E-Mail erneut senden",
+    "resendPrompt": "Geben Sie die E-Mail-Adresse Ihrer Registrierung ein",
+    "resendSent": "Falls zu dieser Adresse ein unbestätigtes Konto gehört, ist die E-Mail unterwegs.",
+    "resendFailed": "Neue E-Mail konnte nicht angefordert werden. Bitte erneut versuchen."
   },
   "onboarding": {
     "locationTitle": "Standort erlauben",

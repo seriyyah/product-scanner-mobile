@@ -39,7 +39,11 @@
     "firstNameMin": "First name must be at least 2 characters",
     "lastNameMin": "Last name must be at least 2 characters",
     "loginError": "Login failed. Please check your credentials.",
-    "registerSuccess": "Account created! Please check your email to verify."
+    "registerSuccess": "Account created! Please check your email to verify.",
+    "resendVerification": "Resend verification email",
+    "resendPrompt": "Enter the email you registered with",
+    "resendSent": "If that address has an unverified account, a new email is on its way.",
+    "resendFailed": "Could not request a new email. Please try again."
   },
   "onboarding": {
     "locationTitle": "Enable Location",

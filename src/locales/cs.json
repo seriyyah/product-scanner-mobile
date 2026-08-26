@@ -39,7 +39,11 @@
     "firstNameMin": "Jméno musí mít alespoň 2 znaky",
     "lastNameMin": "Příjmení musí mít alespoň 2 znaky",
     "loginError": "Přihlášení selhalo. Zkontrolujte údaje.",
-    "registerSuccess": "Účet vytvořen! Zkontrolujte e-mail pro ověření."
+    "registerSuccess": "Účet vytvořen! Zkontrolujte e-mail pro ověření.",
+    "resendVerification": "Znovu odeslat ověřovací e-mail",
+    "resendPrompt": "Zadejte e-mail, se kterým jste se registrovali",
+    "resendSent": "Pokud k této adrese patří neověřený účet, e-mail je na cestě.",
+    "resendFailed": "Nepodařilo se odeslat nový e-mail. Zkuste to prosím znovu."
   },
   "onboarding": {
     "locationTitle": "Povolit polohu",
