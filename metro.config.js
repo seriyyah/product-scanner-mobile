@@ -20,6 +20,12 @@ if (!NATIVE_BUILD) {
         type: 'sourceFile',
       };
     }
+    if (moduleName === 'react-native-purchases') {
+      return {
+        filePath: path.resolve(__dirname, 'src/mocks/react-native-purchases.js'),
+        type: 'sourceFile',
+      };
+    }
     if (moduleName === 'expo-location') {
       return {
         filePath: path.resolve(__dirname, 'src/mocks/expo-location.js'),
