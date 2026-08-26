@@ -17,7 +17,8 @@
     "done": "Gotowe",
     "allow": "Zezwól",
     "deny": "Odmów",
-    "unknown": "Nieznane"
+    "unknown": "Nieznane",
+    "goBack": "Wstecz"
   },
   "auth": {
     "login": "Zaloguj się",
@@ -142,7 +143,8 @@
     "explanation": "Wyjaśnienie AI",
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na podstawie częściowych danych — niektóre wartości wywnioskowane ze składu",
-    "limitReached": "Wykorzystałeś darmowe skany w tej godzinie. Produkty już zeskanowane pozostają dostępne."
+    "limitReached": "Wykorzystałeś darmowe skany w tej godzinie. Produkty już zeskanowane pozostają dostępne.",
+    "scanResult": "Wynik skanowania"
   },
   "history": {
     "title": "Historia skanów",

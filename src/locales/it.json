@@ -17,7 +17,8 @@
     "done": "Fatto",
     "allow": "Consenti",
     "deny": "Nega",
-    "unknown": "Sconosciuto"
+    "unknown": "Sconosciuto",
+    "goBack": "Indietro"
   },
   "auth": {
     "login": "Accedi",
@@ -142,7 +143,8 @@
     "from": "Da {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basato su dati parziali — alcuni valori dedotti dagli ingredienti",
     "whyThisRating": "Perché questa valutazione",
-    "limitReached": "Hai usato le scansioni gratuite di questa ora. I prodotti già scansionati restano disponibili."
+    "limitReached": "Hai usato le scansioni gratuite di questa ora. I prodotti già scansionati restano disponibili.",
+    "scanResult": "Risultato scansione"
   },
   "history": {
     "title": "Cronologia scansioni",

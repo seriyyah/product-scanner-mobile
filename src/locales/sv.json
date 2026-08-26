@@ -17,7 +17,8 @@
     "done": "Klar",
     "allow": "Tillåt",
     "deny": "Neka",
-    "unknown": "Okänd"
+    "unknown": "Okänd",
+    "goBack": "Tillbaka"
   },
   "auth": {
     "login": "Logga in",
@@ -142,7 +143,8 @@
     "from": "Från {{price}} {{currency}} · {{shop}}",
     "partialRating": "Baserat på ofullständiga data — vissa värden härledda ur ingredienserna",
     "whyThisRating": "Varför detta betyg",
-    "limitReached": "Du har använt dina gratis skanningar för den här timmen. Produkter du redan skannat är fortfarande tillgängliga."
+    "limitReached": "Du har använt dina gratis skanningar för den här timmen. Produkter du redan skannat är fortfarande tillgängliga.",
+    "scanResult": "Skanningsresultat"
   },
   "history": {
     "title": "Skanningshistorik",

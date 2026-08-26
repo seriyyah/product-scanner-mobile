@@ -8,6 +8,7 @@ import { NavigationContainer, type LinkingOptions } from '@react-navigation/nati
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
+import { SCREEN_OPTIONS } from '@/navigation/screenOptions';
 import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -126,27 +127,27 @@ const MainNavigator: React.FC = () => (
     <MainStack.Screen
       name="Subscription"
       component={SubscriptionScreen}
-      options={{ presentation: 'card' }}
+      options={SCREEN_OPTIONS.Subscription}
     />
     <MainStack.Screen
       name="VideoReward"
       component={VideoRewardScreen}
-      options={{ presentation: 'modal' }}
+      options={SCREEN_OPTIONS.VideoReward}
     />
     <MainStack.Screen
       name="Preferences"
       component={PreferencesScreen}
-      options={{ presentation: 'card' }}
+      options={SCREEN_OPTIONS.Preferences}
     />
     <MainStack.Screen
       name="ScanResult"
       component={ScanResultScreen}
-      options={{ presentation: 'modal' }}
+      options={SCREEN_OPTIONS.ScanResult}
     />
     <MainStack.Screen
       name="ProductDetail"
       component={ProductDetailScreen}
-      options={{ presentation: 'modal' }}
+      options={SCREEN_OPTIONS.ProductDetail}
     />
   </MainStack.Navigator>
 );

@@ -17,7 +17,8 @@
     "done": "Gotovo",
     "allow": "Dopusti",
     "deny": "Odbij",
-    "unknown": "Nepoznato"
+    "unknown": "Nepoznato",
+    "goBack": "Natrag"
   },
   "auth": {
     "login": "Prijava",
@@ -142,7 +143,8 @@
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na temelju djelomičnih podataka — neke vrijednosti izvedene iz sastojaka",
     "whyThisRating": "Zašto ova ocjena",
-    "limitReached": "Iskoristili ste besplatna skeniranja za ovaj sat. Već skenirani proizvodi ostaju dostupni."
+    "limitReached": "Iskoristili ste besplatna skeniranja za ovaj sat. Već skenirani proizvodi ostaju dostupni.",
+    "scanResult": "Rezultat skeniranja"
   },
   "history": {
     "title": "Povijest skeniranja",

@@ -17,7 +17,8 @@
     "done": "Kész",
     "allow": "Engedélyezés",
     "deny": "Megtagadás",
-    "unknown": "Ismeretlen"
+    "unknown": "Ismeretlen",
+    "goBack": "Vissza"
   },
   "auth": {
     "login": "Bejelentkezés",
@@ -142,7 +143,8 @@
     "explanation": "AI-magyarázat",
     "from": "{{price}} {{currency}}-tól · {{shop}}",
     "partialRating": "Részleges adatok alapján — egyes értékek az összetevőkből származnak",
-    "limitReached": "Elhasználta az ingyenes beolvasásait erre az órára. A már beolvasott termékek elérhetők maradnak."
+    "limitReached": "Elhasználta az ingyenes beolvasásait erre az órára. A már beolvasott termékek elérhetők maradnak.",
+    "scanResult": "Beolvasás eredménye"
   },
   "history": {
     "title": "Beolvasási előzmények",

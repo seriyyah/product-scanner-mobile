@@ -2,10 +2,11 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 
 const mockNavigate = jest.fn();
+const mockGoBack = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
-  useNavigation: () => ({ navigate: mockNavigate, goBack: jest.fn() }),
+  useNavigation: () => ({ navigate: mockNavigate, goBack: mockGoBack }),
   useRoute: () => ({
     params: {
       scanResult: {
@@ -152,5 +153,21 @@ describe('ScanResultScreen', () => {
     const { getByText } = render(<ScanResultScreen />);
     expect(getByText('Ingredients Analysis')).toBeTruthy();
     expect(getByText('vegan')).toBeTruthy();
+  });
+});
+
+describe('getting back out of a scan result', () => {
+  it('offers a back control at the top of the screen', async () => {
+    // There was none. The only exit was the button at the very bottom, which
+    // navigates to the scanner rather than returning where you came from.
+    const { findByLabelText } = render(<ScanResultScreen />);
+    expect(await findByLabelText('Go back')).toBeTruthy();
+  });
+
+  it('goes back rather than navigating somewhere new', async () => {
+    const { findByLabelText } = render(<ScanResultScreen />);
+    fireEvent.press(await findByLabelText('Go back'));
+    expect(mockGoBack).toHaveBeenCalled();
+    expect(mockNavigate).not.toHaveBeenCalled();
   });
 });

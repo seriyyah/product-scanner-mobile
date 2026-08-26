@@ -17,7 +17,8 @@
     "done": "Done",
     "allow": "Allow",
     "deny": "Deny",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "goBack": "Go back"
   },
   "auth": {
     "login": "Log In",
@@ -139,7 +140,8 @@
     "upgradeSubscription": "Upgrade",
     "scanAnother": "Scan Another",
     "whyThisRating": "Why this rating",
-    "limitReached": "You have used your free scans for this hour. Products you have already scanned stay available."
+    "limitReached": "You have used your free scans for this hour. Products you have already scanned stay available.",
+    "scanResult": "Scan result"
   },
   "history": {
     "title": "Scan History",

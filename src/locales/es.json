@@ -17,7 +17,8 @@
     "done": "Hecho",
     "allow": "Permitir",
     "deny": "Denegar",
-    "unknown": "Desconocido"
+    "unknown": "Desconocido",
+    "goBack": "Atrás"
   },
   "auth": {
     "login": "Iniciar sesión",
@@ -142,7 +143,8 @@
     "from": "Desde {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basado en datos parciales — algunos valores derivados de los ingredientes",
     "whyThisRating": "Por qué esta valoración",
-    "limitReached": "Has usado tus escaneos gratuitos de esta hora. Los productos que ya escaneaste siguen disponibles."
+    "limitReached": "Has usado tus escaneos gratuitos de esta hora. Los productos que ya escaneaste siguen disponibles.",
+    "scanResult": "Resultado del escaneo"
   },
   "history": {
     "title": "Historial de escaneos",

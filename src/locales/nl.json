@@ -17,7 +17,8 @@
     "done": "Klaar",
     "allow": "Toestaan",
     "deny": "Weigeren",
-    "unknown": "Onbekend"
+    "unknown": "Onbekend",
+    "goBack": "Terug"
   },
   "auth": {
     "login": "Inloggen",
@@ -142,7 +143,8 @@
     "from": "Vanaf {{price}} {{currency}} · {{shop}}",
     "partialRating": "Gebaseerd op gedeeltelijke gegevens — sommige waarden afgeleid uit de ingrediënten",
     "whyThisRating": "Waarom deze beoordeling",
-    "limitReached": "U hebt uw gratis scans voor dit uur gebruikt. Producten die u al hebt gescand blijven beschikbaar."
+    "limitReached": "U hebt uw gratis scans voor dit uur gebruikt. Producten die u al hebt gescand blijven beschikbaar.",
+    "scanResult": "Scanresultaat"
   },
   "history": {
     "title": "Scangeschiedenis",

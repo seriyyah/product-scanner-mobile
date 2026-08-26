@@ -17,7 +17,8 @@
     "done": "Terminé",
     "allow": "Autoriser",
     "deny": "Refuser",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "goBack": "Retour"
   },
   "auth": {
     "login": "Se connecter",
@@ -142,7 +143,8 @@
     "explanation": "Explication IA",
     "from": "À partir de {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basé sur des données partielles — certaines valeurs déduites des ingrédients",
-    "limitReached": "Vous avez utilisé vos scans gratuits pour cette heure. Les produits déjà scannés restent accessibles."
+    "limitReached": "Vous avez utilisé vos scans gratuits pour cette heure. Les produits déjà scannés restent accessibles.",
+    "scanResult": "Résultat du scan"
   },
   "history": {
     "title": "Historique des scans",

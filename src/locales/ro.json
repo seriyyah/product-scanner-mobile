@@ -17,7 +17,8 @@
     "done": "Gata",
     "allow": "Permite",
     "deny": "Refuză",
-    "unknown": "Necunoscut"
+    "unknown": "Necunoscut",
+    "goBack": "Înapoi"
   },
   "auth": {
     "login": "Autentificare",
@@ -142,7 +143,8 @@
     "from": "De la {{price}} {{currency}} · {{shop}}",
     "partialRating": "Pe baza unor date parțiale — unele valori deduse din ingrediente",
     "whyThisRating": "De ce această evaluare",
-    "limitReached": "Ați folosit scanările gratuite pentru această oră. Produsele deja scanate rămân disponibile."
+    "limitReached": "Ați folosit scanările gratuite pentru această oră. Produsele deja scanate rămân disponibile.",
+    "scanResult": "Rezultatul scanării"
   },
   "history": {
     "title": "Istoric scanări",

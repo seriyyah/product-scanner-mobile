@@ -17,7 +17,8 @@
     "done": "Hotovo",
     "allow": "Povolit",
     "deny": "Odmítnout",
-    "unknown": "Neznámé"
+    "unknown": "Neznámé",
+    "goBack": "Zpět"
   },
   "auth": {
     "login": "Přihlásit se",
@@ -142,7 +143,8 @@
     "explanation": "Vysvětlení AI",
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na základě částečných dat — některé hodnoty odvozeny ze složení",
-    "limitReached": "Vyčerpali jste bezplatné skeny pro tuto hodinu. Produkty, které jste již naskenovali, zůstávají dostupné."
+    "limitReached": "Vyčerpali jste bezplatné skeny pro tuto hodinu. Produkty, které jste již naskenovali, zůstávají dostupné.",
+    "scanResult": "Výsledek skenu"
   },
   "history": {
     "title": "Historie skenů",

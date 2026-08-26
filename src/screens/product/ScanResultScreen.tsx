@@ -412,6 +412,26 @@ const ScanResultScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      {/* A way back that does not require scrolling to the bottom. The button
+          down there navigates to the scanner, which is a different thing from
+          returning to wherever you came from. */}
+      <View style={styles.topNav}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          activeOpacity={0.8}
+          style={styles.navButton}
+          accessibilityRole="button"
+          accessibilityLabel={t('common.goBack', 'Go back')}
+          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+        >
+          <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
+        </TouchableOpacity>
+        <Text style={styles.navTitle} numberOfLines={1}>
+          {t('product.scanResult', 'Scan result')}
+        </Text>
+        <View style={styles.navButton} />
+      </View>
+
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
         {/* Header */}
         <View style={styles.header}>
@@ -592,6 +612,23 @@ const styles = StyleSheet.create({
   reasonRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: theme.spacing.sm },
   reasonIcon: { marginTop: 2 },
   reasonText: { flex: 1, marginLeft: theme.spacing.sm, color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm, lineHeight: 20 },
+  topNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.xs,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+  navButton: { padding: theme.spacing.sm, minWidth: 40 },
+  navTitle: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: theme.typography.fontSizes.md,
+    fontWeight: '600' as const,
+    color: theme.colors.text,
+  },
   scoreCircle: { width: 120, height: 120, borderRadius: 60, borderWidth: 4, justifyContent: 'center', alignItems: 'center', marginBottom: theme.spacing.md },
   scoreNumber: { fontSize: theme.typography.fontSizes.xxl, fontWeight: '700' as const },
   scoreGrade: { fontSize: theme.typography.fontSizes.xl, fontWeight: '700' as const },
