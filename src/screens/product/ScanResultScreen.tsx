@@ -20,7 +20,7 @@ import { MainStackParamList, RatingBreakdown } from '@/types';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { ingredientList } from '@/utils/ingredientLocale';
-import { isRated, displayGrade } from '@/utils/ratingConfidence';
+import { isRated, displayGrade, unratedReason } from '@/utils/ratingConfidence';
 import { classifyFailure } from '@/utils/requestOutcome';
 import { countryFromLang } from '@/utils/countryFromLang';
 import { useAuth } from '@/contexts/AuthContext';
@@ -475,7 +475,15 @@ const ScanResultScreen: React.FC = () => {
                 {t('product.notRated', 'Not rated')}
               </Text>
               <Text style={styles.notRatedBody}>
-                {t('product.notRatedBody', 'Not enough information about this product')}
+                {unratedReason(scanResult) === 'unsupported'
+                  ? t(
+                      'product.notRatedUnsupported',
+                      'We don\u2019t rate this kind of product yet',
+                    )
+                  : t(
+                      'product.notRatedResearching',
+                      'We don\u2019t have enough information yet \u2014 we\u2019re looking it up. Check back shortly.',
+                    )}
               </Text>
             </>
           )}

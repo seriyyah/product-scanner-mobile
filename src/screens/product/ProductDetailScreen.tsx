@@ -29,6 +29,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
 import { preferencesRepository } from '@/services/apiService';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
+import { isRated, displayGrade, unratedReason } from '@/utils/ratingConfidence';
 import { ingredientList } from '@/utils/ingredientLocale';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { countryFromLang } from '@/utils/countryFromLang';
@@ -205,8 +206,12 @@ const ProductDetailScreen: React.FC = () => {
     warnings: scanResult.warning_details,
     warningTexts: warnings,
   });
+  // `?? 0` used to render an unrated product as a big red zero — the strongest
+  // possible claim about a product we have not managed to rate at all.
+  const rated = isRated(scanResult);
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
+  const shownGrade = displayGrade(scanResult);
   const scoreColor = gradeColor(safety_grade);
   const dataQuality = scanResult.data_quality ?? 'full';
   const confidence = scanResult.confidence ?? 1;
@@ -395,14 +400,46 @@ const ProductDetailScreen: React.FC = () => {
 
         {/* Safety Score */}
         <View style={styles.scoreSection}>
-          <View style={[styles.scoreCircle, { borderColor: scoreColor }]}>
-            <Text style={[styles.scoreNumber, { color: scoreColor }]}>{safety_score.toFixed(0)}</Text>
-            <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+          <View
+            style={[
+              styles.scoreCircle,
+              { borderColor: rated ? scoreColor : theme.colors.textSecondary },
+            ]}
+          >
+            {rated ? (
+              <>
+                <Text style={[styles.scoreNumber, { color: scoreColor }]}>{safety_score.toFixed(0)}</Text>
+                <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+              </>
+            ) : (
+              <Text style={[styles.scoreGrade, { color: theme.colors.textSecondary }]}>
+                {shownGrade}
+              </Text>
+            )}
           </View>
-          <Text style={[styles.scoreLabelText, { color: scoreColor }]}>
-            {t('product.grade', { grade: safety_grade })} — {t(`grades.${safety_grade}`, { defaultValue: gradeLabel(safety_grade) })}
-          </Text>
-          {showDisclaimer && (
+          {rated ? (
+            <Text style={[styles.scoreLabelText, { color: scoreColor }]}>
+              {t('product.grade', { grade: safety_grade })} — {t(`grades.${safety_grade}`, { defaultValue: gradeLabel(safety_grade) })}
+            </Text>
+          ) : (
+            <>
+              <Text style={[styles.scoreLabelText, { color: theme.colors.textSecondary }]}>
+                {t('product.notRated', 'Not rated')}
+              </Text>
+              <Text style={styles.notRatedBody}>
+                {unratedReason(scanResult) === 'unsupported'
+                  ? t(
+                      'product.notRatedUnsupported',
+                      'We don\u2019t rate this kind of product yet',
+                    )
+                  : t(
+                      'product.notRatedResearching',
+                      'We don\u2019t have enough information yet \u2014 we\u2019re looking it up. Check back shortly.',
+                    )}
+              </Text>
+            </>
+          )}
+          {rated && showDisclaimer && (
             <View style={styles.disclaimerBadge}>
               <Ionicons name="information-circle-outline" size={14} color={theme.colors.textSecondary} />
               <Text style={styles.disclaimerText}>
@@ -723,6 +760,7 @@ const styles = StyleSheet.create({
   scoreNumber: { fontSize: theme.typography.fontSizes.xxl, fontWeight: '700' as const },
   scoreGrade: { fontSize: theme.typography.fontSizes.xl, fontWeight: '700' as const },
   scoreLabelText: { fontSize: theme.typography.fontSizes.md, fontWeight: '600' as const },
+  notRatedBody: { color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm, textAlign: 'center' as const, marginTop: 4, paddingHorizontal: theme.spacing.lg },
   disclaimerBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: theme.colors.background, borderRadius: theme.borderRadius.small, paddingHorizontal: theme.spacing.sm, paddingVertical: 4, marginTop: theme.spacing.xs, gap: 4, maxWidth: 280 },
   disclaimerText: { fontSize: 11, color: theme.colors.textSecondary, flexShrink: 1 },
   card: { backgroundColor: theme.colors.card, borderRadius: theme.borderRadius.large, padding: theme.spacing.md, marginHorizontal: theme.spacing.lg, marginBottom: theme.spacing.md },
