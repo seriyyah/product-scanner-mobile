@@ -141,7 +141,8 @@
     "explanation": "Spiegazione IA",
     "from": "Da {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basato su dati parziali — alcuni valori dedotti dagli ingredienti",
-    "whyThisRating": "Perché questa valutazione"
+    "whyThisRating": "Perché questa valutazione",
+    "limitReached": "Hai usato le scansioni gratuite di questa ora. I prodotti già scansionati restano disponibili."
   },
   "history": {
     "title": "Cronologia scansioni",

@@ -141,7 +141,8 @@
     "estimatedRating": "Note estimée — données produit limitées",
     "explanation": "Explication IA",
     "from": "À partir de {{price}} {{currency}} · {{shop}}",
-    "partialRating": "Basé sur des données partielles — certaines valeurs déduites des ingrédients"
+    "partialRating": "Basé sur des données partielles — certaines valeurs déduites des ingrédients",
+    "limitReached": "Vous avez utilisé vos scans gratuits pour cette heure. Les produits déjà scannés restent accessibles."
   },
   "history": {
     "title": "Historique des scans",

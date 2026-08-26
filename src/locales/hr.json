@@ -141,7 +141,8 @@
     "explanation": "AI objašnjenje",
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na temelju djelomičnih podataka — neke vrijednosti izvedene iz sastojaka",
-    "whyThisRating": "Zašto ova ocjena"
+    "whyThisRating": "Zašto ova ocjena",
+    "limitReached": "Iskoristili ste besplatna skeniranja za ovaj sat. Već skenirani proizvodi ostaju dostupni."
   },
   "history": {
     "title": "Povijest skeniranja",

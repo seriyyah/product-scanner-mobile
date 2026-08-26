@@ -141,7 +141,8 @@
     "explanation": "Explicație AI",
     "from": "De la {{price}} {{currency}} · {{shop}}",
     "partialRating": "Pe baza unor date parțiale — unele valori deduse din ingrediente",
-    "whyThisRating": "De ce această evaluare"
+    "whyThisRating": "De ce această evaluare",
+    "limitReached": "Ați folosit scanările gratuite pentru această oră. Produsele deja scanate rămân disponibile."
   },
   "history": {
     "title": "Istoric scanări",

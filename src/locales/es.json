@@ -141,7 +141,8 @@
     "explanation": "Explicación de IA",
     "from": "Desde {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basado en datos parciales — algunos valores derivados de los ingredientes",
-    "whyThisRating": "Por qué esta valoración"
+    "whyThisRating": "Por qué esta valoración",
+    "limitReached": "Has usado tus escaneos gratuitos de esta hora. Los productos que ya escaneaste siguen disponibles."
   },
   "history": {
     "title": "Historial de escaneos",

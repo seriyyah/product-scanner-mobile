@@ -141,7 +141,8 @@
     "explanation": "AI-forklaring",
     "from": "Fra {{price}} {{currency}} · {{shop}}",
     "partialRating": "Baseret på delvise data — nogle værdier udledt af ingredienslisten",
-    "whyThisRating": "Hvorfor denne vurdering"
+    "whyThisRating": "Hvorfor denne vurdering",
+    "limitReached": "Du har brugt dine gratis scanninger for denne time. Produkter, du allerede har scannet, er stadig tilgængelige."
   },
   "history": {
     "title": "Scanningshistorik",

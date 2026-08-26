@@ -141,7 +141,8 @@
     "explanation": "AI-uitleg",
     "from": "Vanaf {{price}} {{currency}} · {{shop}}",
     "partialRating": "Gebaseerd op gedeeltelijke gegevens — sommige waarden afgeleid uit de ingrediënten",
-    "whyThisRating": "Waarom deze beoordeling"
+    "whyThisRating": "Waarom deze beoordeling",
+    "limitReached": "U hebt uw gratis scans voor dit uur gebruikt. Producten die u al hebt gescand blijven beschikbaar."
   },
   "history": {
     "title": "Scangeschiedenis",

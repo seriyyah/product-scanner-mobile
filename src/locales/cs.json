@@ -141,7 +141,8 @@
     "estimatedRating": "Odhadované hodnocení — k dispozici jsou omezená data",
     "explanation": "Vysvětlení AI",
     "from": "Od {{price}} {{currency}} · {{shop}}",
-    "partialRating": "Na základě částečných dat — některé hodnoty odvozeny ze složení"
+    "partialRating": "Na základě částečných dat — některé hodnoty odvozeny ze složení",
+    "limitReached": "Vyčerpali jste bezplatné skeny pro tuto hodinu. Produkty, které jste již naskenovali, zůstávají dostupné."
   },
   "history": {
     "title": "Historie skenů",

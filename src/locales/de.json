@@ -141,7 +141,8 @@
     "estimatedRating": "Geschätzte Bewertung — nur begrenzte Produktdaten verfügbar",
     "explanation": "KI-Erklärung",
     "from": "Ab {{price}} {{currency}} · {{shop}}",
-    "partialRating": "Basierend auf Teildaten — einige Werte aus der Zutatenliste abgeleitet"
+    "partialRating": "Basierend auf Teildaten — einige Werte aus der Zutatenliste abgeleitet",
+    "limitReached": "Sie haben Ihre kostenlosen Scans für diese Stunde aufgebraucht. Bereits gescannte Produkte bleiben verfügbar."
   },
   "history": {
     "title": "Scan-Verlauf",

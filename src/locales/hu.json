@@ -141,7 +141,8 @@
     "estimatedRating": "Becsült értékelés — korlátozott termékadatok érhetők el",
     "explanation": "AI-magyarázat",
     "from": "{{price}} {{currency}}-tól · {{shop}}",
-    "partialRating": "Részleges adatok alapján — egyes értékek az összetevőkből származnak"
+    "partialRating": "Részleges adatok alapján — egyes értékek az összetevőkből származnak",
+    "limitReached": "Elhasználta az ingyenes beolvasásait erre az órára. A már beolvasott termékek elérhetők maradnak."
   },
   "history": {
     "title": "Beolvasási előzmények",

@@ -138,7 +138,8 @@
     "featureNotAvailableWhereToBuy": "Upgrade to see where to buy this product and compare prices.",
     "upgradeSubscription": "Upgrade",
     "scanAnother": "Scan Another",
-    "whyThisRating": "Why this rating"
+    "whyThisRating": "Why this rating",
+    "limitReached": "You have used your free scans for this hour. Products you have already scanned stay available."
   },
   "history": {
     "title": "Scan History",

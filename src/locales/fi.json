@@ -141,7 +141,8 @@
     "explanation": "Tekoälyn selitys",
     "from": "Alkaen {{price}} {{currency}} · {{shop}}",
     "partialRating": "Perustuu osittaisiin tietoihin — osa arvoista johdettu ainesosista",
-    "whyThisRating": "Miksi tämä luokitus"
+    "whyThisRating": "Miksi tämä luokitus",
+    "limitReached": "Olet käyttänyt tämän tunnin ilmaiset skannaukset. Jo skannaamasi tuotteet pysyvät saatavilla."
   },
   "history": {
     "title": "Skannaushistoria",

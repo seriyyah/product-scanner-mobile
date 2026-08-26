@@ -141,7 +141,8 @@
     "estimatedRating": "Ocena szacunkowa — dostępne ograniczone dane",
     "explanation": "Wyjaśnienie AI",
     "from": "Od {{price}} {{currency}} · {{shop}}",
-    "partialRating": "Na podstawie częściowych danych — niektóre wartości wywnioskowane ze składu"
+    "partialRating": "Na podstawie częściowych danych — niektóre wartości wywnioskowane ze składu",
+    "limitReached": "Wykorzystałeś darmowe skany w tej godzinie. Produkty już zeskanowane pozostają dostępne."
   },
   "history": {
     "title": "Historia skanów",

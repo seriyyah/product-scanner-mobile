@@ -141,7 +141,8 @@
     "explanation": "Explicação de IA",
     "from": "A partir de {{price}} {{currency}} · {{shop}}",
     "partialRating": "Com base em dados parciais — alguns valores derivados dos ingredientes",
-    "whyThisRating": "Porquê esta classificação"
+    "whyThisRating": "Porquê esta classificação",
+    "limitReached": "Usou as suas leituras gratuitas desta hora. Os produtos já lidos continuam disponíveis."
   },
   "history": {
     "title": "Histórico de leituras",

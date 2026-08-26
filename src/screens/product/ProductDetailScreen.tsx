@@ -101,7 +101,15 @@ const ProductDetailScreen: React.FC = () => {
       setScanResult(result);
       loadPhase2Data(barcode, currency);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to load product');
+      // Only a product never scanned before reaches the metered route, so a 429
+      // here means this is a new lookup and the hourly quota is spent — not that
+      // anything failed.
+      const status = (err as { statusCode?: number })?.statusCode;
+      setError(
+        status === 429
+          ? t('product.limitReached', 'You have used your free scans for this hour. Products you have already scanned stay available.')
+          : err instanceof Error ? err.message : t('common.error', 'Failed to load product'),
+      );
     } finally {
       setIsLoading(false);
     }
