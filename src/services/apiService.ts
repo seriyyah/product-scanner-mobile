@@ -117,8 +117,17 @@ class BaseApiClient {
     if (error.response) {
       const data = error.response.data as any;
       const detail = data?.detail;
+      // Validation errors arrive as a list. The backend sends { field, message };
+      // FastAPI's own default shape uses { loc, msg }. Handle both, and never fall
+      // through to String(object), which renders as "[object Object]".
+      const describe = (entry: any): string => {
+        if (typeof entry === 'string') return entry;
+        const text = entry?.message ?? entry?.msg;
+        if (typeof text === 'string') return text.replace(/^Value error,\s*/i, '');
+        return 'Invalid value';
+      };
       const message = Array.isArray(detail)
-        ? detail.map((e: any) => e.msg ?? String(e)).join('. ')
+        ? detail.map(describe).join('. ')
         : detail || data?.message || error.message || 'Request failed';
       return new ApiError(message, error.response.status, 'API_ERROR', data);
     }
