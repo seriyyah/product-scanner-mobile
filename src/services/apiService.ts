@@ -4,7 +4,6 @@
 
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { storage } from '@/utils/storage';
-import { fetchProductForDisplay } from '@/services/productLookup';
 import {
   IUser,
   IUserCredentials,
@@ -282,10 +281,10 @@ export class ScannerRepository {
   }
 
   // Read-only lookup — fetches product + rating WITHOUT saving to scan history.
-  // Prefers the unmetered history route so a spent scan quota does not make a
-  // user's own products unopenable; see fetchProductForDisplay.
+  // A GET is a view, not a scan, and the gateway does not meter it: opening a
+  // product you already scanned must never depend on having quota left.
   public async getProductDetails(barcode: string): Promise<ScanResult> {
-    return fetchProductForDisplay(this.apiClient, barcode);
+    return this.apiClient.get<ScanResult>(`/api/v2/scan/${encodeURIComponent(barcode)}`);
   }
 
   public async getScanHistory(page = 1, perPage = 20): Promise<ScanHistory> {

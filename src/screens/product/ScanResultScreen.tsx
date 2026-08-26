@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import {
   View,
   Text,
@@ -47,18 +48,24 @@ const REASON_ICON: Record<ReasonTone, keyof typeof Ionicons.glyphMap> = {
   unknown: 'help-circle',
 };
 
-/** Resolves the translation keys a reason carries, such as allergen names. */
-const useResolveParams = () => {
-  const { t } = useTranslation();
-  return (reason: { params?: Record<string, string | number>; listKeys?: { param: string; keys: string[] } }) => {
-    const params = { ...(reason.params ?? {}) };
-    if (reason.listKeys) {
-      params[reason.listKeys.param] = reason.listKeys.keys
-        .map((key) => t(key, { defaultValue: key.replace(/^allergen\./, '') }))
-        .join(', ');
-    }
-    return params;
-  };
+/**
+ * Resolves the translation keys a reason carries, such as allergen names.
+ *
+ * A plain function, not a hook: it is used below the screen's early returns, and a
+ * hook there would be skipped on the loading render and called on the loaded one,
+ * which crashes React with "Rendered more hooks than during the previous render".
+ */
+const resolveParams = (
+  reason: { params?: Record<string, string | number>; listKeys?: { param: string; keys: string[] } },
+  t: TFunction,
+): Record<string, string | number> => {
+  const params = { ...(reason.params ?? {}) };
+  if (reason.listKeys) {
+    params[reason.listKeys.param] = reason.listKeys.keys
+      .map((key) => t(key, { defaultValue: key.replace(/^allergen\./, '') }))
+      .join(', ');
+  }
+  return params;
 };
 
 const reasonColor = (tone: ReasonTone): string => {
@@ -162,7 +169,6 @@ const ScanResultScreen: React.FC = () => {
   });
   // Read in the user's language, not whichever one the record was entered in.
   const ingredients = ingredientList(product ?? {}, i18n.language);
-  const resolveParams = useResolveParams();
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
   const scoreColor = gradeColor(safety_grade);
@@ -440,7 +446,7 @@ const ScanResultScreen: React.FC = () => {
                   style={styles.reasonIcon}
                 />
                 <Text style={styles.reasonText}>
-                  {t(reason.key, { ...resolveParams(reason), defaultValue: reason.fallback })}
+                  {t(reason.key, { ...resolveParams(reason, t), defaultValue: reason.fallback })}
                 </Text>
               </View>
             ))}

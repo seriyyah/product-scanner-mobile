@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import {
   Linking,
   View,
@@ -198,7 +199,6 @@ const ProductDetailScreen: React.FC = () => {
   // Same treatment as the scan result: read in the user's language, and rank the
   // warnings by severity so a note about method stops looking like a hazard.
   const ingredients = ingredientList(product ?? {}, i18n.language);
-  const resolveParams = useResolveParams();
   const reasons = explainRating(rating_breakdown, {
     dataQuality: scanResult.data_quality,
     hasIngredients: Boolean(product?.ingredients_text),
@@ -426,7 +426,7 @@ const ProductDetailScreen: React.FC = () => {
                   style={styles.reasonIcon}
                 />
                 <Text style={styles.reasonText}>
-                  {t(reason.key, { ...resolveParams(reason), defaultValue: reason.fallback })}
+                  {t(reason.key, { ...resolveParams(reason, t), defaultValue: reason.fallback })}
                 </Text>
               </View>
             ))}
@@ -666,18 +666,24 @@ const REASON_ICON: Record<ReasonTone, keyof typeof Ionicons.glyphMap> = {
   unknown: 'help-circle',
 };
 
-/** Resolves the translation keys a reason carries, such as allergen names. */
-const useResolveParams = () => {
-  const { t } = useTranslation();
-  return (reason: { params?: Record<string, string | number>; listKeys?: { param: string; keys: string[] } }) => {
-    const params = { ...(reason.params ?? {}) };
-    if (reason.listKeys) {
-      params[reason.listKeys.param] = reason.listKeys.keys
-        .map((key) => t(key, { defaultValue: key.replace(/^allergen\./, '') }))
-        .join(', ');
-    }
-    return params;
-  };
+/**
+ * Resolves the translation keys a reason carries, such as allergen names.
+ *
+ * A plain function, not a hook: it is used below the screen's early returns, and a
+ * hook there would be skipped on the loading render and called on the loaded one,
+ * which crashes React with "Rendered more hooks than during the previous render".
+ */
+const resolveParams = (
+  reason: { params?: Record<string, string | number>; listKeys?: { param: string; keys: string[] } },
+  t: TFunction,
+): Record<string, string | number> => {
+  const params = { ...(reason.params ?? {}) };
+  if (reason.listKeys) {
+    params[reason.listKeys.param] = reason.listKeys.keys
+      .map((key) => t(key, { defaultValue: key.replace(/^allergen\./, '') }))
+      .join(', ');
+  }
+  return params;
 };
 
 const reasonColor = (tone: ReasonTone): string => {
