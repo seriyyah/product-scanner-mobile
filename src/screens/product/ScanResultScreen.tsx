@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import theme from '@/constants/theme';
 import { MainStackParamList, RatingBreakdown } from '@/types';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
+import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { countryFromLang } from '@/utils/countryFromLang';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
@@ -37,6 +38,19 @@ interface SearchResult { title: string; url: string; snippet?: string }
 interface DiscoveryResult { barcode: string; product_name: string; safety_score: number; grade: string; prices: DiscoveryPrice[]; alternatives: DiscoveryAlternative[]; search_results: SearchResult[]; explanation: string }
 interface MLAlternative { barcode: string; name: string; safety_score: number; grade: string; reason: string }
 interface RecommendationResponse { alternatives: MLAlternative[]; explanation: string }
+
+const REASON_ICON: Record<ReasonTone, keyof typeof Ionicons.glyphMap> = {
+  positive: 'checkmark-circle',
+  neutral: 'remove-circle',
+  negative: 'alert-circle',
+  unknown: 'help-circle',
+};
+
+const reasonColor = (tone: ReasonTone): string => {
+  if (tone === 'positive') return theme.colors.success;
+  if (tone === 'negative') return theme.colors.error;
+  return theme.colors.textSecondary;
+};
 
 const ScanResultScreen: React.FC = () => {
   const route = useRoute<ScanResultRouteProp>();
@@ -123,6 +137,12 @@ const ScanResultScreen: React.FC = () => {
   }
 
   const { product, rating_breakdown } = scanResult;
+  // An empty ingredient list means additives were never checked, not that there
+  // are none — the explanation has to be able to tell those apart.
+  const reasons = explainRating(rating_breakdown, {
+    dataQuality: scanResult.data_quality,
+    hasIngredients: Boolean(product?.ingredients_text),
+  });
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
   const warnings: string[] = scanResult.warnings ?? [];
@@ -147,35 +167,35 @@ const ScanResultScreen: React.FC = () => {
       {rb.nutriscore && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nutriscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade) }]}>
+          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade ?? '') }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
           <Text style={styles.breakdownScore}>{(rb.nutriscore.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
-      {rb.nova && (
+      {rb.nova_group && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nova')}</Text>
-          <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova.group })}</Text>
-          <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova.group}`, { defaultValue: novaLabel(rb.nova.group) })}</Text>
+          <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova_group.group ?? '?' })}</Text>
+          <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova_group.group}`, { defaultValue: novaLabel(rb.nova_group.group ?? 0) })}</Text>
         </View>
       )}
       {rb.additives && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.additives')}</Text>
-          <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.count })}</Text>
-          <Text style={[styles.breakdownMeta, rb.additives.high_risk_count > 0 && styles.riskText]}>
-            {t('product.highRisk', { count: rb.additives.high_risk_count })}
+          <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.total_count })}</Text>
+          <Text style={[styles.breakdownMeta, (rb.additives.high_risk?.length ?? 0) > 0 && styles.riskText]}>
+            {t('product.highRisk', { count: rb.additives.high_risk?.length ?? 0 })}
           </Text>
         </View>
       )}
-      {rb.ecoscore && (
+      {rb.eco_score && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.ecoscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.ecoscore.grade) }]}>
-            <Text style={styles.gradeChipText}>{rb.ecoscore.grade?.toUpperCase() || '?'}</Text>
+          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.eco_score.grade ?? '') }]}>
+            <Text style={styles.gradeChipText}>{rb.eco_score.grade?.toUpperCase() || '?'}</Text>
           </View>
-          <Text style={styles.breakdownScore}>{(rb.ecoscore.score ?? 0).toFixed(0)}</Text>
+          <Text style={styles.breakdownScore}>{(rb.eco_score.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
     </View>
@@ -384,6 +404,26 @@ const ScanResultScreen: React.FC = () => {
           </Text>
         </View>
 
+        {/* Why this score is what it is, drawn from the components that produced it. */}
+        {reasons.length > 0 && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{t('product.whyThisRating', 'Why this rating')}</Text>
+            {reasons.map((reason) => (
+              <View key={reason.id} style={styles.reasonRow}>
+                <Ionicons
+                  name={REASON_ICON[reason.tone]}
+                  size={16}
+                  color={reasonColor(reason.tone)}
+                  style={styles.reasonIcon}
+                />
+                <Text style={styles.reasonText}>
+                  {t(reason.key, { ...(reason.params ?? {}), defaultValue: reason.fallback })}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
+
         {/* Warnings */}
         {warnings.length > 0 && (
           <View style={styles.card}>
@@ -528,6 +568,9 @@ const styles = StyleSheet.create({
   brand: { fontSize: theme.typography.fontSizes.md, color: theme.colors.textSecondary },
   barcode: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textLight },
   scoreSection: { alignItems: 'center', paddingVertical: theme.spacing.xl },
+  reasonRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: theme.spacing.sm },
+  reasonIcon: { marginTop: 2 },
+  reasonText: { flex: 1, marginLeft: theme.spacing.sm, color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm, lineHeight: 20 },
   scoreCircle: { width: 120, height: 120, borderRadius: 60, borderWidth: 4, justifyContent: 'center', alignItems: 'center', marginBottom: theme.spacing.md },
   scoreNumber: { fontSize: theme.typography.fontSizes.xxl, fontWeight: '700' as const },
   scoreGrade: { fontSize: theme.typography.fontSizes.xl, fontWeight: '700' as const },

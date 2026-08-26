@@ -208,33 +208,33 @@ const ProductDetailScreen: React.FC = () => {
       {rb.nutriscore && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nutriscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade) }]}>
+          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.nutriscore.grade ?? '') }]}>
             <Text style={styles.gradeChipText}>{rb.nutriscore.grade?.toUpperCase()}</Text>
           </View>
           <Text style={styles.breakdownScore}>{(rb.nutriscore.score ?? 0).toFixed(0)}</Text>
         </View>
       )}
-      {rb.nova && (
+      {rb.nova_group && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.nova')}</Text>
-          <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova.group })}</Text>
-          <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova.group}`, { defaultValue: novaLabel(rb.nova.group) })}</Text>
+          <Text style={styles.breakdownValue}>{t('product.novaGroup', { group: rb.nova_group.group ?? '?' })}</Text>
+          <Text style={styles.breakdownMeta}>{t(`nova.${rb.nova_group.group}`, { defaultValue: novaLabel(rb.nova_group.group ?? 0) })}</Text>
         </View>
       )}
       {rb.additives && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.additives')}</Text>
-          <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.count })}</Text>
-          <Text style={[styles.breakdownMeta, rb.additives.high_risk_count > 0 && styles.riskText]}>
-            {t('product.highRisk', { count: rb.additives.high_risk_count })}
+          <Text style={styles.breakdownValue}>{t('product.total', { count: rb.additives.total_count })}</Text>
+          <Text style={[styles.breakdownMeta, (rb.additives.high_risk?.length ?? 0) > 0 && styles.riskText]}>
+            {t('product.highRisk', { count: rb.additives.high_risk?.length ?? 0 })}
           </Text>
         </View>
       )}
-      {rb.ecoscore && (
+      {rb.eco_score && (
         <View style={styles.breakdownRow}>
           <Text style={styles.breakdownLabel}>{t('product.ecoscore')}</Text>
-          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.ecoscore.grade) }]}>
-            <Text style={styles.gradeChipText}>{rb.ecoscore.grade?.toUpperCase() || '?'}</Text>
+          <View style={[styles.gradeChip, { backgroundColor: gradeColor(rb.eco_score.grade ?? '') }]}>
+            <Text style={styles.gradeChipText}>{rb.eco_score.grade?.toUpperCase() || '?'}</Text>
           </View>
         </View>
       )}

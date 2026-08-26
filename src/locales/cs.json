@@ -122,10 +122,10 @@
     "upgradeAIPremium": "Upgradovat na AI Premium",
     "upgradeAIPremiumAlternatives": "Alternativy s umělou inteligencí, skutečnými cenami a vektorovým vyhledáváním",
     "upgradeAIPremiumPrices": "Skutečné ceny z blízkých obchodů a webové vyhledávání na jednom místě",
-    "featureNotAvailable": "Funkce není k dispozici",
-    "featureNotAvailableAlternatives": "Bezpečnější alternativy nejsou dostupné ve vašem tarifu. Upgradujte předplatné pro personalizovaná doporučení.",
-    "featureNotAvailableWhereToBuy": "Porovnání cen není dostupné ve vašem tarifu. Upgradujte předplatné a zjistěte, kde produkt koupit.",
-    "upgradeSubscription": "Upgradovat předplatné",
+    "featureNotAvailable": "Prémiová funkce",
+    "featureNotAvailableAlternatives": "Upgradujte a uvidíte bezpečnější alternativy k tomuto produktu.",
+    "featureNotAvailableWhereToBuy": "Upgradujte a uvidíte, kde produkt koupit a porovnat ceny.",
+    "upgradeSubscription": "Upgradovat",
     "scanAnother": "Skenovat další",
     "researchingTitle": "Produkt není v naší databázi",
     "researchingBody": "Nerozpoznáváme tento čárový kód. Prohledáváme naše zdroje — pokud bude nalezen, zobrazí se v historii do minuty.",
@@ -136,7 +136,8 @@
     "ecoscore": "EkoScore",
     "highRisk": "Vysoké riziko: {{count}}",
     "novaGroup": "Skupina {{group}}",
-    "total": "{{count}} celkem"
+    "total": "{{count}} celkem",
+    "whyThisRating": "Proč toto hodnocení"
   },
   "history": {
     "title": "Historie",
@@ -233,5 +234,35 @@
     "da": "Dánština",
     "fi": "Finština",
     "el": "Řečtina"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Nutriční kvalita je hodnocena {{grade}}.",
+      "neutral": "Nutriční kvalita je hodnocena {{grade}}.",
+      "negative": "Nutriční kvalita je hodnocena {{grade}}.",
+      "unknown": "Nutriční kvalitu nebylo možné posoudit."
+    },
+    "nova": {
+      "positive": "Míra zpracování: NOVA skupina {{group}}.",
+      "neutral": "Míra zpracování: NOVA skupina {{group}}.",
+      "negative": "Míra zpracování: NOVA skupina {{group}}.",
+      "unknown": "Míra zpracování tohoto produktu není známa."
+    },
+    "additives": {
+      "positive": "Nebyly nalezeny žádné problematické přísady.",
+      "neutral": "Obsahuje {{total}} přísad, žádná není označena jako riziková.",
+      "negative": "Obsahuje {{count}} problematických přísad.",
+      "unknown": "Nebylo k dispozici složení, přísady proto nebylo možné ověřit."
+    },
+    "eco": {
+      "positive": "Dopad na životní prostředí je hodnocen {{grade}}.",
+      "neutral": "Dopad na životní prostředí je hodnocen {{grade}}.",
+      "negative": "Dopad na životní prostředí je hodnocen {{grade}}.",
+      "unknown": "Pro tento produkt nejsou k dispozici environmentální data."
+    },
+    "allergens": {
+      "negative": "Uvádí {{count}} alergenů: {{list}}."
+    },
+    "dataQuality": "Toto hodnocení vychází z neúplných dat a může se změnit."
   }
 }

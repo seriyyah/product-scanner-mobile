@@ -132,7 +132,13 @@
     "ecoscore": "EcoScore",
     "highRisk": "High risk: {{count}}",
     "novaGroup": "Group {{group}}",
-    "total": "{{count}} total"
+    "total": "{{count}} total",
+    "featureNotAvailable": "Premium feature",
+    "featureNotAvailableAlternatives": "Upgrade to see safer alternatives to this product.",
+    "featureNotAvailableWhereToBuy": "Upgrade to see where to buy this product and compare prices.",
+    "upgradeSubscription": "Upgrade",
+    "scanAnother": "Scan Another",
+    "whyThisRating": "Why this rating"
   },
   "history": {
     "title": "History",
@@ -229,5 +235,35 @@
     "da": "Danish",
     "fi": "Finnish",
     "el": "Greek"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "Nutritional quality is rated {{grade}}.",
+      "neutral": "Nutritional quality is rated {{grade}}.",
+      "negative": "Nutritional quality is rated {{grade}}.",
+      "unknown": "Nutritional quality could not be assessed."
+    },
+    "nova": {
+      "positive": "Processing level: NOVA group {{group}}.",
+      "neutral": "Processing level: NOVA group {{group}}.",
+      "negative": "Processing level: NOVA group {{group}}.",
+      "unknown": "How heavily this product is processed is not known."
+    },
+    "additives": {
+      "positive": "No additives of concern were found.",
+      "neutral": "Contains {{total}} additive(s), none flagged as high risk.",
+      "negative": "Contains {{count}} additive(s) of concern.",
+      "unknown": "No ingredient list was available, so additives could not be checked."
+    },
+    "eco": {
+      "positive": "Environmental impact is rated {{grade}}.",
+      "neutral": "Environmental impact is rated {{grade}}.",
+      "negative": "Environmental impact is rated {{grade}}.",
+      "unknown": "No environmental data is available for this product."
+    },
+    "allergens": {
+      "negative": "Declares {{count}} allergen(s): {{list}}."
+    },
+    "dataQuality": "This score is based on incomplete data and may change as more is found."
   }
 }

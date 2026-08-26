@@ -122,10 +122,10 @@
     "upgradeAIPremium": "Passer à AI Premium",
     "upgradeAIPremiumAlternatives": "Alternatives IA avec prix réels et recherche vectorielle",
     "upgradeAIPremiumPrices": "Prix réels des magasins proches et recherche web au même endroit",
-    "featureNotAvailable": "Fonctionnalité non disponible",
-    "featureNotAvailableAlternatives": "Les alternatives plus sûres ne sont pas disponibles dans votre abonnement. Mettez à niveau pour des recommandations personnalisées.",
-    "featureNotAvailableWhereToBuy": "La comparaison de prix n'est pas disponible dans votre abonnement. Mettez à niveau pour voir où acheter ce produit.",
-    "upgradeSubscription": "Mettre à niveau l'abonnement",
+    "featureNotAvailable": "Fonctionnalité Premium",
+    "featureNotAvailableAlternatives": "Passez à la version supérieure pour voir des alternatives plus sûres.",
+    "featureNotAvailableWhereToBuy": "Passez à la version supérieure pour voir où acheter ce produit et comparer les prix.",
+    "upgradeSubscription": "Passer à la version supérieure",
     "scanAnother": "Scanner un autre",
     "researchingTitle": "Produit absent de notre base de données",
     "researchingBody": "Nous ne reconnaissons pas ce code-barres. Nous recherchons dans nos sources — s'il est trouvé, il apparaîtra dans l'historique dans une minute.",
@@ -136,7 +136,8 @@
     "ecoscore": "ÉcoScore",
     "highRisk": "Risque élevé : {{count}}",
     "novaGroup": "Groupe {{group}}",
-    "total": "{{count}} au total"
+    "total": "{{count}} au total",
+    "whyThisRating": "Pourquoi cette note"
   },
   "history": {
     "title": "Historique",
@@ -233,5 +234,35 @@
     "da": "Danois",
     "fi": "Finnois",
     "el": "Grec"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "La qualité nutritionnelle est notée {{grade}}.",
+      "neutral": "La qualité nutritionnelle est notée {{grade}}.",
+      "negative": "La qualité nutritionnelle est notée {{grade}}.",
+      "unknown": "La qualité nutritionnelle n'a pas pu être évaluée."
+    },
+    "nova": {
+      "positive": "Degré de transformation : groupe NOVA {{group}}.",
+      "neutral": "Degré de transformation : groupe NOVA {{group}}.",
+      "negative": "Degré de transformation : groupe NOVA {{group}}.",
+      "unknown": "Le degré de transformation de ce produit n'est pas connu."
+    },
+    "additives": {
+      "positive": "Aucun additif préoccupant n'a été trouvé.",
+      "neutral": "Contient {{total}} additif(s), aucun classé à risque élevé.",
+      "negative": "Contient {{count}} additif(s) préoccupant(s).",
+      "unknown": "Aucune liste d'ingrédients n'était disponible, les additifs n'ont pas pu être vérifiés."
+    },
+    "eco": {
+      "positive": "L'impact environnemental est noté {{grade}}.",
+      "neutral": "L'impact environnemental est noté {{grade}}.",
+      "negative": "L'impact environnemental est noté {{grade}}.",
+      "unknown": "Aucune donnée environnementale n'est disponible pour ce produit."
+    },
+    "allergens": {
+      "negative": "Déclare {{count}} allergène(s) : {{list}}."
+    },
+    "dataQuality": "Cette note repose sur des données incomplètes et peut évoluer."
   }
 }

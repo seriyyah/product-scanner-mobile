@@ -234,11 +234,26 @@ export interface Nutrition {
   alcohol_percent?: number;
 }
 
+/**
+ * Per-component scores from the rating service. Field names mirror its response
+ * exactly — an earlier shape used `nova`/`ecoscore`/`count`, none of which the
+ * service ever sends, so those branches could never render.
+ */
 export interface RatingBreakdown {
-  nutriscore?: { score: number; grade: string; weighted_score: number };
-  nova?: { score: number; group: number; weighted_score: number };
-  additives?: { score: number; count: number; high_risk_count: number; weighted_score: number };
-  ecoscore?: { score: number; grade: string; weighted_score: number };
+  nutriscore?: { score: number; weight?: number; weighted_score?: number; grade?: string | null; details?: string };
+  nova_group?: { score: number; weight?: number; weighted_score?: number; group?: number | null; details?: string };
+  additives?: {
+    score: number;
+    weight?: number;
+    weighted_score?: number;
+    high_risk?: string[];
+    medium_risk?: string[];
+    banned?: string[];
+    total_count?: number;
+    details?: string;
+  };
+  eco_score?: { score: number; weight?: number; weighted_score?: number; grade?: string | null; details?: string };
+  allergens?: { found?: string[]; details?: string };
 }
 
 export interface ScanHistoryItem {

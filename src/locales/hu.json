@@ -122,10 +122,10 @@
     "upgradeAIPremium": "Váltás AI Premiumra",
     "upgradeAIPremiumAlternatives": "AI-alapú alternatívák valós árakkal és vektoros kereséssel",
     "upgradeAIPremiumPrices": "Valós árak a közeli üzletekből és webes keresés egy helyen",
-    "featureNotAvailable": "Funkció nem elérhető",
-    "featureNotAvailableAlternatives": "A biztonságosabb alternatívák nem elérhetők az Ön csomagjában. Frissítse előfizetését a személyre szabott ajánlásokhoz.",
-    "featureNotAvailableWhereToBuy": "Az árak összehasonlítása nem elérhető az Ön csomagjában. Frissítse előfizetését, hogy láthassa, hol vásárolhat.",
-    "upgradeSubscription": "Előfizetés frissítése",
+    "featureNotAvailable": "Prémium funkció",
+    "featureNotAvailableAlternatives": "Váltson magasabb csomagra a biztonságosabb alternatívákért.",
+    "featureNotAvailableWhereToBuy": "Váltson magasabb csomagra, hogy lássa, hol vásárolhatja meg és hasonlíthatja össze az árakat.",
+    "upgradeSubscription": "Váltás",
     "scanAnother": "Másik beolvasása",
     "researchingTitle": "A termék nincs az adatbázisunkban",
     "researchingBody": "Ezt a vonalkódot nem ismerjük fel. Forrásainkban keresünk — ha megtaláljuk, egy percen belül megjelenik az előzményekben.",
@@ -136,7 +136,8 @@
     "ecoscore": "EcoScore",
     "highRisk": "Magas kockázat: {{count}}",
     "novaGroup": "{{group}}. csoport",
-    "total": "Összesen: {{count}}"
+    "total": "Összesen: {{count}}",
+    "whyThisRating": "Miért ez az értékelés"
   },
   "history": {
     "title": "Előzmények",
@@ -233,5 +234,35 @@
     "da": "Dán",
     "fi": "Finn",
     "el": "Görög"
+  },
+  "ratingReason": {
+    "nutriscore": {
+      "positive": "A tápérték minősítése {{grade}}.",
+      "neutral": "A tápérték minősítése {{grade}}.",
+      "negative": "A tápérték minősítése {{grade}}.",
+      "unknown": "A tápérték nem volt értékelhető."
+    },
+    "nova": {
+      "positive": "Feldolgozottság: NOVA {{group}}. csoport.",
+      "neutral": "Feldolgozottság: NOVA {{group}}. csoport.",
+      "negative": "Feldolgozottság: NOVA {{group}}. csoport.",
+      "unknown": "Nem ismert, mennyire feldolgozott ez a termék."
+    },
+    "additives": {
+      "positive": "Nem találtunk aggályos adalékanyagot.",
+      "neutral": "{{total}} adalékanyagot tartalmaz, egyik sem magas kockázatú.",
+      "negative": "{{count}} aggályos adalékanyagot tartalmaz.",
+      "unknown": "Nem állt rendelkezésre összetevőlista, így az adalékanyagok nem voltak ellenőrizhetők."
+    },
+    "eco": {
+      "positive": "A környezeti hatás minősítése {{grade}}.",
+      "neutral": "A környezeti hatás minősítése {{grade}}.",
+      "negative": "A környezeti hatás minősítése {{grade}}.",
+      "unknown": "Ehhez a termékhez nincs környezeti adat."
+    },
+    "allergens": {
+      "negative": "{{count}} allergént jelöl: {{list}}."
+    },
+    "dataQuality": "Ez az értékelés hiányos adatokon alapul, és változhat."
   }
 }
