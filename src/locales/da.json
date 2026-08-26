@@ -144,7 +144,9 @@
     "partialRating": "Baseret på delvise data — nogle værdier udledt af ingredienslisten",
     "whyThisRating": "Hvorfor denne vurdering",
     "limitReached": "Du har brugt dine gratis scanninger for denne time. Produkter, du allerede har scannet, er stadig tilgængelige.",
-    "scanResult": "Scanningsresultat"
+    "scanResult": "Scanningsresultat",
+    "notRated": "Ikke vurderet",
+    "notRatedBody": "Der er for lidt information om dette produkt"
   },
   "history": {
     "title": "Scanningshistorik",

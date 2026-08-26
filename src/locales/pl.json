@@ -144,7 +144,9 @@
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na podstawie częściowych danych — niektóre wartości wywnioskowane ze składu",
     "limitReached": "Wykorzystałeś darmowe skany w tej godzinie. Produkty już zeskanowane pozostają dostępne.",
-    "scanResult": "Wynik skanowania"
+    "scanResult": "Wynik skanowania",
+    "notRated": "Nieocenione",
+    "notRatedBody": "Za mało informacji o tym produkcie"
   },
   "history": {
     "title": "Historia skanów",

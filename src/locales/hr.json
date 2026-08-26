@@ -144,7 +144,9 @@
     "partialRating": "Na temelju djelomičnih podataka — neke vrijednosti izvedene iz sastojaka",
     "whyThisRating": "Zašto ova ocjena",
     "limitReached": "Iskoristili ste besplatna skeniranja za ovaj sat. Već skenirani proizvodi ostaju dostupni.",
-    "scanResult": "Rezultat skeniranja"
+    "scanResult": "Rezultat skeniranja",
+    "notRated": "Nije ocijenjeno",
+    "notRatedBody": "Nema dovoljno informacija o ovom proizvodu"
   },
   "history": {
     "title": "Povijest skeniranja",

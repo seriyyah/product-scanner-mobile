@@ -144,7 +144,9 @@
     "partialRating": "Basado en datos parciales — algunos valores derivados de los ingredientes",
     "whyThisRating": "Por qué esta valoración",
     "limitReached": "Has usado tus escaneos gratuitos de esta hora. Los productos que ya escaneaste siguen disponibles.",
-    "scanResult": "Resultado del escaneo"
+    "scanResult": "Resultado del escaneo",
+    "notRated": "Sin valorar",
+    "notRatedBody": "No hay suficiente información sobre este producto"
   },
   "history": {
     "title": "Historial de escaneos",

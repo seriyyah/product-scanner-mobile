@@ -144,7 +144,9 @@
     "from": "Od {{price}} {{currency}} · {{shop}}",
     "partialRating": "Na základe čiastočných dát — niektoré hodnoty odvodené zo zloženia",
     "limitReached": "Vyčerpali ste bezplatné skeny na túto hodinu. Produkty, ktoré ste už naskenovali, zostávajú dostupné.",
-    "scanResult": "Výsledok skenu"
+    "scanResult": "Výsledok skenu",
+    "notRated": "Nehodnotené",
+    "notRatedBody": "O tomto produkte nie je dosť informácií"
   },
   "history": {
     "title": "História skenov",

@@ -144,7 +144,9 @@
     "from": "À partir de {{price}} {{currency}} · {{shop}}",
     "partialRating": "Basé sur des données partielles — certaines valeurs déduites des ingrédients",
     "limitReached": "Vous avez utilisé vos scans gratuits pour cette heure. Les produits déjà scannés restent accessibles.",
-    "scanResult": "Résultat du scan"
+    "scanResult": "Résultat du scan",
+    "notRated": "Non évalué",
+    "notRatedBody": "Pas assez d’informations sur ce produit"
   },
   "history": {
     "title": "Historique des scans",

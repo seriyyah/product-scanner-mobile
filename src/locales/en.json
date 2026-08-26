@@ -141,7 +141,9 @@
     "scanAnother": "Scan Another",
     "whyThisRating": "Why this rating",
     "limitReached": "You have used your free scans for this hour. Products you have already scanned stay available.",
-    "scanResult": "Scan result"
+    "scanResult": "Scan result",
+    "notRated": "Not rated",
+    "notRatedBody": "Not enough information about this product"
   },
   "history": {
     "title": "Scan History",

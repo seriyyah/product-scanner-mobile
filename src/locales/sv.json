@@ -144,7 +144,9 @@
     "partialRating": "Baserat på ofullständiga data — vissa värden härledda ur ingredienserna",
     "whyThisRating": "Varför detta betyg",
     "limitReached": "Du har använt dina gratis skanningar för den här timmen. Produkter du redan skannat är fortfarande tillgängliga.",
-    "scanResult": "Skanningsresultat"
+    "scanResult": "Skanningsresultat",
+    "notRated": "Ej bedömd",
+    "notRatedBody": "Det finns för lite information om denna produkt"
   },
   "history": {
     "title": "Skanningshistorik",

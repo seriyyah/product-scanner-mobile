@@ -144,7 +144,9 @@
     "partialRating": "Pe baza unor date parțiale — unele valori deduse din ingrediente",
     "whyThisRating": "De ce această evaluare",
     "limitReached": "Ați folosit scanările gratuite pentru această oră. Produsele deja scanate rămân disponibile.",
-    "scanResult": "Rezultatul scanării"
+    "scanResult": "Rezultatul scanării",
+    "notRated": "Neevaluat",
+    "notRatedBody": "Nu există suficiente informații despre acest produs"
   },
   "history": {
     "title": "Istoric scanări",

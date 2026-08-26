@@ -144,7 +144,9 @@
     "partialRating": "Com base em dados parciais — alguns valores derivados dos ingredientes",
     "whyThisRating": "Porquê esta classificação",
     "limitReached": "Usou as suas leituras gratuitas desta hora. Os produtos já lidos continuam disponíveis.",
-    "scanResult": "Resultado da leitura"
+    "scanResult": "Resultado da leitura",
+    "notRated": "Sem classificação",
+    "notRatedBody": "Não há informação suficiente sobre este produto"
   },
   "history": {
     "title": "Histórico de leituras",

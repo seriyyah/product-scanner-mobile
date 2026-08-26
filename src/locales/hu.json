@@ -144,7 +144,9 @@
     "from": "{{price}} {{currency}}-tól · {{shop}}",
     "partialRating": "Részleges adatok alapján — egyes értékek az összetevőkből származnak",
     "limitReached": "Elhasználta az ingyenes beolvasásait erre az órára. A már beolvasott termékek elérhetők maradnak.",
-    "scanResult": "Beolvasás eredménye"
+    "scanResult": "Beolvasás eredménye",
+    "notRated": "Nincs értékelve",
+    "notRatedBody": "Nincs elég információ erről a termékről"
   },
   "history": {
     "title": "Beolvasási előzmények",

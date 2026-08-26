@@ -144,7 +144,9 @@
     "partialRating": "Perustuu osittaisiin tietoihin — osa arvoista johdettu ainesosista",
     "whyThisRating": "Miksi tämä luokitus",
     "limitReached": "Olet käyttänyt tämän tunnin ilmaiset skannaukset. Jo skannaamasi tuotteet pysyvät saatavilla.",
-    "scanResult": "Skannaustulos"
+    "scanResult": "Skannaustulos",
+    "notRated": "Ei arvioitu",
+    "notRatedBody": "Tästä tuotteesta ei ole tarpeeksi tietoa"
   },
   "history": {
     "title": "Skannaushistoria",

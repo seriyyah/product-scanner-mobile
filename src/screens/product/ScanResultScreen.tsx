@@ -20,6 +20,7 @@ import { MainStackParamList, RatingBreakdown } from '@/types';
 import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { ingredientList } from '@/utils/ingredientLocale';
+import { isRated, displayGrade } from '@/utils/ratingConfidence';
 import { countryFromLang } from '@/utils/countryFromLang';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
@@ -172,6 +173,8 @@ const ScanResultScreen: React.FC = () => {
   const safety_score: number = scanResult.safety_score ?? 0;
   const safety_grade: string = scanResult.safety_grade ?? '?';
   const scoreColor = gradeColor(safety_grade);
+  const rated = isRated(scanResult);
+  const shownGrade = displayGrade(scanResult);
 
   const [showAllIngredients, setShowAllIngredients] = useState(false);
   const INGREDIENT_PREVIEW = 5;
@@ -443,14 +446,36 @@ const ScanResultScreen: React.FC = () => {
         </View>
 
         {/* Safety Score Circle */}
+        {/* A neutral 50 is what the engine returns when it knows nothing. Shown as
+            a red "D — Poor" it reads as a finding about the food rather than about
+            our data, which is how a carton of fresh eggs came to look unsafe. */}
         <View style={styles.scoreSection}>
-          <View style={[styles.scoreCircle, { borderColor: scoreColor }]}>
-            <Text style={[styles.scoreNumber, { color: scoreColor }]}>{safety_score.toFixed(0)}</Text>
-            <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+          <View style={[styles.scoreCircle, { borderColor: rated ? scoreColor : theme.colors.textSecondary }]}>
+            {rated ? (
+              <>
+                <Text style={[styles.scoreNumber, { color: scoreColor }]}>{safety_score.toFixed(0)}</Text>
+                <Text style={[styles.scoreGrade, { color: scoreColor }]}>{safety_grade}</Text>
+              </>
+            ) : (
+              <Text style={[styles.scoreGrade, { color: theme.colors.textSecondary }]}>
+                {shownGrade}
+              </Text>
+            )}
           </View>
-          <Text style={[styles.gradeLabel, { color: scoreColor }]}>
-            {t('product.grade', { grade: safety_grade })} — {t(`grades.${safety_grade}`, { defaultValue: gradeLabel(safety_grade) })}
-          </Text>
+          {rated ? (
+            <Text style={[styles.gradeLabel, { color: scoreColor }]}>
+              {t('product.grade', { grade: safety_grade })} — {t(`grades.${safety_grade}`, { defaultValue: gradeLabel(safety_grade) })}
+            </Text>
+          ) : (
+            <>
+              <Text style={[styles.gradeLabel, { color: theme.colors.textSecondary }]}>
+                {t('product.notRated', 'Not rated')}
+              </Text>
+              <Text style={styles.notRatedBody}>
+                {t('product.notRatedBody', 'Not enough information about this product')}
+              </Text>
+            </>
+          )}
         </View>
 
         {/* Why this score is what it is, drawn from the components that produced it. */}
@@ -609,6 +634,7 @@ const styles = StyleSheet.create({
   brand: { fontSize: theme.typography.fontSizes.md, color: theme.colors.textSecondary },
   barcode: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textLight },
   scoreSection: { alignItems: 'center', paddingVertical: theme.spacing.xl },
+  notRatedBody: { color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm, textAlign: 'center' as const, marginTop: 4, paddingHorizontal: theme.spacing.lg },
   reasonRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: theme.spacing.sm },
   reasonIcon: { marginTop: 2 },
   reasonText: { flex: 1, marginLeft: theme.spacing.sm, color: theme.colors.textSecondary, fontSize: theme.typography.fontSizes.sm, lineHeight: 20 },

@@ -144,7 +144,9 @@
     "partialRating": "Gebaseerd op gedeeltelijke gegevens — sommige waarden afgeleid uit de ingrediënten",
     "whyThisRating": "Waarom deze beoordeling",
     "limitReached": "U hebt uw gratis scans voor dit uur gebruikt. Producten die u al hebt gescand blijven beschikbaar.",
-    "scanResult": "Scanresultaat"
+    "scanResult": "Scanresultaat",
+    "notRated": "Niet beoordeeld",
+    "notRatedBody": "Te weinig informatie over dit product"
   },
   "history": {
     "title": "Scangeschiedenis",
