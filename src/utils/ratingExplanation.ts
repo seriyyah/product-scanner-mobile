@@ -213,8 +213,11 @@ export const explainRating = (
 
   const kept = reasons.filter((reason) => !superseded.has(reason.id));
   kept.push(
-    ...warnings.map((warning) => ({
-      id: `warning:${warning.code}`,
+    ...warnings.map((warning, index) => ({
+      // The index is part of the identity because a code is not unique: a
+      // product with three hazardous substances sends three `hazard` warnings,
+      // and React drops or duplicates rows that share a key.
+      id: `warning:${warning.code}:${index}`,
       tone: SEVERITY_TONE[warning.severity] ?? 'neutral',
       key: `ratingWarning.${warning.code}`,
       // The service always sends readable English, so an untranslated code still
