@@ -382,6 +382,23 @@ const ProfileScreen: React.FC = () => {
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
             </View>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.settingsRow}
+            onPress={() => navigation.navigate('Legal', { document: 'attributions' })}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="heart-outline" size={22} color={theme.colors.primary} />
+            <View style={styles.settingsLabelCol}>
+              <Text style={styles.settingsLabel}>{t('legal.attributions', 'Attributions')}</Text>
+              <Text style={styles.settingsSubLabel}>
+                {t('legal.attributionsSub', 'The open data and open source we build on')}
+              </Text>
+            </View>
+            <View style={styles.settingsRight}>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Logout */}

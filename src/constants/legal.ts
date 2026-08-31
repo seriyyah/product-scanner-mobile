@@ -76,15 +76,16 @@ export const PRIVACY_POLICY: LegalDocument = {
         'Apple and Google, for subscription payments, through RevenueCat. They are the merchant of record.',
         'Resend, which sends the account emails — verification and password resets.',
         'Nobody else.',
-        'We look products up in Open Food Facts and Open Beauty Facts. We send them a barcode. We do not send them anything about you.',
+        'When we look up a product, we query publicly available product data using the barcode alone. Those sources receive nothing about you, your account or your device.',
       ],
     },
     {
-      heading: 'The model that rates your products is ours',
+      heading: 'The model is ours',
       body: [
-        'The safety rating, the ingredient analysis and the recommendations all come from models and algorithms we built and run ourselves, on our own servers in Frankfurt.',
-        'Nothing you scan is sent to OpenAI, Anthropic, Google or any other AI provider. There is no third-party model in this app, so there is no third party to receive your data.',
-        'That also means nobody else trains on what you scan. Our models learn from our own data to make the app better for the people using it, and that learning stays here.',
+        'The safety rating, the ingredient analysis and the recommendations come from a language model and a set of algorithms we built ourselves. They run on our own servers in Frankfurt.',
+        'There is no outside AI service in this app. Nothing you scan is sent to one, because there is not one to send it to.',
+        'What the model learns, it learns here, from our own data, to make the app better for the people using it. That learning is not shared and nobody else trains on it.',
+        'Product look-ups are made by our servers, never by your phone, so nothing about your device reaches an outside source.',
       ],
     },
     {
@@ -101,6 +102,8 @@ export const PRIVACY_POLICY: LegalDocument = {
         'We do not sell your personal data. Not your scan history, not your preferences, not to data brokers and not to anyone else.',
         'We do not track you across other companies\u2019 apps or websites, and we do not let anyone track you through us.',
         'We do not show you advertising based on what you scan.',
+        'There is no analytics or advertising software of any kind inside this app. No third-party SDK is watching what you do in it.',
+        'The only companies that receive anything about you are the two that make the service work: the one that delivers your account emails, and the stores that take your payment. Both are named above, both act only on our instructions, and neither receives your scan history.',
         'We may publish aggregate figures about products — how a category grades on average, for instance. Those are totals with no person in them, and no figure built from fewer than 20 scans is published at all.',
       ],
     },
@@ -136,6 +139,44 @@ export const PRIVACY_POLICY: LegalDocument = {
   ],
 };
 
+/**
+ * Open-source and open-data credits.
+ *
+ * This is the one place the upstream data sources are named, and it is not
+ * marketing copy — the Open Database License requires the attribution to travel
+ * with the data, so removing this would be a licence breach rather than a
+ * tidying-up. It lives on its own screen, reachable from the profile, which is
+ * where a reviewer and a licensor both expect to find it and where it tells a
+ * casual reader nothing about how the app is built.
+ */
+export const ATTRIBUTIONS: LegalDocument = {
+  title: 'Attributions',
+  intro:
+    'Product Scanner is built on open data and open source. These are the people whose work makes it possible.',
+  sections: [
+    {
+      heading: 'Open product data',
+      body: [
+        'Portions of the product information in this app come from Open Food Facts and Open Beauty Facts, community-maintained databases made available under the Open Database License (ODbL) v1.0.',
+        'Their contents are contributed by volunteers. We are grateful for it, we correct it where we find it wrong, and any errors in what you see here are ours rather than theirs.',
+        'The licence is at opendatacommons.org/licenses/odbl.',
+      ],
+    },
+    {
+      heading: 'What is ours',
+      body: [
+        'The safety ratings, the ingredient and dose analysis, the models and the software are our own work and are not covered by the licences above.',
+      ],
+    },
+    {
+      heading: 'Open source',
+      body: [
+        'This app is built with React Native and Expo, and its backend with FastAPI and PostgreSQL, alongside many other open-source libraries released under permissive licences.',
+      ],
+    },
+  ],
+};
+
 export const TERMS_OF_SERVICE: LegalDocument = {
   title: 'Terms of Service',
   intro:
@@ -160,16 +201,17 @@ export const TERMS_OF_SERVICE: LegalDocument = {
     {
       heading: 'Our own model, and what that means for you',
       body: [
-        'The safety ratings are produced by a model and a set of algorithms we wrote and run ourselves. They are not licensed from anyone and they are not a wrapper around somebody else\u2019s service.',
-        'The AI that explains a rating runs on our own server. Nothing you scan is sent to an external AI provider, and no third party receives your data in order for this app to work.',
+        'The safety ratings are produced by a language model and a set of algorithms we wrote and run ourselves. They are not licensed from anyone and this app is not a wrapper around somebody else\u2019s service.',
+        'Everything that reads your data runs on our own servers. There is no outside AI service involved, so nothing you scan is sent to one.',
+        'We use what we learn from how the app is used to make it better and more reliable, and to improve the suggestions it gives. That happens here, on our own infrastructure.',
+        'The model stays ours. We do not share it, we do not license it out, and nobody else trains on what you scan.',
         'We do not sell your personal data, we do not share it with advertisers or data brokers, and we do not track you across other apps or websites.',
-        'The models are ours and stay ours. We do not share them, and nobody else trains on what you scan.',
       ],
     },
     {
       heading: 'Where the data comes from',
       body: [
-        'Open Food Facts and Open Beauty Facts, which are community-maintained and licensed under the Open Database License, and public sources we search when a product is in neither.',
+        'Openly available product data, our own research, and what we derive from both. Some of it comes from community-maintained databases licensed under the Open Database License, which we credit in Attributions.',
         'We may be wrong because a source is wrong. If you find a mistake, tell us and we will fix it.',
       ],
     },

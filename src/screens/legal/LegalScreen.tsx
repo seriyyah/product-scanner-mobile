@@ -6,6 +6,7 @@ import type { RouteProp } from '@react-navigation/native';
 
 import { theme } from '@/constants/theme';
 import {
+  ATTRIBUTIONS,
   LEGAL_LAST_UPDATED,
   PRIVACY_POLICY,
   TERMS_OF_SERVICE,
@@ -14,11 +15,15 @@ import {
 
 // Registered in both the auth and main stacks, so the route type is the shape
 // of the params rather than a position in one navigator.
-type LegalRoute = RouteProp<{ Legal: { document: 'privacy' | 'terms' } }, 'Legal'>;
+type LegalRoute = RouteProp<
+  { Legal: { document: 'privacy' | 'terms' | 'attributions' } },
+  'Legal'
+>;
 
 const DOCUMENTS: Record<string, LegalDocument> = {
   privacy: PRIVACY_POLICY,
   terms: TERMS_OF_SERVICE,
+  attributions: ATTRIBUTIONS,
 };
 
 interface Props {
