@@ -15,7 +15,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
-import { userRepository, subscriptionRepository, SubscriptionStatus } from '@/services/apiService';
+import { useTranslation } from 'react-i18next';
+import {
+  userRepository,
+  subscriptionRepository,
+  accountRepository,
+  SubscriptionStatus,
+} from '@/services/apiService';
 import { UserProfile, UserRole } from '@/types';
 import theme from '@/constants/theme';
 import TextInput from '@/components/forms/TextInput';
@@ -52,6 +58,8 @@ const ProfileScreen: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
   const { state, logout } = useAuth();
+  const { t } = useTranslation();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const role = (state.user?.role || 'free_user') as UserRole;
   const badge = ROLE_BADGE[role] || ROLE_BADGE.free_user;
@@ -110,6 +118,66 @@ const ProfileScreen: React.FC = () => {
       Alert.alert('Error', 'Failed to update profile');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleDeleteAccount = (): void => {
+    // Two steps on purpose. The first explains what goes; the second is the
+    // point of no return, and says so in its own words rather than "OK".
+    Alert.alert(
+      t('account.delete', 'Delete Account'),
+      t(
+        'account.deleteExplain',
+        'This removes your account, your scan history and your preferences from our servers. It cannot be undone.',
+      ),
+      [
+        { text: t('common.cancel', 'Cancel'), style: 'cancel' },
+        {
+          text: t('common.continue', 'Continue'),
+          style: 'destructive',
+          onPress: () =>
+            Alert.alert(
+              t('account.deleteConfirmTitle', 'Delete permanently?'),
+              t('account.deleteConfirmBody', 'There is no way to get this back.'),
+              [
+                { text: t('common.cancel', 'Cancel'), style: 'cancel' },
+                {
+                  text: t('account.deleteConfirm', 'Delete everything'),
+                  style: 'destructive',
+                  onPress: () => void eraseAccount(),
+                },
+              ],
+            ),
+        },
+      ],
+    );
+  };
+
+  const eraseAccount = async (): Promise<void> => {
+    const id = state.user?.id;
+    if (!id) return;
+    setIsDeleting(true);
+    try {
+      const result = await accountRepository.eraseAccount(id);
+      if (result.incomplete?.length) {
+        // Say so rather than round it up to success: they are entitled to know
+        // if part of the erasure did not happen, and we are obliged to finish it.
+        Alert.alert(
+          t('account.deletePartialTitle', 'Partly deleted'),
+          t(
+            'account.deletePartialBody',
+            'Some of your data could not be removed yet. We have recorded it and will finish. Contact us if it persists.',
+          ),
+        );
+      }
+      await logout();
+    } catch {
+      Alert.alert(
+        t('common.error', 'Something went wrong'),
+        t('account.deleteFailed', 'Your account was not deleted. Please try again.'),
+      );
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -284,6 +352,36 @@ const ProfileScreen: React.FC = () => {
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.settingsRow}
+            onPress={() => navigation.navigate('Legal', { document: 'privacy' })}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="lock-closed-outline" size={22} color={theme.colors.primary} />
+            <View style={styles.settingsLabelCol}>
+              <Text style={styles.settingsLabel}>{t('legal.privacy', 'Privacy Policy')}</Text>
+              <Text style={styles.settingsSubLabel}>
+                {t('legal.privacySub', 'What we hold, and what you can do about it')}
+              </Text>
+            </View>
+            <View style={styles.settingsRight}>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.settingsRow}
+            onPress={() => navigation.navigate('Legal', { document: 'terms' })}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="document-text-outline" size={22} color={theme.colors.primary} />
+            <View style={styles.settingsLabelCol}>
+              <Text style={styles.settingsLabel}>{t('legal.terms', 'Terms of Service')}</Text>
+            </View>
+            <View style={styles.settingsRight}>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Logout */}
@@ -294,6 +392,35 @@ const ProfileScreen: React.FC = () => {
             variant="outline"
             size="large"
           />
+        </View>
+
+        {/* Erasure. Last, and visually apart, because it cannot be undone. */}
+        <View style={styles.dangerZone}>
+          <TouchableOpacity
+            style={styles.deleteRow}
+            onPress={handleDeleteAccount}
+            activeOpacity={0.8}
+            disabled={isDeleting}
+            accessibilityRole="button"
+            accessibilityLabel={t('account.delete', 'Delete Account')}
+          >
+            {isDeleting ? (
+              <ActivityIndicator color={theme.colors.safetyPoor} />
+            ) : (
+              <>
+                <Ionicons name="trash-outline" size={20} color={theme.colors.safetyPoor} />
+                <Text style={styles.deleteLabel}>
+                  {t('account.delete', 'Delete Account')}
+                </Text>
+              </>
+            )}
+          </TouchableOpacity>
+          <Text style={styles.deleteHint}>
+            {t(
+              'account.deleteHint',
+              'Permanently removes your account, scan history and preferences. This cannot be undone.',
+            )}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -355,6 +482,31 @@ const styles = StyleSheet.create({
   email: {
     fontSize: theme.typography.fontSizes.sm,
     color: theme.colors.textSecondary,
+  },
+  dangerZone: {
+    marginTop: theme.spacing.xl,
+    paddingTop: theme.spacing.lg,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: theme.colors.border,
+  },
+  deleteRow: {
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    gap: theme.spacing.sm,
+    paddingVertical: theme.spacing.md,
+  },
+  deleteLabel: {
+    color: theme.colors.safetyPoor,
+    fontSize: theme.typography.fontSizes.md,
+    fontWeight: '600' as const,
+  },
+  deleteHint: {
+    color: theme.colors.textSecondary,
+    fontSize: theme.typography.fontSizes.sm,
+    textAlign: 'center' as const,
+    paddingHorizontal: theme.spacing.lg,
+    marginBottom: theme.spacing.xl,
   },
   section: {
     paddingHorizontal: theme.spacing.lg,

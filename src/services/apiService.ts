@@ -299,6 +299,34 @@ export class ScannerRepository {
   }
 }
 
+/**
+ * Erasing an account. GDPR Article 17, and App Store Guideline 5.1.1(v), which
+ * requires deletion to be startable from inside the app — disabling it is not
+ * enough.
+ *
+ * The response reports what actually happened per service, because a partial
+ * failure is something the person is entitled to be told rather than have
+ * rounded up to success.
+ */
+export interface ErasureResult {
+  user_id: string;
+  erased: boolean;
+  profile_deleted: boolean;
+  scans_deleted?: number | null;
+  account_deleted: boolean;
+  incomplete: string[];
+}
+
+export class AccountRepository {
+  private readonly apiClient = BaseApiClient.getInstance();
+
+  public async eraseAccount(userId: string): Promise<ErasureResult> {
+    return this.apiClient.delete<ErasureResult>(`/api/v1/users/${encodeURIComponent(userId)}`);
+  }
+}
+
+export const accountRepository = new AccountRepository();
+
 // User Repository
 export class UserRepository {
   private readonly apiClient = BaseApiClient.getInstance();

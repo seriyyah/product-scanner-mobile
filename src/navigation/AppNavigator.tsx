@@ -38,6 +38,7 @@ import ProfileScreen from '@/screens/main/ProfileScreen';
 
 // Product screens
 import ProductDetailScreen from '@/screens/product/ProductDetailScreen';
+import LegalScreen from '@/screens/legal/LegalScreen';
 import ScanResultScreen from '@/screens/product/ScanResultScreen';
 
 // Subscription screen
@@ -78,6 +79,13 @@ const AuthNavigator: React.FC = () => (
     <AuthStack.Screen name="Login" component={LoginScreen} />
     <AuthStack.Screen name="Register" component={RegisterScreen} />
     <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+    {/* Reachable before an account exists: agreeing to something you cannot
+        read is not agreement. */}
+    <AuthStack.Screen
+      name="Legal"
+      component={LegalScreen}
+      options={{ headerShown: true, title: '' }}
+    />
   </AuthStack.Navigator>
 );
 
@@ -143,6 +151,11 @@ const MainNavigator: React.FC = () => (
       name="ScanResult"
       component={ScanResultScreen}
       options={SCREEN_OPTIONS.ScanResult}
+    />
+    <MainStack.Screen
+      name="Legal"
+      component={LegalScreen}
+      options={{ headerShown: true, title: '' }}
     />
     <MainStack.Screen
       name="ProductDetail"

@@ -116,7 +116,12 @@ const RegisterScreen: React.FC = () => {
   const termsAccepted = watch('termsAccepted');
   const passwordValue = watch('password') ?? '';
 
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+
   const onSubmit = async (data: RegisterFormData): Promise<void> => {
+    // Belt and braces: the button is disabled without consent, but a form can
+    // be submitted by other means and consent must be real.
+    if (!acceptedTerms) return;
     setIsSubmitting(true);
     try {
       await registerUser({
@@ -317,11 +322,45 @@ const RegisterScreen: React.FC = () => {
             </ScrollView>
           </View>
 
+          {/* Consent, given before the account exists rather than assumed after.
+              The documents are reachable from here, because agreeing to
+              something you cannot read is not agreement. */}
+          <TouchableOpacity
+            style={styles.consentRow}
+            onPress={() => setAcceptedTerms((accepted) => !accepted)}
+            activeOpacity={0.8}
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: acceptedTerms }}
+          >
+            <Ionicons
+              name={acceptedTerms ? 'checkbox' : 'square-outline'}
+              size={22}
+              color={acceptedTerms ? theme.colors.primary : theme.colors.textSecondary}
+            />
+            <Text style={styles.consentText}>
+              I agree to the{' '}
+              <Text
+                style={styles.consentLink}
+                onPress={() => navigation.navigate('Legal', { document: 'terms' })}
+              >
+                Terms of Service
+              </Text>
+              {' '}and the{' '}
+              <Text
+                style={styles.consentLink}
+                onPress={() => navigation.navigate('Legal', { document: 'privacy' })}
+              >
+                Privacy Policy
+              </Text>
+              .
+            </Text>
+          </TouchableOpacity>
+
           <Button
             title={isSubmitting ? 'Creating Account...' : 'Create Account'}
             onPress={handleSubmit(onSubmit)}
             loading={isSubmitting}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !acceptedTerms}
             variant="primary"
             size="large"
           />
@@ -396,6 +435,23 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.xs,
     marginBottom: theme.spacing.md,
     fontWeight: '700' as const,
+  },
+  consentRow: {
+    flexDirection: 'row' as const,
+    alignItems: 'flex-start' as const,
+    gap: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
+    paddingHorizontal: theme.spacing.xs,
+  },
+  consentText: {
+    flex: 1,
+    color: theme.colors.textSecondary,
+    fontSize: theme.typography.fontSizes.sm,
+    lineHeight: 20,
+  },
+  consentLink: {
+    color: theme.colors.primary,
+    fontWeight: '600' as const,
   },
   footer: {
     flexDirection: 'row',

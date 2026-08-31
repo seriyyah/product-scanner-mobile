@@ -333,6 +333,10 @@ export type RootStackParamList = {
 };
 
 export type AuthStackParamList = {
+  // Registered in both stacks. Someone has to be able to read the terms before
+  // agreeing to them, and at that point they have no account and are not in the
+  // main navigator — navigating across navigators would throw.
+  readonly Legal: { document: 'privacy' | 'terms' };
   readonly Login: undefined;
   readonly Register: { email?: string } | undefined;
   readonly ForgotPassword: undefined;
@@ -354,6 +358,7 @@ export type MainStackParamList = {
   Preferences: undefined;
   ProductDetail: { barcode: string; scanResult?: ScanResult };
   ScanResult: { scanResult: ScanResult };
+  Legal: { document: 'privacy' | 'terms' };
 };
 
 export type ProductStackParamList = {
