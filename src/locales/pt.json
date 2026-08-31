@@ -248,7 +248,9 @@
     "sv": "Sueco",
     "da": "Dinamarquês",
     "fi": "Finlandês",
-    "el": "Grego"
+    "el": "Grego",
+    "uk": "Ucraniano",
+    "ru": "Russo"
   },
   "ratingReason": {
     "nutriscore": {

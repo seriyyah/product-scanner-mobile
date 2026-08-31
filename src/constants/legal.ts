@@ -51,7 +51,8 @@ export const PRIVACY_POLICY: LegalDocument = {
         'Your scan history: the barcodes you scanned and when.',
         'Your dietary preferences and declared allergens, if you choose to give them.',
         'Your subscription tier, and a device token if you turn on notifications.',
-        'We do not ask for your name, address, phone number or date of birth, and we do not want them.',
+        'Optionally, and only if you fill them in: your first and last name, phone number, date of birth, a short bio and a profile picture. None of these are required, the app works without any of them, and you can clear them at any time in Profile.',
+        'We do not ask for your address or payment details, and we never see your card.',
       ],
     },
     {
@@ -76,6 +77,14 @@ export const PRIVACY_POLICY: LegalDocument = {
         'Resend, which sends the account emails — verification and password resets.',
         'Nobody else.',
         'We look products up in Open Food Facts and Open Beauty Facts. We send them a barcode. We do not send them anything about you.',
+      ],
+    },
+    {
+      heading: 'The model that rates your products is ours',
+      body: [
+        'The safety rating, the ingredient analysis and the recommendations all come from models and algorithms we built and run ourselves, on our own servers in Frankfurt.',
+        'Nothing you scan is sent to OpenAI, Anthropic, Google or any other AI provider. There is no third-party model in this app, so there is no third party to receive your data.',
+        'That also means nobody else trains on what you scan. Our models learn from our own data to make the app better for the people using it, and that learning stays here.',
       ],
     },
     {
@@ -146,6 +155,15 @@ export const TERMS_OF_SERVICE: LegalDocument = {
         'It is our assessment from the data available to us. It is not medical, dietary or nutritional advice, and it is not a substitute for reading the label.',
         'If you have an allergy or a medical condition, the pack in your hand is the authority — not us. Product formulations change, and public databases lag behind them.',
         'Where we do not have enough information, we say so and show no grade, rather than guessing.',
+      ],
+    },
+    {
+      heading: 'Our own model, and what that means for you',
+      body: [
+        'The safety ratings are produced by a model and a set of algorithms we wrote and run ourselves. They are not licensed from anyone and they are not a wrapper around somebody else\u2019s service.',
+        'The AI that explains a rating runs on our own server. Nothing you scan is sent to an external AI provider, and no third party receives your data in order for this app to work.',
+        'We do not sell your personal data, we do not share it with advertisers or data brokers, and we do not track you across other apps or websites.',
+        'The models are ours and stay ours. We do not share them, and nobody else trains on what you scan.',
       ],
     },
     {

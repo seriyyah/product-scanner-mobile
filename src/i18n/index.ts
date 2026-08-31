@@ -21,6 +21,8 @@ import sv from '@/locales/sv.json';
 import da from '@/locales/da.json';
 import fi from '@/locales/fi.json';
 import el from '@/locales/el.json';
+import uk from '@/locales/uk.json';
+import ru from '@/locales/ru.json';
 
 export const SUPPORTED_LANGUAGES: { code: string; label: string }[] = [
   { code: 'en', label: 'English' },
@@ -41,6 +43,8 @@ export const SUPPORTED_LANGUAGES: { code: string; label: string }[] = [
   { code: 'da', label: 'Dansk' },
   { code: 'fi', label: 'Suomi' },
   { code: 'el', label: 'Ελληνικά' },
+  { code: 'uk', label: 'Українська' },
+  { code: 'ru', label: 'Русский' },
 ];
 
 i18n.use(initReactI18next).init({
@@ -63,6 +67,8 @@ i18n.use(initReactI18next).init({
     da: { translation: da },
     fi: { translation: fi },
     el: { translation: el },
+    uk: { translation: uk },
+    ru: { translation: ru },
   },
   // Open in the phone's language. A stored preference, restored by AppContext on
   // mount, overrides this — an explicit choice always beats the device setting.

@@ -248,7 +248,9 @@
     "sv": "Švédčina",
     "da": "Dánčina",
     "fi": "Fínčina",
-    "el": "Gréčtina"
+    "el": "Gréčtina",
+    "uk": "Ukrajinčina",
+    "ru": "Ruština"
   },
   "ratingReason": {
     "nutriscore": {

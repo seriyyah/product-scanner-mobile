@@ -248,7 +248,9 @@
     "sv": "Ruotsi",
     "da": "Tanska",
     "fi": "Suomi",
-    "el": "Kreikka"
+    "el": "Kreikka",
+    "uk": "Ukraina",
+    "ru": "Venäjä"
   },
   "ratingReason": {
     "nutriscore": {

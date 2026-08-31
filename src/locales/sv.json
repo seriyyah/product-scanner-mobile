@@ -248,7 +248,9 @@
     "sv": "Svenska",
     "da": "Danska",
     "fi": "Finska",
-    "el": "Grekiska"
+    "el": "Grekiska",
+    "uk": "Ukrainska",
+    "ru": "Ryska"
   },
   "ratingReason": {
     "nutriscore": {

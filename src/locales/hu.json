@@ -248,7 +248,9 @@
     "sv": "Svéd",
     "da": "Dán",
     "fi": "Finn",
-    "el": "Görög"
+    "el": "Görög",
+    "uk": "Ukrán",
+    "ru": "Orosz"
   },
   "ratingReason": {
     "nutriscore": {
