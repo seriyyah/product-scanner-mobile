@@ -74,19 +74,25 @@ export const PRIVACY_POLICY: LegalDocument = {
       body: [
         'Apple and Google, for subscription payments, through RevenueCat. They are the merchant of record.',
         'Resend, which sends the account emails — verification and password resets.',
-        'Nobody else. We do not sell your personal data, and we do not share it with advertisers or data brokers.',
-        'We do not track you across other companies\u2019 apps or websites, and we do not let anyone else do so through us.',
+        'Nobody else.',
         'We look products up in Open Food Facts and Open Beauty Facts. We send them a barcode. We do not send them anything about you.',
       ],
     },
     {
-      heading: 'Statistics we publish and sell',
+      heading: 'Personalised recommendations',
       body: [
-        'If you turn on Market statistics in Preferences, your scans are counted towards aggregate figures — for example, "68% of scanned sodas in Czechia graded D or E". We publish these and we may sell them.',
-        'Only totals leave. Never your scan history, never a product tied to you, and never an identifier — not even a hashed one, because a code we can recompute is still a key to you.',
-        'Any figure built from fewer than 20 scans is withheld, because a number that small describes people rather than a market.',
-        'Under GDPR Recital 26, statistics of this kind are anonymous information and no longer personal data. We ask your permission anyway, it is off unless you turn it on, and you can turn it off at any time.',
-        'We do not sell your individual scan history, to data brokers or to anyone else. What you scan can imply things about your health, and that is not ours to trade.',
+        'If you turn on Personalised recommendations in Preferences, we use your scan history to learn what you buy and suggest better alternatives — safer products in the categories you actually shop in.',
+        'This shapes what the app recommends to you. It is not used to advertise to you, it is not shared, and it is not sold.',
+        'It is off unless you turn it on, and turning it off stops it. We ask separately because it is a different purpose from keeping the app working, and because what you scan can imply things about your health.',
+      ],
+    },
+    {
+      heading: 'What we never do',
+      body: [
+        'We do not sell your personal data. Not your scan history, not your preferences, not to data brokers and not to anyone else.',
+        'We do not track you across other companies\u2019 apps or websites, and we do not let anyone track you through us.',
+        'We do not show you advertising based on what you scan.',
+        'We may publish aggregate figures about products — how a category grades on average, for instance. Those are totals with no person in them, and no figure built from fewer than 20 scans is published at all.',
       ],
     },
     {

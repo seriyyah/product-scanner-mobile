@@ -244,17 +244,15 @@ const PreferencesScreen: React.FC = () => {
 
           <View style={styles.row}>
             <View style={styles.rowLabelCol}>
-              <Text style={styles.rowLabel}>Market statistics</Text>
+              <Text style={styles.rowLabel}>Personalised recommendations</Text>
               <Text style={styles.rowSub}>
-                Count my scans in the anonymous category figures we publish and
-                sell — for example “68% of scanned sodas graded D or E”. Only
-                totals leave, never your history, and any figure built from fewer
-                than 20 scans is withheld.
+                Use my scan history to learn what I buy, so the app can suggest
+                better alternatives for me. Stays with us and is never sold.
               </Text>
             </View>
             <Switch
-              value={prefs.privacy_market_insights ?? false}
-              onValueChange={(v) => patch({ privacy_market_insights: v })}
+              value={prefs.privacy_personalisation ?? false}
+              onValueChange={(v) => patch({ privacy_personalisation: v })}
               trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
               thumbColor="#fff"
             />
