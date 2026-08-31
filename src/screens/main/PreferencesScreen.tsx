@@ -223,14 +223,38 @@ const PreferencesScreen: React.FC = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Privacy</Text>
 
+          {/* Two switches, not one. Consent has to be specific: "help improve
+              the app" and "be counted in figures we sell" are different
+              purposes, and collecting under the first to do the second is the
+              mismatch Apple rejects under Guideline 5.1.2. */}
           <View style={styles.row}>
             <View style={styles.rowLabelCol}>
               <Text style={styles.rowLabel}>Analytics</Text>
-              <Text style={styles.rowSub}>Help improve the app with anonymous usage data</Text>
+              <Text style={styles.rowSub}>
+                Help us improve the app. Stays with us and is never shared.
+              </Text>
             </View>
             <Switch
               value={prefs.privacy_analytics}
               onValueChange={(v) => patch({ privacy_analytics: v })}
+              trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
+              thumbColor="#fff"
+            />
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.rowLabelCol}>
+              <Text style={styles.rowLabel}>Market statistics</Text>
+              <Text style={styles.rowSub}>
+                Count my scans in the anonymous category figures we publish and
+                sell — for example “68% of scanned sodas graded D or E”. Only
+                totals leave, never your history, and any figure built from fewer
+                than 20 scans is withheld.
+              </Text>
+            </View>
+            <Switch
+              value={prefs.privacy_market_insights ?? false}
+              onValueChange={(v) => patch({ privacy_market_insights: v })}
               trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
               thumbColor="#fff"
             />

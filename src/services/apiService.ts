@@ -445,6 +445,7 @@ export interface UserPreferences {
   theme: string;
   default_currency: string;
   privacy_analytics: boolean;
+  privacy_market_insights?: boolean;
   privacy_marketing: boolean;
 }
 
@@ -455,6 +456,7 @@ export interface PreferencesUpdate {
   theme?: string;
   default_currency?: string;
   privacy_analytics?: boolean;
+  privacy_market_insights?: boolean;
   privacy_marketing?: boolean;
 }
 

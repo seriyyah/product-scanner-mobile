@@ -75,15 +75,18 @@ export const PRIVACY_POLICY: LegalDocument = {
         'Apple and Google, for subscription payments, through RevenueCat. They are the merchant of record.',
         'Resend, which sends the account emails — verification and password resets.',
         'Nobody else. We do not sell your personal data, and we do not share it with advertisers or data brokers.',
+        'We do not track you across other companies\u2019 apps or websites, and we do not let anyone else do so through us.',
         'We look products up in Open Food Facts and Open Beauty Facts. We send them a barcode. We do not send them anything about you.',
       ],
     },
     {
-      heading: 'Statistics we may publish',
+      heading: 'Statistics we publish and sell',
       body: [
-        'We may publish aggregate figures — for example, how many scanned products in a category carry a given grade.',
-        'These are group statistics only, with the individual records that produced them deleted, so no person can be identified from them or re-identified afterwards. Under GDPR Recital 26 such genuinely anonymous information is no longer personal data.',
-        'This never includes anything about an individual, and never includes your scan history.',
+        'If you turn on Market statistics in Preferences, your scans are counted towards aggregate figures — for example, "68% of scanned sodas in Czechia graded D or E". We publish these and we may sell them.',
+        'Only totals leave. Never your scan history, never a product tied to you, and never an identifier — not even a hashed one, because a code we can recompute is still a key to you.',
+        'Any figure built from fewer than 20 scans is withheld, because a number that small describes people rather than a market.',
+        'Under GDPR Recital 26, statistics of this kind are anonymous information and no longer personal data. We ask your permission anyway, it is off unless you turn it on, and you can turn it off at any time.',
+        'We do not sell your individual scan history, to data brokers or to anyone else. What you scan can imply things about your health, and that is not ours to trade.',
       ],
     },
     {
