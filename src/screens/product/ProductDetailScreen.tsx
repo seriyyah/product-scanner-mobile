@@ -152,7 +152,7 @@ const ProductDetailScreen: React.FC = () => {
   };
 
   const handleShare = (): void => {
-    Alert.alert('Share', 'Sharing coming soon!');
+    Alert.alert(t('common.share', 'Share'), t('product.sharingSoon', 'Sharing coming soon!'));
   };
 
   const handlePriceClick = async (price: DiscoveryPrice): Promise<void> => {
@@ -166,7 +166,7 @@ const ProductDetailScreen: React.FC = () => {
 
   const handleSearchClick = async (url: string, title: string): Promise<void> => {
     await behaviorRepository.track(barcode, 'click_search', { url, title });
-    Linking.openURL(url).catch(() => Alert.alert('Error', 'Could not open link'));
+    Linking.openURL(url).catch(() => Alert.alert(t('common.error', 'Error'), t('product.linkFailed', 'Could not open link')));
   };
 
   if (isLoading) {
@@ -370,10 +370,10 @@ const ProductDetailScreen: React.FC = () => {
       );
     }
     if (recsStatus === 'done') {
-      return <Text style={styles.emptyNote}>No safer alternatives found for this product.</Text>;
+      return <Text style={styles.emptyNote}>{t('product.noAlternatives', 'No safer alternatives found for this product.')}</Text>;
     }
     if (recsStatus === '403' || recsStatus === '503') {
-      return <Text style={styles.emptyNote}>Recommendations unavailable.</Text>;
+      return <Text style={styles.emptyNote}>{t('product.recommendationsUnavailable', 'Recommendations unavailable.')}</Text>;
     }
     return null;
   };
@@ -476,14 +476,14 @@ const ProductDetailScreen: React.FC = () => {
         {product.nutrition && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>{t('product.nutritionPer100g')}</Text>
-            {renderNutritionRow(t('Energy'), product.nutrition.energy_kcal, 'kcal')}
-            {renderNutritionRow(t('Fat'), product.nutrition.fat_g)}
+            {renderNutritionRow(t('nutrition.energy', 'Energy'), product.nutrition.energy_kcal, 'kcal')}
+            {renderNutritionRow(t('nutrition.fat', 'Fat'), product.nutrition.fat_g)}
             {renderNutritionRow(t('Saturated Fat'), product.nutrition.saturated_fat_g)}
-            {renderNutritionRow(t('Carbohydrates'), product.nutrition.carbohydrates_g)}
-            {renderNutritionRow(t('Sugars'), product.nutrition.sugars_g)}
-            {renderNutritionRow(t('Fiber'), product.nutrition.fiber_g)}
-            {renderNutritionRow(t('Proteins'), product.nutrition.proteins_g)}
-            {renderNutritionRow(t('Salt'), product.nutrition.salt_g)}
+            {renderNutritionRow(t('nutrition.carbohydrates', 'Carbohydrates'), product.nutrition.carbohydrates_g)}
+            {renderNutritionRow(t('nutrition.sugars', 'Sugars'), product.nutrition.sugars_g)}
+            {renderNutritionRow(t('nutrition.fiber', 'Fiber'), product.nutrition.fiber_g)}
+            {renderNutritionRow(t('nutrition.proteins', 'Proteins'), product.nutrition.proteins_g)}
+            {renderNutritionRow(t('nutrition.salt', 'Salt'), product.nutrition.salt_g)}
           </View>
         )}
 
@@ -554,7 +554,7 @@ const ProductDetailScreen: React.FC = () => {
         {/* Images */}
         {(product.images ?? []).length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Product Images</Text>
+            <Text style={styles.cardTitle}>{t('product.images', 'Product Images')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {product.images.map((uri, i) => (
                 <Image key={i} source={{ uri }} style={styles.productImage} resizeMode="cover" />
@@ -611,7 +611,7 @@ const ProductDetailScreen: React.FC = () => {
               {/* Crowd-sourced prices */}
               {discovery.prices.length > 0 && (
                 <>
-                  <Text style={styles.sectionSubtitle}>Reported Prices</Text>
+                  <Text style={styles.sectionSubtitle}>{t('product.reportedPrices', 'Reported Prices')}</Text>
                   {discovery.prices.map((p, i) => (
                     <TouchableOpacity
                       key={i}

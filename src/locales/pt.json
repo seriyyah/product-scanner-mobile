@@ -18,7 +18,9 @@
     "allow": "Permitir",
     "deny": "Negar",
     "unknown": "Desconhecido",
-    "goBack": "Voltar"
+    "goBack": "Voltar",
+    "continue": "Continuar",
+    "success": "Concluído"
   },
   "auth": {
     "login": "Entrar",
@@ -51,7 +53,51 @@
     "ruleLength": "Pelo menos 12 caracteres",
     "ruleLowercase": "Uma letra minúscula",
     "ruleSpecial": "Um carácter especial (!@#$…)",
-    "ruleUppercase": "Uma letra maiúscula"
+    "ruleUppercase": "Uma letra maiúscula",
+    "welcomeBack": "Bem-vindo de volta",
+    "loginSubtitle": "Inicie sessão para continuar a digitalizar produtos",
+    "emailLabel": "Endereço de e-mail",
+    "emailPlaceholder": "Introduza o seu e-mail",
+    "passwordPlaceholder": "Introduza a sua palavra-passe",
+    "signIn": "Iniciar sessão",
+    "signUp": "Registar",
+    "emailInvalidLong": "Introduza um endereço de e-mail válido",
+    "emailRequired": "O e-mail é obrigatório",
+    "emailTooLong": "O e-mail deve ter menos de 255 caracteres",
+    "passwordRequired": "A palavra-passe é obrigatória",
+    "passwordTooLong": "A palavra-passe deve ter menos de 128 caracteres",
+    "checkEmailTitle": "Verifique o seu e-mail",
+    "resetLinkSent": "Se esse endereço de e-mail existir no nosso sistema, enviámos uma ligação para repor a palavra-passe.",
+    "backToSignIn": "Voltar ao início de sessão",
+    "resetPasswordTitle": "Repor palavra-passe",
+    "resetPasswordBody": "Introduza o seu endereço de e-mail e enviaremos uma ligação para a repor.",
+    "sending": "A enviar...",
+    "sendResetLink": "Enviar ligação",
+    "passwordResetDone": "Palavra-passe reposta!",
+    "passwordResetDoneBody": "A sua palavra-passe foi atualizada. Inicie sessão com a nova palavra-passe.",
+    "newPassword": "Nova palavra-passe",
+    "newPasswordBody": "Escolha uma palavra-passe forte para a sua conta.",
+    "passwordPlaceholderMin": "Pelo menos 8 caracteres",
+    "confirmPasswordPlaceholder": "Introduza a palavra-passe novamente",
+    "resetting": "A repor…",
+    "setNewPassword": "Definir nova palavra-passe",
+    "verifyingEmail": "A verificar o seu e-mail…",
+    "goToSignIn": "Ir para o início de sessão",
+    "registerCheckEmail": "Verifique o seu e-mail!",
+    "registerCheckEmailBody": "Enviámos uma ligação de verificação para o seu e-mail. Verifique a sua conta para continuar.",
+    "registerSubtitle": "Junte-se hoje ao Product Scanner",
+    "firstNamePlaceholder": "João",
+    "lastNamePlaceholder": "Silva",
+    "emailExample": "joao@example.com",
+    "passwordPlaceholder12": "Pelo menos 12 caracteres",
+    "firstNameRequired": "O nome próprio é obrigatório",
+    "lastNameRequired": "O apelido é obrigatório",
+    "passwordPolicy": "A palavra-passe não cumpre todos os requisitos",
+    "confirmPasswordRequired": "Confirme a sua palavra-passe",
+    "termsPrefix": "Aceito os",
+    "termsAnd": "e a",
+    "creatingAccount": "A criar conta...",
+    "registrationFailed": "Falha no registo"
   },
   "onboarding": {
     "locationTitle": "Permitir localização",
@@ -77,7 +123,10 @@
     "recentScans": "Digitalizações recentes",
     "noHistory": "Sem digitalizações recentes",
     "scanNow": "Digitalize um produto para começar",
-    "safetyTip": "Digitalize um código de barras para uma avaliação de segurança"
+    "safetyTip": "Digitalize um código de barras para uma avaliação de segurança",
+    "subtitle": "O que gostaria de digitalizar hoje?",
+    "viewAll": "Ver tudo",
+    "noHistoryBody": "Toque em «Digitalizar produto» para começar"
   },
   "scanner": {
     "title": "Scanner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Utilizou as suas 20 digitalizações gratuitas para esta hora.",
     "watchAd": "Ver um vídeo para 5 digitalizações adicionais",
     "upgradePremium": "Atualizar para Premium",
-    "scansRemaining": "{{count}} digitalizações restantes nesta hora"
+    "scansRemaining": "{{count}} digitalizações restantes nesta hora",
+    "scanAProduct": "Digitalizar um produto",
+    "enterBarcodeFromPack": "Introduza o número do código de barras da embalagem.",
+    "requestingPermission": "A pedir acesso à câmara...",
+    "permissionDeniedTitle": "É necessário acesso à câmara",
+    "permissionDeniedBody": "Permita o acesso à câmara para digitalizar códigos, ou introduza-os manualmente abaixo.",
+    "typeBarcode": "Escreva o número do código de barras do produto.",
+    "useCamera": "Usar a câmara",
+    "enterManually": "Introduzir manualmente",
+    "scanAgain": "Digitalizar novamente",
+    "pointCameraShort": "Aponte a câmara ao código de barras",
+    "enterBarcodePlaceholder": "Introduza o número do código de barras…",
+    "watchVideo": "Ver vídeo (+5 digitalizações)"
   },
   "product": {
     "loading": "A carregar produto...",
@@ -147,7 +208,14 @@
     "scanResult": "Resultado da leitura",
     "notRated": "Sem classificação",
     "notRatedBody": "Não há informação suficiente sobre este produto",
-    "alternativesPending": "Ainda a comparar este produto. Estará pronto em breve — veja o histórico dentro de um minuto."
+    "alternativesPending": "Ainda a comparar este produto. Estará pronto em breve — veja o histórico dentro de um minuto.",
+    "images": "Imagens do produto",
+    "linkFailed": "Não foi possível abrir a ligação",
+    "notInDatabase": "Produto não está na nossa base de dados",
+    "recommendationsUnavailable": "Recomendações indisponíveis.",
+    "sharingSoon": "A partilha chega em breve!",
+    "notRatedResearching": "Ainda não temos informação suficiente — estamos a procurá-la. Volte daqui a pouco.",
+    "notRatedUnsupported": "Ainda não avaliamos este tipo de produto"
   },
   "history": {
     "title": "Histórico de leituras",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} digitalizações usadas nesta hora",
-    "unlimitedScans": "Digitalizações ilimitadas"
+    "unlimitedScans": "Digitalizações ilimitadas",
+    "phone": "Telefone",
+    "phoneNumber": "Número de telefone",
+    "phonePlaceholder": "+351123456789",
+    "bio": "Biografia",
+    "bioPlaceholder": "Fale-nos sobre si",
+    "memberSince": "Membro desde",
+    "dietaryAllergens": "Dieta e alergénios",
+    "dietaryAllergensSub": "Personalize as avaliações e recomendações",
+    "adminFullAccess": "Administrador — acesso total",
+    "logout": "Terminar sessão",
+    "logoutConfirm": "Tem a certeza de que quer terminar sessão?",
+    "loadFailed": "Não foi possível carregar o perfil",
+    "updateSuccess": "Perfil atualizado com sucesso",
+    "updateFailed": "Não foi possível atualizar o perfil"
   },
   "preferences": {
     "title": "Preferências",
@@ -181,7 +263,20 @@
     "privacy": "Privacidade",
     "analyticsConsent": "Análise",
     "marketingConsent": "E-mails de marketing",
-    "saved": "Preferências guardadas"
+    "saved": "Preferências guardadas",
+    "dietarySub": "Usado para personalizar as avaliações de segurança e as recomendações",
+    "allergensTitle": "Alergénios a evitar",
+    "allergensSub": "Os produtos que os contenham serão assinalados com um aviso",
+    "appSettings": "Definições da aplicação",
+    "analytics": "Análises",
+    "analyticsSub": "Ajude-nos a melhorar a aplicação. Os dados ficam connosco e nunca são partilhados.",
+    "personalisation": "Recomendações personalizadas",
+    "personalisationSub": "Usar o meu histórico de digitalizações para perceber o que compro, para que a aplicação me sugira melhores alternativas. Os dados ficam connosco e nunca são vendidos.",
+    "marketing": "Marketing",
+    "marketingSub": "Receber ofertas personalizadas e novidades",
+    "savedBody": "As suas preferências foram guardadas.",
+    "loadFailed": "Não foi possível carregar as preferências",
+    "saveFailed": "Não foi possível guardar as preferências. Tente novamente."
   },
   "subscription": {
     "title": "Atualizar",
@@ -214,7 +309,13 @@
     "restoreDone": "As compras anteriores foram restauradas.",
     "restoreTitle": "Restaurar compras",
     "restoreUnavailable": "A restauração de compras ainda não está disponível.",
-    "storeBillingNotice": "As subscrições são cobradas através da App Store ou Google Play. Faça a gestão ou cancele a qualquer momento na sua conta."
+    "storeBillingNotice": "As subscrições são cobradas através da App Store ou Google Play. Faça a gestão ou cancele a qualquer momento na sua conta.",
+    "adminAccount": "Conta de administrador",
+    "adminSubtitle": "Acesso total — não é necessária subscrição",
+    "unlockFull": "Tire o máximo partido do ProductScanner",
+    "upgradeToPremium": "Mudar para Premium",
+    "upgradeToAiPremium": "Mudar para AI Premium",
+    "aiPremiumTeaser": "Preços reais de lojas locais e da web, tudo num só lugar"
   },
   "grades": {
     "A": "Excelente",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "dióxido de enxofre e sulfitos",
     "lupin": "tremoço",
     "molluscs": "moluscos"
+  },
+  "nutrition": {
+    "energy": "Energia",
+    "fat": "Gordura",
+    "carbohydrates": "Hidratos de carbono",
+    "sugars": "Açúcares",
+    "fiber": "Fibra",
+    "proteins": "Proteínas",
+    "salt": "Sal"
+  },
+  "video": {
+    "title": "Veja e ganhe",
+    "loadingAd": "A carregar o seu vídeo…",
+    "watchToEarn": "Veja o vídeo até ao fim para ganhar 5 digitalizações extra nesta hora.",
+    "claiming": "A atribuir a sua recompensa…",
+    "granted": "+5 digitalizações atribuídas!",
+    "grantedBody": "Tem 5 digitalizações extra nesta hora.",
+    "grantedUpgrade": "Mude para Premium para digitalizar sem limites e sem anúncios.",
+    "alreadyClaimed": "Já resgatado",
+    "alreadyClaimedBody": "Já obteve digitalizações extra nesta hora.",
+    "alreadyClaimedUpgrade": "Volte mais tarde ou mude para Premium.",
+    "backToScanner": "Voltar ao leitor",
+    "upgradeUnlimited": "Sem limites com Premium",
+    "notCompleted": "Vídeo não concluído",
+    "notCompletedBody": "Veja o vídeo até ao fim para ganhar 5 digitalizações extra.",
+    "claimFailed": "Não foi possível atribuir a recompensa. Tente novamente."
+  },
+  "account": {
+    "delete": "Eliminar conta",
+    "deleteHint": "Elimina permanentemente a sua conta, o histórico de digitalizações e as preferências. Não pode ser anulado.",
+    "deleteExplain": "Isto remove dos nossos servidores a sua conta, o seu histórico de digitalizações e as suas preferências. Não pode ser anulado.",
+    "deleteConfirmTitle": "Eliminar permanentemente?",
+    "deleteConfirmBody": "Não há forma de recuperar estes dados.",
+    "deleteConfirm": "Eliminar tudo",
+    "deletePartialTitle": "Parcialmente eliminado",
+    "deletePartialBody": "Alguns dos seus dados ainda não puderam ser removidos. Registámos isso e vamos concluir. Contacte-nos se persistir.",
+    "deleteFailed": "A sua conta não foi eliminada. Tente novamente."
+  },
+  "legal": {
+    "privacy": "Política de privacidade",
+    "privacySub": "O que guardamos e o que pode fazer quanto a isso",
+    "terms": "Termos de serviço",
+    "attributions": "Agradecimentos",
+    "attributionsSub": "Os dados abertos e o software livre em que nos baseamos",
+    "lastUpdated": "Última atualização"
+  },
+  "dietary": {
+    "vegan": "Vegano",
+    "vegetarian": "Vegetariano",
+    "glutenFree": "Sem glúten",
+    "halal": "Halal",
+    "kosher": "Kosher",
+    "lactoseFree": "Sem lactose",
+    "nutFree": "Sem frutos secos",
+    "lowSugar": "Baixo teor de açúcar"
+  },
+  "allergenOption": {
+    "milk": "Leite",
+    "eggs": "Ovos",
+    "fish": "Peixe",
+    "shellfish": "Crustáceos",
+    "treeNuts": "Frutos de casca rija",
+    "peanuts": "Amendoins",
+    "wheat": "Trigo",
+    "soy": "Soja",
+    "sesame": "Sésamo",
+    "celery": "Aipo",
+    "mustard": "Mostarda",
+    "sulphites": "Sulfitos"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Política de privacidade",
+      "intro": "Aqui explicamos o que guardamos sobre si, porquê, e o que pode fazer quanto a isso. Tentámos escrevê-la em linguagem simples e não na linguagem de um documento que ninguém lê.",
+      "sections": [
+        {
+          "heading": "O que guardamos",
+          "body": [
+            "O seu endereço de e-mail e um resumo criptográfico da sua palavra-passe — nunca a palavra-passe em si.",
+            "O seu histórico de digitalizações: os códigos de barras que digitalizou e quando.",
+            "As suas preferências alimentares e os alergénios que declarar, se optar por indicá-los.",
+            "O seu nível de subscrição e um token do dispositivo, se ativar as notificações.",
+            "Opcionalmente, e apenas se os preencher: o seu nome próprio e apelido, número de telefone, data de nascimento, uma breve descrição e uma fotografia de perfil. Nada disto é obrigatório, a aplicação funciona sem, e pode apagá-los a qualquer momento no Perfil.",
+            "Não pedimos a sua morada nem dados de pagamento, e nunca vemos o seu cartão."
+          ]
+        },
+        {
+          "heading": "Porque o guardamos",
+          "body": [
+            "Para lhe prestar o serviço para o qual se registou: digitalizar produtos, guardar o seu histórico e avaliar produtos para si e não para todos.",
+            "Os alergénios e as restrições alimentares são dados de saúde ao abrigo do artigo 9.º do RGPD. Pedimo-los apenas para que uma avaliação o possa avisar de algo que lhe faria mal; pedimo-los em separado e de forma expressa antes de os fornecer, e pode retirar o consentimento a qualquer momento nas Preferências.",
+            "Para receber o pagamento, que a Apple e a Google tratam — nunca vemos o seu cartão."
+          ]
+        },
+        {
+          "heading": "Onde ficam alojados",
+          "body": [
+            "Em servidores em Frankfurt, na Alemanha, dentro da União Europeia. Os seus dados pessoais não são transferidos para fora da UE.",
+            "A IA que explica uma avaliação corre nesse mesmo servidor. Não é um serviço de terceiros, e nada do que digitaliza é enviado para um."
+          ]
+        },
+        {
+          "heading": "Quem mais os vê",
+          "body": [
+            "A Apple e a Google, para os pagamentos de subscrição, através da RevenueCat. São elas o comerciante registado.",
+            "A Resend, que envia os e-mails da conta — verificação e reposição de palavra-passe.",
+            "Mais ninguém.",
+            "Quando procuramos um produto, consultamos dados de produtos publicamente disponíveis usando apenas o código de barras. Essas fontes não recebem nada sobre si, a sua conta ou o seu dispositivo."
+          ]
+        },
+        {
+          "heading": "O modelo é nosso",
+          "body": [
+            "A avaliação de segurança, a análise de ingredientes e as recomendações vêm de um modelo de linguagem e de um conjunto de algoritmos que construímos nós próprios. Correm nos nossos servidores em Frankfurt.",
+            "Não existe qualquer serviço de IA externo nesta aplicação. Nada do que digitaliza é enviado para um, porque não há nenhum para onde enviar.",
+            "O que o modelo aprende, aprende aqui, a partir dos nossos próprios dados, para tornar a aplicação melhor para quem a usa. Essa aprendizagem não é partilhada e mais ninguém treina com ela.",
+            "As pesquisas de produtos são feitas pelos nossos servidores, nunca pelo seu telemóvel, pelo que nada sobre o seu dispositivo chega a uma fonte externa."
+          ]
+        },
+        {
+          "heading": "Recomendações personalizadas",
+          "body": [
+            "Se ativar as Recomendações personalizadas nas Preferências, usamos o seu histórico de digitalizações para perceber o que compra e sugerir melhores alternativas — produtos mais seguros nas categorias em que realmente faz compras.",
+            "Isto determina o que a aplicação lhe recomenda. Não é usado para lhe mostrar publicidade, não é partilhado e não é vendido.",
+            "Está desligado a menos que o ligue, e desligá-lo põe-lhe fim. Pedimos em separado porque é uma finalidade diferente de manter a aplicação a funcionar, e porque o que digitaliza pode dizer algo sobre a sua saúde."
+          ]
+        },
+        {
+          "heading": "O que nunca fazemos",
+          "body": [
+            "Não vendemos os seus dados pessoais. Nem o seu histórico de digitalizações, nem as suas preferências, nem a corretores de dados nem a mais ninguém.",
+            "Não o seguimos por aplicações ou sites de outras empresas, e não deixamos que ninguém o siga através de nós.",
+            "Não lhe mostramos publicidade com base no que digitaliza.",
+            "Não existe nesta aplicação qualquer software de análise ou de publicidade. Nenhum SDK de terceiros observa o que aqui faz.",
+            "As únicas empresas que recebem alguma coisa sobre si são as duas que fazem o serviço funcionar: a que entrega os e-mails da sua conta e as lojas que cobram o seu pagamento. Ambas estão indicadas acima, ambas agem apenas segundo as nossas instruções, e nenhuma recebe o seu histórico de digitalizações.",
+            "Podemos publicar números agregados sobre produtos — por exemplo, a nota média de uma categoria. São totais onde não está nenhuma pessoa, e nenhum número construído a partir de menos de 20 digitalizações é sequer publicado."
+          ]
+        },
+        {
+          "heading": "Durante quanto tempo os guardamos",
+          "body": [
+            "Histórico de digitalizações: 30 dias no nível gratuito, 2 anos num nível pago, sendo depois eliminado automaticamente.",
+            "A sua conta e preferências: até eliminar a sua conta.",
+            "Registos de pagamento: mantidos após a eliminação, sem estarem ligados a si, porque a lei fiscal e as lojas de aplicações o exigem."
+          ]
+        },
+        {
+          "heading": "O que pode fazer",
+          "body": [
+            "Ver tudo o que guardamos sobre si e levá-lo consigo como ficheiro — Perfil, depois Exportar os meus dados.",
+            "Eliminar a sua conta e tudo o que nela é pessoal, a partir da aplicação — Perfil, depois Eliminar conta. É imediato e não é reversível.",
+            "Corrigir o que estiver errado, retirar o consentimento para dados de alergénios ou opor-se à forma como os usamos.",
+            "Apresentar reclamação junto da sua autoridade de proteção de dados. Em Portugal é a Comissão Nacional de Proteção de Dados."
+          ]
+        },
+        {
+          "heading": "Crianças",
+          "body": [
+            "A aplicação não se destina a menores de 16 anos, e não guardamos conscientemente dados sobre eles."
+          ]
+        },
+        {
+          "heading": "Contacto",
+          "body": [
+            "Escreva para {{email}} sobre qualquer questão desta política."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Termos de serviço",
+      "intro": "O acordo entre si e nós. A versão curta: use a aplicação, não abuse dela e não trate uma avaliação como conselho médico.",
+      "sections": [
+        {
+          "heading": "O que esta aplicação faz",
+          "body": [
+            "Lê um código de barras, procura o produto e avalia a sua segurança usando o nosso próprio modelo.",
+            "As avaliações são calculadas a partir de dados publicados: classificações nutricionais e de processamento, ingredientes declarados e evidência sobre substâncias específicas. Mostramos-lhe o que determinou cada avaliação."
+          ]
+        },
+        {
+          "heading": "O que uma avaliação é, e o que não é",
+          "body": [
+            "É a nossa apreciação a partir dos dados de que dispomos. Não é aconselhamento médico, dietético ou nutricional, e não substitui a leitura do rótulo.",
+            "Se tiver uma alergia ou uma doença, quem manda é a embalagem que tem na mão — não nós. As formulações mudam e as bases de dados públicas ficam atrás delas.",
+            "Quando não temos informação suficiente, dizemo-lo e não mostramos nota, em vez de adivinhar."
+          ]
+        },
+        {
+          "heading": "O nosso próprio modelo, e o que isso significa para si",
+          "body": [
+            "As avaliações de segurança são produzidas por um modelo de linguagem e um conjunto de algoritmos que escrevemos e operamos nós. Não estão licenciados de ninguém e esta aplicação não é uma camada sobre o serviço de outra pessoa.",
+            "Tudo o que lê os seus dados corre nos nossos servidores. Não há nenhum serviço de IA externo envolvido, pelo que nada do que digitaliza é enviado para um.",
+            "O que aprendemos com a utilização da aplicação serve para a tornar melhor e mais fiável e para melhorar as sugestões que dá. Isso acontece aqui, na nossa própria infraestrutura.",
+            "O modelo continua a ser nosso. Não o partilhamos, não o licenciamos e mais ninguém treina com o que digitaliza.",
+            "Não vendemos os seus dados pessoais, não os partilhamos com anunciantes ou corretores de dados e não o seguimos por outras aplicações ou sites."
+          ]
+        },
+        {
+          "heading": "De onde vêm os dados",
+          "body": [
+            "De dados de produtos disponíveis publicamente, da nossa própria investigação e do que derivamos de ambos. Parte vem de bases de dados mantidas pela comunidade sob a Open Database License, que creditamos nos Agradecimentos.",
+            "Podemos estar errados porque uma fonte está errada. Se encontrar um erro, diga-nos e corrigimo-lo."
+          ]
+        },
+        {
+          "heading": "A sua conta",
+          "body": [
+            "Uma conta por pessoa. Guarde a sua palavra-passe só para si.",
+            "Não use ferramentas automatizadas para extrair o serviço, nem tente sobrecarregá-lo.",
+            "Pode eliminar a sua conta a qualquer momento a partir da aplicação."
+          ]
+        },
+        {
+          "heading": "Subscrições",
+          "body": [
+            "Os níveis pagos são vendidos através da App Store e do Google Play. São eles que tratam do pagamento, do preço na sua moeda e do imposto.",
+            "As subscrições renovam-se até serem canceladas. Cancele nas definições da sua conta Apple ou Google — não podemos fazê-lo por si.",
+            "Os reembolsos são tratados pela loja segundo a sua própria política."
+          ]
+        },
+        {
+          "heading": "Limites",
+          "body": [
+            "O serviço é prestado tal como está. Trabalhamos para o manter rigoroso e disponível, mas não garantimos nenhuma das duas coisas.",
+            "Não somos responsáveis pelas decisões que tomar com base numa avaliação. Veja acima o que é uma avaliação."
+          ]
+        },
+        {
+          "heading": "Alterações",
+          "body": [
+            "Podemos alterar estes termos. Se uma alteração for relevante, avisamo-lo na aplicação antes de produzir efeitos."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Agradecimentos",
+      "intro": "O Product Scanner assenta em dados abertos e software livre. Estas são as pessoas cujo trabalho o torna possível.",
+      "sections": [
+        {
+          "heading": "Dados abertos de produtos",
+          "body": [
+            "Parte da informação sobre produtos nesta aplicação vem do Open Food Facts e do Open Beauty Facts, bases de dados mantidas pela comunidade e disponibilizadas sob a Open Database License (ODbL) v1.0.",
+            "O seu conteúdo é contribuído por voluntários. Estamos-lhes gratos, corrigimo-lo quando encontramos erros, e quaisquer erros no que aqui vê são nossos e não deles.",
+            "A licença está em opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "O que é nosso",
+          "body": [
+            "As avaliações de segurança, a análise de ingredientes e doses, os modelos e o software são trabalho nosso e não estão abrangidos pelas licenças acima."
+          ]
+        },
+        {
+          "heading": "Software livre",
+          "body": [
+            "Esta aplicação é construída com React Native e Expo, e o seu backend com FastAPI e PostgreSQL, a par de muitas outras bibliotecas de código aberto lançadas sob licenças permissivas."
+          ]
+        }
+      ]
+    }
   }
 }

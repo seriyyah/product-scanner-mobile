@@ -93,7 +93,7 @@ const ProfileScreen: React.FC = () => {
           bio: data.value.bio || '',
         });
       } else {
-        Alert.alert('Error', 'Failed to load profile');
+        Alert.alert(t('common.error', 'Error'), t('profile.loadFailed', 'Failed to load profile'));
       }
       if (sub.status === 'fulfilled') setSubscription(sub.value);
     } finally {
@@ -113,9 +113,9 @@ const ProfileScreen: React.FC = () => {
       });
       setProfile(updated);
       setIsEditing(false);
-      Alert.alert('Success', 'Profile updated successfully');
+      Alert.alert(t('common.success', 'Success'), t('profile.updateSuccess', 'Profile updated successfully'));
     } catch {
-      Alert.alert('Error', 'Failed to update profile');
+      Alert.alert(t('common.error', 'Error'), t('profile.updateFailed', 'Failed to update profile'));
     } finally {
       setIsSaving(false);
     }
@@ -182,10 +182,10 @@ const ProfileScreen: React.FC = () => {
   };
 
   const handleLogout = (): void => {
-    Alert.alert('Logout', 'Are you sure you want to logout?', [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert(t('profile.logout', 'Logout'), t('profile.logoutConfirm', 'Are you sure you want to logout?'), [
+      { text: t('common.cancel', 'Cancel'), style: 'cancel' },
       {
-        text: 'Logout',
+        text: t('profile.logout', 'Logout'),
         style: 'destructive',
         onPress: () => logout(),
       },
@@ -232,33 +232,33 @@ const ProfileScreen: React.FC = () => {
         {isEditing ? (
           <View style={styles.section}>
             <TextInput
-              label="First Name"
+              label={t('auth.firstName', 'First Name')}
               name="firstName"
               control={control}
               disabled={isSaving}
               error={errors.firstName?.message}
             />
             <TextInput
-              label="Last Name"
+              label={t('auth.lastName', 'Last Name')}
               name="lastName"
               control={control}
               disabled={isSaving}
               error={errors.lastName?.message}
             />
             <TextInput
-              label="Phone Number"
+              label={t('profile.phoneNumber', 'Phone Number')}
               name="phoneNumber"
               control={control}
-              placeholder="+1234567890"
+              placeholder={t('profile.phonePlaceholder', '+1234567890')}
               keyboardType="phone-pad"
               disabled={isSaving}
               error={errors.phoneNumber?.message}
             />
             <TextInput
-              label="Bio"
+              label={t('profile.bio', 'Bio')}
               name="bio"
               control={control}
-              placeholder="Tell us about yourself"
+              placeholder={t('profile.bioPlaceholder', 'Tell us about yourself')}
               multiline
               numberOfLines={4}
               disabled={isSaving}
@@ -275,7 +275,7 @@ const ProfileScreen: React.FC = () => {
               />
               <View style={styles.buttonSpacer} />
               <Button
-                title="Cancel"
+                title={t('common.cancel', 'Cancel')}
                 onPress={() => setIsEditing(false)}
                 disabled={isSaving}
                 variant="outline"
@@ -286,7 +286,7 @@ const ProfileScreen: React.FC = () => {
         ) : (
           <View style={styles.section}>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Phone</Text>
+              <Text style={styles.infoLabel}>{t('profile.phone', 'Phone')}</Text>
               <Text style={styles.infoValue}>{profile?.phone_number || 'Not set'}</Text>
             </View>
             <View style={styles.infoRow}>
@@ -295,14 +295,14 @@ const ProfileScreen: React.FC = () => {
             </View>
             {profile?.created_at ? (
               <View style={styles.infoRow}>
-                <Text style={styles.infoLabel}>Member since</Text>
+                <Text style={styles.infoLabel}>{t('profile.memberSince', 'Member since')}</Text>
                 <Text style={styles.infoValue}>
                   {new Date(profile.created_at).toLocaleDateString()}
                 </Text>
               </View>
             ) : null}
             <Button
-              title="Edit Profile"
+              title={t('profile.editProfile', 'Edit Profile')}
               onPress={() => setIsEditing(true)}
               variant="primary"
               size="medium"
@@ -319,8 +319,8 @@ const ProfileScreen: React.FC = () => {
           >
             <Ionicons name="options-outline" size={22} color={theme.colors.primary} />
             <View style={styles.settingsLabelCol}>
-              <Text style={styles.settingsLabel}>Dietary & Allergens</Text>
-              <Text style={styles.settingsSubLabel}>Personalise ratings and recommendations</Text>
+              <Text style={styles.settingsLabel}>{t('profile.dietaryAllergens', 'Dietary & Allergens')}</Text>
+              <Text style={styles.settingsSubLabel}>{t('profile.dietaryAllergensSub', 'Personalise ratings and recommendations')}</Text>
             </View>
             <View style={styles.settingsRight}>
               <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
@@ -334,7 +334,7 @@ const ProfileScreen: React.FC = () => {
           >
             <Ionicons name="star-outline" size={22} color={theme.colors.primary} />
             <View style={styles.settingsLabelCol}>
-              <Text style={styles.settingsLabel}>Subscription</Text>
+              <Text style={styles.settingsLabel}>{t('profile.subscription', 'Subscription')}</Text>
               {subscription?.expires_at && subscription.tier !== 'free' ? (
                 <Text style={styles.settingsSubLabel}>
                   Renews {new Date(subscription.expires_at).toLocaleDateString()}
@@ -345,7 +345,7 @@ const ProfileScreen: React.FC = () => {
             </View>
             <View style={styles.settingsRight}>
               {role === 'admin' || role === 'super_admin' ? (
-                <Text style={styles.settingsValue}>Admin — Full Access</Text>
+                <Text style={styles.settingsValue}>{t('profile.adminFullAccess', 'Admin — Full Access')}</Text>
               ) : (
                 <Text style={[styles.settingsValue, { color: badge.color }]}>{badge.label}</Text>
               )}
@@ -404,7 +404,7 @@ const ProfileScreen: React.FC = () => {
         {/* Logout */}
         <View style={styles.section}>
           <Button
-            title="Logout"
+            title={t('profile.logout', 'Logout')}
             onPress={handleLogout}
             variant="outline"
             size="large"

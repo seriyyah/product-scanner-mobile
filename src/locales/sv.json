@@ -18,7 +18,9 @@
     "allow": "Tillåt",
     "deny": "Neka",
     "unknown": "Okänd",
-    "goBack": "Tillbaka"
+    "goBack": "Tillbaka",
+    "continue": "Fortsätt",
+    "success": "Klart"
   },
   "auth": {
     "login": "Logga in",
@@ -51,7 +53,51 @@
     "ruleLength": "Minst 12 tecken",
     "ruleLowercase": "En liten bokstav",
     "ruleSpecial": "Ett specialtecken (!@#$…)",
-    "ruleUppercase": "En stor bokstav"
+    "ruleUppercase": "En stor bokstav",
+    "welcomeBack": "Välkommen tillbaka",
+    "loginSubtitle": "Logga in för att fortsätta skanna produkter",
+    "emailLabel": "E-postadress",
+    "emailPlaceholder": "Ange din e-postadress",
+    "passwordPlaceholder": "Ange ditt lösenord",
+    "signIn": "Logga in",
+    "signUp": "Registrera dig",
+    "emailInvalidLong": "Ange en giltig e-postadress",
+    "emailRequired": "E-postadress krävs",
+    "emailTooLong": "E-postadressen måste vara kortare än 255 tecken",
+    "passwordRequired": "Lösenord krävs",
+    "passwordTooLong": "Lösenordet måste vara kortare än 128 tecken",
+    "checkEmailTitle": "Kolla din e-post",
+    "resetLinkSent": "Om den e-postadressen finns i vårt system har vi skickat en länk för att återställa lösenordet.",
+    "backToSignIn": "Tillbaka till inloggning",
+    "resetPasswordTitle": "Återställ lösenord",
+    "resetPasswordBody": "Ange din e-postadress så skickar vi en länk för återställning.",
+    "sending": "Skickar...",
+    "sendResetLink": "Skicka länk",
+    "passwordResetDone": "Lösenordet är återställt!",
+    "passwordResetDoneBody": "Ditt lösenord har uppdaterats. Logga in med ditt nya lösenord.",
+    "newPassword": "Nytt lösenord",
+    "newPasswordBody": "Välj ett starkt lösenord för ditt konto.",
+    "passwordPlaceholderMin": "Minst 8 tecken",
+    "confirmPasswordPlaceholder": "Ange lösenordet igen",
+    "resetting": "Återställer…",
+    "setNewPassword": "Ange nytt lösenord",
+    "verifyingEmail": "Verifierar din e-postadress…",
+    "goToSignIn": "Gå till inloggning",
+    "registerCheckEmail": "Kolla din e-post!",
+    "registerCheckEmailBody": "Vi har skickat en verifieringslänk till din e-postadress. Verifiera ditt konto för att fortsätta.",
+    "registerSubtitle": "Gå med i Product Scanner idag",
+    "firstNamePlaceholder": "Johan",
+    "lastNamePlaceholder": "Andersson",
+    "emailExample": "johan@example.com",
+    "passwordPlaceholder12": "Minst 12 tecken",
+    "firstNameRequired": "Förnamn krävs",
+    "lastNameRequired": "Efternamn krävs",
+    "passwordPolicy": "Lösenordet uppfyller inte alla krav",
+    "confirmPasswordRequired": "Bekräfta ditt lösenord",
+    "termsPrefix": "Jag godkänner",
+    "termsAnd": "och",
+    "creatingAccount": "Skapar konto...",
+    "registrationFailed": "Registreringen misslyckades"
   },
   "onboarding": {
     "locationTitle": "Tillåt plats",
@@ -77,7 +123,10 @@
     "recentScans": "Senaste skanningar",
     "noHistory": "Inga senaste skanningar",
     "scanNow": "Skanna en produkt för att börja",
-    "safetyTip": "Skanna en streckkod för säkerhetsbedömning"
+    "safetyTip": "Skanna en streckkod för säkerhetsbedömning",
+    "subtitle": "Vad vill du skanna idag?",
+    "viewAll": "Visa alla",
+    "noHistoryBody": "Tryck på ”Skanna produkt” för att komma igång"
   },
   "scanner": {
     "title": "Skanner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Du har använt alla dina 20 gratis skanningar för denna timme.",
     "watchAd": "Titta på en video för 5 extra skanningar",
     "upgradePremium": "Uppgradera till Premium",
-    "scansRemaining": "{{count}} skanningar kvar denna timme"
+    "scansRemaining": "{{count}} skanningar kvar denna timme",
+    "scanAProduct": "Skanna en produkt",
+    "enterBarcodeFromPack": "Ange streckkodsnumret från produktens förpackning.",
+    "requestingPermission": "Begär åtkomst till kameran...",
+    "permissionDeniedTitle": "Kameraåtkomst krävs",
+    "permissionDeniedBody": "Tillåt åtkomst till kameran för att skanna streckkoder, eller ange dem manuellt nedan.",
+    "typeBarcode": "Skriv in produktens streckkodsnummer.",
+    "useCamera": "Använd kameran",
+    "enterManually": "Ange manuellt",
+    "scanAgain": "Skanna igen",
+    "pointCameraShort": "Rikta kameran mot streckkoden",
+    "enterBarcodePlaceholder": "Ange streckkodsnummer…",
+    "watchVideo": "Titta på video (+5 skanningar)"
   },
   "product": {
     "loading": "Laddar produkt...",
@@ -147,7 +208,14 @@
     "scanResult": "Skanningsresultat",
     "notRated": "Ej bedömd",
     "notRatedBody": "Det finns för lite information om denna produkt",
-    "alternativesPending": "Jämför fortfarande produkten. Det är klart snart — titta i historiken om en minut."
+    "alternativesPending": "Jämför fortfarande produkten. Det är klart snart — titta i historiken om en minut.",
+    "images": "Produktbilder",
+    "linkFailed": "Det gick inte att öppna länken",
+    "notInDatabase": "Produkten finns inte i vår databas",
+    "recommendationsUnavailable": "Rekommendationer är inte tillgängliga.",
+    "sharingSoon": "Delning kommer snart!",
+    "notRatedResearching": "Vi har inte tillräckligt med information ännu — vi letar upp den. Kom tillbaka om en stund.",
+    "notRatedUnsupported": "Vi betygsätter inte den här typen av produkt ännu"
   },
   "history": {
     "title": "Skanningshistorik",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} skanningar använda denna timme",
-    "unlimitedScans": "Obegränsade skanningar"
+    "unlimitedScans": "Obegränsade skanningar",
+    "phone": "Telefon",
+    "phoneNumber": "Telefonnummer",
+    "phonePlaceholder": "+46123456789",
+    "bio": "Om mig",
+    "bioPlaceholder": "Berätta lite om dig själv",
+    "memberSince": "Medlem sedan",
+    "dietaryAllergens": "Kost och allergener",
+    "dietaryAllergensSub": "Anpassa betyg och rekommendationer",
+    "adminFullAccess": "Administratör — full åtkomst",
+    "logout": "Logga ut",
+    "logoutConfirm": "Vill du verkligen logga ut?",
+    "loadFailed": "Det gick inte att läsa in profilen",
+    "updateSuccess": "Profilen har uppdaterats",
+    "updateFailed": "Det gick inte att uppdatera profilen"
   },
   "preferences": {
     "title": "Inställningar",
@@ -181,7 +263,20 @@
     "privacy": "Integritet",
     "analyticsConsent": "Analys",
     "marketingConsent": "Marknadsföringsmail",
-    "saved": "Inställningar sparade"
+    "saved": "Inställningar sparade",
+    "dietarySub": "Används för att anpassa säkerhetsbetyg och rekommendationer",
+    "allergensTitle": "Allergener att undvika",
+    "allergensSub": "Produkter som innehåller dessa markeras med en varning",
+    "appSettings": "Appinställningar",
+    "analytics": "Analys",
+    "analyticsSub": "Hjälp oss att förbättra appen. Uppgifterna stannar hos oss och delas aldrig.",
+    "personalisation": "Personliga rekommendationer",
+    "personalisationSub": "Använd min skanningshistorik för att lära vad jag köper, så att appen kan föreslå bättre alternativ. Uppgifterna stannar hos oss och säljs aldrig.",
+    "marketing": "Marknadsföring",
+    "marketingSub": "Ta emot personliga erbjudanden och nyheter",
+    "savedBody": "Dina inställningar har sparats.",
+    "loadFailed": "Det gick inte att läsa in inställningarna",
+    "saveFailed": "Det gick inte att spara inställningarna. Försök igen."
   },
   "subscription": {
     "title": "Uppgradera",
@@ -214,7 +309,13 @@
     "restoreDone": "Tidigare köp har återställts.",
     "restoreTitle": "Återställ köp",
     "restoreUnavailable": "Återställning av köp är inte tillgängligt ännu.",
-    "storeBillingNotice": "Prenumerationer faktureras via App Store eller Google Play. Hantera eller avsluta när som helst i ditt butikskonto."
+    "storeBillingNotice": "Prenumerationer faktureras via App Store eller Google Play. Hantera eller avsluta när som helst i ditt butikskonto.",
+    "adminAccount": "Administratörskonto",
+    "adminSubtitle": "Full åtkomst — ingen prenumeration behövs",
+    "unlockFull": "Få ut allt av ProductScanner",
+    "upgradeToPremium": "Uppgradera till Premium",
+    "upgradeToAiPremium": "Uppgradera till AI Premium",
+    "aiPremiumTeaser": "Riktiga priser från lokala butiker och från webben, allt på ett ställe"
   },
   "grades": {
     "A": "Utmärkt",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "svaveldioxid och sulfiter",
     "lupin": "lupin",
     "molluscs": "blötdjur"
+  },
+  "nutrition": {
+    "energy": "Energi",
+    "fat": "Fett",
+    "carbohydrates": "Kolhydrater",
+    "sugars": "Sockerarter",
+    "fiber": "Fiber",
+    "proteins": "Protein",
+    "salt": "Salt"
+  },
+  "video": {
+    "title": "Titta och tjäna",
+    "loadingAd": "Laddar din video…",
+    "watchToEarn": "Titta på hela videon för att få 5 extra skanningar den här timmen.",
+    "claiming": "Tilldelar din belöning…",
+    "granted": "+5 skanningar tilldelade!",
+    "grantedBody": "Du har 5 extra skanningar den här timmen.",
+    "grantedUpgrade": "Uppgradera till Premium för obegränsad skanning utan annonser.",
+    "alreadyClaimed": "Redan uthämtad",
+    "alreadyClaimedBody": "Du har redan fått extra skanningar den här timmen.",
+    "alreadyClaimedUpgrade": "Kom tillbaka senare eller uppgradera till Premium.",
+    "backToScanner": "Tillbaka till skannern",
+    "upgradeUnlimited": "Obegränsat med Premium",
+    "notCompleted": "Videon slutfördes inte",
+    "notCompletedBody": "Titta på hela videon för att få 5 extra skanningar.",
+    "claimFailed": "Det gick inte att tilldela belöningen. Försök igen."
+  },
+  "account": {
+    "delete": "Radera konto",
+    "deleteHint": "Raderar ditt konto, din skanningshistorik och dina inställningar permanent. Detta kan inte ångras.",
+    "deleteExplain": "Detta tar bort ditt konto, din skanningshistorik och dina inställningar från våra servrar. Det kan inte ångras.",
+    "deleteConfirmTitle": "Radera permanent?",
+    "deleteConfirmBody": "Det finns inget sätt att få tillbaka detta.",
+    "deleteConfirm": "Radera allt",
+    "deletePartialTitle": "Delvis raderat",
+    "deletePartialBody": "En del av dina uppgifter kunde inte tas bort ännu. Vi har noterat det och kommer att slutföra det. Hör av dig om det kvarstår.",
+    "deleteFailed": "Ditt konto raderades inte. Försök igen."
+  },
+  "legal": {
+    "privacy": "Integritetspolicy",
+    "privacySub": "Vad vi sparar och vad du kan göra åt det",
+    "terms": "Användarvillkor",
+    "attributions": "Erkännanden",
+    "attributionsSub": "De öppna data och den öppna källkod vi bygger på",
+    "lastUpdated": "Senast uppdaterad"
+  },
+  "dietary": {
+    "vegan": "Vegansk",
+    "vegetarian": "Vegetarisk",
+    "glutenFree": "Glutenfri",
+    "halal": "Halal",
+    "kosher": "Kosher",
+    "lactoseFree": "Laktosfri",
+    "nutFree": "Nötfri",
+    "lowSugar": "Låg sockerhalt"
+  },
+  "allergenOption": {
+    "milk": "Mjölk",
+    "eggs": "Ägg",
+    "fish": "Fisk",
+    "shellfish": "Kräftdjur",
+    "treeNuts": "Nötter",
+    "peanuts": "Jordnötter",
+    "wheat": "Vete",
+    "soy": "Soja",
+    "sesame": "Sesam",
+    "celery": "Selleri",
+    "mustard": "Senap",
+    "sulphites": "Sulfiter"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Integritetspolicy",
+      "intro": "Här förklarar vi vad vi sparar om dig, varför, och vad du kan göra åt det. Vi har försökt skriva den på vanlig svenska och inte på språket i ett dokument som ingen läser.",
+      "sections": [
+        {
+          "heading": "Vad vi sparar",
+          "body": [
+            "Din e-postadress och en kryptografisk hash av ditt lösenord — aldrig lösenordet självt.",
+            "Din skanningshistorik: de streckkoder du skannat och när.",
+            "Dina kostpreferenser och angivna allergener, om du väljer att fylla i dem.",
+            "Din abonnemangsnivå och en enhetstoken om du slår på notiser.",
+            "Frivilligt, och bara om du fyller i dem: ditt för- och efternamn, telefonnummer, födelsedatum, en kort presentation och en profilbild. Inget av detta krävs, appen fungerar utan dem, och du kan rensa dem när som helst under Profil.",
+            "Vi frågar inte efter din adress eller dina betaluppgifter, och vi ser aldrig ditt kort."
+          ]
+        },
+        {
+          "heading": "Varför vi sparar det",
+          "body": [
+            "För att ge dig tjänsten du registrerade dig för: skanna produkter, spara din historik och betygsätta produkter för dig snarare än för alla.",
+            "Allergener och kostrestriktioner är hälsouppgifter enligt artikel 9 i GDPR. Vi frågar efter dem enbart för att ett betyg ska kunna varna dig för något som skulle skada dig; vi frågar separat och uttryckligen innan du lämnar dem, och du kan återkalla samtycket när som helst under Inställningar.",
+            "För att ta emot betalning, som Apple och Google hanterar — vi ser aldrig ditt kort."
+          ]
+        },
+        {
+          "heading": "Var det finns",
+          "body": [
+            "På servrar i Frankfurt i Tyskland, inom Europeiska unionen. Dina personuppgifter överförs inte utanför EU.",
+            "Den AI som förklarar ett betyg körs på samma server. Det är ingen tredjepartstjänst, och inget du skannar skickas till en sådan."
+          ]
+        },
+        {
+          "heading": "Vem mer som ser det",
+          "body": [
+            "Apple och Google, för abonnemangsbetalningar, via RevenueCat. De är säljare av tjänsten.",
+            "Resend, som skickar kontomejlen — verifiering och lösenordsåterställning.",
+            "Ingen annan.",
+            "När vi slår upp en produkt frågar vi offentligt tillgängliga produktdata enbart med streckkoden. De källorna får ingenting om dig, ditt konto eller din enhet."
+          ]
+        },
+        {
+          "heading": "Modellen är vår",
+          "body": [
+            "Säkerhetsbetyget, ingrediensanalysen och rekommendationerna kommer från en språkmodell och en uppsättning algoritmer som vi byggt själva. De körs på våra egna servrar i Frankfurt.",
+            "Det finns ingen extern AI-tjänst i den här appen. Inget du skannar skickas till en sådan, eftersom det inte finns någon att skicka till.",
+            "Det modellen lär sig, lär den sig här, av våra egna data, för att göra appen bättre för dem som använder den. Det lärandet delas inte och ingen annan tränar på det.",
+            "Produktuppslagningar görs av våra servrar, aldrig av din telefon, så inget om din enhet når en extern källa."
+          ]
+        },
+        {
+          "heading": "Personliga rekommendationer",
+          "body": [
+            "Om du slår på Personliga rekommendationer under Inställningar använder vi din skanningshistorik för att lära oss vad du köper och föreslå bättre alternativ — säkrare produkter i de kategorier där du faktiskt handlar.",
+            "Det formar vad appen rekommenderar dig. Det används inte för att visa dig annonser, det delas inte och det säljs inte.",
+            "Det är avstängt om du inte slår på det, och att stänga av det stoppar det. Vi frågar separat eftersom det är ett annat ändamål än att få appen att fungera, och eftersom det du skannar kan säga något om din hälsa."
+          ]
+        },
+        {
+          "heading": "Vad vi aldrig gör",
+          "body": [
+            "Vi säljer inte dina personuppgifter. Inte din skanningshistorik, inte dina inställningar, inte till datamäklare och inte till någon annan.",
+            "Vi spårar dig inte över andra företags appar eller webbplatser, och vi låter ingen spåra dig via oss.",
+            "Vi visar dig inte annonser utifrån vad du skannar.",
+            "Det finns ingen analys- eller annonsprogramvara av något slag i den här appen. Inget tredjeparts-SDK ser vad du gör i den.",
+            "De enda företag som får något om dig är de två som får tjänsten att fungera: det som levererar dina kontomejl, och butikerna som tar emot din betalning. Båda är namngivna ovan, båda agerar bara på våra instruktioner, och ingen av dem får din skanningshistorik.",
+            "Vi kan publicera aggregerad statistik om produkter — till exempel hur en kategori betygsätts i genomsnitt. Det är summor utan någon person i sig, och ingen siffra som bygger på färre än 20 skanningar publiceras över huvud taget."
+          ]
+        },
+        {
+          "heading": "Hur länge vi behåller det",
+          "body": [
+            "Skanningshistorik: 30 dagar på gratisnivån, 2 år på en betald nivå, därefter raderas den automatiskt.",
+            "Ditt konto och dina inställningar: tills du raderar ditt konto.",
+            "Betalningsunderlag: behålls efter raderingen, utan koppling till dig, eftersom skattelagstiftningen och appbutikerna kräver det."
+          ]
+        },
+        {
+          "heading": "Vad du kan göra",
+          "body": [
+            "Se allt vi sparar om dig och ta med det som en fil — Profil, sedan Exportera mina data.",
+            "Radera ditt konto och allt personligt i det, inifrån appen — Profil, sedan Radera konto. Det sker direkt och går inte att ångra.",
+            "Rätta något som är fel, återkalla samtycket för allergenuppgifter eller invända mot hur vi använder dem.",
+            "Klaga hos din dataskyddsmyndighet. I Sverige är det Integritetsskyddsmyndigheten."
+          ]
+        },
+        {
+          "heading": "Barn",
+          "body": [
+            "Appen är inte avsedd för barn under 16 år, och vi sparar inte medvetet uppgifter om dem."
+          ]
+        },
+        {
+          "heading": "Kontakt",
+          "body": [
+            "Skriv till {{email}} om vad som helst i den här policyn."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Användarvillkor",
+      "intro": "Avtalet mellan dig och oss. Kortversionen: använd appen, missbruka den inte, och behandla inte ett betyg som medicinsk rådgivning.",
+      "sections": [
+        {
+          "heading": "Vad appen gör",
+          "body": [
+            "Den läser en streckkod, slår upp produkten och betygsätter dess säkerhet med vår egen modell.",
+            "Betygen beräknas från publicerade data: närings- och bearbetningsklassificeringar, deklarerade ingredienser och evidens om specifika ämnen. Vi visar dig vad som avgjorde varje betyg."
+          ]
+        },
+        {
+          "heading": "Vad ett betyg är, och inte är",
+          "body": [
+            "Det är vår bedömning utifrån de data vi har. Det är inte medicinsk, dietisk eller näringsmässig rådgivning, och det ersätter inte att läsa etiketten.",
+            "Har du en allergi eller ett medicinskt tillstånd är förpackningen i din hand det som gäller — inte vi. Recepturer ändras, och offentliga databaser släpar efter.",
+            "Där vi inte har tillräckligt med information säger vi det och visar inget betyg, i stället för att gissa."
+          ]
+        },
+        {
+          "heading": "Vår egen modell, och vad det betyder för dig",
+          "body": [
+            "Säkerhetsbetygen tas fram av en språkmodell och en uppsättning algoritmer som vi skrivit och driver själva. De är inte licensierade från någon, och den här appen är inget skal runt någon annans tjänst.",
+            "Allt som läser dina data körs på våra egna servrar. Ingen extern AI-tjänst är inblandad, så inget du skannar skickas till en sådan.",
+            "Det vi lär oss av hur appen används använder vi för att göra den bättre och mer tillförlitlig, och för att förbättra dess förslag. Det sker här, på vår egen infrastruktur.",
+            "Modellen förblir vår. Vi delar den inte, vi licensierar inte ut den, och ingen annan tränar på det du skannar.",
+            "Vi säljer inte dina personuppgifter, vi delar dem inte med annonsörer eller datamäklare, och vi spårar dig inte över andra appar eller webbplatser."
+          ]
+        },
+        {
+          "heading": "Var data kommer ifrån",
+          "body": [
+            "Från öppet tillgängliga produktdata, från vår egen research och från det vi härleder ur båda. En del kommer från gemenskapsdrivna databaser under Open Database License, som vi krediterar under Erkännanden.",
+            "Vi kan ha fel för att en källa har fel. Hittar du ett fel, säg till så rättar vi det."
+          ]
+        },
+        {
+          "heading": "Ditt konto",
+          "body": [
+            "Ett konto per person. Håll ditt lösenord för dig själv.",
+            "Använd inte automatiserade verktyg för att skrapa tjänsten, och försök inte överbelasta den.",
+            "Du kan radera ditt konto när som helst inifrån appen."
+          ]
+        },
+        {
+          "heading": "Abonnemang",
+          "body": [
+            "Betalda nivåer säljs via App Store och Google Play. De hanterar betalningen, priset i din valuta och skatten.",
+            "Abonnemang förnyas tills de sägs upp. Säg upp via inställningarna för ditt Apple- eller Google-konto — vi kan inte göra det åt dig.",
+            "Återbetalningar hanteras av butiken enligt dess egen policy."
+          ]
+        },
+        {
+          "heading": "Begränsningar",
+          "body": [
+            "Tjänsten tillhandahålls som den är. Vi arbetar för att hålla den korrekt och tillgänglig, men vi garanterar inget av det.",
+            "Vi ansvarar inte för beslut du fattar utifrån ett betyg. Se ovan vad ett betyg är."
+          ]
+        },
+        {
+          "heading": "Ändringar",
+          "body": [
+            "Vi kan ändra dessa villkor. Om en ändring har betydelse berättar vi det i appen innan den träder i kraft."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Erkännanden",
+      "intro": "Product Scanner bygger på öppna data och öppen källkod. Det här är människorna vars arbete gör det möjligt.",
+      "sections": [
+        {
+          "heading": "Öppna produktdata",
+          "body": [
+            "Delar av produktinformationen i den här appen kommer från Open Food Facts och Open Beauty Facts, gemenskapsdrivna databaser som tillgängliggörs under Open Database License (ODbL) v1.0.",
+            "Innehållet bidras av frivilliga. Vi är tacksamma för det, vi rättar det där vi hittar fel, och eventuella fel i det du ser här är våra och inte deras.",
+            "Licensen finns på opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Vad som är vårt",
+          "body": [
+            "Säkerhetsbetygen, ingrediens- och dosanalysen, modellerna och programvaran är vårt eget arbete och omfattas inte av licenserna ovan."
+          ]
+        },
+        {
+          "heading": "Öppen källkod",
+          "body": [
+            "Den här appen är byggd med React Native och Expo, och dess backend med FastAPI och PostgreSQL, jämte många andra öppna kodbibliotek som släppts under tillåtande licenser."
+          ]
+        }
+      ]
+    }
   }
 }

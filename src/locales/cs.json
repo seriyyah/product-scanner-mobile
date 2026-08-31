@@ -18,7 +18,9 @@
     "allow": "Povolit",
     "deny": "Odmítnout",
     "unknown": "Neznámé",
-    "goBack": "Zpět"
+    "goBack": "Zpět",
+    "continue": "Pokračovat",
+    "success": "Hotovo"
   },
   "auth": {
     "login": "Přihlásit se",
@@ -51,7 +53,51 @@
     "ruleLowercase": "Malé písmeno",
     "ruleDigit": "Číslici",
     "ruleSpecial": "Speciální znak (!@#$…)",
-    "noAccountRegister": "Ještě nemáte účet? Vytvořte si ho s tímto e-mailem"
+    "noAccountRegister": "Ještě nemáte účet? Vytvořte si ho s tímto e-mailem",
+    "welcomeBack": "Vítejte zpět",
+    "loginSubtitle": "Přihlaste se a pokračujte ve skenování produktů",
+    "emailLabel": "E-mailová adresa",
+    "emailPlaceholder": "Zadejte svůj e-mail",
+    "passwordPlaceholder": "Zadejte své heslo",
+    "signIn": "Přihlásit se",
+    "signUp": "Registrovat se",
+    "emailInvalidLong": "Zadejte platnou e-mailovou adresu",
+    "emailRequired": "E-mail je povinný",
+    "emailTooLong": "E-mail musí mít méně než 255 znaků",
+    "passwordRequired": "Heslo je povinné",
+    "passwordTooLong": "Heslo musí mít méně než 128 znaků",
+    "checkEmailTitle": "Zkontrolujte e-mail",
+    "resetLinkSent": "Pokud tato e-mailová adresa v našem systému existuje, poslali jsme na ni odkaz pro obnovení hesla.",
+    "backToSignIn": "Zpět na přihlášení",
+    "resetPasswordTitle": "Obnovit heslo",
+    "resetPasswordBody": "Zadejte svou e-mailovou adresu a pošleme vám odkaz pro obnovení.",
+    "sending": "Odesílání...",
+    "sendResetLink": "Odeslat odkaz",
+    "passwordResetDone": "Heslo obnoveno!",
+    "passwordResetDoneBody": "Vaše heslo bylo změněno. Přihlaste se novým heslem.",
+    "newPassword": "Nové heslo",
+    "newPasswordBody": "Zvolte si silné heslo pro svůj účet.",
+    "passwordPlaceholderMin": "Alespoň 8 znaků",
+    "confirmPasswordPlaceholder": "Zadejte heslo znovu",
+    "resetting": "Obnovování…",
+    "setNewPassword": "Nastavit nové heslo",
+    "verifyingEmail": "Ověřujeme váš e-mail…",
+    "goToSignIn": "Přejít na přihlášení",
+    "registerCheckEmail": "Zkontrolujte e-mail!",
+    "registerCheckEmailBody": "Poslali jsme vám ověřovací odkaz na e-mail. Pro pokračování prosím ověřte svůj účet.",
+    "registerSubtitle": "Přidejte se k Product Scanner",
+    "firstNamePlaceholder": "Jan",
+    "lastNamePlaceholder": "Novák",
+    "emailExample": "jan@example.com",
+    "passwordPlaceholder12": "Alespoň 12 znaků",
+    "firstNameRequired": "Jméno je povinné",
+    "lastNameRequired": "Příjmení je povinné",
+    "passwordPolicy": "Heslo nesplňuje všechny požadavky",
+    "confirmPasswordRequired": "Potvrďte prosím své heslo",
+    "termsPrefix": "Souhlasím s",
+    "termsAnd": "a se",
+    "creatingAccount": "Vytváření účtu...",
+    "registrationFailed": "Registrace se nezdařila"
   },
   "onboarding": {
     "locationTitle": "Povolit polohu",
@@ -77,7 +123,10 @@
     "recentScans": "Nedávná skenování",
     "noHistory": "Žádná nedávná skenování",
     "scanNow": "Naskenujte produkt pro začátek",
-    "safetyTip": "Naskenujte čárový kód pro hodnocení bezpečnosti"
+    "safetyTip": "Naskenujte čárový kód pro hodnocení bezpečnosti",
+    "subtitle": "Co byste dnes chtěli naskenovat?",
+    "viewAll": "Zobrazit vše",
+    "noHistoryBody": "Klepnutím na „Skenovat produkt“ začnete"
   },
   "scanner": {
     "title": "Skener",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Využili jste všechna 20 bezplatných skenování za tuto hodinu.",
     "watchAd": "Sledovat video pro 5 dalších skenování",
     "upgradePremium": "Upgradovat na Premium",
-    "scansRemaining": "Zbývá {{count}} skenování v této hodině"
+    "scansRemaining": "Zbývá {{count}} skenování v této hodině",
+    "scanAProduct": "Naskenovat produkt",
+    "enterBarcodeFromPack": "Zadejte číslo čárového kódu z obalu produktu.",
+    "requestingPermission": "Žádáme o přístup ke kameře...",
+    "permissionDeniedTitle": "Je vyžadován přístup ke kameře",
+    "permissionDeniedBody": "Povolte přístup ke kameře pro skenování kódů, nebo je zadejte ručně níže.",
+    "typeBarcode": "Zadejte číslo čárového kódu z produktu.",
+    "useCamera": "Použít kameru",
+    "enterManually": "Zadat ručně",
+    "scanAgain": "Skenovat znovu",
+    "pointCameraShort": "Namiřte kameru na čárový kód",
+    "enterBarcodePlaceholder": "Zadejte číslo čárového kódu…",
+    "watchVideo": "Přehrát video (+5 skenů)"
   },
   "product": {
     "loading": "Načítání produktu...",
@@ -147,7 +208,14 @@
     "scanResult": "Výsledek skenu",
     "notRated": "Nehodnoceno",
     "notRatedBody": "O tomto produktu není dost informací",
-    "alternativesPending": "Produkt se stále porovnává. Za chvíli bude připraven — podívejte se do historie za minutu."
+    "alternativesPending": "Produkt se stále porovnává. Za chvíli bude připraven — podívejte se do historie za minutu.",
+    "images": "Obrázky produktu",
+    "linkFailed": "Odkaz se nepodařilo otevřít",
+    "notInDatabase": "Produkt není v naší databázi",
+    "recommendationsUnavailable": "Doporučení nejsou k dispozici.",
+    "sharingSoon": "Sdílení bude brzy k dispozici!",
+    "notRatedResearching": "Zatím nemáme dost informací — právě je dohledáváme. Zkuste to za chvíli.",
+    "notRatedUnsupported": "Tento typ produktu zatím nehodnotíme"
   },
   "history": {
     "title": "Historie skenů",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} skenování použito tuto hodinu",
-    "unlimitedScans": "Neomezená skenování"
+    "unlimitedScans": "Neomezená skenování",
+    "phone": "Telefon",
+    "phoneNumber": "Telefonní číslo",
+    "phonePlaceholder": "+420123456789",
+    "bio": "O mně",
+    "bioPlaceholder": "Napište něco o sobě",
+    "memberSince": "Členem od",
+    "dietaryAllergens": "Dieta a alergeny",
+    "dietaryAllergensSub": "Přizpůsobte si hodnocení a doporučení",
+    "adminFullAccess": "Administrátor — plný přístup",
+    "logout": "Odhlásit se",
+    "logoutConfirm": "Opravdu se chcete odhlásit?",
+    "loadFailed": "Nepodařilo se načíst profil",
+    "updateSuccess": "Profil byl úspěšně aktualizován",
+    "updateFailed": "Nepodařilo se aktualizovat profil"
   },
   "preferences": {
     "title": "Preference",
@@ -181,7 +263,20 @@
     "privacy": "Soukromí",
     "analyticsConsent": "Analytika",
     "marketingConsent": "Marketingové e-maily",
-    "saved": "Preference uloženy"
+    "saved": "Preference uloženy",
+    "dietarySub": "Používá se k přizpůsobení hodnocení bezpečnosti a doporučení",
+    "allergensTitle": "Alergeny, kterým se vyhnout",
+    "allergensSub": "Produkty, které je obsahují, budou označeny varováním",
+    "appSettings": "Nastavení aplikace",
+    "analytics": "Analytika",
+    "analyticsSub": "Pomozte nám aplikaci vylepšit. Data zůstávají u nás a nikdy je nesdílíme.",
+    "personalisation": "Personalizovaná doporučení",
+    "personalisationSub": "Použít moji historii skenování k rozpoznání toho, co kupuji, aby mi aplikace mohla navrhovat lepší alternativy. Data zůstávají u nás a nikdy je neprodáváme.",
+    "marketing": "Marketing",
+    "marketingSub": "Dostávat personalizované nabídky a novinky",
+    "savedBody": "Vaše předvolby byly uloženy.",
+    "loadFailed": "Nepodařilo se načíst předvolby",
+    "saveFailed": "Nepodařilo se uložit předvolby. Zkuste to prosím znovu."
   },
   "subscription": {
     "title": "Upgrade",
@@ -214,7 +309,13 @@
     "purchaseFailedTitle": "Nákup není dostupný",
     "purchaseFailedBody": "Obchod nemohl dokončit tento nákup. Zkuste to prosím později.",
     "mostPopular": "Nejoblíbenější",
-    "bestValue": "Nejlepší hodnota"
+    "bestValue": "Nejlepší hodnota",
+    "adminAccount": "Administrátorský účet",
+    "adminSubtitle": "Plný přístup — předplatné není potřeba",
+    "unlockFull": "Odemkněte plný potenciál ProductScanner",
+    "upgradeToPremium": "Přejít na Premium",
+    "upgradeToAiPremium": "Přejít na AI Premium",
+    "aiPremiumTeaser": "Skutečné ceny z místních obchodů i z webu, vše na jednom místě"
   },
   "grades": {
     "A": "Výborný",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "oxid siřičitý a siřičitany",
     "lupin": "vlčí bob",
     "molluscs": "měkkýši"
+  },
+  "nutrition": {
+    "energy": "Energie",
+    "fat": "Tuky",
+    "carbohydrates": "Sacharidy",
+    "sugars": "Cukry",
+    "fiber": "Vláknina",
+    "proteins": "Bílkoviny",
+    "salt": "Sůl"
+  },
+  "video": {
+    "title": "Sledujte a získejte",
+    "loadingAd": "Načítáme vaše video…",
+    "watchToEarn": "Zhlédněte celé video a získejte 5 skenů navíc na tuto hodinu.",
+    "claiming": "Připisujeme vaši odměnu…",
+    "granted": "+5 skenů přidáno!",
+    "grantedBody": "Máte 5 skenů navíc na tuto hodinu.",
+    "grantedUpgrade": "Přejděte na Premium pro neomezené skenování bez reklam.",
+    "alreadyClaimed": "Již vyzvednuto",
+    "alreadyClaimedBody": "Skeny navíc jste v této hodině již získali.",
+    "alreadyClaimedUpgrade": "Vraťte se později nebo přejděte na Premium.",
+    "backToScanner": "Zpět na skener",
+    "upgradeUnlimited": "Neomezené s Premium",
+    "notCompleted": "Video nebylo dokončeno",
+    "notCompletedBody": "Zhlédněte celé video a získejte 5 skenů navíc.",
+    "claimFailed": "Odměnu se nepodařilo připsat. Zkuste to prosím znovu."
+  },
+  "account": {
+    "delete": "Smazat účet",
+    "deleteHint": "Trvale odstraní váš účet, historii skenování a předvolby. Tuto akci nelze vrátit zpět.",
+    "deleteExplain": "Tímto z našich serverů odstraníme váš účet, historii skenování a vaše předvolby. Akci nelze vrátit zpět.",
+    "deleteConfirmTitle": "Smazat trvale?",
+    "deleteConfirmBody": "Tato data už nepůjde nijak obnovit.",
+    "deleteConfirm": "Smazat vše",
+    "deletePartialTitle": "Částečně smazáno",
+    "deletePartialBody": "Některá vaše data se zatím nepodařilo odstranit. Zaznamenali jsme to a dokončíme to. Pokud potíže přetrvávají, kontaktujte nás.",
+    "deleteFailed": "Váš účet nebyl smazán. Zkuste to prosím znovu."
+  },
+  "legal": {
+    "privacy": "Zásady ochrany osobních údajů",
+    "privacySub": "Co o vás uchováváme a co s tím můžete dělat",
+    "terms": "Podmínky služby",
+    "attributions": "Poděkování",
+    "attributionsSub": "Otevřená data a otevřený software, na kterých stavíme",
+    "lastUpdated": "Naposledy aktualizováno"
+  },
+  "dietary": {
+    "vegan": "Veganské",
+    "vegetarian": "Vegetariánské",
+    "glutenFree": "Bez lepku",
+    "halal": "Halal",
+    "kosher": "Košer",
+    "lactoseFree": "Bez laktózy",
+    "nutFree": "Bez ořechů",
+    "lowSugar": "S nízkým obsahem cukru"
+  },
+  "allergenOption": {
+    "milk": "Mléko",
+    "eggs": "Vejce",
+    "fish": "Ryby",
+    "shellfish": "Korýši",
+    "treeNuts": "Skořápkové plody",
+    "peanuts": "Arašídy",
+    "wheat": "Pšenice",
+    "soy": "Sója",
+    "sesame": "Sezam",
+    "celery": "Celer",
+    "mustard": "Hořčice",
+    "sulphites": "Siřičitany"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Zásady ochrany osobních údajů",
+      "intro": "Zde vysvětlujeme, co o vás uchováváme, proč, a co s tím můžete dělat. Snažili jsme se to napsat srozumitelně, a ne jazykem dokumentu, který nikdo nečte.",
+      "sections": [
+        {
+          "heading": "Co uchováváme",
+          "body": [
+            "Vaši e-mailovou adresu a kryptografický otisk vašeho hesla — nikdy samotné heslo.",
+            "Vaši historii skenování: naskenované čárové kódy a čas, kdy jste je naskenovali.",
+            "Vaše stravovací preference a uvedené alergeny, pokud se je rozhodnete zadat.",
+            "Vaši úroveň předplatného a token zařízení, pokud si zapnete oznámení.",
+            "Volitelně, a pouze pokud je vyplníte: vaše jméno a příjmení, telefonní číslo, datum narození, krátký popis a profilovou fotografii. Nic z toho není povinné, aplikace funguje i bez toho a kdykoli to můžete smazat v Profilu.",
+            "Nežádáme vaši adresu ani platební údaje a vaši kartu nikdy nevidíme."
+          ]
+        },
+        {
+          "heading": "Proč to uchováváme",
+          "body": [
+            "Abychom vám poskytli službu, kvůli které jste se zaregistrovali: skenování produktů, uchování vaší historie a hodnocení produktů pro vás, ne pro všechny.",
+            "Alergeny a stravovací omezení jsou podle článku 9 GDPR údaje o zdravotním stavu. Ptáme se na ně jen proto, aby vás hodnocení mohlo varovat před něčím, co by vám uškodilo, ptáme se na ně zvlášť a výslovně předtím, než je zadáte, a souhlas můžete kdykoli odvolat v Předvolbách.",
+            "Kvůli přijetí platby, kterou zpracovávají Apple a Google — vaši kartu nikdy nevidíme."
+          ]
+        },
+        {
+          "heading": "Kde jsou uložené",
+          "body": [
+            "Na serverech ve Frankfurtu nad Mohanem v Německu, uvnitř Evropské unie. Vaše osobní údaje nejsou předávány mimo EU.",
+            "Umělá inteligence, která vysvětluje hodnocení, běží na stejném serveru. Není to služba třetí strany a nic, co naskenujete, se do žádné takové neodesílá."
+          ]
+        },
+        {
+          "heading": "Kdo další je vidí",
+          "body": [
+            "Apple a Google kvůli platbám za předplatné, prostřednictvím RevenueCat. Jsou obchodníkem, který platbu provádí.",
+            "Resend, který odesílá e-maily k účtu — ověření a obnovení hesla.",
+            "Nikdo další.",
+            "Když vyhledáváme produkt, dotazujeme se na veřejně dostupná data o produktech pouze pomocí čárového kódu. Tyto zdroje se o vás, vašem účtu ani vašem zařízení nedozvědí nic."
+          ]
+        },
+        {
+          "heading": "Model je náš",
+          "body": [
+            "Hodnocení bezpečnosti, analýza složení i doporučení vycházejí z jazykového modelu a souboru algoritmů, které jsme vytvořili sami. Běží na našich vlastních serverech ve Frankfurtu.",
+            "V této aplikaci není žádná externí služba umělé inteligence. Nic, co naskenujete, se do žádné neodesílá, protože žádná taková není.",
+            "Co se model naučí, naučí se tady, z našich vlastních dat, aby byla aplikace lepší pro lidi, kteří ji používají. Toto učení nikomu nepředáváme a nikdo jiný na něm netrénuje.",
+            "Vyhledávání produktů provádějí naše servery, nikdy váš telefon, takže se k externímu zdroji nedostane nic o vašem zařízení."
+          ]
+        },
+        {
+          "heading": "Personalizovaná doporučení",
+          "body": [
+            "Pokud si v Předvolbách zapnete Personalizovaná doporučení, použijeme vaši historii skenování k rozpoznání toho, co kupujete, a k návrhu lepších alternativ — bezpečnějších produktů v kategoriích, ve kterých skutečně nakupujete.",
+            "To ovlivňuje, co vám aplikace doporučuje. Nepoužívá se k tomu, abychom vám zobrazovali reklamu, nesdílíme to ani neprodáváme.",
+            "Je to vypnuté, dokud si to nezapnete, a vypnutím to skončí. Ptáme se zvlášť, protože jde o jiný účel než zajištění chodu aplikace, a protože to, co skenujete, může vypovídat o vašem zdraví."
+          ]
+        },
+        {
+          "heading": "Co nikdy neděláme",
+          "body": [
+            "Neprodáváme vaše osobní údaje. Ani vaši historii skenování, ani vaše předvolby, ani datovým brokerům, ani nikomu jinému.",
+            "Nesledujeme vás napříč aplikacemi ani weby jiných společností a nedovolíme, aby vás přes nás sledoval někdo jiný.",
+            "Nezobrazujeme vám reklamu podle toho, co skenujete.",
+            "V této aplikaci není žádný analytický ani reklamní software. Žádná sada nástrojů třetí strany nesleduje, co v ní děláte.",
+            "Jediné společnosti, které o vás něco dostávají, jsou ty dvě, díky nimž služba funguje: ta, která doručuje e-maily k vašemu účtu, a obchody, které přijímají vaši platbu. Obě jsou uvedeny výše, obě jednají pouze podle našich pokynů a ani jedna nedostává vaši historii skenování.",
+            "Můžeme zveřejňovat souhrnné údaje o produktech — například jak je určitá kategorie v průměru hodnocena. Jsou to součty, ve kterých není žádná osoba, a žádný údaj sestavený z méně než 20 skenů se nezveřejňuje vůbec."
+          ]
+        },
+        {
+          "heading": "Jak dlouho je uchováváme",
+          "body": [
+            "Historie skenování: 30 dní v bezplatné úrovni, 2 roky v placené úrovni, poté je automaticky smazána.",
+            "Váš účet a předvolby: dokud svůj účet nesmažete.",
+            "Záznamy o platbách: uchováváme je i po smazání účtu, bez vazby na vaši osobu, protože to vyžadují daňové předpisy a obchody s aplikacemi."
+          ]
+        },
+        {
+          "heading": "Co můžete udělat vy",
+          "body": [
+            "Zobrazit si vše, co o vás uchováváme, a odnést si to jako soubor — Profil, poté Exportovat moje data.",
+            "Smazat svůj účet a vše osobní v něm, přímo v aplikaci — Profil, poté Smazat účet. Je to okamžité a nevratné.",
+            "Opravit cokoli nesprávného, odvolat souhlas s údaji o alergenech nebo vznést námitku proti tomu, jak je používáme.",
+            "Podat stížnost u svého dozorového úřadu. V České republice je to Úřad pro ochranu osobních údajů."
+          ]
+        },
+        {
+          "heading": "Děti",
+          "body": [
+            "Aplikace není určena dětem mladším 16 let a vědomě o nich neuchováváme žádné údaje."
+          ]
+        },
+        {
+          "heading": "Kontakt",
+          "body": [
+            "S čímkoli, co se týká těchto zásad, se obraťte na {{email}}."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Podmínky služby",
+      "intro": "Dohoda mezi vámi a námi. Krátká verze: aplikaci používejte, nezneužívejte ji a hodnocení nepovažujte za lékařskou radu.",
+      "sections": [
+        {
+          "heading": "Co tato aplikace dělá",
+          "body": [
+            "Načte čárový kód, vyhledá produkt a ohodnotí jeho bezpečnost pomocí našeho vlastního modelu.",
+            "Hodnocení se počítají z publikovaných dat: nutričních a zpracovatelských klasifikací, uvedeného složení a důkazů o konkrétních látkách. Ukazujeme vám, co každé hodnocení ovlivnilo."
+          ]
+        },
+        {
+          "heading": "Co hodnocení je a co není",
+          "body": [
+            "Je to naše posouzení na základě dat, která máme k dispozici. Není to lékařská, dietní ani výživová rada a nenahrazuje přečtení etikety.",
+            "Pokud máte alergii nebo zdravotní potíže, rozhodující je obal, který držíte v ruce — ne my. Složení produktů se mění a veřejné databáze za tím zaostávají.",
+            "Tam, kde nemáme dost informací, to řekneme a nezobrazíme žádnou známku, místo abychom hádali."
+          ]
+        },
+        {
+          "heading": "Náš vlastní model a co to pro vás znamená",
+          "body": [
+            "Hodnocení bezpečnosti vytváří jazykový model a soubor algoritmů, které jsme sami napsali a sami provozujeme. Nejsou od nikoho licencované a tato aplikace není nadstavbou nad službou někoho jiného.",
+            "Vše, co čte vaše data, běží na našich vlastních serverech. Není v tom zapojena žádná externí služba umělé inteligence, takže nic, co naskenujete, se do žádné neodesílá.",
+            "To, co se dozvídáme o používání aplikace, využíváme k tomu, aby byla lepší a spolehlivější a aby dávala lepší návrhy. Děje se to tady, na naší vlastní infrastruktuře.",
+            "Model zůstává náš. Nesdílíme ho, nelicencujeme ho a nikdo jiný netrénuje na tom, co skenujete.",
+            "Neprodáváme vaše osobní údaje, nesdílíme je s inzerenty ani datovými brokery a nesledujeme vás napříč jinými aplikacemi či weby."
+          ]
+        },
+        {
+          "heading": "Odkud data pocházejí",
+          "body": [
+            "Z veřejně dostupných dat o produktech, z našeho vlastního výzkumu a z toho, co z obojího odvodíme. Část pochází z komunitně spravovaných databází licencovaných pod Open Database License, které uvádíme v Poděkování.",
+            "Můžeme se mýlit, protože se mýlí zdroj. Pokud najdete chybu, dejte nám vědět a opravíme ji."
+          ]
+        },
+        {
+          "heading": "Váš účet",
+          "body": [
+            "Jeden účet na osobu. Heslo si nechte pro sebe.",
+            "Nepoužívejte automatizované nástroje ke stahování obsahu služby a nepokoušejte se ji přetížit.",
+            "Svůj účet můžete kdykoli smazat přímo v aplikaci."
+          ]
+        },
+        {
+          "heading": "Předplatné",
+          "body": [
+            "Placené úrovně se prodávají prostřednictvím App Store a Google Play. Ty zajišťují platbu, cenu ve vaší měně i daň.",
+            "Předplatné se obnovuje, dokud ho nezrušíte. Zrušte ho v nastavení svého účtu Apple nebo Google — my ho za vás zrušit nemůžeme.",
+            "Vrácení peněz řeší obchod podle svých vlastních pravidel."
+          ]
+        },
+        {
+          "heading": "Omezení",
+          "body": [
+            "Služba je poskytována tak, jak je. Snažíme se, aby byla přesná a dostupná, ale ani jedno nezaručujeme.",
+            "Neneseme odpovědnost za rozhodnutí, která učiníte na základě hodnocení. Viz výše, co hodnocení je."
+          ]
+        },
+        {
+          "heading": "Změny",
+          "body": [
+            "Tyto podmínky můžeme změnit. Pokud půjde o podstatnou změnu, dáme vám vědět v aplikaci dříve, než začne platit."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Poděkování",
+      "intro": "Product Scanner stojí na otevřených datech a otevřeném softwaru. Toto jsou lidé, díky jejichž práci je to možné.",
+      "sections": [
+        {
+          "heading": "Otevřená data o produktech",
+          "body": [
+            "Část informací o produktech v této aplikaci pochází z Open Food Facts a Open Beauty Facts, komunitně spravovaných databází zpřístupněných pod licencí Open Database License (ODbL) v1.0.",
+            "Jejich obsah přispívají dobrovolníci. Jsme za to vděční, opravujeme jej tam, kde zjistíme chybu, a případné chyby v tom, co zde vidíte, jdou za námi, ne za nimi.",
+            "Licenci najdete na opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Co je naše",
+          "body": [
+            "Hodnocení bezpečnosti, analýza složení a dávek, modely a software jsou naše vlastní práce a výše uvedené licence se na ně nevztahují."
+          ]
+        },
+        {
+          "heading": "Otevřený software",
+          "body": [
+            "Tato aplikace je postavena na React Native a Expo, její backend na FastAPI a PostgreSQL, spolu s mnoha dalšími knihovnami s otevřeným zdrojovým kódem vydanými pod permisivními licencemi."
+          ]
+        }
+      ]
+    }
   }
 }

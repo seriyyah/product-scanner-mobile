@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,6 +12,7 @@ import { AuthStackParamList } from '@/types';
 type RouteProps = RouteProp<AuthStackParamList, 'VerifyEmail'>;
 
 const VerifyEmailScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const route = useRoute<RouteProps>();
   const token = route.params?.token;
@@ -32,7 +34,7 @@ const VerifyEmailScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.center}>
           <ActivityIndicator size="large" color={theme.colors.primary} />
-          <Text style={styles.loadingText}>Verifying your email…</Text>
+          <Text style={styles.loadingText}>{t('auth.verifyingEmail', 'Verifying your email…')}</Text>
         </View>
       </SafeAreaView>
     );
@@ -59,7 +61,7 @@ const VerifyEmailScreen: React.FC = () => {
               : 'This link may have expired or already been used. Request a new verification email after signing in.'}
         </Text>
         <Button
-          title="Go to Sign In"
+          title={t('auth.goToSignIn', 'Go to Sign In')}
           onPress={() => navigation.navigate('Login')}
           variant="primary"
           size="large"

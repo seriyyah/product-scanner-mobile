@@ -18,7 +18,9 @@
     "allow": "Permite",
     "deny": "Refuză",
     "unknown": "Necunoscut",
-    "goBack": "Înapoi"
+    "goBack": "Înapoi",
+    "continue": "Continuă",
+    "success": "Gata"
   },
   "auth": {
     "login": "Autentificare",
@@ -51,7 +53,51 @@
     "ruleLength": "Cel puțin 12 caractere",
     "ruleLowercase": "O literă mică",
     "ruleSpecial": "Un caracter special (!@#$…)",
-    "ruleUppercase": "O literă mare"
+    "ruleUppercase": "O literă mare",
+    "welcomeBack": "Bine ai revenit",
+    "loginSubtitle": "Conectează-te ca să scanezi în continuare produse",
+    "emailLabel": "Adresă de e-mail",
+    "emailPlaceholder": "Introdu adresa ta de e-mail",
+    "passwordPlaceholder": "Introdu parola",
+    "signIn": "Conectare",
+    "signUp": "Înregistrare",
+    "emailInvalidLong": "Introdu o adresă de e-mail validă",
+    "emailRequired": "E-mailul este obligatoriu",
+    "emailTooLong": "E-mailul trebuie să aibă mai puțin de 255 de caractere",
+    "passwordRequired": "Parola este obligatorie",
+    "passwordTooLong": "Parola trebuie să aibă mai puțin de 128 de caractere",
+    "checkEmailTitle": "Verifică-ți e-mailul",
+    "resetLinkSent": "Dacă această adresă de e-mail există în sistemul nostru, am trimis un link pentru resetarea parolei.",
+    "backToSignIn": "Înapoi la conectare",
+    "resetPasswordTitle": "Resetează parola",
+    "resetPasswordBody": "Introdu adresa ta de e-mail și îți vom trimite un link de resetare.",
+    "sending": "Se trimite...",
+    "sendResetLink": "Trimite linkul",
+    "passwordResetDone": "Parolă resetată!",
+    "passwordResetDoneBody": "Parola ta a fost actualizată. Conectează-te cu noua parolă.",
+    "newPassword": "Parolă nouă",
+    "newPasswordBody": "Alege o parolă puternică pentru contul tău.",
+    "passwordPlaceholderMin": "Cel puțin 8 caractere",
+    "confirmPasswordPlaceholder": "Introdu parola din nou",
+    "resetting": "Se resetează…",
+    "setNewPassword": "Setează parola nouă",
+    "verifyingEmail": "Îți verificăm e-mailul…",
+    "goToSignIn": "Mergi la conectare",
+    "registerCheckEmail": "Verifică-ți e-mailul!",
+    "registerCheckEmailBody": "Am trimis un link de verificare pe adresa ta de e-mail. Verifică-ți contul ca să continui.",
+    "registerSubtitle": "Alătură-te astăzi Product Scanner",
+    "firstNamePlaceholder": "Ion",
+    "lastNamePlaceholder": "Popescu",
+    "emailExample": "ion@example.com",
+    "passwordPlaceholder12": "Cel puțin 12 caractere",
+    "firstNameRequired": "Prenumele este obligatoriu",
+    "lastNameRequired": "Numele este obligatoriu",
+    "passwordPolicy": "Parola nu îndeplinește toate cerințele",
+    "confirmPasswordRequired": "Confirmă-ți parola",
+    "termsPrefix": "Sunt de acord cu",
+    "termsAnd": "și cu",
+    "creatingAccount": "Se creează contul...",
+    "registrationFailed": "Înregistrarea a eșuat"
   },
   "onboarding": {
     "locationTitle": "Permite localizarea",
@@ -77,7 +123,10 @@
     "recentScans": "Scanări recente",
     "noHistory": "Nicio scanare recentă",
     "scanNow": "Scanați un produs pentru a începe",
-    "safetyTip": "Scanați un cod de bare pentru evaluarea siguranței"
+    "safetyTip": "Scanați un cod de bare pentru evaluarea siguranței",
+    "subtitle": "Ce ai vrea să scanezi azi?",
+    "viewAll": "Vezi tot",
+    "noHistoryBody": "Atinge „Scanează produs” ca să începi"
   },
   "scanner": {
     "title": "Scanner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Ați utilizat toate cele 20 de scanări gratuite pentru această oră.",
     "watchAd": "Vizionați un video pentru 5 scanări suplimentare",
     "upgradePremium": "Actualizați la Premium",
-    "scansRemaining": "{{count}} scanări rămase în această oră"
+    "scansRemaining": "{{count}} scanări rămase în această oră",
+    "scanAProduct": "Scanează un produs",
+    "enterBarcodeFromPack": "Introdu numărul codului de bare de pe ambalajul produsului.",
+    "requestingPermission": "Se solicită accesul la cameră...",
+    "permissionDeniedTitle": "Este necesar accesul la cameră",
+    "permissionDeniedBody": "Permite accesul la cameră pentru a scana coduri de bare, sau introdu-le manual mai jos.",
+    "typeBarcode": "Tastează numărul codului de bare al produsului.",
+    "useCamera": "Folosește camera",
+    "enterManually": "Introdu manual",
+    "scanAgain": "Scanează din nou",
+    "pointCameraShort": "Îndreaptă camera spre codul de bare",
+    "enterBarcodePlaceholder": "Introdu numărul codului de bare…",
+    "watchVideo": "Vezi clipul (+5 scanări)"
   },
   "product": {
     "loading": "Se încarcă produsul...",
@@ -147,7 +208,14 @@
     "scanResult": "Rezultatul scanării",
     "notRated": "Neevaluat",
     "notRatedBody": "Nu există suficiente informații despre acest produs",
-    "alternativesPending": "Încă se compară produsul. Va fi gata în curând — verificați istoricul într-un minut."
+    "alternativesPending": "Încă se compară produsul. Va fi gata în curând — verificați istoricul într-un minut.",
+    "images": "Imagini ale produsului",
+    "linkFailed": "Linkul nu a putut fi deschis",
+    "notInDatabase": "Produsul nu se află în baza noastră de date",
+    "recommendationsUnavailable": "Recomandările nu sunt disponibile.",
+    "sharingSoon": "Partajarea vine în curând!",
+    "notRatedResearching": "Încă nu avem destule informații — le căutăm acum. Revino peste puțin timp.",
+    "notRatedUnsupported": "Încă nu evaluăm acest tip de produs"
   },
   "history": {
     "title": "Istoric scanări",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} scanări folosite în această oră",
-    "unlimitedScans": "Scanări nelimitate"
+    "unlimitedScans": "Scanări nelimitate",
+    "phone": "Telefon",
+    "phoneNumber": "Număr de telefon",
+    "phonePlaceholder": "+40123456789",
+    "bio": "Despre mine",
+    "bioPlaceholder": "Spune-ne câteva cuvinte despre tine",
+    "memberSince": "Membru din",
+    "dietaryAllergens": "Dietă și alergeni",
+    "dietaryAllergensSub": "Personalizează evaluările și recomandările",
+    "adminFullAccess": "Administrator — acces complet",
+    "logout": "Deconectare",
+    "logoutConfirm": "Sigur vrei să te deconectezi?",
+    "loadFailed": "Profilul nu a putut fi încărcat",
+    "updateSuccess": "Profil actualizat cu succes",
+    "updateFailed": "Profilul nu a putut fi actualizat"
   },
   "preferences": {
     "title": "Preferințe",
@@ -181,7 +263,20 @@
     "privacy": "Confidențialitate",
     "analyticsConsent": "Analiză",
     "marketingConsent": "E-mailuri de marketing",
-    "saved": "Preferințe salvate"
+    "saved": "Preferințe salvate",
+    "dietarySub": "Folosit pentru a personaliza evaluările de siguranță și recomandările",
+    "allergensTitle": "Alergeni de evitat",
+    "allergensSub": "Produsele care îi conțin vor fi marcate cu un avertisment",
+    "appSettings": "Setările aplicației",
+    "analytics": "Analiză",
+    "analyticsSub": "Ajută-ne să îmbunătățim aplicația. Datele rămân la noi și nu sunt niciodată partajate.",
+    "personalisation": "Recomandări personalizate",
+    "personalisationSub": "Folosește istoricul meu de scanări ca să înveți ce cumpăr, astfel încât aplicația să îmi poată sugera alternative mai bune. Datele rămân la noi și nu sunt niciodată vândute.",
+    "marketing": "Marketing",
+    "marketingSub": "Primește oferte personalizate și noutăți",
+    "savedBody": "Preferințele tale au fost salvate.",
+    "loadFailed": "Preferințele nu au putut fi încărcate",
+    "saveFailed": "Preferințele nu au putut fi salvate. Încearcă din nou."
   },
   "subscription": {
     "title": "Actualizare",
@@ -214,7 +309,13 @@
     "restoreDone": "Achizițiile anterioare au fost restaurate.",
     "restoreTitle": "Restaurați achizițiile",
     "restoreUnavailable": "Restaurarea achizițiilor nu este încă disponibilă.",
-    "storeBillingNotice": "Abonamentele sunt facturate prin App Store sau Google Play. Gestionați sau anulați oricând din contul dvs."
+    "storeBillingNotice": "Abonamentele sunt facturate prin App Store sau Google Play. Gestionați sau anulați oricând din contul dvs.",
+    "adminAccount": "Cont de administrator",
+    "adminSubtitle": "Acces complet — nu este nevoie de abonament",
+    "unlockFull": "Descoperă tot ce poate face ProductScanner",
+    "upgradeToPremium": "Treci la Premium",
+    "upgradeToAiPremium": "Treci la AI Premium",
+    "aiPremiumTeaser": "Prețuri reale din magazine locale și de pe web, toate într-un singur loc"
   },
   "grades": {
     "A": "Excelent",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "dioxid de sulf și sulfiți",
     "lupin": "lupin",
     "molluscs": "moluște"
+  },
+  "nutrition": {
+    "energy": "Energie",
+    "fat": "Grăsimi",
+    "carbohydrates": "Glucide",
+    "sugars": "Zaharuri",
+    "fiber": "Fibre",
+    "proteins": "Proteine",
+    "salt": "Sare"
+  },
+  "video": {
+    "title": "Privește și câștigă",
+    "loadingAd": "Se încarcă clipul tău…",
+    "watchToEarn": "Vezi clipul până la capăt ca să câștigi 5 scanări în plus în această oră.",
+    "claiming": "Îți acordăm recompensa…",
+    "granted": "+5 scanări acordate!",
+    "grantedBody": "Ai 5 scanări în plus pentru această oră.",
+    "grantedUpgrade": "Treci la Premium pentru scanări nelimitate, fără reclame.",
+    "alreadyClaimed": "Deja revendicat",
+    "alreadyClaimedBody": "Ai primit deja scanări în plus în această oră.",
+    "alreadyClaimedUpgrade": "Revino mai târziu sau treci la Premium.",
+    "backToScanner": "Înapoi la scaner",
+    "upgradeUnlimited": "Nelimitat cu Premium",
+    "notCompleted": "Clipul nu a fost vizionat complet",
+    "notCompletedBody": "Vezi clipul până la capăt ca să câștigi 5 scanări în plus.",
+    "claimFailed": "Recompensa nu a putut fi acordată. Încearcă din nou."
+  },
+  "account": {
+    "delete": "Șterge contul",
+    "deleteHint": "Șterge definitiv contul tău, istoricul de scanări și preferințele. Acțiunea nu poate fi anulată.",
+    "deleteExplain": "Aceasta elimină de pe serverele noastre contul tău, istoricul de scanări și preferințele tale. Acțiunea nu poate fi anulată.",
+    "deleteConfirmTitle": "Ștergi definitiv?",
+    "deleteConfirmBody": "Aceste date nu mai pot fi recuperate în niciun fel.",
+    "deleteConfirm": "Șterge tot",
+    "deletePartialTitle": "Șters parțial",
+    "deletePartialBody": "O parte dintre datele tale nu au putut fi încă eliminate. Am consemnat acest lucru și vom finaliza. Contactează-ne dacă problema persistă.",
+    "deleteFailed": "Contul tău nu a fost șters. Încearcă din nou."
+  },
+  "legal": {
+    "privacy": "Politica de confidențialitate",
+    "privacySub": "Ce păstrăm și ce poți face în privința asta",
+    "terms": "Termenii serviciului",
+    "attributions": "Mulțumiri",
+    "attributionsSub": "Datele deschise și software-ul liber pe care le folosim",
+    "lastUpdated": "Ultima actualizare"
+  },
+  "dietary": {
+    "vegan": "Vegan",
+    "vegetarian": "Vegetarian",
+    "glutenFree": "Fără gluten",
+    "halal": "Halal",
+    "kosher": "Cușer",
+    "lactoseFree": "Fără lactoză",
+    "nutFree": "Fără nuci",
+    "lowSugar": "Cu conținut scăzut de zahăr"
+  },
+  "allergenOption": {
+    "milk": "Lapte",
+    "eggs": "Ouă",
+    "fish": "Pește",
+    "shellfish": "Crustacee",
+    "treeNuts": "Fructe cu coajă lemnoasă",
+    "peanuts": "Arahide",
+    "wheat": "Grâu",
+    "soy": "Soia",
+    "sesame": "Susan",
+    "celery": "Țelină",
+    "mustard": "Muștar",
+    "sulphites": "Sulfiți"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Politica de confidențialitate",
+      "intro": "Aici explicăm ce păstrăm despre tine, de ce și ce poți face în privința asta. Am încercat să o scriem într-un limbaj simplu, nu în limbajul unui document pe care nu îl citește nimeni.",
+      "sections": [
+        {
+          "heading": "Ce păstrăm",
+          "body": [
+            "Adresa ta de e-mail și un hash criptografic al parolei tale — niciodată parola în sine.",
+            "Istoricul tău de scanări: codurile de bare pe care le-ai scanat și când.",
+            "Preferințele tale alimentare și alergenii declarați, dacă alegi să îi indici.",
+            "Nivelul tău de abonament și un token de dispozitiv dacă activezi notificările.",
+            "Opțional, și doar dacă le completezi: prenumele și numele, numărul de telefon, data nașterii, o scurtă descriere și o fotografie de profil. Niciuna nu este obligatorie, aplicația funcționează și fără ele, iar le poți șterge oricând din Profil.",
+            "Nu îți cerem adresa și nici datele de plată, iar cardul tău nu îl vedem niciodată."
+          ]
+        },
+        {
+          "heading": "De ce le păstrăm",
+          "body": [
+            "Ca să îți oferim serviciul pentru care te-ai înscris: scanarea produselor, păstrarea istoricului și evaluarea produselor pentru tine, nu pentru toată lumea.",
+            "Alergenii și restricțiile alimentare sunt date privind sănătatea conform articolului 9 din GDPR. Îi cerem doar pentru ca o evaluare să te poată avertiza despre ceva care ți-ar face rău; îi cerem separat și explicit înainte să îi oferi, iar consimțământul îl poți retrage oricând din Preferințe.",
+            "Ca să încasăm plata, de care se ocupă Apple și Google — cardul tău nu îl vedem niciodată."
+          ]
+        },
+        {
+          "heading": "Unde se află",
+          "body": [
+            "Pe servere din Frankfurt, Germania, în interiorul Uniunii Europene. Datele tale personale nu sunt transferate în afara UE.",
+            "Inteligența artificială care explică o evaluare rulează pe același server. Nu este un serviciu al unui terț, iar nimic din ce scanezi nu este trimis către unul."
+          ]
+        },
+        {
+          "heading": "Cine le mai vede",
+          "body": [
+            "Apple și Google, pentru plățile abonamentelor, prin RevenueCat. Ele sunt comerciantul înregistrat.",
+            "Resend, care trimite e-mailurile legate de cont — verificare și resetarea parolei.",
+            "Nimeni altcineva.",
+            "Când căutăm un produs, interogăm date despre produse disponibile public folosind doar codul de bare. Acele surse nu primesc nimic despre tine, contul tău sau dispozitivul tău."
+          ]
+        },
+        {
+          "heading": "Modelul este al nostru",
+          "body": [
+            "Evaluarea de siguranță, analiza ingredientelor și recomandările provin dintr-un model lingvistic și un set de algoritmi construiți de noi. Rulează pe propriile noastre servere din Frankfurt.",
+            "În această aplicație nu există niciun serviciu extern de inteligență artificială. Nimic din ce scanezi nu este trimis către unul, pentru că nu există niciunul căruia să i se trimită.",
+            "Ce învață modelul, învață aici, din propriile noastre date, ca aplicația să fie mai bună pentru cei care o folosesc. Ce învață nu se împarte cu nimeni și nimeni altcineva nu se antrenează pe asta.",
+            "Căutările de produse sunt făcute de serverele noastre, niciodată de telefonul tău, așa că nimic despre dispozitivul tău nu ajunge la o sursă externă."
+          ]
+        },
+        {
+          "heading": "Recomandări personalizate",
+          "body": [
+            "Dacă activezi Recomandările personalizate în Preferințe, folosim istoricul tău de scanări ca să înțelegem ce cumperi și să îți sugerăm alternative mai bune — produse mai sigure din categoriile în care chiar faci cumpărături.",
+            "Asta determină ce îți recomandă aplicația. Nu este folosit ca să îți arătăm reclame, nu este partajat și nu este vândut.",
+            "Este dezactivat până îl activezi, iar dezactivarea îl oprește. Întrebăm separat pentru că este un scop diferit de simpla funcționare a aplicației și pentru că ce scanezi poate spune ceva despre sănătatea ta."
+          ]
+        },
+        {
+          "heading": "Ce nu facem niciodată",
+          "body": [
+            "Nu vindem datele tale personale. Nici istoricul de scanări, nici preferințele, nici către brokeri de date, nici către altcineva.",
+            "Nu te urmărim prin aplicațiile sau site-urile altor companii și nu lăsăm pe nimeni să te urmărească prin noi.",
+            "Nu îți arătăm reclame în funcție de ce scanezi.",
+            "În această aplicație nu există niciun fel de software de analiză sau de publicitate. Niciun SDK al unui terț nu urmărește ce faci în ea.",
+            "Singurele companii care primesc ceva despre tine sunt cele două care fac serviciul să funcționeze: cea care livrează e-mailurile contului tău și magazinele care îți încasează plata. Ambele sunt numite mai sus, ambele acționează doar la instrucțiunile noastre, și niciuna nu primește istoricul tău de scanări.",
+            "Putem publica cifre agregate despre produse — de exemplu cum se clasează în medie o categorie. Sunt totaluri în care nu se află nicio persoană, iar nicio cifră construită din mai puțin de 20 de scanări nu se publică deloc."
+          ]
+        },
+        {
+          "heading": "Cât timp le păstrăm",
+          "body": [
+            "Istoricul de scanări: 30 de zile la nivelul gratuit, 2 ani la un nivel plătit, apoi este șters automat.",
+            "Contul și preferințele tale: până îți ștergi contul.",
+            "Evidențele de plată: păstrate după ștergere, fără a fi legate de tine, pentru că legislația fiscală și magazinele de aplicații o cer."
+          ]
+        },
+        {
+          "heading": "Ce poți face",
+          "body": [
+            "Să vezi tot ce păstrăm despre tine și să iei totul cu tine sub formă de fișier — Profil, apoi Exportă datele mele.",
+            "Să îți ștergi contul și tot ce e personal în el, din aplicație — Profil, apoi Șterge contul. Este imediat și ireversibil.",
+            "Să corectezi ce este greșit, să retragi consimțământul pentru datele despre alergeni sau să te opui modului în care le folosim.",
+            "Să depui o plângere la autoritatea ta de protecție a datelor. În România este Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal."
+          ]
+        },
+        {
+          "heading": "Copii",
+          "body": [
+            "Aplicația nu este destinată copiilor sub 16 ani și nu păstrăm cu bună știință date despre ei."
+          ]
+        },
+        {
+          "heading": "Contact",
+          "body": [
+            "Scrie la {{email}} pentru orice ține de această politică."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Termenii serviciului",
+      "intro": "Înțelegerea dintre tine și noi. Pe scurt: folosește aplicația, nu abuza de ea și nu trata o evaluare drept sfat medical.",
+      "sections": [
+        {
+          "heading": "Ce face această aplicație",
+          "body": [
+            "Citește un cod de bare, caută produsul și îi evaluează siguranța folosind propriul nostru model.",
+            "Evaluările sunt calculate din date publicate: clasificări nutriționale și de procesare, ingrediente declarate și dovezi despre substanțe anume. Îți arătăm ce a determinat fiecare evaluare."
+          ]
+        },
+        {
+          "heading": "Ce este și ce nu este o evaluare",
+          "body": [
+            "Este aprecierea noastră pe baza datelor de care dispunem. Nu este sfat medical, dietetic sau nutrițional și nu înlocuiește citirea etichetei.",
+            "Dacă ai o alergie sau o afecțiune, ambalajul din mâna ta are ultimul cuvânt — nu noi. Rețetele produselor se schimbă, iar bazele de date publice rămân în urmă.",
+            "Acolo unde nu avem destule informații, o spunem și nu afișăm niciun calificativ, în loc să ghicim."
+          ]
+        },
+        {
+          "heading": "Modelul nostru și ce înseamnă pentru tine",
+          "body": [
+            "Evaluările de siguranță sunt produse de un model lingvistic și un set de algoritmi pe care i-am scris și îi rulăm noi. Nu sunt licențiați de la nimeni, iar această aplicație nu este un înveliș peste serviciul altcuiva.",
+            "Tot ce îți citește datele rulează pe propriile noastre servere. Niciun serviciu extern de inteligență artificială nu este implicat, deci nimic din ce scanezi nu este trimis către unul.",
+            "Ce aflăm din modul în care este folosită aplicația ne ajută să o facem mai bună și mai fiabilă și să îi îmbunătățim sugestiile. Asta se întâmplă aici, pe propria noastră infrastructură.",
+            "Modelul rămâne al nostru. Nu îl împărțim, nu îl licențiem și nimeni altcineva nu se antrenează pe ce scanezi tu.",
+            "Nu vindem datele tale personale, nu le împărtășim cu agenți de publicitate sau brokeri de date și nu te urmărim prin alte aplicații sau site-uri."
+          ]
+        },
+        {
+          "heading": "De unde vin datele",
+          "body": [
+            "Din date despre produse disponibile public, din cercetarea noastră și din ce derivăm din amândouă. O parte provine din baze de date întreținute de comunitate, licențiate sub Open Database License, pe care le creditam la Mulțumiri.",
+            "Putem greși pentru că greșește o sursă. Dacă găsești o eroare, spune-ne și o vom corecta."
+          ]
+        },
+        {
+          "heading": "Contul tău",
+          "body": [
+            "Un cont de persoană. Ține parola numai pentru tine.",
+            "Nu folosi unelte automate ca să extragi conținutul serviciului și nu încerca să îl suprasoliciți.",
+            "Îți poți șterge contul oricând din aplicație."
+          ]
+        },
+        {
+          "heading": "Abonamente",
+          "body": [
+            "Nivelurile plătite sunt vândute prin App Store și Google Play. Ele se ocupă de plată, de prețul în moneda ta și de taxe.",
+            "Abonamentele se reînnoiesc până la anulare. Anulează din setările contului tău Apple sau Google — noi nu putem face asta în locul tău.",
+            "Rambursările sunt gestionate de magazin, conform propriei politici."
+          ]
+        },
+        {
+          "heading": "Limite",
+          "body": [
+            "Serviciul este oferit așa cum este. Ne străduim să îl menținem exact și disponibil, dar nu garantăm niciuna dintre aceste lucruri.",
+            "Nu răspundem pentru deciziile pe care le iei pe baza unei evaluări. Vezi mai sus ce este o evaluare."
+          ]
+        },
+        {
+          "heading": "Modificări",
+          "body": [
+            "Putem modifica acești termeni. Dacă o modificare este importantă, îți vom spune în aplicație înainte să intre în vigoare."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Mulțumiri",
+      "intro": "Product Scanner este construit pe date deschise și software liber. Aceștia sunt oamenii a căror muncă face lucrul acesta posibil.",
+      "sections": [
+        {
+          "heading": "Date deschise despre produse",
+          "body": [
+            "O parte din informațiile despre produse din această aplicație provin de la Open Food Facts și Open Beauty Facts, baze de date întreținute de comunitate și puse la dispoziție sub Open Database License (ODbL) v1.0.",
+            "Conținutul lor este contribuit de voluntari. Le suntem recunoscători, îl corectăm acolo unde găsim greșeli, iar eventualele erori din ce vezi aici sunt ale noastre, nu ale lor.",
+            "Licența se găsește la opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Ce este al nostru",
+          "body": [
+            "Evaluările de siguranță, analiza ingredientelor și a dozelor, modelele și programul sunt munca noastră și nu sunt acoperite de licențele de mai sus."
+          ]
+        },
+        {
+          "heading": "Software liber",
+          "body": [
+            "Această aplicație este construită cu React Native și Expo, iar partea de server cu FastAPI și PostgreSQL, alături de multe alte biblioteci open source publicate sub licențe permisive."
+          ]
+        }
+      ]
+    }
   }
 }

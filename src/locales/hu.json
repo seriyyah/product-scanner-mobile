@@ -18,7 +18,9 @@
     "allow": "Engedélyezés",
     "deny": "Megtagadás",
     "unknown": "Ismeretlen",
-    "goBack": "Vissza"
+    "goBack": "Vissza",
+    "continue": "Tovább",
+    "success": "Kész"
   },
   "auth": {
     "login": "Bejelentkezés",
@@ -51,7 +53,51 @@
     "ruleLowercase": "Kisbetűt",
     "ruleDigit": "Számjegyet",
     "ruleSpecial": "Speciális karaktert (!@#$…)",
-    "noAccountRegister": "Még nincs fiókja? Hozzon létre egyet ezzel az e-mail címmel"
+    "noAccountRegister": "Még nincs fiókja? Hozzon létre egyet ezzel az e-mail címmel",
+    "welcomeBack": "Üdv újra!",
+    "loginSubtitle": "Jelentkezz be, hogy folytasd a termékek beolvasását",
+    "emailLabel": "E-mail-cím",
+    "emailPlaceholder": "Add meg az e-mail-címed",
+    "passwordPlaceholder": "Add meg a jelszavad",
+    "signIn": "Bejelentkezés",
+    "signUp": "Regisztráció",
+    "emailInvalidLong": "Adj meg egy érvényes e-mail-címet",
+    "emailRequired": "Az e-mail-cím kötelező",
+    "emailTooLong": "Az e-mail-cím legfeljebb 255 karakter lehet",
+    "passwordRequired": "A jelszó kötelező",
+    "passwordTooLong": "A jelszó legfeljebb 128 karakter lehet",
+    "checkEmailTitle": "Nézd meg a postaládád",
+    "resetLinkSent": "Ha ez az e-mail-cím szerepel a rendszerünkben, küldtünk rá egy jelszó-visszaállító hivatkozást.",
+    "backToSignIn": "Vissza a bejelentkezéshez",
+    "resetPasswordTitle": "Jelszó visszaállítása",
+    "resetPasswordBody": "Add meg az e-mail-címed, és küldünk egy visszaállító hivatkozást.",
+    "sending": "Küldés...",
+    "sendResetLink": "Hivatkozás küldése",
+    "passwordResetDone": "Jelszó visszaállítva!",
+    "passwordResetDoneBody": "A jelszavad frissült. Jelentkezz be az új jelszavaddal.",
+    "newPassword": "Új jelszó",
+    "newPasswordBody": "Válassz erős jelszót a fiókodhoz.",
+    "passwordPlaceholderMin": "Legalább 8 karakter",
+    "confirmPasswordPlaceholder": "Add meg újra a jelszót",
+    "resetting": "Visszaállítás…",
+    "setNewPassword": "Új jelszó beállítása",
+    "verifyingEmail": "E-mail-címed ellenőrzése…",
+    "goToSignIn": "Ugrás a bejelentkezéshez",
+    "registerCheckEmail": "Nézd meg a postaládád!",
+    "registerCheckEmailBody": "Küldtünk egy megerősítő hivatkozást az e-mail-címedre. A folytatáshoz erősítsd meg a fiókod.",
+    "registerSubtitle": "Csatlakozz még ma a Product Scannerhez",
+    "firstNamePlaceholder": "János",
+    "lastNamePlaceholder": "Kovács",
+    "emailExample": "janos@example.com",
+    "passwordPlaceholder12": "Legalább 12 karakter",
+    "firstNameRequired": "A keresztnév kötelező",
+    "lastNameRequired": "A vezetéknév kötelező",
+    "passwordPolicy": "A jelszó nem felel meg minden követelménynek",
+    "confirmPasswordRequired": "Erősítsd meg a jelszavad",
+    "termsPrefix": "Elfogadom a",
+    "termsAnd": "és az",
+    "creatingAccount": "Fiók létrehozása...",
+    "registrationFailed": "A regisztráció nem sikerült"
   },
   "onboarding": {
     "locationTitle": "Helyszín engedélyezése",
@@ -77,7 +123,10 @@
     "recentScans": "Legutóbbi beolvasások",
     "noHistory": "Nincs legutóbbi beolvasás",
     "scanNow": "Olvassa be a terméket a kezdéshez",
-    "safetyTip": "Olvassa be a vonalkódot a biztonsági értékeléshez"
+    "safetyTip": "Olvassa be a vonalkódot a biztonsági értékeléshez",
+    "subtitle": "Mit szeretnél ma beolvasni?",
+    "viewAll": "Összes megtekintése",
+    "noHistoryBody": "Koppints a „Termék beolvasása” gombra a kezdéshez"
   },
   "scanner": {
     "title": "Szkenner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Elhasználta mind a 20 ingyenes beolvasást erre az órára.",
     "watchAd": "Videó megtekintése 5 további beolvasásért",
     "upgradePremium": "Váltás Premiumra",
-    "scansRemaining": "Még {{count}} beolvasás maradt erre az órára"
+    "scansRemaining": "Még {{count}} beolvasás maradt erre az órára",
+    "scanAProduct": "Termék beolvasása",
+    "enterBarcodeFromPack": "Add meg a vonalkód számát a termék csomagolásáról.",
+    "requestingPermission": "Kamerahozzáférés kérése...",
+    "permissionDeniedTitle": "Kamerahozzáférés szükséges",
+    "permissionDeniedBody": "Engedélyezd a kamerához való hozzáférést a vonalkódok beolvasásához, vagy add meg őket kézzel alább.",
+    "typeBarcode": "Írd be a termék vonalkódjának számát.",
+    "useCamera": "Kamera használata",
+    "enterManually": "Kézi bevitel",
+    "scanAgain": "Új beolvasás",
+    "pointCameraShort": "Irányítsd a kamerát a vonalkódra",
+    "enterBarcodePlaceholder": "Add meg a vonalkód számát…",
+    "watchVideo": "Videó megtekintése (+5 beolvasás)"
   },
   "product": {
     "loading": "Termék betöltése...",
@@ -147,7 +208,14 @@
     "scanResult": "Beolvasás eredménye",
     "notRated": "Nincs értékelve",
     "notRatedBody": "Nincs elég információ erről a termékről",
-    "alternativesPending": "Még hasonlítjuk a terméket. Hamarosan kész — nézze meg az előzményeket egy perc múlva."
+    "alternativesPending": "Még hasonlítjuk a terméket. Hamarosan kész — nézze meg az előzményeket egy perc múlva.",
+    "images": "Termékképek",
+    "linkFailed": "A hivatkozást nem sikerült megnyitni",
+    "notInDatabase": "A termék nincs az adatbázisunkban",
+    "recommendationsUnavailable": "Az ajánlások nem érhetők el.",
+    "sharingSoon": "A megosztás hamarosan érkezik!",
+    "notRatedResearching": "Még nincs elég információnk — most keressük. Nézz vissza egy pillanat múlva.",
+    "notRatedUnsupported": "Ezt a terméktípust még nem értékeljük"
   },
   "history": {
     "title": "Beolvasási előzmények",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} beolvasás felhasználva ebben az órában",
-    "unlimitedScans": "Korlátlan beolvasások"
+    "unlimitedScans": "Korlátlan beolvasások",
+    "phone": "Telefon",
+    "phoneNumber": "Telefonszám",
+    "phonePlaceholder": "+36123456789",
+    "bio": "Bemutatkozás",
+    "bioPlaceholder": "Mesélj magadról",
+    "memberSince": "Tag ezóta",
+    "dietaryAllergens": "Étrend és allergének",
+    "dietaryAllergensSub": "Személyre szabott értékelések és ajánlások",
+    "adminFullAccess": "Rendszergazda — teljes hozzáférés",
+    "logout": "Kijelentkezés",
+    "logoutConfirm": "Biztosan ki szeretnél jelentkezni?",
+    "loadFailed": "A profil betöltése nem sikerült",
+    "updateSuccess": "A profil sikeresen frissült",
+    "updateFailed": "A profil frissítése nem sikerült"
   },
   "preferences": {
     "title": "Beállítások",
@@ -181,7 +263,20 @@
     "privacy": "Adatvédelem",
     "analyticsConsent": "Analitika",
     "marketingConsent": "Marketing e-mailek",
-    "saved": "Beállítások mentve"
+    "saved": "Beállítások mentve",
+    "dietarySub": "A biztonsági értékelések és az ajánlások személyre szabásához használjuk",
+    "allergensTitle": "Kerülendő allergének",
+    "allergensSub": "Az ezeket tartalmazó termékeket figyelmeztetéssel jelöljük meg",
+    "appSettings": "Alkalmazásbeállítások",
+    "analytics": "Analitika",
+    "analyticsSub": "Segíts jobbá tenni az alkalmazást. Az adatok nálunk maradnak, és soha nem osztjuk meg őket.",
+    "personalisation": "Személyre szabott ajánlások",
+    "personalisationSub": "Használja a beolvasási előzményeimet annak megismerésére, hogy mit vásárolok, hogy az alkalmazás jobb alternatívákat javasolhasson. Az adatok nálunk maradnak, és soha nem adjuk el őket.",
+    "marketing": "Marketing",
+    "marketingSub": "Személyre szabott ajánlatok és hírek fogadása",
+    "savedBody": "A beállításaidat elmentettük.",
+    "loadFailed": "A beállítások betöltése nem sikerült",
+    "saveFailed": "A beállítások mentése nem sikerült. Próbáld újra."
   },
   "subscription": {
     "title": "Frissítés",
@@ -214,7 +309,13 @@
     "purchaseFailedTitle": "A vásárlás nem érhető el",
     "purchaseFailedBody": "Az áruház nem tudta befejezni a vásárlást. Próbálja meg később.",
     "mostPopular": "Legnépszerűbb",
-    "bestValue": "Legjobb ár-érték arány"
+    "bestValue": "Legjobb ár-érték arány",
+    "adminAccount": "Rendszergazdai fiók",
+    "adminSubtitle": "Teljes hozzáférés — nincs szükség előfizetésre",
+    "unlockFull": "Hozd ki a maximumot a ProductScannerből",
+    "upgradeToPremium": "Váltás Premiumra",
+    "upgradeToAiPremium": "Váltás AI Premiumra",
+    "aiPremiumTeaser": "Valós árak helyi boltokból és a webről, mind egy helyen"
   },
   "grades": {
     "A": "Kiváló",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "kén-dioxid és szulfitok",
     "lupin": "csillagfürt",
     "molluscs": "puhatestűek"
+  },
+  "nutrition": {
+    "energy": "Energia",
+    "fat": "Zsír",
+    "carbohydrates": "Szénhidrát",
+    "sugars": "Cukrok",
+    "fiber": "Rost",
+    "proteins": "Fehérje",
+    "salt": "Só"
+  },
+  "video": {
+    "title": "Nézd és nyerj",
+    "loadingAd": "A videód betöltése…",
+    "watchToEarn": "Nézd végig a videót, és szerezz 5 extra beolvasást erre az órára.",
+    "claiming": "Jutalmad jóváírása…",
+    "granted": "+5 beolvasás jóváírva!",
+    "grantedBody": "5 extra beolvasásod van erre az órára.",
+    "grantedUpgrade": "Válts Premiumra a korlátlan, reklámmentes beolvasásért.",
+    "alreadyClaimed": "Már felhasználva",
+    "alreadyClaimedBody": "Ebben az órában már kaptál extra beolvasásokat.",
+    "alreadyClaimedUpgrade": "Gyere vissza később, vagy válts Premiumra.",
+    "backToScanner": "Vissza a szkennerhez",
+    "upgradeUnlimited": "Korlátlan Premiummal",
+    "notCompleted": "A videó nem lett végignézve",
+    "notCompletedBody": "Nézd végig a videót, és szerezz 5 extra beolvasást.",
+    "claimFailed": "A jutalmat nem sikerült jóváírni. Próbáld újra."
+  },
+  "account": {
+    "delete": "Fiók törlése",
+    "deleteHint": "Véglegesen törli a fiókodat, a beolvasási előzményeidet és a beállításaidat. Ez nem vonható vissza.",
+    "deleteExplain": "Ezzel eltávolítjuk a szervereinkről a fiókodat, a beolvasási előzményeidet és a beállításaidat. Ez nem vonható vissza.",
+    "deleteConfirmTitle": "Végleges törlés?",
+    "deleteConfirmBody": "Ezek az adatok semmilyen módon nem állíthatók helyre.",
+    "deleteConfirm": "Minden törlése",
+    "deletePartialTitle": "Részben törölve",
+    "deletePartialBody": "Néhány adatodat még nem sikerült eltávolítani. Ezt rögzítettük, és be fogjuk fejezni. Ha a probléma tartós, keress minket.",
+    "deleteFailed": "A fiókod nem lett törölve. Próbáld újra."
+  },
+  "legal": {
+    "privacy": "Adatvédelmi tájékoztató",
+    "privacySub": "Mit tárolunk, és mit tehetsz ezzel kapcsolatban",
+    "terms": "Felhasználási feltételek",
+    "attributions": "Köszönetnyilvánítás",
+    "attributionsSub": "A nyílt adatok és nyílt forráskódú szoftverek, amelyekre építünk",
+    "lastUpdated": "Utoljára frissítve"
+  },
+  "dietary": {
+    "vegan": "Vegán",
+    "vegetarian": "Vegetáriánus",
+    "glutenFree": "Gluténmentes",
+    "halal": "Halal",
+    "kosher": "Kóser",
+    "lactoseFree": "Laktózmentes",
+    "nutFree": "Diómentes",
+    "lowSugar": "Alacsony cukortartalmú"
+  },
+  "allergenOption": {
+    "milk": "Tej",
+    "eggs": "Tojás",
+    "fish": "Hal",
+    "shellfish": "Rákfélék",
+    "treeNuts": "Diófélék",
+    "peanuts": "Földimogyoró",
+    "wheat": "Búza",
+    "soy": "Szója",
+    "sesame": "Szezám",
+    "celery": "Zeller",
+    "mustard": "Mustár",
+    "sulphites": "Szulfitok"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Adatvédelmi tájékoztató",
+      "intro": "Itt elmagyarázzuk, mit tárolunk rólad, miért, és mit tehetsz ezzel kapcsolatban. Igyekeztünk közérthetően megírni, nem annak a dokumentumnak a nyelvén, amelyet senki nem olvas el.",
+      "sections": [
+        {
+          "heading": "Mit tárolunk",
+          "body": [
+            "Az e-mail-címedet és a jelszavad kriptográfiai lenyomatát — soha magát a jelszót.",
+            "A beolvasási előzményeidet: a beolvasott vonalkódokat és azt, hogy mikor olvastad be őket.",
+            "Az étrendi preferenciáidat és a megadott allergéneket, ha úgy döntesz, hogy megadod őket.",
+            "Az előfizetési szintedet és egy eszközazonosítót, ha bekapcsolod az értesítéseket.",
+            "Opcionálisan, és csak ha kitöltöd: a vezeték- és keresztnevedet, telefonszámodat, születési dátumodat, egy rövid bemutatkozást és egy profilképet. Ezek közül egyik sem kötelező, az alkalmazás nélkülük is működik, és bármikor törölheted őket a Profilban.",
+            "Nem kérjük a lakcímedet és a fizetési adataidat, és a kártyádat soha nem látjuk."
+          ]
+        },
+        {
+          "heading": "Miért tároljuk",
+          "body": [
+            "Hogy nyújtani tudjuk azt a szolgáltatást, amelyre feliratkoztál: termékek beolvasása, az előzményeid megőrzése és a termékek értékelése neked, nem mindenkinek.",
+            "Az allergének és az étrendi korlátozások a GDPR 9. cikke szerint egészségügyi adatok. Csak azért kérdezünk rájuk, hogy egy értékelés figyelmeztethessen valamire, ami ártana neked; külön és kifejezetten kérdezünk, mielőtt megadnád őket, és a hozzájárulást bármikor visszavonhatod a Beállításokban.",
+            "Hogy fogadni tudjuk a fizetést, amelyet az Apple és a Google intéz — a kártyádat soha nem látjuk."
+          ]
+        },
+        {
+          "heading": "Hol tároljuk",
+          "body": [
+            "A németországi Frankfurtban lévő szervereken, az Európai Unión belül. A személyes adataidat nem továbbítjuk az EU-n kívülre.",
+            "Az az MI, amely egy értékelést megmagyaráz, ugyanazon a szerveren fut. Nem harmadik fél szolgáltatása, és semmi, amit beolvasol, nem kerül ilyenhez."
+          ]
+        },
+        {
+          "heading": "Ki látja még",
+          "body": [
+            "Az Apple és a Google az előfizetési fizetésekhez, a RevenueCaten keresztül. Ők az eladók.",
+            "A Resend, amely a fiókkal kapcsolatos e-maileket küldi — megerősítés és jelszó-visszaállítás.",
+            "Rajtuk kívül senki.",
+            "Amikor egy terméket keresünk, kizárólag a vonalkód alapján kérdezünk le nyilvánosan elérhető termékadatokat. Ezek a források semmit nem kapnak rólad, a fiókodról vagy az eszközödről."
+          ]
+        },
+        {
+          "heading": "A modell a miénk",
+          "body": [
+            "A biztonsági értékelés, az összetevő-elemzés és az ajánlások egy nyelvi modellből és egy általunk épített algoritmuskészletből származnak. A saját frankfurti szervereinken futnak.",
+            "Ebben az alkalmazásban nincs külső MI-szolgáltatás. Semmi, amit beolvasol, nem kerül ilyenhez, mert nincs olyan, ahová küldeni lehetne.",
+            "Amit a modell tanul, azt itt tanulja, a saját adatainkból, hogy az alkalmazás jobb legyen azoknak, akik használják. Ezt a tudást nem osztjuk meg, és senki más nem tanul rajta.",
+            "A termékkereséseket a szervereink végzik, soha nem a telefonod, így semmi nem jut el az eszközödről külső forráshoz."
+          ]
+        },
+        {
+          "heading": "Személyre szabott ajánlások",
+          "body": [
+            "Ha bekapcsolod a Személyre szabott ajánlásokat a Beállításokban, a beolvasási előzményeidet arra használjuk, hogy megtanuljuk, mit vásárolsz, és jobb alternatívákat javasoljunk — biztonságosabb termékeket azokban a kategóriákban, ahol valóban vásárolsz.",
+            "Ez határozza meg, mit ajánl neked az alkalmazás. Nem használjuk hirdetésre, nem osztjuk meg és nem adjuk el.",
+            "Alapból ki van kapcsolva, amíg be nem kapcsolod, és a kikapcsolás leállítja. Külön kérdezünk rá, mert ez más cél, mint az alkalmazás működtetése, és mert amit beolvasol, elárulhat valamit az egészségedről."
+          ]
+        },
+        {
+          "heading": "Amit soha nem teszünk",
+          "body": [
+            "Nem adjuk el a személyes adataidat. Sem a beolvasási előzményeidet, sem a beállításaidat, sem adatkereskedőknek, sem másnak.",
+            "Nem követünk téged más cégek alkalmazásain vagy webhelyein keresztül, és nem engedjük, hogy rajtunk keresztül bárki kövessen.",
+            "Nem mutatunk neked hirdetést az alapján, amit beolvasol.",
+            "Ebben az alkalmazásban semmilyen analitikai vagy hirdetési szoftver nincs. Semmilyen harmadik féltől származó SDK nem figyeli, mit csinálsz benne.",
+            "Az egyetlen cégek, amelyek bármit is kapnak rólad, az a kettő, amely a szolgáltatást működteti: az, amely a fiókod e-mailjeit kézbesíti, és az áruházak, amelyek a fizetésedet fogadják. Mindkettő fent szerepel, mindkettő kizárólag a mi utasításunkra jár el, és egyik sem kapja meg a beolvasási előzményeidet.",
+            "Közzétehetünk összesített számokat a termékekről — például hogy egy kategória átlagosan hogyan szerepel. Ezek olyan összesítések, amelyekben nincs benne egyetlen személy sem, és 20 beolvasásnál kevesebből felépített adatot egyáltalán nem teszünk közzé."
+          ]
+        },
+        {
+          "heading": "Meddig őrizzük meg",
+          "body": [
+            "Beolvasási előzmények: 30 nap az ingyenes szinten, 2 év fizetős szinten, majd automatikus törlés.",
+            "A fiókod és a beállításaid: amíg nem törlöd a fiókodat.",
+            "Fizetési nyilvántartások: a törlés után is megmaradnak, hozzád kapcsolás nélkül, mert az adójogszabályok és az alkalmazásáruházak megkövetelik."
+          ]
+        },
+        {
+          "heading": "Mit tehetsz",
+          "body": [
+            "Megnézheted mindazt, amit rólad tárolunk, és fájlként elviheted — Profil, majd Adataim exportálása.",
+            "Törölheted a fiókodat és minden személyeset benne, az alkalmazásból — Profil, majd Fiók törlése. Azonnali és visszafordíthatatlan.",
+            "Helyesbíthetsz bármit, ami téves, visszavonhatod az allergénadatokra adott hozzájárulást, vagy tiltakozhatsz a felhasználás ellen.",
+            "Panaszt tehetsz az adatvédelmi hatóságodnál. Magyarországon ez a Nemzeti Adatvédelmi és Információszabadság Hatóság."
+          ]
+        },
+        {
+          "heading": "Gyermekek",
+          "body": [
+            "Az alkalmazás nem 16 év alatti gyermekeknek készült, és tudatosan nem tárolunk róluk adatot."
+          ]
+        },
+        {
+          "heading": "Kapcsolat",
+          "body": [
+            "Írj a {{email}} címre bármivel kapcsolatban, ami ebben a tájékoztatóban szerepel."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Felhasználási feltételek",
+      "intro": "A közted és köztünk lévő megállapodás. Röviden: használd az alkalmazást, ne élj vele vissza, és ne tekintsd az értékelést orvosi tanácsnak.",
+      "sections": [
+        {
+          "heading": "Mit csinál ez az alkalmazás",
+          "body": [
+            "Beolvas egy vonalkódot, megkeresi a terméket, és a saját modellünkkel értékeli a biztonságosságát.",
+            "Az értékeléseket közzétett adatokból számoljuk: tápérték- és feldolgozottsági besorolásokból, a feltüntetett összetevőkből és az egyes anyagokra vonatkozó bizonyítékokból. Megmutatjuk, mi alakította az egyes értékeléseket."
+          ]
+        },
+        {
+          "heading": "Mi az értékelés, és mi nem",
+          "body": [
+            "A rendelkezésünkre álló adatokból készült saját megítélésünk. Nem orvosi, dietetikai vagy táplálkozási tanács, és nem helyettesíti a címke elolvasását.",
+            "Ha allergiád vagy betegséged van, a kezedben lévő csomagolás a mérvadó — nem mi. A receptúrák változnak, és a nyilvános adatbázisok lemaradnak mögöttük.",
+            "Ahol nincs elég információnk, ezt megmondjuk, és nem mutatunk minősítést, ahelyett hogy találgatnánk."
+          ]
+        },
+        {
+          "heading": "A saját modellünk, és hogy ez mit jelent neked",
+          "body": [
+            "A biztonsági értékeléseket egy nyelvi modell és egy algoritmuskészlet állítja elő, amelyeket mi írtunk és mi üzemeltetünk. Nem licenceltük senkitől, és ez az alkalmazás nem valaki más szolgáltatásának a burka.",
+            "Minden, ami az adataidat olvassa, a saját szervereinken fut. Nincs benne külső MI-szolgáltatás, tehát semmi, amit beolvasol, nem kerül ilyenhez.",
+            "Amit az alkalmazás használatából megtudunk, arra használjuk, hogy jobbá és megbízhatóbbá tegyük, és hogy javítsuk a javaslatait. Ez itt történik, a saját infrastruktúránkon.",
+            "A modell a miénk marad. Nem osztjuk meg, nem adjuk licencbe, és senki más nem tanul azon, amit te beolvasol.",
+            "Nem adjuk el a személyes adataidat, nem osztjuk meg hirdetőkkel vagy adatkereskedőkkel, és nem követünk más alkalmazásokon vagy webhelyeken keresztül."
+          ]
+        },
+        {
+          "heading": "Honnan származnak az adatok",
+          "body": [
+            "Nyilvánosan elérhető termékadatokból, a saját kutatásunkból, és abból, amit a kettőből levezetünk. Egy részük közösség által karbantartott, Open Database License alatt licencelt adatbázisokból származik, amelyeket a Köszönetnyilvánításban tüntetünk fel.",
+            "Tévedhetünk, mert egy forrás téved. Ha hibát találsz, szólj, és kijavítjuk."
+          ]
+        },
+        {
+          "heading": "A fiókod",
+          "body": [
+            "Személyenként egy fiók. A jelszavadat tartsd meg magadnak.",
+            "Ne használj automatizált eszközöket a szolgáltatás kigyűjtésére, és ne próbáld túlterhelni.",
+            "A fiókodat bármikor törölheted az alkalmazásból."
+          ]
+        },
+        {
+          "heading": "Előfizetések",
+          "body": [
+            "A fizetős szinteket az App Store és a Google Play értékesíti. Ők intézik a fizetést, a saját pénznemedben megjelenő árat és az adót.",
+            "Az előfizetések a lemondásig megújulnak. Az Apple- vagy Google-fiókod beállításaiban mondhatod le — mi nem tudjuk helyetted lemondani.",
+            "A visszatérítéseket az áruház kezeli a saját szabályzata szerint."
+          ]
+        },
+        {
+          "heading": "Korlátok",
+          "body": [
+            "A szolgáltatást úgy nyújtjuk, ahogy van. Azon dolgozunk, hogy pontos és elérhető legyen, de egyiket sem garantáljuk.",
+            "Nem felelünk azokért a döntésekért, amelyeket egy értékelés alapján hozol. Lásd fentebb, mi az értékelés."
+          ]
+        },
+        {
+          "heading": "Változások",
+          "body": [
+            "Ezeket a feltételeket módosíthatjuk. Ha egy változás lényeges, a hatálybalépés előtt szólunk az alkalmazásban."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Köszönetnyilvánítás",
+      "intro": "A Product Scanner nyílt adatokra és nyílt forráskódra épül. Ők azok, akiknek a munkája ezt lehetővé teszi.",
+      "sections": [
+        {
+          "heading": "Nyílt termékadatok",
+          "body": [
+            "Az alkalmazásban szereplő termékinformációk egy része az Open Food Factsből és az Open Beauty Factsből származik, amelyek közösség által karbantartott adatbázisok, és az Open Database License (ODbL) v1.0 alatt érhetők el.",
+            "Tartalmukat önkéntesek adják hozzá. Hálásak vagyunk érte, javítjuk, ahol hibát találunk, és az itt látható esetleges hibák minket terhelnek, nem őket.",
+            "A licenc az opendatacommons.org/licenses/odbl címen található."
+          ]
+        },
+        {
+          "heading": "Ami a miénk",
+          "body": [
+            "A biztonsági értékelések, az összetevő- és dóziselemzés, a modellek és a szoftver a saját munkánk, és nem tartoznak a fenti licencek hatálya alá."
+          ]
+        },
+        {
+          "heading": "Nyílt forráskód",
+          "body": [
+            "Ez az alkalmazás React Native és Expo használatával készült, a háttérrendszere pedig FastAPI és PostgreSQL alapú, sok más, megengedő licencek alatt kiadott nyílt forráskódú programkönyvtár mellett."
+          ]
+        }
+      ]
+    }
   }
 }

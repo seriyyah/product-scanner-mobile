@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View,
   ScrollView,
@@ -48,35 +48,39 @@ const RULE_LABELS: Record<
   special: { key: 'auth.ruleSpecial', fallback: 'A special character (!@#$…)' },
 };
 
-const registerSchema = yup.object().shape({
+// Built from the translator rather than at module load, so a validation
+// message appears in the language the user is actually reading.
+type Translate = (key: string, fallback: string) => string;
+
+const buildRegisterSchema = (t: Translate) => yup.object().shape({
   firstName: yup
     .string()
-    .min(2, 'First name must be at least 2 characters')
-    .required('First name is required'),
+    .min(2, t('auth.firstNameMin', 'First name must be at least 2 characters'))
+    .required(t('auth.firstNameRequired', 'First name is required')),
   lastName: yup
     .string()
-    .min(2, 'Last name must be at least 2 characters')
-    .required('Last name is required'),
+    .min(2, t('auth.lastNameMin', 'Last name must be at least 2 characters'))
+    .required(t('auth.lastNameRequired', 'Last name is required')),
   email: yup
     .string()
-    .email('Invalid email format')
-    .required('Email is required'),
+    .email(t('auth.emailInvalid', 'Invalid email format'))
+    .required(t('auth.emailRequired', 'Email is required')),
   password: yup
     .string()
-    .required('Password is required')
+    .required(t('auth.passwordRequired', 'Password is required'))
     // Mirrors auth-service exactly. Checking only the length here let a password
     // through that the server then refused.
-    .test('policy', 'Password does not meet all requirements', (value) =>
+    .test('policy', t('auth.passwordPolicy', 'Password does not meet all requirements'), (value) =>
       isPasswordAcceptable(value ?? ''),
     ),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Please confirm your password'),
+    .oneOf([yup.ref('password')], t('auth.passwordMatch', 'Passwords must match'))
+    .required(t('auth.confirmPasswordRequired', 'Please confirm your password')),
   termsAccepted: yup
     .boolean()
-    .oneOf([true], 'You must accept the Terms of Service')
-    .required('You must accept the Terms of Service'),
+    .oneOf([true], t('auth.termsRequired', 'You must accept the Terms of Service'))
+    .required(t('auth.termsRequired', 'You must accept the Terms of Service')),
 });
 
 const RegisterScreen: React.FC = () => {
@@ -89,6 +93,7 @@ const RegisterScreen: React.FC = () => {
   const { setLanguage } = useApp();
 
   const { t } = useTranslation();
+  const registerSchema = useMemo(() => buildRegisterSchema(t), [t]);
   // Arrives when someone was sent here from a rejected sign-in.
   const route = useRoute<any>();
   const prefilledEmail: string = route.params?.email ?? '';
@@ -136,7 +141,7 @@ const RegisterScreen: React.FC = () => {
       setRegistered(true);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Registration failed. Please try again.';
-      Alert.alert('Registration Failed', message);
+      Alert.alert(t('auth.registrationFailed', 'Registration Failed'), message);
     } finally {
       setIsSubmitting(false);
     }
@@ -147,12 +152,12 @@ const RegisterScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.successContainer}>
           <Ionicons name="mail" size={64} color={theme.colors.primary} />
-          <Text style={styles.successTitle}>Check your email!</Text>
+          <Text style={styles.successTitle}>{t('auth.registerCheckEmail', 'Check your email!')}</Text>
           <Text style={styles.successText}>
-            We sent a verification link to your email address. Please verify your account to continue.
+            {t('auth.registerCheckEmailBody', 'We sent a verification link to your email address. Please verify your account to continue.')}
           </Text>
           <Button
-            title="Back to Sign In"
+            title={t('auth.backToSignIn', 'Back to Sign In')}
             onPress={() => navigation.navigate('Login')}
             variant="primary"
             size="large"
@@ -173,14 +178,14 @@ const RegisterScreen: React.FC = () => {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subtitle}>Join Product Scanner today</Text>
+          <Text style={styles.title}>{t('auth.register', 'Create Account')}</Text>
+          <Text style={styles.subtitle}>{t('auth.registerSubtitle', 'Join Product Scanner today')}</Text>
 
           <TextInput
-            label="First Name"
+            label={t('auth.firstName', 'First Name')}
             name="firstName"
             control={control}
-            placeholder="John"
+            placeholder={t('auth.firstNamePlaceholder', 'John')}
             autoCapitalize="words"
             error={errors.firstName?.message}
             required
@@ -188,10 +193,10 @@ const RegisterScreen: React.FC = () => {
           />
 
           <TextInput
-            label="Last Name"
+            label={t('auth.lastName', 'Last Name')}
             name="lastName"
             control={control}
-            placeholder="Doe"
+            placeholder={t('auth.lastNamePlaceholder', 'Doe')}
             autoCapitalize="words"
             error={errors.lastName?.message}
             required
@@ -199,10 +204,10 @@ const RegisterScreen: React.FC = () => {
           />
 
           <TextInput
-            label="Email"
+            label={t('auth.email', 'Email')}
             name="email"
             control={control}
-            placeholder="john@example.com"
+            placeholder={t('auth.emailExample', 'john@example.com')}
             keyboardType="email-address"
             autoCapitalize="none"
             error={errors.email?.message}
@@ -211,10 +216,10 @@ const RegisterScreen: React.FC = () => {
           />
 
           <TextInput
-            label="Password"
+            label={t('auth.password', 'Password')}
             name="password"
             control={control}
-            placeholder="At least 12 characters"
+            placeholder={t('auth.passwordPlaceholder12', 'At least 12 characters')}
             secureTextEntry
             error={errors.password?.message}
             required
@@ -247,10 +252,10 @@ const RegisterScreen: React.FC = () => {
           </View>
 
           <TextInput
-            label="Confirm Password"
+            label={t('auth.confirmPassword', 'Confirm Password')}
             name="confirmPassword"
             control={control}
-            placeholder="Re-enter your password"
+            placeholder={t('auth.confirmPasswordPlaceholder', 'Re-enter your password')}
             secureTextEntry
             error={errors.confirmPassword?.message}
             required
@@ -272,19 +277,19 @@ const RegisterScreen: React.FC = () => {
             {/* Both documents are one tap away. Agreeing to something you
                 cannot read is not agreement, and Apple looks for exactly this. */}
             <Text style={styles.termsText}>
-              I agree to the{' '}
+              {t('auth.termsPrefix', 'I agree to the')}{' '}
               <Text
                 style={styles.termsLink}
                 onPress={() => navigation.navigate('Legal', { document: 'terms' })}
               >
-                Terms of Service
+                {t('legal.terms', 'Terms of Service')}
               </Text>
-              {' '}and the{' '}
+              {' '}{t('auth.termsAnd', 'and the')}{' '}
               <Text
                 style={styles.termsLink}
                 onPress={() => navigation.navigate('Legal', { document: 'privacy' })}
               >
-                Privacy Policy
+                {t('legal.privacy', 'Privacy Policy')}
               </Text>
               .
             </Text>
@@ -295,7 +300,7 @@ const RegisterScreen: React.FC = () => {
 
           {/* Language selection */}
           <View style={styles.prefSection}>
-            <Text style={styles.prefLabel}>App Language</Text>
+            <Text style={styles.prefLabel}>{t('registration.languageLabel', 'App Language')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.prefChips}>
                 {SUPPORTED_LANGUAGES.map((lang) => (
@@ -316,7 +321,7 @@ const RegisterScreen: React.FC = () => {
 
           {/* Currency selection */}
           <View style={styles.prefSection}>
-            <Text style={styles.prefLabel}>Preferred Currency</Text>
+            <Text style={styles.prefLabel}>{t('registration.currencyLabel', 'Preferred Currency')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.prefChips}>
                 {CURRENCY_OPTIONS.map((cur) => (
@@ -336,7 +341,7 @@ const RegisterScreen: React.FC = () => {
           </View>
 
           <Button
-            title={isSubmitting ? 'Creating Account...' : 'Create Account'}
+            title={isSubmitting ? t('auth.creatingAccount', 'Creating Account...') : t('auth.register', 'Create Account')}
             onPress={handleSubmit(onSubmit)}
             loading={isSubmitting}
             disabled={isSubmitting}
@@ -345,13 +350,13 @@ const RegisterScreen: React.FC = () => {
           />
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Already have an account? </Text>
+            <Text style={styles.footerText}>{t('auth.haveAccount', 'Already have an account?')} </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate('Login')}
               disabled={isSubmitting}
               activeOpacity={0.8}
             >
-              <Text style={styles.footerLink}>Sign In</Text>
+              <Text style={styles.footerLink}>{t('auth.signIn', 'Sign In')}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

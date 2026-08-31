@@ -3,7 +3,7 @@
  * Implements form validation with react-hook-form and yup
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -29,22 +29,29 @@ import theme from '@/constants/theme';
 type LoginScreenProps = StackScreenProps<AuthStackParamList, 'Login'>;
 
 // Validation Schema
-const loginSchema = yup.object({
+//
+// Built from the translator rather than at module load, so the message a user
+// sees when their email is malformed is in the language they are reading.
+type Translate = (key: string, fallback: string) => string;
+
+const buildLoginSchema = (t: Translate) => yup.object({
   email: yup
     .string()
-    .email('Please enter a valid email address')
-    .required('Email is required')
-    .max(255, 'Email must be less than 255 characters'),
+    .email(t('auth.emailInvalidLong', 'Please enter a valid email address'))
+    .required(t('auth.emailRequired', 'Email is required'))
+    .max(255, t('auth.emailTooLong', 'Email must be less than 255 characters')),
   password: yup
     .string()
-    .required('Password is required')
+    .required(t('auth.passwordRequired', 'Password is required'))
     // Sign-in deliberately does not apply the strength policy: the server does not
     // either, and an existing password may predate a policy change.
-    .max(128, 'Password must be less than 128 characters'),
+    .max(128, t('auth.passwordTooLong', 'Password must be less than 128 characters')),
 });
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const { state, login, clearError } = useAuth();
+  const { t } = useTranslation();
+  const loginSchema = useMemo(() => buildLoginSchema(t), [t]);
 
   // Form setup with react-hook-form
   const {
@@ -76,7 +83,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
   // Handle form submission
   const [failedEmail, setFailedEmail] = useState<string | null>(null);
-  const { t } = useTranslation();
 
   const onSubmit = async (data: ILoginForm): Promise<void> => {
     try {
@@ -134,9 +140,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.title}>{t('auth.welcomeBack', 'Welcome Back')}</Text>
           <Text style={styles.subtitle}>
-            Sign in to continue scanning and discovering products
+            {t('auth.loginSubtitle', 'Sign in to continue scanning and discovering products')}
           </Text>
         </View>
 
@@ -148,10 +154,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             name="email"
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Email Address"
+                label={t('auth.emailLabel', 'Email Address')}
                 value={value}
                 onChangeText={onChange}
-                placeholder="Enter your email"
+                placeholder={t('auth.emailPlaceholder', 'Enter your email')}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 error={errors.email?.message}
@@ -167,10 +173,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             name="password"
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Password"
+                label={t('auth.password', 'Password')}
                 value={value}
                 onChangeText={onChange}
-                placeholder="Enter your password"
+                placeholder={t('auth.passwordPlaceholder', 'Enter your password')}
                 secureTextEntry
                 error={errors.password?.message}
                 required
@@ -199,12 +205,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             onPress={handleNavigateToForgotPassword}
             disabled={state.isLoading}
           >
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            <Text style={styles.forgotPasswordText}>{t('auth.forgotPassword', 'Forgot password?')}</Text>
           </TouchableOpacity>
 
           {/* Login Button */}
           <Button
-            title="Sign In"
+            title={t('auth.signIn', 'Sign In')}
             onPress={handleSubmit(onSubmit)}
             loading={state.isLoading}
             disabled={state.isLoading}
@@ -216,12 +222,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Don't have an account?</Text>
+          <Text style={styles.footerText}>{t('auth.noAccount', "Don't have an account?")}</Text>
           <TouchableOpacity
             onPress={handleNavigateToRegister}
             disabled={state.isLoading}
           >
-            <Text style={styles.footerLinkText}>Sign Up</Text>
+            <Text style={styles.footerLinkText}>{t('auth.signUp', 'Sign Up')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

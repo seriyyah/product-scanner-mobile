@@ -145,7 +145,7 @@ const ScanResultScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.researchingContainer}>
           <Ionicons name="search-circle-outline" size={80} color={theme.colors.primary} />
-          <Text style={styles.researchingTitle}>Product Not in Our Database</Text>
+          <Text style={styles.researchingTitle}>{t('product.notInDatabase', 'Product Not in Our Database')}</Text>
           <Text style={styles.researchingText}>
             {scanResult.message ??
               "We don't recognise this barcode. We're checking our sources — if found, it will appear in your history within a minute."}
@@ -349,8 +349,8 @@ const ScanResultScreen: React.FC = () => {
         <TouchableOpacity style={styles.upgradeTeaser} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
           <Ionicons name="lock-closed" size={20} color={theme.colors.primary} />
           <View style={styles.teaserText}>
-            <Text style={styles.teaserTitle}>Upgrade to AI Premium</Text>
-            <Text style={styles.teaserSub}>Real prices from Czech shops + web search, all in one place</Text>
+            <Text style={styles.teaserTitle}>{t('subscription.upgradeToAiPremium', 'Upgrade to AI Premium')}</Text>
+            <Text style={styles.teaserSub}>{t('subscription.aiPremiumTeaser', 'Real prices from local shops and the web, all in one place')}</Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
         </TouchableOpacity>
@@ -394,7 +394,7 @@ const ScanResultScreen: React.FC = () => {
                   style={styles.searchResultRow}
                   onPress={() => {
                     behaviorRepository.track(barcode, 'click_search', { url: r.url, title: r.title });
-                    Linking.openURL(r.url).catch(() => Alert.alert('Error', 'Could not open link'));
+                    Linking.openURL(r.url).catch(() => Alert.alert(t('common.error', 'Error'), t('product.linkFailed', 'Could not open link')));
                   }}
                   activeOpacity={0.8}
                 >
@@ -606,7 +606,7 @@ const ScanResultScreen: React.FC = () => {
         {/* Product Images */}
         {(product.images ?? []).length > 0 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Product Images</Text>
+            <Text style={styles.cardTitle}>{t('product.images', 'Product Images')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {(product.images ?? []).map((uri, i) => (
                 <Image key={i} source={{ uri }} style={styles.productImage} resizeMode="cover" />
@@ -618,7 +618,7 @@ const ScanResultScreen: React.FC = () => {
         {/* Scan Another */}
         <TouchableOpacity style={styles.scanAnotherButton} onPress={() => navigation.navigate('MainTabs', { screen: 'Scanner' })} activeOpacity={0.8}>
           <Ionicons name="scan" size={20} color={theme.colors.text} />
-          <Text style={styles.scanAnotherText}>Scan Another</Text>
+          <Text style={styles.scanAnotherText}>{t('product.scanAnother', 'Scan Another')}</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

@@ -7,6 +7,7 @@ import type { RouteProp } from '@react-navigation/native';
 import { theme } from '@/constants/theme';
 import {
   ATTRIBUTIONS,
+  LEGAL_CONTACT_EMAIL,
   LEGAL_LAST_UPDATED,
   PRIVACY_POLICY,
   TERMS_OF_SERVICE,
@@ -20,10 +21,29 @@ type LegalRoute = RouteProp<
   'Legal'
 >;
 
+// English is the source of truth and lives in constants/legal.ts; the other
+// languages live under `legalDocs` in their locale file. A translation is used
+// only when it is actually there and structurally intact — a half-translated or
+// malformed document falls back to English rather than rendering a legal notice
+// with holes in it, which is the one failure mode worse than English text.
 const DOCUMENTS: Record<string, LegalDocument> = {
   privacy: PRIVACY_POLICY,
   terms: TERMS_OF_SERVICE,
   attributions: ATTRIBUTIONS,
+};
+
+const isLegalDocument = (value: unknown): value is LegalDocument => {
+  const doc = value as LegalDocument | undefined;
+  return (
+    !!doc &&
+    typeof doc.title === 'string' &&
+    typeof doc.intro === 'string' &&
+    Array.isArray(doc.sections) &&
+    doc.sections.length > 0 &&
+    doc.sections.every(
+      (s) => typeof s?.heading === 'string' && Array.isArray(s?.body) && s.body.length > 0,
+    )
+  );
 };
 
 interface Props {
@@ -39,7 +59,21 @@ interface Props {
  */
 export const LegalScreen: React.FC<Props> = ({ route }) => {
   const { t } = useTranslation();
-  const document = DOCUMENTS[route.params?.document] ?? PRIVACY_POLICY;
+  const key = route.params?.document ?? 'privacy';
+  const fallback = DOCUMENTS[key] ?? PRIVACY_POLICY;
+  const translated = t(`legalDocs.${key}`, { returnObjects: true, defaultValue: '' });
+  const chosen = isLegalDocument(translated) ? translated : fallback;
+
+  // Translations carry {{email}} rather than the address itself, so changing
+  // LEGAL_CONTACT_EMAIL does not silently leave twenty locale files pointing at
+  // an address that no longer exists.
+  const document: LegalDocument = {
+    ...chosen,
+    sections: chosen.sections.map((section) => ({
+      ...section,
+      body: section.body.map((line) => line.replace(/{{email}}/g, LEGAL_CONTACT_EMAIL)),
+    })),
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>

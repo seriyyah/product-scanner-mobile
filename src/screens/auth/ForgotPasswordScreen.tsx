@@ -8,6 +8,7 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +18,7 @@ import Button from '@/components/common/Button';
 import { authRepository } from '@/services/apiService';
 
 const ForgotPasswordScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -59,12 +61,12 @@ const ForgotPasswordScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.successContainer}>
           <Ionicons name="mail" size={64} color={theme.colors.primary} />
-          <Text style={styles.successTitle}>Check your email</Text>
+          <Text style={styles.successTitle}>{t('auth.checkEmailTitle', 'Check your email')}</Text>
           <Text style={styles.successText}>
-            If that email address exists in our system, we sent a password reset link.
+            {t('auth.resetLinkSent', 'If that email address exists in our system, we sent a password reset link.')}
           </Text>
           <Button
-            title="Back to Sign In"
+            title={t('auth.backToSignIn', 'Back to Sign In')}
             onPress={() => navigation.navigate('Login')}
             variant="primary"
             size="large"
@@ -91,26 +93,26 @@ const ForgotPasswordScreen: React.FC = () => {
             activeOpacity={0.8}
           >
             <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
-            <Text style={styles.backText}>Back</Text>
+            <Text style={styles.backText}>{t('common.back', 'Back')}</Text>
           </TouchableOpacity>
 
           <View style={styles.header}>
             <Ionicons name="lock-closed" size={48} color={theme.colors.primary} />
-            <Text style={styles.title}>Reset Password</Text>
+            <Text style={styles.title}>{t('auth.resetPasswordTitle', 'Reset Password')}</Text>
             <Text style={styles.subtitle}>
-              Enter your email address and we'll send you a reset link.
+              {t('auth.resetPasswordBody', "Enter your email address and we'll send you a reset link.")}
             </Text>
           </View>
 
           <TextInput
-            label="Email Address"
+            label={t('auth.emailLabel', 'Email Address')}
             value={email}
             onChangeText={(text) => {
               setEmail(text);
               setApiError('');
               if (emailError) validateEmail(text);
             }}
-            placeholder="Enter your email"
+            placeholder={t('auth.emailPlaceholder', 'Enter your email')}
             keyboardType="email-address"
             autoCapitalize="none"
             error={emailError || apiError}
@@ -119,7 +121,7 @@ const ForgotPasswordScreen: React.FC = () => {
           />
 
           <Button
-            title={isLoading ? 'Sending...' : 'Send Reset Link'}
+            title={isLoading ? t('auth.sending', 'Sending...') : t('auth.sendResetLink', 'Send Reset Link')}
             onPress={handleSubmit}
             loading={isLoading}
             disabled={isLoading}

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,34 +20,35 @@ import { preferencesRepository, UserPreferences } from '@/services/apiService';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
 
 const DIETARY_OPTIONS = [
-  { key: 'vegan', label: 'Vegan' },
-  { key: 'vegetarian', label: 'Vegetarian' },
-  { key: 'gluten-free', label: 'Gluten-free' },
-  { key: 'halal', label: 'Halal' },
-  { key: 'kosher', label: 'Kosher' },
-  { key: 'lactose-free', label: 'Lactose-free' },
-  { key: 'nut-free', label: 'Nut-free' },
-  { key: 'low-sugar', label: 'Low sugar' },
+  { key: 'vegan', i18n: 'dietary.vegan', label: 'Vegan' },
+  { key: 'vegetarian', i18n: 'dietary.vegetarian', label: 'Vegetarian' },
+  { key: 'gluten-free', i18n: 'dietary.glutenFree', label: 'Gluten-free' },
+  { key: 'halal', i18n: 'dietary.halal', label: 'Halal' },
+  { key: 'kosher', i18n: 'dietary.kosher', label: 'Kosher' },
+  { key: 'lactose-free', i18n: 'dietary.lactoseFree', label: 'Lactose-free' },
+  { key: 'nut-free', i18n: 'dietary.nutFree', label: 'Nut-free' },
+  { key: 'low-sugar', i18n: 'dietary.lowSugar', label: 'Low sugar' },
 ];
 
 const ALLERGEN_OPTIONS = [
-  { key: 'milk', label: 'Milk' },
-  { key: 'eggs', label: 'Eggs' },
-  { key: 'fish', label: 'Fish' },
-  { key: 'shellfish', label: 'Shellfish' },
-  { key: 'tree-nuts', label: 'Tree nuts' },
-  { key: 'peanuts', label: 'Peanuts' },
-  { key: 'wheat', label: 'Wheat' },
-  { key: 'soy', label: 'Soy' },
-  { key: 'sesame', label: 'Sesame' },
-  { key: 'celery', label: 'Celery' },
-  { key: 'mustard', label: 'Mustard' },
-  { key: 'sulphites', label: 'Sulphites' },
+  { key: 'milk', i18n: 'allergenOption.milk', label: 'Milk' },
+  { key: 'eggs', i18n: 'allergenOption.eggs', label: 'Eggs' },
+  { key: 'fish', i18n: 'allergenOption.fish', label: 'Fish' },
+  { key: 'shellfish', i18n: 'allergenOption.shellfish', label: 'Shellfish' },
+  { key: 'tree-nuts', i18n: 'allergenOption.treeNuts', label: 'Tree nuts' },
+  { key: 'peanuts', i18n: 'allergenOption.peanuts', label: 'Peanuts' },
+  { key: 'wheat', i18n: 'allergenOption.wheat', label: 'Wheat' },
+  { key: 'soy', i18n: 'allergenOption.soy', label: 'Soy' },
+  { key: 'sesame', i18n: 'allergenOption.sesame', label: 'Sesame' },
+  { key: 'celery', i18n: 'allergenOption.celery', label: 'Celery' },
+  { key: 'mustard', i18n: 'allergenOption.mustard', label: 'Mustard' },
+  { key: 'sulphites', i18n: 'allergenOption.sulphites', label: 'Sulphites' },
 ];
 
 const CURRENCY_OPTIONS = ['CZK', 'EUR', 'USD', 'GBP', 'PLN', 'HUF', 'RON', 'SEK', 'DKK', 'NOK', 'CHF'];
 
 const PreferencesScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const { state } = useAuth();
   const { setLanguage } = useApp();
@@ -64,7 +66,7 @@ const PreferencesScreen: React.FC = () => {
       const data = await preferencesRepository.get(userId);
       setPrefs(data);
     } catch {
-      Alert.alert('Error', 'Failed to load preferences');
+      Alert.alert(t('common.error', 'Error'), t('preferences.loadFailed', 'Failed to load preferences'));
     } finally {
       setIsLoading(false);
     }
@@ -92,9 +94,9 @@ const PreferencesScreen: React.FC = () => {
       setPrefs(updated);
       setIsDirty(false);
       if (prefs.language) setLanguage(prefs.language);
-      Alert.alert('Saved', 'Your preferences have been updated.');
+      Alert.alert(t('preferences.saved', 'Saved'), t('preferences.savedBody', 'Your preferences have been updated.'));
     } catch {
-      Alert.alert('Error', 'Failed to save preferences. Please try again.');
+      Alert.alert(t('common.error', 'Error'), t('preferences.saveFailed', 'Failed to save preferences. Please try again.'));
     } finally {
       setIsSaving(false);
     }
@@ -116,7 +118,7 @@ const PreferencesScreen: React.FC = () => {
         <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={styles.navBtn}>
           <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
         </TouchableOpacity>
-        <Text style={styles.navTitle}>Preferences</Text>
+        <Text style={styles.navTitle}>{t('preferences.title', 'Preferences')}</Text>
         <TouchableOpacity
           onPress={save}
           activeOpacity={0.8}
@@ -125,7 +127,7 @@ const PreferencesScreen: React.FC = () => {
         >
           {isSaving
             ? <ActivityIndicator size="small" color={theme.colors.primary} />
-            : <Text style={[styles.saveText, !isDirty && styles.saveTextDim]}>Save</Text>}
+            : <Text style={[styles.saveText, !isDirty && styles.saveTextDim]}>{t('common.save', 'Save')}</Text>}
         </TouchableOpacity>
       </View>
 
@@ -133,8 +135,8 @@ const PreferencesScreen: React.FC = () => {
 
         {/* Dietary restrictions */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Dietary Restrictions</Text>
-          <Text style={styles.sectionSub}>Used to personalise safety ratings and AI recommendations</Text>
+          <Text style={styles.sectionTitle}>{t('preferences.dietary', 'Dietary Restrictions')}</Text>
+          <Text style={styles.sectionSub}>{t('preferences.dietarySub', 'Used to personalise safety ratings and AI recommendations')}</Text>
           <View style={styles.chips}>
             {DIETARY_OPTIONS.map((opt) => {
               const active = prefs.dietary_restrictions.includes(opt.key);
@@ -145,7 +147,7 @@ const PreferencesScreen: React.FC = () => {
                   onPress={() => toggleChip('dietary_restrictions', opt.key)}
                   activeOpacity={0.7}
                 >
-                  <Text style={[styles.chipText, active && styles.chipTextActive]}>{opt.label}</Text>
+                  <Text style={[styles.chipText, active && styles.chipTextActive]}>{t(opt.i18n, opt.label)}</Text>
                 </TouchableOpacity>
               );
             })}
@@ -154,8 +156,8 @@ const PreferencesScreen: React.FC = () => {
 
         {/* Allergens */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Allergens to Avoid</Text>
-          <Text style={styles.sectionSub}>Products containing these will be flagged with a warning</Text>
+          <Text style={styles.sectionTitle}>{t('preferences.allergensTitle', 'Allergens to Avoid')}</Text>
+          <Text style={styles.sectionSub}>{t('preferences.allergensSub', 'Products containing these will be flagged with a warning')}</Text>
           <View style={styles.chips}>
             {ALLERGEN_OPTIONS.map((opt) => {
               const active = prefs.allergens.includes(opt.key);
@@ -167,7 +169,7 @@ const PreferencesScreen: React.FC = () => {
                   activeOpacity={0.7}
                 >
                   {active && <Ionicons name="warning" size={12} color="#fff" />}
-                  <Text style={[styles.chipText, active && styles.chipTextActive]}>{opt.label}</Text>
+                  <Text style={[styles.chipText, active && styles.chipTextActive]}>{t(opt.i18n, opt.label)}</Text>
                 </TouchableOpacity>
               );
             })}
@@ -176,10 +178,10 @@ const PreferencesScreen: React.FC = () => {
 
         {/* App settings */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>App Settings</Text>
+          <Text style={styles.sectionTitle}>{t('preferences.appSettings', 'App Settings')}</Text>
 
           <View style={styles.colRow}>
-            <Text style={styles.rowLabel}>Language</Text>
+            <Text style={styles.rowLabel}>{t('preferences.language', 'Language')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
               <View style={styles.chipsRow}>
                 {SUPPORTED_LANGUAGES.map((lang) => (
@@ -199,7 +201,7 @@ const PreferencesScreen: React.FC = () => {
           </View>
 
           <View style={styles.colRow}>
-            <Text style={styles.rowLabel}>Currency</Text>
+            <Text style={styles.rowLabel}>{t('preferences.currency', 'Currency')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
               <View style={styles.chipsRow}>
                 {CURRENCY_OPTIONS.map((cur) => (
@@ -221,7 +223,7 @@ const PreferencesScreen: React.FC = () => {
 
         {/* Privacy */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Privacy</Text>
+          <Text style={styles.sectionTitle}>{t('preferences.privacy', 'Privacy')}</Text>
 
           {/* Two switches, not one. Consent has to be specific: "help improve
               the app" and "be counted in figures we sell" are different
@@ -229,9 +231,9 @@ const PreferencesScreen: React.FC = () => {
               mismatch Apple rejects under Guideline 5.1.2. */}
           <View style={styles.row}>
             <View style={styles.rowLabelCol}>
-              <Text style={styles.rowLabel}>Analytics</Text>
+              <Text style={styles.rowLabel}>{t('preferences.analytics', 'Analytics')}</Text>
               <Text style={styles.rowSub}>
-                Help us improve the app. Stays with us and is never shared.
+                {t('preferences.analyticsSub', 'Help us improve the app. Stays with us and is never shared.')}
               </Text>
             </View>
             <Switch
@@ -244,10 +246,9 @@ const PreferencesScreen: React.FC = () => {
 
           <View style={styles.row}>
             <View style={styles.rowLabelCol}>
-              <Text style={styles.rowLabel}>Personalised recommendations</Text>
+              <Text style={styles.rowLabel}>{t('preferences.personalisation', 'Personalised recommendations')}</Text>
               <Text style={styles.rowSub}>
-                Use my scan history to learn what I buy, so the app can suggest
-                better alternatives for me. Stays with us and is never sold.
+                {t('preferences.personalisationSub', 'Use my scan history to learn what I buy, so the app can suggest better alternatives for me. Stays with us and is never sold.')}
               </Text>
             </View>
             <Switch
@@ -260,8 +261,8 @@ const PreferencesScreen: React.FC = () => {
 
           <View style={styles.row}>
             <View style={styles.rowLabelCol}>
-              <Text style={styles.rowLabel}>Marketing</Text>
-              <Text style={styles.rowSub}>Receive personalised offers and news</Text>
+              <Text style={styles.rowLabel}>{t('preferences.marketing', 'Marketing')}</Text>
+              <Text style={styles.rowSub}>{t('preferences.marketingSub', 'Receive personalised offers and news')}</Text>
             </View>
             <Switch
               value={prefs.privacy_marketing}

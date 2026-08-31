@@ -18,7 +18,9 @@
     "allow": "Toestaan",
     "deny": "Weigeren",
     "unknown": "Onbekend",
-    "goBack": "Terug"
+    "goBack": "Terug",
+    "continue": "Doorgaan",
+    "success": "Gelukt"
   },
   "auth": {
     "login": "Inloggen",
@@ -51,7 +53,51 @@
     "ruleLength": "Minstens 12 tekens",
     "ruleLowercase": "Een kleine letter",
     "ruleSpecial": "Een speciaal teken (!@#$…)",
-    "ruleUppercase": "Een hoofdletter"
+    "ruleUppercase": "Een hoofdletter",
+    "welcomeBack": "Welkom terug",
+    "loginSubtitle": "Log in om verder producten te scannen",
+    "emailLabel": "E-mailadres",
+    "emailPlaceholder": "Voer je e-mailadres in",
+    "passwordPlaceholder": "Voer je wachtwoord in",
+    "signIn": "Inloggen",
+    "signUp": "Registreren",
+    "emailInvalidLong": "Voer een geldig e-mailadres in",
+    "emailRequired": "E-mailadres is verplicht",
+    "emailTooLong": "Het e-mailadres moet korter zijn dan 255 tekens",
+    "passwordRequired": "Wachtwoord is verplicht",
+    "passwordTooLong": "Het wachtwoord moet korter zijn dan 128 tekens",
+    "checkEmailTitle": "Controleer je e-mail",
+    "resetLinkSent": "Als dit e-mailadres in ons systeem bestaat, hebben we er een link gestuurd om het wachtwoord opnieuw in te stellen.",
+    "backToSignIn": "Terug naar inloggen",
+    "resetPasswordTitle": "Wachtwoord opnieuw instellen",
+    "resetPasswordBody": "Voer je e-mailadres in en we sturen je een link om het opnieuw in te stellen.",
+    "sending": "Versturen...",
+    "sendResetLink": "Link versturen",
+    "passwordResetDone": "Wachtwoord opnieuw ingesteld!",
+    "passwordResetDoneBody": "Je wachtwoord is bijgewerkt. Log in met je nieuwe wachtwoord.",
+    "newPassword": "Nieuw wachtwoord",
+    "newPasswordBody": "Kies een sterk wachtwoord voor je account.",
+    "passwordPlaceholderMin": "Minstens 8 tekens",
+    "confirmPasswordPlaceholder": "Voer het wachtwoord opnieuw in",
+    "resetting": "Bezig met instellen…",
+    "setNewPassword": "Nieuw wachtwoord instellen",
+    "verifyingEmail": "Je e-mailadres wordt geverifieerd…",
+    "goToSignIn": "Naar inloggen",
+    "registerCheckEmail": "Controleer je e-mail!",
+    "registerCheckEmailBody": "We hebben een verificatielink naar je e-mailadres gestuurd. Verifieer je account om verder te gaan.",
+    "registerSubtitle": "Word vandaag lid van Product Scanner",
+    "firstNamePlaceholder": "Jan",
+    "lastNamePlaceholder": "Jansen",
+    "emailExample": "jan@example.com",
+    "passwordPlaceholder12": "Minstens 12 tekens",
+    "firstNameRequired": "Voornaam is verplicht",
+    "lastNameRequired": "Achternaam is verplicht",
+    "passwordPolicy": "Het wachtwoord voldoet niet aan alle eisen",
+    "confirmPasswordRequired": "Bevestig je wachtwoord",
+    "termsPrefix": "Ik ga akkoord met de",
+    "termsAnd": "en het",
+    "creatingAccount": "Account aanmaken...",
+    "registrationFailed": "Registratie mislukt"
   },
   "onboarding": {
     "locationTitle": "Locatie toestaan",
@@ -77,7 +123,10 @@
     "recentScans": "Recente scans",
     "noHistory": "Geen recente scans",
     "scanNow": "Scan een product om te beginnen",
-    "safetyTip": "Scan een barcode voor een veiligheidsbeoordeling"
+    "safetyTip": "Scan een barcode voor een veiligheidsbeoordeling",
+    "subtitle": "Wat wil je vandaag scannen?",
+    "viewAll": "Alles bekijken",
+    "noHistoryBody": "Tik op ‘Product scannen’ om te beginnen"
   },
   "scanner": {
     "title": "Scanner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "U heeft alle 20 gratis scans voor dit uur gebruikt.",
     "watchAd": "Video bekijken voor 5 extra scans",
     "upgradePremium": "Upgraden naar Premium",
-    "scansRemaining": "Nog {{count}} scans dit uur"
+    "scansRemaining": "Nog {{count}} scans dit uur",
+    "scanAProduct": "Een product scannen",
+    "enterBarcodeFromPack": "Voer het streepjescodenummer van de verpakking in.",
+    "requestingPermission": "Toegang tot camera aanvragen...",
+    "permissionDeniedTitle": "Cameratoegang vereist",
+    "permissionDeniedBody": "Geef toegang tot de camera om streepjescodes te scannen, of voer ze hieronder handmatig in.",
+    "typeBarcode": "Typ het streepjescodenummer van het product.",
+    "useCamera": "Camera gebruiken",
+    "enterManually": "Handmatig invoeren",
+    "scanAgain": "Opnieuw scannen",
+    "pointCameraShort": "Richt de camera op de streepjescode",
+    "enterBarcodePlaceholder": "Voer het streepjescodenummer in…",
+    "watchVideo": "Video bekijken (+5 scans)"
   },
   "product": {
     "loading": "Product laden...",
@@ -147,7 +208,14 @@
     "scanResult": "Scanresultaat",
     "notRated": "Niet beoordeeld",
     "notRatedBody": "Te weinig informatie over dit product",
-    "alternativesPending": "Nog bezig met vergelijken. Het is zo klaar — kijk over een minuut in uw geschiedenis."
+    "alternativesPending": "Nog bezig met vergelijken. Het is zo klaar — kijk over een minuut in uw geschiedenis.",
+    "images": "Productafbeeldingen",
+    "linkFailed": "Link kon niet worden geopend",
+    "notInDatabase": "Product niet in onze database",
+    "recommendationsUnavailable": "Aanbevelingen niet beschikbaar.",
+    "sharingSoon": "Delen komt binnenkort!",
+    "notRatedResearching": "We hebben nog niet genoeg informatie — we zoeken het op. Kom zo nog eens terug.",
+    "notRatedUnsupported": "Dit soort product beoordelen we nog niet"
   },
   "history": {
     "title": "Scangeschiedenis",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} scans gebruikt dit uur",
-    "unlimitedScans": "Onbeperkte scans"
+    "unlimitedScans": "Onbeperkte scans",
+    "phone": "Telefoon",
+    "phoneNumber": "Telefoonnummer",
+    "phonePlaceholder": "+31123456789",
+    "bio": "Over mij",
+    "bioPlaceholder": "Vertel iets over jezelf",
+    "memberSince": "Lid sinds",
+    "dietaryAllergens": "Dieet en allergenen",
+    "dietaryAllergensSub": "Personaliseer beoordelingen en aanbevelingen",
+    "adminFullAccess": "Beheerder — volledige toegang",
+    "logout": "Uitloggen",
+    "logoutConfirm": "Weet je zeker dat je wilt uitloggen?",
+    "loadFailed": "Profiel kon niet worden geladen",
+    "updateSuccess": "Profiel bijgewerkt",
+    "updateFailed": "Profiel kon niet worden bijgewerkt"
   },
   "preferences": {
     "title": "Voorkeuren",
@@ -181,7 +263,20 @@
     "privacy": "Privacy",
     "analyticsConsent": "Analyse",
     "marketingConsent": "Marketing-e-mails",
-    "saved": "Voorkeuren opgeslagen"
+    "saved": "Voorkeuren opgeslagen",
+    "dietarySub": "Wordt gebruikt om veiligheidsbeoordelingen en aanbevelingen te personaliseren",
+    "allergensTitle": "Te vermijden allergenen",
+    "allergensSub": "Producten die deze bevatten worden gemarkeerd met een waarschuwing",
+    "appSettings": "App-instellingen",
+    "analytics": "Analyse",
+    "analyticsSub": "Help ons de app te verbeteren. De gegevens blijven bij ons en worden nooit gedeeld.",
+    "personalisation": "Gepersonaliseerde aanbevelingen",
+    "personalisationSub": "Gebruik mijn scangeschiedenis om te leren wat ik koop, zodat de app betere alternatieven kan voorstellen. De gegevens blijven bij ons en worden nooit verkocht.",
+    "marketing": "Marketing",
+    "marketingSub": "Gepersonaliseerde aanbiedingen en nieuws ontvangen",
+    "savedBody": "Je voorkeuren zijn opgeslagen.",
+    "loadFailed": "Voorkeuren konden niet worden geladen",
+    "saveFailed": "Voorkeuren konden niet worden opgeslagen. Probeer het opnieuw."
   },
   "subscription": {
     "title": "Upgraden",
@@ -214,7 +309,13 @@
     "restoreDone": "Eerdere aankopen zijn hersteld.",
     "restoreTitle": "Aankopen herstellen",
     "restoreUnavailable": "Aankopen herstellen is nog niet beschikbaar.",
-    "storeBillingNotice": "Abonnementen worden gefactureerd via de App Store of Google Play. Beheer of annuleer altijd in uw store-account."
+    "storeBillingNotice": "Abonnementen worden gefactureerd via de App Store of Google Play. Beheer of annuleer altijd in uw store-account.",
+    "adminAccount": "Beheerdersaccount",
+    "adminSubtitle": "Volledige toegang — geen abonnement nodig",
+    "unlockFull": "Haal alles uit ProductScanner",
+    "upgradeToPremium": "Upgraden naar Premium",
+    "upgradeToAiPremium": "Upgraden naar AI Premium",
+    "aiPremiumTeaser": "Echte prijzen uit lokale winkels en van het web, alles op één plek"
   },
   "grades": {
     "A": "Uitstekend",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "zwaveldioxide en sulfieten",
     "lupin": "lupine",
     "molluscs": "weekdieren"
+  },
+  "nutrition": {
+    "energy": "Energie",
+    "fat": "Vet",
+    "carbohydrates": "Koolhydraten",
+    "sugars": "Suikers",
+    "fiber": "Vezels",
+    "proteins": "Eiwitten",
+    "salt": "Zout"
+  },
+  "video": {
+    "title": "Kijken en verdienen",
+    "loadingAd": "Je video wordt geladen…",
+    "watchToEarn": "Bekijk de hele video en verdien 5 extra scans voor dit uur.",
+    "claiming": "Je beloning wordt toegekend…",
+    "granted": "+5 scans toegekend!",
+    "grantedBody": "Je hebt 5 extra scans voor dit uur.",
+    "grantedUpgrade": "Upgrade naar Premium voor onbeperkt scannen zonder advertenties.",
+    "alreadyClaimed": "Al ontvangen",
+    "alreadyClaimedBody": "Je hebt dit uur al extra scans gekregen.",
+    "alreadyClaimedUpgrade": "Kom later terug of upgrade naar Premium.",
+    "backToScanner": "Terug naar scanner",
+    "upgradeUnlimited": "Onbeperkt met Premium",
+    "notCompleted": "Video niet voltooid",
+    "notCompletedBody": "Bekijk de hele video en verdien 5 extra scans.",
+    "claimFailed": "De beloning kon niet worden toegekend. Probeer het opnieuw."
+  },
+  "account": {
+    "delete": "Account verwijderen",
+    "deleteHint": "Verwijdert je account, scangeschiedenis en voorkeuren permanent. Dit kan niet ongedaan worden gemaakt.",
+    "deleteExplain": "Hiermee verwijderen we je account, je scangeschiedenis en je voorkeuren van onze servers. Dit kan niet ongedaan worden gemaakt.",
+    "deleteConfirmTitle": "Permanent verwijderen?",
+    "deleteConfirmBody": "Deze gegevens zijn op geen enkele manier terug te halen.",
+    "deleteConfirm": "Alles verwijderen",
+    "deletePartialTitle": "Gedeeltelijk verwijderd",
+    "deletePartialBody": "Sommige van je gegevens konden nog niet worden verwijderd. We hebben dit genoteerd en maken het af. Neem contact op als het aanhoudt.",
+    "deleteFailed": "Je account is niet verwijderd. Probeer het opnieuw."
+  },
+  "legal": {
+    "privacy": "Privacybeleid",
+    "privacySub": "Wat we bewaren en wat je daaraan kunt doen",
+    "terms": "Servicevoorwaarden",
+    "attributions": "Dankbetuigingen",
+    "attributionsSub": "De open data en open source waarop we bouwen",
+    "lastUpdated": "Laatst bijgewerkt"
+  },
+  "dietary": {
+    "vegan": "Veganistisch",
+    "vegetarian": "Vegetarisch",
+    "glutenFree": "Glutenvrij",
+    "halal": "Halal",
+    "kosher": "Koosjer",
+    "lactoseFree": "Lactosevrij",
+    "nutFree": "Notenvrij",
+    "lowSugar": "Suikerarm"
+  },
+  "allergenOption": {
+    "milk": "Melk",
+    "eggs": "Eieren",
+    "fish": "Vis",
+    "shellfish": "Schaaldieren",
+    "treeNuts": "Noten",
+    "peanuts": "Pinda's",
+    "wheat": "Tarwe",
+    "soy": "Soja",
+    "sesame": "Sesam",
+    "celery": "Selderij",
+    "mustard": "Mosterd",
+    "sulphites": "Sulfieten"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Privacybeleid",
+      "intro": "Hier leggen we uit wat we over je bewaren, waarom, en wat je eraan kunt doen. We hebben geprobeerd het in gewone taal te schrijven en niet in de taal van een document dat niemand leest.",
+      "sections": [
+        {
+          "heading": "Wat we bewaren",
+          "body": [
+            "Je e-mailadres en een cryptografische hash van je wachtwoord — nooit het wachtwoord zelf.",
+            "Je scangeschiedenis: de streepjescodes die je hebt gescand en wanneer.",
+            "Je voedingsvoorkeuren en opgegeven allergenen, als je die wilt invullen.",
+            "Je abonnementsniveau en een apparaattoken als je meldingen inschakelt.",
+            "Optioneel, en alleen als je ze invult: je voor- en achternaam, telefoonnummer, geboortedatum, een korte beschrijving en een profielfoto. Niets daarvan is verplicht, de app werkt er ook zonder, en je kunt ze op elk moment wissen in Profiel.",
+            "We vragen niet om je adres of betaalgegevens, en we zien je kaart nooit."
+          ]
+        },
+        {
+          "heading": "Waarom we het bewaren",
+          "body": [
+            "Om je de dienst te leveren waarvoor je je hebt aangemeld: producten scannen, je geschiedenis bewaren en producten beoordelen voor jou in plaats van voor iedereen.",
+            "Allergenen en dieetbeperkingen zijn gezondheidsgegevens onder artikel 9 AVG. We vragen ernaar alleen zodat een beoordeling je kan waarschuwen voor iets dat je zou schaden; we vragen het apart en uitdrukkelijk voordat je het geeft, en je kunt die toestemming op elk moment intrekken in Voorkeuren.",
+            "Om betaling te ontvangen, wat Apple en Google afhandelen — we zien je kaart nooit."
+          ]
+        },
+        {
+          "heading": "Waar het staat",
+          "body": [
+            "Op servers in Frankfurt, Duitsland, binnen de Europese Unie. Je persoonsgegevens worden niet buiten de EU doorgegeven.",
+            "De AI die een beoordeling uitlegt, draait op diezelfde server. Het is geen dienst van een derde partij, en niets van wat je scant wordt naar zo'n dienst gestuurd."
+          ]
+        },
+        {
+          "heading": "Wie het verder ziet",
+          "body": [
+            "Apple en Google, voor abonnementsbetalingen, via RevenueCat. Zij zijn de verkopende partij.",
+            "Resend, dat de accountmails verstuurt — verificatie en wachtwoordherstel.",
+            "Verder niemand.",
+            "Wanneer we een product opzoeken, bevragen we openbaar beschikbare productgegevens met alleen de streepjescode. Die bronnen ontvangen niets over jou, je account of je apparaat."
+          ]
+        },
+        {
+          "heading": "Het model is van ons",
+          "body": [
+            "De veiligheidsbeoordeling, de ingrediëntenanalyse en de aanbevelingen komen van een taalmodel en een reeks algoritmen die we zelf hebben gebouwd. Ze draaien op onze eigen servers in Frankfurt.",
+            "Er zit geen externe AI-dienst in deze app. Niets van wat je scant wordt ernaartoe gestuurd, omdat er niets is om het naartoe te sturen.",
+            "Wat het model leert, leert het hier, uit onze eigen gegevens, om de app beter te maken voor de mensen die hem gebruiken. Dat geleerde wordt niet gedeeld en niemand anders traint erop.",
+            "Productopzoekingen worden gedaan door onze servers, nooit door je telefoon, dus er bereikt niets over je apparaat een externe bron."
+          ]
+        },
+        {
+          "heading": "Gepersonaliseerde aanbevelingen",
+          "body": [
+            "Als je Gepersonaliseerde aanbevelingen inschakelt in Voorkeuren, gebruiken we je scangeschiedenis om te leren wat je koopt en betere alternatieven voor te stellen — veiligere producten in de categorieën waarin je daadwerkelijk winkelt.",
+            "Dit bepaalt wat de app je aanbeveelt. Het wordt niet gebruikt om je advertenties te tonen, het wordt niet gedeeld en niet verkocht.",
+            "Het staat uit tenzij je het aanzet, en uitzetten stopt het. We vragen het apart omdat het een ander doel is dan de app laten werken, en omdat wat je scant iets over je gezondheid kan zeggen."
+          ]
+        },
+        {
+          "heading": "Wat we nooit doen",
+          "body": [
+            "We verkopen je persoonsgegevens niet. Niet je scangeschiedenis, niet je voorkeuren, niet aan datahandelaren en niet aan wie dan ook.",
+            "We volgen je niet over apps of websites van andere bedrijven, en we laten niemand je via ons volgen.",
+            "We tonen je geen advertenties op basis van wat je scant.",
+            "Er zit geen enkele analyse- of advertentiesoftware in deze app. Geen enkele SDK van derden kijkt mee met wat je erin doet.",
+            "De enige bedrijven die iets over je ontvangen zijn de twee die de dienst laten werken: degene die je accountmails bezorgt, en de stores die je betaling innen. Beide staan hierboven genoemd, beide handelen alleen op onze instructie, en geen van beide ontvangt je scangeschiedenis.",
+            "We kunnen geaggregeerde cijfers over producten publiceren — bijvoorbeeld hoe een categorie gemiddeld scoort. Dat zijn totalen waar geen persoon in zit, en geen cijfer dat op minder dan 20 scans berust wordt gepubliceerd."
+          ]
+        },
+        {
+          "heading": "Hoe lang we het bewaren",
+          "body": [
+            "Scangeschiedenis: 30 dagen in de gratis versie, 2 jaar in een betaalde versie, daarna automatisch verwijderd.",
+            "Je account en voorkeuren: totdat je je account verwijdert.",
+            "Betalingsgegevens: blijven na verwijdering bewaard, zonder jou eraan gekoppeld, omdat belastingwetgeving en de app stores dat vereisen."
+          ]
+        },
+        {
+          "heading": "Wat je kunt doen",
+          "body": [
+            "Alles inzien wat we over je bewaren en het als bestand meenemen — Profiel, daarna Mijn gegevens exporteren.",
+            "Je account en alles wat daarin persoonlijk is verwijderen, vanuit de app — Profiel, daarna Account verwijderen. Het gebeurt meteen en is onomkeerbaar.",
+            "Onjuistheden corrigeren, toestemming voor allergeengegevens intrekken of bezwaar maken tegen ons gebruik ervan.",
+            "Een klacht indienen bij je gegevensbeschermingsautoriteit. In Nederland is dat de Autoriteit Persoonsgegevens."
+          ]
+        },
+        {
+          "heading": "Kinderen",
+          "body": [
+            "De app is niet bedoeld voor kinderen onder de 16, en we bewaren niet bewust gegevens over hen."
+          ]
+        },
+        {
+          "heading": "Contact",
+          "body": [
+            "Schrijf naar {{email}} over alles wat in dit beleid staat."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Servicevoorwaarden",
+      "intro": "De overeenkomst tussen jou en ons. De korte versie: gebruik de app, misbruik hem niet, en beschouw een beoordeling niet als medisch advies.",
+      "sections": [
+        {
+          "heading": "Wat deze app doet",
+          "body": [
+            "Hij leest een streepjescode, zoekt het product op en beoordeelt de veiligheid ervan met ons eigen model.",
+            "Beoordelingen worden berekend uit gepubliceerde gegevens: voedings- en bewerkingsclassificaties, opgegeven ingrediënten en bewijs over specifieke stoffen. We laten zien wat elke beoordeling heeft bepaald."
+          ]
+        },
+        {
+          "heading": "Wat een beoordeling wel en niet is",
+          "body": [
+            "Het is onze inschatting op basis van de gegevens die we hebben. Het is geen medisch, diëtetisch of voedingsadvies, en het vervangt het lezen van het etiket niet.",
+            "Als je een allergie of aandoening hebt, is de verpakking in je hand doorslaggevend — niet wij. Recepturen veranderen, en openbare databases lopen daarop achter.",
+            "Waar we onvoldoende informatie hebben, zeggen we dat en tonen we geen cijfer, in plaats van te gokken."
+          ]
+        },
+        {
+          "heading": "Ons eigen model, en wat dat voor jou betekent",
+          "body": [
+            "De veiligheidsbeoordelingen worden gemaakt door een taalmodel en een reeks algoritmen die we zelf hebben geschreven en zelf draaien. Ze zijn van niemand in licentie genomen en deze app is geen schil om de dienst van iemand anders.",
+            "Alles wat je gegevens leest, draait op onze eigen servers. Er is geen externe AI-dienst bij betrokken, dus niets van wat je scant wordt ernaartoe gestuurd.",
+            "Wat we leren uit het gebruik van de app gebruiken we om hem beter en betrouwbaarder te maken en om de suggesties te verbeteren. Dat gebeurt hier, op onze eigen infrastructuur.",
+            "Het model blijft van ons. We delen het niet, we geven het niet in licentie, en niemand anders traint op wat jij scant.",
+            "We verkopen je persoonsgegevens niet, we delen ze niet met adverteerders of datahandelaren, en we volgen je niet over andere apps of websites."
+          ]
+        },
+        {
+          "heading": "Waar de gegevens vandaan komen",
+          "body": [
+            "Uit openbaar beschikbare productgegevens, uit ons eigen onderzoek en uit wat we uit beide afleiden. Een deel komt uit door de gemeenschap onderhouden databases onder de Open Database License, die we vermelden bij Dankbetuigingen.",
+            "We kunnen ernaast zitten omdat een bron ernaast zit. Vind je een fout, laat het ons weten en we herstellen hem."
+          ]
+        },
+        {
+          "heading": "Je account",
+          "body": [
+            "Eén account per persoon. Houd je wachtwoord voor jezelf.",
+            "Gebruik geen geautomatiseerde hulpmiddelen om de dienst leeg te trekken, en probeer hem niet te overbelasten.",
+            "Je kunt je account op elk moment vanuit de app verwijderen."
+          ]
+        },
+        {
+          "heading": "Abonnementen",
+          "body": [
+            "Betaalde versies worden verkocht via de App Store en Google Play. Zij regelen de betaling, de prijs in jouw valuta en de belasting.",
+            "Abonnementen verlengen tot ze worden opgezegd. Zeg op via de instellingen van je Apple- of Google-account — wij kunnen dat niet voor je doen.",
+            "Terugbetalingen worden door de store afgehandeld volgens haar eigen beleid."
+          ]
+        },
+        {
+          "heading": "Grenzen",
+          "body": [
+            "De dienst wordt geleverd zoals hij is. We doen ons best hem accuraat en beschikbaar te houden, maar we garanderen geen van beide.",
+            "We zijn niet aansprakelijk voor beslissingen die je op basis van een beoordeling neemt. Zie hierboven wat een beoordeling is."
+          ]
+        },
+        {
+          "heading": "Wijzigingen",
+          "body": [
+            "We kunnen deze voorwaarden wijzigen. Als een wijziging van belang is, laten we het je in de app weten voordat ze ingaat."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Dankbetuigingen",
+      "intro": "Product Scanner is gebouwd op open data en open source. Dit zijn de mensen wier werk dat mogelijk maakt.",
+      "sections": [
+        {
+          "heading": "Open productgegevens",
+          "body": [
+            "Een deel van de productinformatie in deze app komt van Open Food Facts en Open Beauty Facts, door de gemeenschap onderhouden databases die beschikbaar zijn onder de Open Database License (ODbL) v1.0.",
+            "Hun inhoud wordt aangeleverd door vrijwilligers. We zijn daar dankbaar voor, we corrigeren die waar we een fout vinden, en eventuele fouten in wat je hier ziet zijn van ons en niet van hen.",
+            "De licentie staat op opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Wat van ons is",
+          "body": [
+            "De veiligheidsbeoordelingen, de ingrediënten- en doseringsanalyse, de modellen en de software zijn ons eigen werk en vallen niet onder de bovenstaande licenties."
+          ]
+        },
+        {
+          "heading": "Open source",
+          "body": [
+            "Deze app is gebouwd met React Native en Expo, en de backend met FastAPI en PostgreSQL, naast vele andere opensourcebibliotheken die onder permissieve licenties zijn uitgebracht."
+          ]
+        }
+      ]
+    }
   }
 }

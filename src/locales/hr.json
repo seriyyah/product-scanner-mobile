@@ -18,7 +18,9 @@
     "allow": "Dopusti",
     "deny": "Odbij",
     "unknown": "Nepoznato",
-    "goBack": "Natrag"
+    "goBack": "Natrag",
+    "continue": "Nastavi",
+    "success": "Gotovo"
   },
   "auth": {
     "login": "Prijava",
@@ -51,7 +53,51 @@
     "ruleLength": "Najmanje 12 znakova",
     "ruleLowercase": "Malo slovo",
     "ruleSpecial": "Poseban znak (!@#$…)",
-    "ruleUppercase": "Veliko slovo"
+    "ruleUppercase": "Veliko slovo",
+    "welcomeBack": "Dobro došli natrag",
+    "loginSubtitle": "Prijavite se za nastavak skeniranja proizvoda",
+    "emailLabel": "E-mail adresa",
+    "emailPlaceholder": "Unesite svoj e-mail",
+    "passwordPlaceholder": "Unesite svoju lozinku",
+    "signIn": "Prijava",
+    "signUp": "Registracija",
+    "emailInvalidLong": "Unesite ispravnu e-mail adresu",
+    "emailRequired": "E-mail je obavezan",
+    "emailTooLong": "E-mail mora imati manje od 255 znakova",
+    "passwordRequired": "Lozinka je obavezna",
+    "passwordTooLong": "Lozinka mora imati manje od 128 znakova",
+    "checkEmailTitle": "Provjerite e-mail",
+    "resetLinkSent": "Ako ta e-mail adresa postoji u našem sustavu, poslali smo na nju poveznicu za promjenu lozinke.",
+    "backToSignIn": "Natrag na prijavu",
+    "resetPasswordTitle": "Promjena lozinke",
+    "resetPasswordBody": "Unesite svoju e-mail adresu i poslat ćemo vam poveznicu za promjenu.",
+    "sending": "Slanje...",
+    "sendResetLink": "Pošalji poveznicu",
+    "passwordResetDone": "Lozinka promijenjena!",
+    "passwordResetDoneBody": "Vaša lozinka je ažurirana. Prijavite se novom lozinkom.",
+    "newPassword": "Nova lozinka",
+    "newPasswordBody": "Odaberite jaku lozinku za svoj račun.",
+    "passwordPlaceholderMin": "Najmanje 8 znakova",
+    "confirmPasswordPlaceholder": "Ponovno unesite lozinku",
+    "resetting": "Postavljanje…",
+    "setNewPassword": "Postavi novu lozinku",
+    "verifyingEmail": "Provjeravamo vaš e-mail…",
+    "goToSignIn": "Idi na prijavu",
+    "registerCheckEmail": "Provjerite e-mail!",
+    "registerCheckEmailBody": "Poslali smo poveznicu za potvrdu na vašu e-mail adresu. Potvrdite račun za nastavak.",
+    "registerSubtitle": "Pridružite se Product Scanneru danas",
+    "firstNamePlaceholder": "Ivan",
+    "lastNamePlaceholder": "Horvat",
+    "emailExample": "ivan@example.com",
+    "passwordPlaceholder12": "Najmanje 12 znakova",
+    "firstNameRequired": "Ime je obavezno",
+    "lastNameRequired": "Prezime je obavezno",
+    "passwordPolicy": "Lozinka ne ispunjava sve uvjete",
+    "confirmPasswordRequired": "Potvrdite svoju lozinku",
+    "termsPrefix": "Prihvaćam",
+    "termsAnd": "i",
+    "creatingAccount": "Stvaranje računa...",
+    "registrationFailed": "Registracija nije uspjela"
   },
   "onboarding": {
     "locationTitle": "Dopusti lokaciju",
@@ -77,7 +123,10 @@
     "recentScans": "Nedavna skeniranja",
     "noHistory": "Nema nedavnih skeniranja",
     "scanNow": "Skenirajte proizvod za početak",
-    "safetyTip": "Skenirajte barkod za procjenu sigurnosti"
+    "safetyTip": "Skenirajte barkod za procjenu sigurnosti",
+    "subtitle": "Što biste danas htjeli skenirati?",
+    "viewAll": "Prikaži sve",
+    "noHistoryBody": "Dodirnite „Skeniraj proizvod” za početak"
   },
   "scanner": {
     "title": "Skener",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Iskoristili ste svih 20 besplatnih skeniranja za ovaj sat.",
     "watchAd": "Pogledajte video za 5 dodatnih skeniranja",
     "upgradePremium": "Nadogradite na Premium",
-    "scansRemaining": "{{count}} skeniranja preostalo ovaj sat"
+    "scansRemaining": "{{count}} skeniranja preostalo ovaj sat",
+    "scanAProduct": "Skeniraj proizvod",
+    "enterBarcodeFromPack": "Unesite broj crtičnog koda s ambalaže proizvoda.",
+    "requestingPermission": "Traženje pristupa kameri...",
+    "permissionDeniedTitle": "Potreban je pristup kameri",
+    "permissionDeniedBody": "Dopustite pristup kameri za skeniranje crtičnih kodova, ili ih unesite ručno u nastavku.",
+    "typeBarcode": "Upišite broj crtičnog koda proizvoda.",
+    "useCamera": "Koristi kameru",
+    "enterManually": "Unesi ručno",
+    "scanAgain": "Skeniraj ponovno",
+    "pointCameraShort": "Usmjerite kameru na crtični kod",
+    "enterBarcodePlaceholder": "Unesite broj crtičnog koda…",
+    "watchVideo": "Pogledaj videozapis (+5 skeniranja)"
   },
   "product": {
     "loading": "Učitavanje proizvoda...",
@@ -147,7 +208,14 @@
     "scanResult": "Rezultat skeniranja",
     "notRated": "Nije ocijenjeno",
     "notRatedBody": "Nema dovoljno informacija o ovom proizvodu",
-    "alternativesPending": "Proizvod se još uspoređuje. Uskoro će biti spreman — provjerite povijest za minutu."
+    "alternativesPending": "Proizvod se još uspoređuje. Uskoro će biti spreman — provjerite povijest za minutu.",
+    "images": "Slike proizvoda",
+    "linkFailed": "Poveznicu nije moguće otvoriti",
+    "notInDatabase": "Proizvoda nema u našoj bazi",
+    "recommendationsUnavailable": "Preporuke nisu dostupne.",
+    "sharingSoon": "Dijeljenje stiže uskoro!",
+    "notRatedResearching": "Još nemamo dovoljno informacija — upravo ih tražimo. Vratite se za koji trenutak.",
+    "notRatedUnsupported": "Ovu vrstu proizvoda još ne ocjenjujemo"
   },
   "history": {
     "title": "Povijest skeniranja",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} skeniranja iskorišteno ovaj sat",
-    "unlimitedScans": "Neograničena skeniranja"
+    "unlimitedScans": "Neograničena skeniranja",
+    "phone": "Telefon",
+    "phoneNumber": "Broj telefona",
+    "phonePlaceholder": "+385123456789",
+    "bio": "O meni",
+    "bioPlaceholder": "Recite nam nešto o sebi",
+    "memberSince": "Član od",
+    "dietaryAllergens": "Prehrana i alergeni",
+    "dietaryAllergensSub": "Personalizirajte ocjene i preporuke",
+    "adminFullAccess": "Administrator — potpuni pristup",
+    "logout": "Odjava",
+    "logoutConfirm": "Jeste li sigurni da se želite odjaviti?",
+    "loadFailed": "Nije moguće učitati profil",
+    "updateSuccess": "Profil je uspješno ažuriran",
+    "updateFailed": "Nije moguće ažurirati profil"
   },
   "preferences": {
     "title": "Preferencije",
@@ -181,7 +263,20 @@
     "privacy": "Privatnost",
     "analyticsConsent": "Analitika",
     "marketingConsent": "Marketinška e-pošta",
-    "saved": "Preferencije spremljene"
+    "saved": "Preferencije spremljene",
+    "dietarySub": "Koristi se za personalizaciju ocjena sigurnosti i preporuka",
+    "allergensTitle": "Alergeni koje treba izbjegavati",
+    "allergensSub": "Proizvodi koji ih sadrže bit će označeni upozorenjem",
+    "appSettings": "Postavke aplikacije",
+    "analytics": "Analitika",
+    "analyticsSub": "Pomozite nam poboljšati aplikaciju. Podaci ostaju kod nas i nikada se ne dijele.",
+    "personalisation": "Personalizirane preporuke",
+    "personalisationSub": "Koristi moju povijest skeniranja kako bi aplikacija naučila što kupujem i mogla mi predložiti bolje alternative. Podaci ostaju kod nas i nikada se ne prodaju.",
+    "marketing": "Marketing",
+    "marketingSub": "Primaj personalizirane ponude i novosti",
+    "savedBody": "Vaše postavke su spremljene.",
+    "loadFailed": "Nije moguće učitati postavke",
+    "saveFailed": "Nije moguće spremiti postavke. Pokušajte ponovno."
   },
   "subscription": {
     "title": "Nadogradnja",
@@ -214,7 +309,13 @@
     "restoreDone": "Prethodne kupnje su vraćene.",
     "restoreTitle": "Vrati kupnje",
     "restoreUnavailable": "Vraćanje kupnji još nije dostupno.",
-    "storeBillingNotice": "Pretplate se naplaćuju putem App Storea ili Google Playa. Upravljajte ili otkažite bilo kada u svom računu trgovine."
+    "storeBillingNotice": "Pretplate se naplaćuju putem App Storea ili Google Playa. Upravljajte ili otkažite bilo kada u svom računu trgovine.",
+    "adminAccount": "Administratorski račun",
+    "adminSubtitle": "Potpuni pristup — pretplata nije potrebna",
+    "unlockFull": "Otključajte puni potencijal ProductScannera",
+    "upgradeToPremium": "Prijeđi na Premium",
+    "upgradeToAiPremium": "Prijeđi na AI Premium",
+    "aiPremiumTeaser": "Stvarne cijene iz lokalnih trgovina i s weba, sve na jednom mjestu"
   },
   "grades": {
     "A": "Odličan",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "sumporov dioksid i sulfiti",
     "lupin": "lupina",
     "molluscs": "mekušci"
+  },
+  "nutrition": {
+    "energy": "Energija",
+    "fat": "Masti",
+    "carbohydrates": "Ugljikohidrati",
+    "sugars": "Šećeri",
+    "fiber": "Vlakna",
+    "proteins": "Bjelančevine",
+    "salt": "Sol"
+  },
+  "video": {
+    "title": "Gledaj i zaradi",
+    "loadingAd": "Učitavamo vaš videozapis…",
+    "watchToEarn": "Pogledajte cijeli videozapis i osvojite 5 dodatnih skeniranja u ovom satu.",
+    "claiming": "Dodjeljujemo vašu nagradu…",
+    "granted": "+5 skeniranja dodijeljeno!",
+    "grantedBody": "Imate 5 dodatnih skeniranja za ovaj sat.",
+    "grantedUpgrade": "Prijeđite na Premium za neograničeno skeniranje bez oglasa.",
+    "alreadyClaimed": "Već preuzeto",
+    "alreadyClaimedBody": "U ovom satu ste već dobili dodatna skeniranja.",
+    "alreadyClaimedUpgrade": "Vratite se kasnije ili prijeđite na Premium.",
+    "backToScanner": "Natrag na skener",
+    "upgradeUnlimited": "Neograničeno uz Premium",
+    "notCompleted": "Videozapis nije dovršen",
+    "notCompletedBody": "Pogledajte cijeli videozapis i osvojite 5 dodatnih skeniranja.",
+    "claimFailed": "Nagradu nije moguće dodijeliti. Pokušajte ponovno."
+  },
+  "account": {
+    "delete": "Izbriši račun",
+    "deleteHint": "Trajno uklanja vaš račun, povijest skeniranja i postavke. Ovo se ne može poništiti.",
+    "deleteExplain": "Ovime s naših poslužitelja uklanjamo vaš račun, vašu povijest skeniranja i vaše postavke. Ovo se ne može poništiti.",
+    "deleteConfirmTitle": "Izbrisati trajno?",
+    "deleteConfirmBody": "Ove podatke više nije moguće vratiti.",
+    "deleteConfirm": "Izbriši sve",
+    "deletePartialTitle": "Djelomično izbrisano",
+    "deletePartialBody": "Neke vaše podatke još nismo uspjeli ukloniti. Zabilježili smo to i dovršit ćemo. Javite nam se ako se nastavi.",
+    "deleteFailed": "Vaš račun nije izbrisan. Pokušajte ponovno."
+  },
+  "legal": {
+    "privacy": "Pravila privatnosti",
+    "privacySub": "Što čuvamo i što možete učiniti u vezi s tim",
+    "terms": "Uvjeti korištenja",
+    "attributions": "Zahvale",
+    "attributionsSub": "Otvoreni podaci i otvoreni softver na kojima gradimo",
+    "lastUpdated": "Zadnje ažuriranje"
+  },
+  "dietary": {
+    "vegan": "Vegansko",
+    "vegetarian": "Vegetarijansko",
+    "glutenFree": "Bez glutena",
+    "halal": "Halal",
+    "kosher": "Košer",
+    "lactoseFree": "Bez laktoze",
+    "nutFree": "Bez orašastih plodova",
+    "lowSugar": "S malo šećera"
+  },
+  "allergenOption": {
+    "milk": "Mlijeko",
+    "eggs": "Jaja",
+    "fish": "Riba",
+    "shellfish": "Rakovi",
+    "treeNuts": "Orašasti plodovi",
+    "peanuts": "Kikiriki",
+    "wheat": "Pšenica",
+    "soy": "Soja",
+    "sesame": "Sezam",
+    "celery": "Celer",
+    "mustard": "Gorušica",
+    "sulphites": "Sulfiti"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Pravila privatnosti",
+      "intro": "Ovdje objašnjavamo što o vama čuvamo, zašto i što u vezi s tim možete učiniti. Nastojali smo to napisati razumljivim jezikom, a ne jezikom dokumenta koji nitko ne čita.",
+      "sections": [
+        {
+          "heading": "Što čuvamo",
+          "body": [
+            "Vašu e-mail adresu i kriptografski sažetak vaše lozinke — nikada samu lozinku.",
+            "Vašu povijest skeniranja: skenirane crtične kodove i vrijeme kada ste ih skenirali.",
+            "Vaše prehrambene preferencije i navedene alergene, ako ih odlučite unijeti.",
+            "Vašu razinu pretplate i token uređaja ako uključite obavijesti.",
+            "Neobavezno, i samo ako ih ispunite: vaše ime i prezime, broj telefona, datum rođenja, kratak opis i profilnu sliku. Ništa od toga nije obvezno, aplikacija radi i bez toga, a možete ih obrisati u bilo kojem trenutku u Profilu.",
+            "Ne tražimo vašu adresu ni podatke o plaćanju i nikada ne vidimo vašu karticu."
+          ]
+        },
+        {
+          "heading": "Zašto to čuvamo",
+          "body": [
+            "Da bismo vam pružili uslugu na koju ste se prijavili: skeniranje proizvoda, čuvanje vaše povijesti i ocjenjivanje proizvoda za vas, a ne za sve.",
+            "Alergeni i prehrambena ograničenja podaci su o zdravlju prema članku 9. GDPR-a. Tražimo ih samo kako bi vas ocjena mogla upozoriti na nešto što bi vam naškodilo; tražimo ih zasebno i izričito prije nego što ih date, a privolu možete povući u bilo kojem trenutku u Postavkama.",
+            "Radi naplate, kojom se bave Apple i Google — vašu karticu nikada ne vidimo."
+          ]
+        },
+        {
+          "heading": "Gdje se nalaze",
+          "body": [
+            "Na poslužiteljima u Frankfurtu u Njemačkoj, unutar Europske unije. Vaši osobni podaci ne prenose se izvan EU-a.",
+            "Umjetna inteligencija koja objašnjava ocjenu radi na tom istom poslužitelju. Nije usluga treće strane i ništa što skenirate ne šalje se takvoj usluzi."
+          ]
+        },
+        {
+          "heading": "Tko ih još vidi",
+          "body": [
+            "Apple i Google, za plaćanja pretplate, putem RevenueCata. Oni su prodavatelj.",
+            "Resend, koji šalje e-poruke vezane uz račun — potvrdu i ponovno postavljanje lozinke.",
+            "Nitko drugi.",
+            "Kada tražimo proizvod, upit prema javno dostupnim podacima o proizvodima šaljemo isključivo s crtičnim kodom. Ti izvori ne dobivaju ništa o vama, vašem računu ni vašem uređaju."
+          ]
+        },
+        {
+          "heading": "Model je naš",
+          "body": [
+            "Ocjena sigurnosti, analiza sastojaka i preporuke dolaze iz jezičnog modela i skupa algoritama koje smo sami izgradili. Rade na našim vlastitim poslužiteljima u Frankfurtu.",
+            "U ovoj aplikaciji nema nikakve vanjske usluge umjetne inteligencije. Ništa što skenirate ne šalje se takvoj, jer takve nema.",
+            "Ono što model nauči, nauči ovdje, iz naših vlastitih podataka, kako bi aplikacija bila bolja za ljude koji je koriste. To naučeno ne dijelimo i nitko se drugi na tome ne uči.",
+            "Pretrage proizvoda obavljaju naši poslužitelji, nikada vaš telefon, pa ništa o vašem uređaju ne dolazi do vanjskog izvora."
+          ]
+        },
+        {
+          "heading": "Personalizirane preporuke",
+          "body": [
+            "Ako u Postavkama uključite Personalizirane preporuke, koristimo vašu povijest skeniranja kako bismo naučili što kupujete i predložili bolje alternative — sigurnije proizvode u kategorijama u kojima stvarno kupujete.",
+            "To određuje što vam aplikacija preporučuje. Ne koristi se za prikazivanje oglasa, ne dijeli se i ne prodaje.",
+            "Isključeno je dok ga ne uključite, a isključivanjem prestaje. Pitamo zasebno jer je to druga svrha od održavanja rada aplikacije i jer ono što skenirate može govoriti o vašem zdravlju."
+          ]
+        },
+        {
+          "heading": "Što nikada ne radimo",
+          "body": [
+            "Ne prodajemo vaše osobne podatke. Ni vašu povijest skeniranja, ni vaše postavke, ni posrednicima podataka ni bilo kome drugome.",
+            "Ne pratimo vas kroz aplikacije ili web-stranice drugih tvrtki i ne dopuštamo da vas itko prati preko nas.",
+            "Ne prikazujemo vam oglase na temelju onoga što skenirate.",
+            "U ovoj aplikaciji nema nikakvog analitičkog ni oglašivačkog softvera. Nijedan SDK treće strane ne prati što u njoj radite.",
+            "Jedine tvrtke koje išta o vama primaju jesu one dvije koje omogućuju rad usluge: ona koja dostavlja e-poruke vašeg računa i trgovine koje naplaćuju vaše plaćanje. Obje su navedene gore, obje postupaju isključivo prema našim uputama i nijedna ne dobiva vašu povijest skeniranja.",
+            "Možemo objavljivati skupne brojke o proizvodima — primjerice kako je neka kategorija prosječno ocijenjena. To su zbrojevi u kojima nema nijedne osobe, a nijedan podatak sastavljen od manje od 20 skeniranja ne objavljuje se uopće."
+          ]
+        },
+        {
+          "heading": "Koliko ih dugo čuvamo",
+          "body": [
+            "Povijest skeniranja: 30 dana na besplatnoj razini, 2 godine na plaćenoj razini, nakon čega se automatski briše.",
+            "Vaš račun i postavke: dok ne izbrišete svoj račun.",
+            "Evidencija plaćanja: čuva se i nakon brisanja, bez veze s vama, jer to zahtijevaju porezni propisi i trgovine aplikacijama."
+          ]
+        },
+        {
+          "heading": "Što možete učiniti",
+          "body": [
+            "Vidjeti sve što o vama čuvamo i ponijeti to sa sobom kao datoteku — Profil, zatim Izvezi moje podatke.",
+            "Izbrisati svoj račun i sve osobno u njemu, iz same aplikacije — Profil, zatim Izbriši račun. Trenutačno je i nepovratno.",
+            "Ispraviti ono što je netočno, povući privolu za podatke o alergenima ili se usprotiviti načinu na koji ih koristimo.",
+            "Podnijeti pritužbu svojem nadzornom tijelu. U Hrvatskoj je to Agencija za zaštitu osobnih podataka."
+          ]
+        },
+        {
+          "heading": "Djeca",
+          "body": [
+            "Aplikacija nije namijenjena djeci mlađoj od 16 godina i ne čuvamo svjesno podatke o njima."
+          ]
+        },
+        {
+          "heading": "Kontakt",
+          "body": [
+            "Pišite na {{email}} u vezi s bilo čime iz ovih pravila."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Uvjeti korištenja",
+      "intro": "Sporazum između vas i nas. Ukratko: koristite aplikaciju, nemojte je zlorabiti i nemojte ocjenu smatrati liječničkim savjetom.",
+      "sections": [
+        {
+          "heading": "Što ova aplikacija radi",
+          "body": [
+            "Čita crtični kod, traži proizvod i ocjenjuje njegovu sigurnost pomoću našeg vlastitog modela.",
+            "Ocjene se izračunavaju iz objavljenih podataka: nutritivnih i prerađivačkih klasifikacija, navedenih sastojaka i dokaza o pojedinim tvarima. Pokazujemo vam što je oblikovalo svaku ocjenu."
+          ]
+        },
+        {
+          "heading": "Što ocjena jest, a što nije",
+          "body": [
+            "To je naša procjena na temelju podataka koji su nam dostupni. Nije liječnički, dijetetički ni nutricionistički savjet i ne zamjenjuje čitanje deklaracije.",
+            "Ako imate alergiju ili zdravstveno stanje, mjerodavna je ambalaža koju držite u ruci — ne mi. Sastavi proizvoda se mijenjaju, a javne baze podataka zaostaju za njima.",
+            "Ondje gdje nemamo dovoljno informacija, to kažemo i ne prikazujemo ocjenu, umjesto da nagađamo."
+          ]
+        },
+        {
+          "heading": "Naš vlastiti model i što to znači za vas",
+          "body": [
+            "Ocjene sigurnosti izrađuje jezični model i skup algoritama koje smo sami napisali i sami održavamo. Nisu licencirani ni od koga i ova aplikacija nije omotač oko tuđe usluge.",
+            "Sve što čita vaše podatke radi na našim vlastitim poslužiteljima. Nikakva vanjska usluga umjetne inteligencije nije uključena, pa se ništa što skenirate ne šalje takvoj.",
+            "Ono što doznajemo iz korištenja aplikacije koristimo da bude bolja i pouzdanija te da daje bolje prijedloge. To se događa ovdje, na našoj vlastitoj infrastrukturi.",
+            "Model ostaje naš. Ne dijelimo ga, ne licenciramo ga i nitko se drugi ne uči na onome što vi skenirate.",
+            "Ne prodajemo vaše osobne podatke, ne dijelimo ih s oglašivačima ni posrednicima podataka i ne pratimo vas kroz druge aplikacije ili web-stranice."
+          ]
+        },
+        {
+          "heading": "Odakle podaci dolaze",
+          "body": [
+            "Iz javno dostupnih podataka o proizvodima, iz našeg vlastitog istraživanja i iz onoga što iz oboje izvodimo. Dio dolazi iz baza podataka koje održava zajednica, licenciranih pod Open Database License, koje navodimo u Zahvalama.",
+            "Možemo pogriješiti zato što griješi izvor. Ako pronađete pogrešku, javite nam i ispravit ćemo je."
+          ]
+        },
+        {
+          "heading": "Vaš račun",
+          "body": [
+            "Jedan račun po osobi. Lozinku zadržite za sebe.",
+            "Ne koristite automatizirane alate za prikupljanje sadržaja usluge i ne pokušavajte je preopteretiti.",
+            "Svoj račun možete izbrisati u bilo kojem trenutku unutar aplikacije."
+          ]
+        },
+        {
+          "heading": "Pretplate",
+          "body": [
+            "Plaćene razine prodaju se putem App Storea i Google Playa. Oni obavljaju plaćanje, cijenu u vašoj valuti i porez.",
+            "Pretplate se obnavljaju dok se ne otkažu. Otkažite ih u postavkama svojeg Apple ili Google računa — mi to ne možemo učiniti umjesto vas.",
+            "Povrate rješava trgovina prema vlastitim pravilima."
+          ]
+        },
+        {
+          "heading": "Ograničenja",
+          "body": [
+            "Usluga se pruža takva kakva jest. Trudimo se da bude točna i dostupna, ali ne jamčimo ni jedno ni drugo.",
+            "Ne odgovaramo za odluke koje donesete na temelju ocjene. Vidjeti gore što ocjena jest."
+          ]
+        },
+        {
+          "heading": "Izmjene",
+          "body": [
+            "Ove uvjete možemo promijeniti. Ako je promjena važna, javit ćemo vam u aplikaciji prije nego što stupi na snagu."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Zahvale",
+      "intro": "Product Scanner počiva na otvorenim podacima i otvorenom softveru. Ovo su ljudi čiji rad to omogućuje.",
+      "sections": [
+        {
+          "heading": "Otvoreni podaci o proizvodima",
+          "body": [
+            "Dio informacija o proizvodima u ovoj aplikaciji dolazi iz Open Food Factsa i Open Beauty Factsa, baza podataka koje održava zajednica i koje su dostupne pod licencijom Open Database License (ODbL) v1.0.",
+            "Njihov sadržaj doprinose volonteri. Zahvalni smo na tome, ispravljamo ga ondje gdje pronađemo pogrešku, a moguće pogreške u onome što ovdje vidite naše su, a ne njihove.",
+            "Licencija se nalazi na opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Što je naše",
+          "body": [
+            "Ocjene sigurnosti, analiza sastojaka i doza, modeli i softver naš su vlastiti rad i nisu obuhvaćeni gore navedenim licencijama."
+          ]
+        },
+        {
+          "heading": "Otvoreni softver",
+          "body": [
+            "Ova je aplikacija izgrađena pomoću React Nativea i Expa, a njezin poslužiteljski dio pomoću FastAPI-ja i PostgreSQL-a, uz mnoge druge softverske knjižnice otvorenog koda objavljene pod dopuštajućim licencijama."
+          ]
+        }
+      ]
+    }
   }
 }

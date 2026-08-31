@@ -11,6 +11,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { CameraView, Camera } from 'expo-camera';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,6 +19,7 @@ import theme from '@/constants/theme';
 import { scannerRepository, ApiError } from '@/services/apiService';
 
 const ScannerScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -53,18 +55,18 @@ const ScannerScreen: React.FC = () => {
 
   const _showRateLimitDialog = (): void => {
     Alert.alert(
-      'Scan limit reached',
-      "You've used all 20 free scans this hour. Watch a short video to get 5 more, or upgrade to Premium for unlimited scans.",
+      t('scanner.rateLimitTitle', 'Scan limit reached'),
+      t('scanner.rateLimitBody', "You've used all 20 free scans this hour. Watch a short video to get 5 more, or upgrade to Premium for unlimited scans."),
       [
         {
-          text: 'Watch Video (+5 scans)',
+          text: t('scanner.watchVideo', 'Watch Video (+5 scans)'),
           onPress: () => navigation.navigate('VideoReward'),
         },
         {
-          text: 'Upgrade to Premium',
+          text: t('subscription.upgradeToPremium', 'Upgrade to Premium'),
           onPress: () => navigation.navigate('Subscription'),
         },
-        { text: 'Cancel', style: 'cancel' },
+        { text: t('common.cancel', 'Cancel'), style: 'cancel' },
       ],
     );
   };
@@ -114,7 +116,7 @@ const ScannerScreen: React.FC = () => {
     <View style={styles.manualInputRow}>
       <TextInput
         style={styles.manualInput}
-        placeholder="Enter barcode number…"
+        placeholder={t('scanner.enterBarcodePlaceholder', 'Enter barcode number…')}
         placeholderTextColor={theme.colors.textSecondary}
         value={manualBarcode}
         onChangeText={setManualBarcode}
@@ -143,9 +145,9 @@ const ScannerScreen: React.FC = () => {
     return (
       <KeyboardAvoidingView style={styles.centered} behavior="padding">
         <Ionicons name="barcode-outline" size={64} color={theme.colors.primary} />
-        <Text style={styles.deniedTitle}>Scan a Product</Text>
+        <Text style={styles.deniedTitle}>{t('scanner.scanAProduct', 'Scan a Product')}</Text>
         <Text style={styles.deniedText}>
-          Enter the barcode number from the product packaging.
+          {t('scanner.enterBarcodeFromPack', 'Enter the barcode number from the product packaging.')}
         </Text>
         {manualInput}
         {errorMessage ? (
@@ -160,7 +162,7 @@ const ScannerScreen: React.FC = () => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text style={styles.statusText}>Requesting camera permission...</Text>
+        <Text style={styles.statusText}>{t('scanner.requestingPermission', 'Requesting camera permission...')}</Text>
       </View>
     );
   }
@@ -170,12 +172,12 @@ const ScannerScreen: React.FC = () => {
     return (
       <KeyboardAvoidingView style={styles.centered} behavior="padding">
         <Ionicons name="camera-outline" size={64} color={theme.colors.textSecondary} />
-        <Text style={styles.deniedTitle}>Camera Access Required</Text>
+        <Text style={styles.deniedTitle}>{t('scanner.permissionDeniedTitle', 'Camera Access Required')}</Text>
         <Text style={styles.deniedText}>
-          Allow camera access to scan barcodes, or enter them manually below.
+          {t('scanner.permissionDeniedBody', 'Allow camera access to scan barcodes, or enter them manually below.')}
         </Text>
         <TouchableOpacity style={styles.settingsButton} onPress={() => Linking.openSettings()} activeOpacity={0.8}>
-          <Text style={styles.settingsButtonText}>Open Settings</Text>
+          <Text style={styles.settingsButtonText}>{t('scanner.openSettings', 'Open Settings')}</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>— or —</Text>
         {manualInput}
@@ -189,13 +191,13 @@ const ScannerScreen: React.FC = () => {
     return (
       <KeyboardAvoidingView style={styles.centered} behavior="padding">
         <Ionicons name="barcode-outline" size={64} color={theme.colors.primary} />
-        <Text style={styles.deniedTitle}>Enter Barcode</Text>
-        <Text style={styles.deniedText}>Type the barcode number from the product.</Text>
+        <Text style={styles.deniedTitle}>{t('scanner.enterBarcode', 'Enter Barcode')}</Text>
+        <Text style={styles.deniedText}>{t('scanner.typeBarcode', 'Type the barcode number from the product.')}</Text>
         {manualInput}
         {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
         <TouchableOpacity onPress={() => { setShowManual(false); handleScanAgain(); }} activeOpacity={0.8} style={styles.switchLink}>
           <Ionicons name="camera-outline" size={16} color={theme.colors.primary} />
-          <Text style={styles.switchLinkText}>Use camera instead</Text>
+          <Text style={styles.switchLinkText}>{t('scanner.useCamera', 'Use camera instead')}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
@@ -234,7 +236,7 @@ const ScannerScreen: React.FC = () => {
           {isLoading ? (
             <View style={styles.feedbackBox}>
               <ActivityIndicator size="large" color={theme.colors.primary} />
-              <Text style={styles.feedbackText}>Scanning…</Text>
+              <Text style={styles.feedbackText}>{t('scanner.scanning', 'Scanning…')}</Text>
             </View>
           ) : errorMessage ? (
             <View style={styles.feedbackBox}>
@@ -244,10 +246,10 @@ const ScannerScreen: React.FC = () => {
           ) : scanned ? (
             <TouchableOpacity style={styles.scanAgainButton} onPress={handleScanAgain} activeOpacity={0.8}>
               <Ionicons name="refresh" size={20} color={theme.colors.text} />
-              <Text style={styles.scanAgainText}>Scan Again</Text>
+              <Text style={styles.scanAgainText}>{t('scanner.scanAgain', 'Scan Again')}</Text>
             </TouchableOpacity>
           ) : (
-            <Text style={styles.instructionText}>Point camera at barcode</Text>
+            <Text style={styles.instructionText}>{t('scanner.pointCameraShort', 'Point camera at barcode')}</Text>
           )}
 
           {/* Scan counter — only shown for free users once we know their remaining count */}
@@ -272,7 +274,7 @@ const ScannerScreen: React.FC = () => {
           {!isLoading && (
             <TouchableOpacity onPress={() => setShowManual(true)} activeOpacity={0.8} style={styles.switchLink}>
               <Ionicons name="keypad-outline" size={16} color={theme.colors.primary} />
-              <Text style={styles.switchLinkText}>Enter manually</Text>
+              <Text style={styles.switchLinkText}>{t('scanner.enterManually', 'Enter manually')}</Text>
             </TouchableOpacity>
           )}
         </View>

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -30,6 +31,7 @@ const REWARDED_ID = TEST_MODE
 type Phase = 'loading' | 'ready' | 'claiming' | 'done' | 'already_claimed';
 
 const VideoRewardScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const [phase, setPhase] = useState<Phase>('loading');
   // Track whether the user completed the ad — only EARNED_REWARD sets this true
@@ -59,9 +61,9 @@ const VideoRewardScreen: React.FC = () => {
       } else if (!earnedRef.current) {
         // User skipped before completion — no reward, go back
         Alert.alert(
-          'Video not completed',
-          'Watch the full video to earn 5 extra scans.',
-          [{ text: 'OK', onPress: () => navigation.goBack() }],
+          t('video.notCompleted', 'Video not completed'),
+          t('video.notCompletedBody', 'Watch the full video to earn 5 extra scans.'),
+          [{ text: t('common.ok', 'OK'), onPress: () => navigation.goBack() }],
         );
       }
     });
@@ -90,7 +92,7 @@ const VideoRewardScreen: React.FC = () => {
       const result = await subscriptionRepository.claimVideoReward();
       setPhase(result.granted ? 'done' : 'already_claimed');
     } catch {
-      Alert.alert('Error', 'Could not claim reward. Please try again.', [
+      Alert.alert(t('common.error', 'Error'), t('video.claimFailed', 'Could not claim reward. Please try again.'), [
         { text: 'OK', onPress: () => navigation.goBack() },
       ]);
     }
@@ -100,7 +102,7 @@ const VideoRewardScreen: React.FC = () => {
     <SafeAreaView style={styles.safe}>
       <View style={styles.topNav}>
         <View style={styles.navSpacer} />
-        <Text style={styles.navTitle}>Watch & Earn</Text>
+        <Text style={styles.navTitle}>{t('video.title', 'Watch & Earn')}</Text>
         <View style={styles.navSpacer} />
       </View>
 
@@ -108,31 +110,31 @@ const VideoRewardScreen: React.FC = () => {
         {(phase === 'loading' || phase === 'ready') && (
           <>
             <ActivityIndicator size="large" color={theme.colors.primary} />
-            <Text style={styles.hint}>Loading your ad…</Text>
-            <Text style={styles.subHint}>Watch the full video to earn 5 extra scans this hour.</Text>
+            <Text style={styles.hint}>{t('video.loadingAd', 'Loading your ad…')}</Text>
+            <Text style={styles.subHint}>{t('video.watchToEarn', 'Watch the full video to earn 5 extra scans this hour.')}</Text>
           </>
         )}
 
         {phase === 'claiming' && (
           <>
             <ActivityIndicator size="large" color={theme.colors.primary} />
-            <Text style={styles.hint}>Claiming your reward…</Text>
+            <Text style={styles.hint}>{t('video.claiming', 'Claiming your reward…')}</Text>
           </>
         )}
 
         {phase === 'done' && (
           <>
             <Ionicons name="checkmark-circle" size={80} color={theme.colors.success} />
-            <Text style={styles.successTitle}>+5 Scans Granted!</Text>
+            <Text style={styles.successTitle}>{t('video.granted', '+5 Scans Granted!')}</Text>
             <Text style={styles.hint}>
-              You have 5 extra scans for this hour.{'\n'}
-              Upgrade to Premium for unlimited scans with no ads.
+              {t('video.grantedBody', 'You have 5 extra scans for this hour.')}{'\n'}
+              {t('video.grantedUpgrade', 'Upgrade to Premium for unlimited scans with no ads.')}
             </Text>
             <TouchableOpacity style={styles.primaryBtn} onPress={() => navigation.goBack()} activeOpacity={0.8}>
-              <Text style={styles.primaryBtnText}>Back to Scanner</Text>
+              <Text style={styles.primaryBtnText}>{t('video.backToScanner', 'Back to Scanner')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
-              <Text style={styles.secondaryBtnText}>Upgrade for Unlimited</Text>
+              <Text style={styles.secondaryBtnText}>{t('video.upgradeUnlimited', 'Upgrade for Unlimited')}</Text>
             </TouchableOpacity>
           </>
         )}
@@ -140,16 +142,16 @@ const VideoRewardScreen: React.FC = () => {
         {phase === 'already_claimed' && (
           <>
             <Ionicons name="time-outline" size={80} color={theme.colors.textSecondary} />
-            <Text style={styles.successTitle}>Already Claimed</Text>
+            <Text style={styles.successTitle}>{t('video.alreadyClaimed', 'Already Claimed')}</Text>
             <Text style={styles.hint}>
-              You already earned extra scans this hour.{'\n'}
-              Come back later or upgrade to Premium.
+              {t('video.alreadyClaimedBody', 'You already earned extra scans this hour.')}{'\n'}
+              {t('video.alreadyClaimedUpgrade', 'Come back later or upgrade to Premium.')}
             </Text>
             <TouchableOpacity style={styles.primaryBtn} onPress={() => navigation.goBack()} activeOpacity={0.8}>
-              <Text style={styles.primaryBtnText}>Back to Scanner</Text>
+              <Text style={styles.primaryBtnText}>{t('video.backToScanner', 'Back to Scanner')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.navigate('Subscription')} activeOpacity={0.8}>
-              <Text style={styles.secondaryBtnText}>Upgrade to Premium</Text>
+              <Text style={styles.secondaryBtnText}>{t('subscription.upgradeToPremium', 'Upgrade to Premium')}</Text>
             </TouchableOpacity>
           </>
         )}

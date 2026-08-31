@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,6 +20,7 @@ import { gradeColor } from '@/utils/safetyColors';
 import ProductThumbnail from '@/components/common/ProductThumbnail';
 
 const HomeScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
   const { state } = useAuth();
@@ -120,7 +122,7 @@ const HomeScreen: React.FC = () => {
                 <Text style={styles.greeting}>
                   {firstName ? `Hello, ${firstName}!` : 'Hello!'}
                 </Text>
-                <Text style={styles.headerSubtitle}>What would you like to scan today?</Text>
+                <Text style={styles.headerSubtitle}>{t('home.subtitle', 'What would you like to scan today?')}</Text>
               </View>
               <View style={styles.logoIcon}>
                 <Ionicons name="scan" size={28} color={theme.colors.primary} />
@@ -134,16 +136,16 @@ const HomeScreen: React.FC = () => {
               activeOpacity={0.8}
             >
               <Ionicons name="scan-circle" size={48} color={theme.colors.text} />
-              <Text style={styles.scanButtonText}>Scan Product</Text>
-              <Text style={styles.scanButtonSubtext}>Point your camera at any barcode</Text>
+              <Text style={styles.scanButtonText}>{t('home.scanNow', 'Scan Product')}</Text>
+              <Text style={styles.scanButtonSubtext}>{t('scanner.pointCamera', 'Point your camera at any barcode')}</Text>
             </TouchableOpacity>
 
             {/* Recent scans header */}
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Recent Scans</Text>
+              <Text style={styles.sectionTitle}>{t('home.recentScans', 'Recent Scans')}</Text>
               {recentScans.length > 0 && (
                 <TouchableOpacity onPress={handleViewAll} activeOpacity={0.8}>
-                  <Text style={styles.viewAll}>View all</Text>
+                  <Text style={styles.viewAll}>{t('home.viewAll', 'View all')}</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -161,9 +163,9 @@ const HomeScreen: React.FC = () => {
           !isLoading ? (
             <View style={styles.emptyState}>
               <Ionicons name="scan-outline" size={64} color={theme.colors.textSecondary} />
-              <Text style={styles.emptyTitle}>No scans yet</Text>
+              <Text style={styles.emptyTitle}>{t('home.noHistory', 'No scans yet')}</Text>
               <Text style={styles.emptySubtext}>
-                Tap "Scan Product" to get started
+                {t('home.noHistoryBody', 'Tap “Scan Product” to get started')}
               </Text>
             </View>
           ) : null

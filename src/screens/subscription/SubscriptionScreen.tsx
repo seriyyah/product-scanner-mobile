@@ -180,13 +180,13 @@ const SubscriptionScreen: React.FC = () => {
           <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={styles.backButton}>
             <Ionicons name="arrow-back" size={24} color={theme.colors.primary} />
           </TouchableOpacity>
-          <Text style={styles.navTitle}>Subscription</Text>
+          <Text style={styles.navTitle}>{t('subscription.title', 'Subscription')}</Text>
           <View style={styles.backButton} />
         </View>
         <View style={styles.adminContainer}>
           <Ionicons name="shield-checkmark" size={72} color={theme.colors.primary} />
-          <Text style={styles.adminTitle}>Admin Account</Text>
-          <Text style={styles.adminSubtitle}>Full Access — No Subscription Needed</Text>
+          <Text style={styles.adminTitle}>{t('subscription.adminAccount', 'Admin Account')}</Text>
+          <Text style={styles.adminSubtitle}>{t('subscription.adminSubtitle', 'Full Access — No Subscription Needed')}</Text>
         </View>
       </SafeAreaView>
     );
@@ -225,7 +225,7 @@ const SubscriptionScreen: React.FC = () => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-        <Text style={styles.subtitle}>Unlock the full power of ProductScanner</Text>
+        <Text style={styles.subtitle}>{t('subscription.unlockFull', 'Unlock the full power of ProductScanner')}</Text>
 
         {isLoadingStatus && (
           <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginBottom: 16 }} />
@@ -267,7 +267,7 @@ const SubscriptionScreen: React.FC = () => {
 
               {isCurrent ? (
                 <View style={styles.currentBadge}>
-                  <Text style={styles.currentBadgeText}>Your current plan</Text>
+                  <Text style={styles.currentBadgeText}>{t('subscription.currentPlan', 'Your current plan')}</Text>
                 </View>
               ) : canUpgrade ? (
                 <TouchableOpacity

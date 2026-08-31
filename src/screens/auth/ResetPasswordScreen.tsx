@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -21,6 +22,7 @@ type RouteProps = RouteProp<AuthStackParamList, 'ResetPassword'>;
 const MIN_PASSWORD_LENGTH = 8;
 
 const ResetPasswordScreen: React.FC = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const route = useRoute<RouteProps>();
   const token = route.params?.token ?? '';
@@ -73,12 +75,12 @@ const ResetPasswordScreen: React.FC = () => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.center}>
           <Ionicons name="checkmark-circle" size={80} color={theme.colors.success} />
-          <Text style={styles.title}>Password Reset!</Text>
+          <Text style={styles.title}>{t('auth.passwordResetDone', 'Password Reset!')}</Text>
           <Text style={styles.subtitle}>
-            Your password has been updated. Sign in with your new password.
+            {t('auth.passwordResetDoneBody', 'Your password has been updated. Sign in with your new password.')}
           </Text>
           <Button
-            title="Sign In"
+            title={t('auth.signIn', 'Sign In')}
             onPress={() => navigation.navigate('Login')}
             variant="primary"
             size="large"
@@ -101,21 +103,21 @@ const ResetPasswordScreen: React.FC = () => {
         >
           <View style={styles.header}>
             <Ionicons name="lock-open" size={48} color={theme.colors.primary} />
-            <Text style={styles.title}>New Password</Text>
+            <Text style={styles.title}>{t('auth.newPassword', 'New Password')}</Text>
             <Text style={styles.subtitle}>
-              Choose a strong password for your account.
+              {t('auth.newPasswordBody', 'Choose a strong password for your account.')}
             </Text>
           </View>
 
           <TextInput
-            label="New Password"
+            label={t('auth.newPassword', 'New Password')}
             value={password}
             onChangeText={(text) => {
               setPassword(text);
               setApiError('');
               if (passwordError && text.length >= MIN_PASSWORD_LENGTH) setPasswordError('');
             }}
-            placeholder="At least 8 characters"
+            placeholder={t('auth.passwordPlaceholderMin', 'At least 8 characters')}
             secureTextEntry
             error={passwordError}
             required
@@ -123,13 +125,13 @@ const ResetPasswordScreen: React.FC = () => {
           />
 
           <TextInput
-            label="Confirm Password"
+            label={t('auth.confirmPassword', 'Confirm Password')}
             value={confirm}
             onChangeText={(text) => {
               setConfirm(text);
               if (confirmError && text === password) setConfirmError('');
             }}
-            placeholder="Repeat your password"
+            placeholder={t('auth.confirmPasswordPlaceholder', 'Repeat your password')}
             secureTextEntry
             error={confirmError}
             required
@@ -141,7 +143,7 @@ const ResetPasswordScreen: React.FC = () => {
           ) : null}
 
           <Button
-            title={isLoading ? 'Resetting…' : 'Set New Password'}
+            title={isLoading ? t('auth.resetting', 'Resetting…') : t('auth.setNewPassword', 'Set New Password')}
             onPress={handleSubmit}
             loading={isLoading}
             disabled={isLoading}

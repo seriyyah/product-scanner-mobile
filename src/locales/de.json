@@ -18,7 +18,9 @@
     "allow": "Erlauben",
     "deny": "Ablehnen",
     "unknown": "Unbekannt",
-    "goBack": "Zurück"
+    "goBack": "Zurück",
+    "continue": "Weiter",
+    "success": "Erfolg"
   },
   "auth": {
     "login": "Anmelden",
@@ -51,7 +53,51 @@
     "ruleLowercase": "Einen Kleinbuchstaben",
     "ruleDigit": "Eine Ziffer",
     "ruleSpecial": "Ein Sonderzeichen (!@#$…)",
-    "noAccountRegister": "Noch kein Konto? Mit dieser E-Mail registrieren"
+    "noAccountRegister": "Noch kein Konto? Mit dieser E-Mail registrieren",
+    "welcomeBack": "Willkommen zurück",
+    "loginSubtitle": "Melden Sie sich an, um weiter Produkte zu scannen",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "E-Mail eingeben",
+    "passwordPlaceholder": "Passwort eingeben",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "emailInvalidLong": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "emailRequired": "E-Mail ist erforderlich",
+    "emailTooLong": "Die E-Mail-Adresse muss kürzer als 255 Zeichen sein",
+    "passwordRequired": "Passwort ist erforderlich",
+    "passwordTooLong": "Das Passwort muss kürzer als 128 Zeichen sein",
+    "checkEmailTitle": "Prüfen Sie Ihre E-Mails",
+    "resetLinkSent": "Falls diese E-Mail-Adresse in unserem System existiert, haben wir einen Link zum Zurücksetzen des Passworts gesendet.",
+    "backToSignIn": "Zurück zur Anmeldung",
+    "resetPasswordTitle": "Passwort zurücksetzen",
+    "resetPasswordBody": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen.",
+    "sending": "Wird gesendet...",
+    "sendResetLink": "Link senden",
+    "passwordResetDone": "Passwort zurückgesetzt!",
+    "passwordResetDoneBody": "Ihr Passwort wurde geändert. Melden Sie sich mit Ihrem neuen Passwort an.",
+    "newPassword": "Neues Passwort",
+    "newPasswordBody": "Wählen Sie ein sicheres Passwort für Ihr Konto.",
+    "passwordPlaceholderMin": "Mindestens 8 Zeichen",
+    "confirmPasswordPlaceholder": "Passwort erneut eingeben",
+    "resetting": "Wird zurückgesetzt…",
+    "setNewPassword": "Neues Passwort festlegen",
+    "verifyingEmail": "Ihre E-Mail-Adresse wird bestätigt…",
+    "goToSignIn": "Zur Anmeldung",
+    "registerCheckEmail": "Prüfen Sie Ihre E-Mails!",
+    "registerCheckEmailBody": "Wir haben Ihnen einen Bestätigungslink per E-Mail gesendet. Bitte bestätigen Sie Ihr Konto, um fortzufahren.",
+    "registerSubtitle": "Werden Sie noch heute Teil von Product Scanner",
+    "firstNamePlaceholder": "Max",
+    "lastNamePlaceholder": "Mustermann",
+    "emailExample": "max@example.com",
+    "passwordPlaceholder12": "Mindestens 12 Zeichen",
+    "firstNameRequired": "Vorname ist erforderlich",
+    "lastNameRequired": "Nachname ist erforderlich",
+    "passwordPolicy": "Das Passwort erfüllt nicht alle Anforderungen",
+    "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort",
+    "termsPrefix": "Ich stimme den",
+    "termsAnd": "und der",
+    "creatingAccount": "Konto wird erstellt...",
+    "registrationFailed": "Registrierung fehlgeschlagen"
   },
   "onboarding": {
     "locationTitle": "Standort erlauben",
@@ -77,7 +123,10 @@
     "recentScans": "Letzte Scans",
     "noHistory": "Keine letzten Scans",
     "scanNow": "Produkt scannen zum Starten",
-    "safetyTip": "Barcode scannen für Sicherheitsbewertung"
+    "safetyTip": "Barcode scannen für Sicherheitsbewertung",
+    "subtitle": "Was möchten Sie heute scannen?",
+    "viewAll": "Alle anzeigen",
+    "noHistoryBody": "Tippen Sie auf „Produkt scannen“, um zu beginnen"
   },
   "scanner": {
     "title": "Scanner",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Sie haben alle 20 kostenlosen Scans für diese Stunde verbraucht.",
     "watchAd": "Video anschauen für 5 weitere Scans",
     "upgradePremium": "Auf Premium upgraden",
-    "scansRemaining": "Noch {{count}} Scans in dieser Stunde"
+    "scansRemaining": "Noch {{count}} Scans in dieser Stunde",
+    "scanAProduct": "Produkt scannen",
+    "enterBarcodeFromPack": "Geben Sie die Strichcodenummer von der Produktverpackung ein.",
+    "requestingPermission": "Kamerazugriff wird angefragt...",
+    "permissionDeniedTitle": "Kamerazugriff erforderlich",
+    "permissionDeniedBody": "Erlauben Sie den Kamerazugriff zum Scannen von Strichcodes, oder geben Sie sie unten manuell ein.",
+    "typeBarcode": "Geben Sie die Strichcodenummer des Produkts ein.",
+    "useCamera": "Stattdessen Kamera verwenden",
+    "enterManually": "Manuell eingeben",
+    "scanAgain": "Erneut scannen",
+    "pointCameraShort": "Kamera auf den Strichcode richten",
+    "enterBarcodePlaceholder": "Strichcodenummer eingeben…",
+    "watchVideo": "Video ansehen (+5 Scans)"
   },
   "product": {
     "loading": "Produkt wird geladen...",
@@ -147,7 +208,14 @@
     "scanResult": "Scan-Ergebnis",
     "notRated": "Nicht bewertet",
     "notRatedBody": "Zu diesem Produkt liegen zu wenige Informationen vor",
-    "alternativesPending": "Der Vergleich läuft noch. Gleich ist er fertig — schauen Sie in einer Minute in den Verlauf."
+    "alternativesPending": "Der Vergleich läuft noch. Gleich ist er fertig — schauen Sie in einer Minute in den Verlauf.",
+    "images": "Produktbilder",
+    "linkFailed": "Link konnte nicht geöffnet werden",
+    "notInDatabase": "Produkt nicht in unserer Datenbank",
+    "recommendationsUnavailable": "Empfehlungen nicht verfügbar.",
+    "sharingSoon": "Teilen ist bald verfügbar!",
+    "notRatedResearching": "Wir haben noch nicht genug Informationen — wir recherchieren gerade. Schauen Sie gleich noch einmal vorbei.",
+    "notRatedUnsupported": "Diese Art von Produkt bewerten wir noch nicht"
   },
   "history": {
     "title": "Scan-Verlauf",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} Scans in dieser Stunde verwendet",
-    "unlimitedScans": "Unbegrenzte Scans"
+    "unlimitedScans": "Unbegrenzte Scans",
+    "phone": "Telefon",
+    "phoneNumber": "Telefonnummer",
+    "phonePlaceholder": "+49123456789",
+    "bio": "Über mich",
+    "bioPlaceholder": "Erzählen Sie etwas über sich",
+    "memberSince": "Mitglied seit",
+    "dietaryAllergens": "Ernährung & Allergene",
+    "dietaryAllergensSub": "Bewertungen und Empfehlungen personalisieren",
+    "adminFullAccess": "Administrator — Vollzugriff",
+    "logout": "Abmelden",
+    "logoutConfirm": "Möchten Sie sich wirklich abmelden?",
+    "loadFailed": "Profil konnte nicht geladen werden",
+    "updateSuccess": "Profil erfolgreich aktualisiert",
+    "updateFailed": "Profil konnte nicht aktualisiert werden"
   },
   "preferences": {
     "title": "Einstellungen",
@@ -181,7 +263,20 @@
     "privacy": "Datenschutz",
     "analyticsConsent": "Analyse",
     "marketingConsent": "Marketing-E-Mails",
-    "saved": "Einstellungen gespeichert"
+    "saved": "Einstellungen gespeichert",
+    "dietarySub": "Wird verwendet, um Sicherheitsbewertungen und Empfehlungen zu personalisieren",
+    "allergensTitle": "Zu vermeidende Allergene",
+    "allergensSub": "Produkte, die diese enthalten, werden mit einer Warnung gekennzeichnet",
+    "appSettings": "App-Einstellungen",
+    "analytics": "Analyse",
+    "analyticsSub": "Helfen Sie uns, die App zu verbessern. Die Daten bleiben bei uns und werden nie weitergegeben.",
+    "personalisation": "Personalisierte Empfehlungen",
+    "personalisationSub": "Meinen Scanverlauf nutzen, um zu lernen, was ich kaufe, damit die App mir bessere Alternativen vorschlagen kann. Die Daten bleiben bei uns und werden nie verkauft.",
+    "marketing": "Marketing",
+    "marketingSub": "Personalisierte Angebote und Neuigkeiten erhalten",
+    "savedBody": "Ihre Einstellungen wurden gespeichert.",
+    "loadFailed": "Einstellungen konnten nicht geladen werden",
+    "saveFailed": "Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
   },
   "subscription": {
     "title": "Upgrade",
@@ -214,7 +309,13 @@
     "purchaseFailedTitle": "Kauf nicht verfügbar",
     "purchaseFailedBody": "Der Store konnte diesen Kauf nicht abschließen. Bitte später erneut versuchen.",
     "mostPopular": "Am beliebtesten",
-    "bestValue": "Bestes Preis-Leistungs-Verhältnis"
+    "bestValue": "Bestes Preis-Leistungs-Verhältnis",
+    "adminAccount": "Administratorkonto",
+    "adminSubtitle": "Vollzugriff — kein Abonnement erforderlich",
+    "unlockFull": "Nutzen Sie ProductScanner in vollem Umfang",
+    "upgradeToPremium": "Auf Premium upgraden",
+    "upgradeToAiPremium": "Auf AI Premium upgraden",
+    "aiPremiumTeaser": "Echte Preise aus lokalen Geschäften und dem Web, alles an einem Ort"
   },
   "grades": {
     "A": "Ausgezeichnet",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "Schwefeldioxid und Sulfite",
     "lupin": "Lupinen",
     "molluscs": "Weichtiere"
+  },
+  "nutrition": {
+    "energy": "Energie",
+    "fat": "Fett",
+    "carbohydrates": "Kohlenhydrate",
+    "sugars": "Zucker",
+    "fiber": "Ballaststoffe",
+    "proteins": "Eiweiß",
+    "salt": "Salz"
+  },
+  "video": {
+    "title": "Ansehen & verdienen",
+    "loadingAd": "Ihr Video wird geladen…",
+    "watchToEarn": "Sehen Sie das ganze Video an und erhalten Sie 5 zusätzliche Scans für diese Stunde.",
+    "claiming": "Ihre Belohnung wird gutgeschrieben…",
+    "granted": "+5 Scans gutgeschrieben!",
+    "grantedBody": "Sie haben 5 zusätzliche Scans für diese Stunde.",
+    "grantedUpgrade": "Upgraden Sie auf Premium für unbegrenztes Scannen ohne Werbung.",
+    "alreadyClaimed": "Bereits eingelöst",
+    "alreadyClaimedBody": "Sie haben in dieser Stunde bereits zusätzliche Scans erhalten.",
+    "alreadyClaimedUpgrade": "Kommen Sie später wieder oder upgraden Sie auf Premium.",
+    "backToScanner": "Zurück zum Scanner",
+    "upgradeUnlimited": "Unbegrenzt mit Premium",
+    "notCompleted": "Video nicht vollständig angesehen",
+    "notCompletedBody": "Sehen Sie das ganze Video an, um 5 zusätzliche Scans zu erhalten.",
+    "claimFailed": "Belohnung konnte nicht gutgeschrieben werden. Bitte versuchen Sie es erneut."
+  },
+  "account": {
+    "delete": "Konto löschen",
+    "deleteHint": "Löscht Ihr Konto, Ihren Scanverlauf und Ihre Einstellungen dauerhaft. Dies kann nicht rückgängig gemacht werden.",
+    "deleteExplain": "Damit entfernen wir Ihr Konto, Ihren Scanverlauf und Ihre Einstellungen von unseren Servern. Dies kann nicht rückgängig gemacht werden.",
+    "deleteConfirmTitle": "Endgültig löschen?",
+    "deleteConfirmBody": "Diese Daten lassen sich nicht wiederherstellen.",
+    "deleteConfirm": "Alles löschen",
+    "deletePartialTitle": "Teilweise gelöscht",
+    "deletePartialBody": "Einige Ihrer Daten konnten noch nicht entfernt werden. Wir haben das vermerkt und werden es abschließen. Melden Sie sich bei uns, falls es bestehen bleibt.",
+    "deleteFailed": "Ihr Konto wurde nicht gelöscht. Bitte versuchen Sie es erneut."
+  },
+  "legal": {
+    "privacy": "Datenschutzerklärung",
+    "privacySub": "Was wir speichern und was Sie dagegen tun können",
+    "terms": "Nutzungsbedingungen",
+    "attributions": "Danksagungen",
+    "attributionsSub": "Die offenen Daten und Open-Source-Software, auf denen wir aufbauen",
+    "lastUpdated": "Zuletzt aktualisiert"
+  },
+  "dietary": {
+    "vegan": "Vegan",
+    "vegetarian": "Vegetarisch",
+    "glutenFree": "Glutenfrei",
+    "halal": "Halal",
+    "kosher": "Koscher",
+    "lactoseFree": "Laktosefrei",
+    "nutFree": "Nussfrei",
+    "lowSugar": "Zuckerarm"
+  },
+  "allergenOption": {
+    "milk": "Milch",
+    "eggs": "Eier",
+    "fish": "Fisch",
+    "shellfish": "Krebstiere",
+    "treeNuts": "Schalenfrüchte",
+    "peanuts": "Erdnüsse",
+    "wheat": "Weizen",
+    "soy": "Soja",
+    "sesame": "Sesam",
+    "celery": "Sellerie",
+    "mustard": "Senf",
+    "sulphites": "Sulfite"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "intro": "Hier erklären wir, was wir über Sie speichern, warum, und was Sie dagegen tun können. Wir haben versucht, das in verständlicher Sprache zu schreiben und nicht in der Sprache eines Dokuments, das niemand liest.",
+      "sections": [
+        {
+          "heading": "Was wir speichern",
+          "body": [
+            "Ihre E-Mail-Adresse und einen kryptografischen Hash Ihres Passworts — niemals das Passwort selbst.",
+            "Ihren Scanverlauf: die Strichcodes, die Sie gescannt haben, und wann.",
+            "Ihre Ernährungsvorlieben und angegebenen Allergene, sofern Sie sie angeben möchten.",
+            "Ihre Abo-Stufe und ein Gerätetoken, wenn Sie Benachrichtigungen aktivieren.",
+            "Optional, und nur wenn Sie sie eintragen: Ihren Vor- und Nachnamen, Ihre Telefonnummer, Ihr Geburtsdatum, eine kurze Beschreibung und ein Profilbild. Nichts davon ist erforderlich, die App funktioniert auch ohne, und Sie können all das jederzeit im Profil löschen.",
+            "Wir fragen weder nach Ihrer Anschrift noch nach Zahlungsdaten, und wir sehen Ihre Karte nie."
+          ]
+        },
+        {
+          "heading": "Warum wir das speichern",
+          "body": [
+            "Um Ihnen den Dienst zu bieten, für den Sie sich angemeldet haben: Produkte scannen, Ihren Verlauf aufbewahren und Produkte für Sie bewerten statt für alle.",
+            "Allergene und Ernährungseinschränkungen sind Gesundheitsdaten nach Artikel 9 DSGVO. Wir fragen danach nur, damit eine Bewertung Sie vor etwas warnen kann, das Ihnen schaden würde. Wir fragen gesondert und ausdrücklich, bevor Sie sie angeben, und Sie können die Einwilligung jederzeit in den Einstellungen widerrufen.",
+            "Um Zahlungen entgegenzunehmen, die Apple und Google abwickeln — wir sehen Ihre Karte nie."
+          ]
+        },
+        {
+          "heading": "Wo die Daten liegen",
+          "body": [
+            "Auf Servern in Frankfurt am Main, Deutschland, innerhalb der Europäischen Union. Ihre personenbezogenen Daten werden nicht außerhalb der EU übermittelt.",
+            "Die KI, die eine Bewertung erklärt, läuft auf demselben Server. Sie ist kein Dienst eines Dritten, und nichts, was Sie scannen, wird an einen solchen gesendet."
+          ]
+        },
+        {
+          "heading": "Wer sie sonst noch sieht",
+          "body": [
+            "Apple und Google für Abo-Zahlungen, über RevenueCat. Sie sind der Verkäufer im Rechtssinne.",
+            "Resend, das die Kontomails versendet — Bestätigung und Passwortzurücksetzung.",
+            "Sonst niemand.",
+            "Wenn wir ein Produkt nachschlagen, fragen wir öffentlich verfügbare Produktdaten allein anhand des Strichcodes ab. Diese Quellen erfahren nichts über Sie, Ihr Konto oder Ihr Gerät."
+          ]
+        },
+        {
+          "heading": "Das Modell gehört uns",
+          "body": [
+            "Die Sicherheitsbewertung, die Zutatenanalyse und die Empfehlungen stammen von einem Sprachmodell und einer Reihe von Algorithmen, die wir selbst gebaut haben. Sie laufen auf unseren eigenen Servern in Frankfurt.",
+            "In dieser App gibt es keinen externen KI-Dienst. Nichts, was Sie scannen, wird an einen solchen gesendet, weil es keinen gibt, an den man senden könnte.",
+            "Was das Modell lernt, lernt es hier, aus unseren eigenen Daten, um die App für die Menschen besser zu machen, die sie nutzen. Dieses Gelernte wird nicht weitergegeben, und niemand sonst trainiert damit.",
+            "Produktabfragen stellen unsere Server, nie Ihr Telefon, sodass nichts über Ihr Gerät zu einer externen Quelle gelangt."
+          ]
+        },
+        {
+          "heading": "Personalisierte Empfehlungen",
+          "body": [
+            "Wenn Sie in den Einstellungen Personalisierte Empfehlungen aktivieren, nutzen wir Ihren Scanverlauf, um zu lernen, was Sie kaufen, und bessere Alternativen vorzuschlagen — sicherere Produkte in den Kategorien, in denen Sie tatsächlich einkaufen.",
+            "Das beeinflusst, was die App Ihnen empfiehlt. Es wird nicht genutzt, um Ihnen Werbung zu zeigen, es wird nicht weitergegeben und nicht verkauft.",
+            "Es ist aus, solange Sie es nicht einschalten, und Ausschalten beendet es. Wir fragen gesondert, weil es ein anderer Zweck ist als der Betrieb der App, und weil das, was Sie scannen, Rückschlüsse auf Ihre Gesundheit zulassen kann."
+          ]
+        },
+        {
+          "heading": "Was wir niemals tun",
+          "body": [
+            "Wir verkaufen Ihre personenbezogenen Daten nicht. Weder Ihren Scanverlauf noch Ihre Einstellungen, weder an Datenhändler noch an sonst jemanden.",
+            "Wir verfolgen Sie nicht über Apps oder Websites anderer Unternehmen hinweg, und wir lassen niemanden Sie über uns verfolgen.",
+            "Wir zeigen Ihnen keine Werbung auf Grundlage dessen, was Sie scannen.",
+            "In dieser App befindet sich keinerlei Analyse- oder Werbesoftware. Kein SDK eines Dritten beobachtet, was Sie darin tun.",
+            "Die einzigen Unternehmen, die überhaupt etwas über Sie erhalten, sind die beiden, die den Dienst ermöglichen: dasjenige, das Ihre Kontomails zustellt, und die Stores, die Ihre Zahlung entgegennehmen. Beide sind oben genannt, beide handeln nur nach unseren Weisungen, und keines erhält Ihren Scanverlauf.",
+            "Wir können aggregierte Zahlen über Produkte veröffentlichen — etwa wie eine Kategorie im Durchschnitt abschneidet. Das sind Summen, in denen keine Person steckt, und keine Zahl, die auf weniger als 20 Scans beruht, wird überhaupt veröffentlicht."
+          ]
+        },
+        {
+          "heading": "Wie lange wir sie aufbewahren",
+          "body": [
+            "Scanverlauf: 30 Tage in der kostenlosen Stufe, 2 Jahre in einer bezahlten Stufe, danach automatische Löschung.",
+            "Ihr Konto und Ihre Einstellungen: bis Sie Ihr Konto löschen.",
+            "Zahlungsunterlagen: bleiben nach der Löschung erhalten, ohne Bezug zu Ihnen, weil Steuerrecht und die App-Stores das verlangen."
+          ]
+        },
+        {
+          "heading": "Was Sie tun können",
+          "body": [
+            "Alles einsehen, was wir über Sie speichern, und es als Datei mitnehmen — Profil, dann Meine Daten exportieren.",
+            "Ihr Konto und alles Persönliche darin löschen, direkt in der App — Profil, dann Konto löschen. Es geschieht sofort und ist nicht umkehrbar.",
+            "Falsches berichtigen, die Einwilligung für Allergendaten widerrufen oder der Nutzung widersprechen.",
+            "Sich bei Ihrer Datenschutzaufsichtsbehörde beschweren. In Deutschland ist das die oder der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit oder die zuständige Landesbehörde."
+          ]
+        },
+        {
+          "heading": "Kinder",
+          "body": [
+            "Die App ist nicht für Kinder unter 16 Jahren bestimmt, und wir speichern wissentlich keine Daten über sie."
+          ]
+        },
+        {
+          "heading": "Kontakt",
+          "body": [
+            "Schreiben Sie an {{email}}, wenn Sie Fragen zu dieser Erklärung haben."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "intro": "Die Vereinbarung zwischen Ihnen und uns. Die Kurzfassung: Nutzen Sie die App, missbrauchen Sie sie nicht, und halten Sie eine Bewertung nicht für medizinischen Rat.",
+      "sections": [
+        {
+          "heading": "Was diese App tut",
+          "body": [
+            "Sie liest einen Strichcode, schlägt das Produkt nach und bewertet seine Sicherheit mit unserem eigenen Modell.",
+            "Bewertungen werden aus veröffentlichten Daten berechnet: Nährwert- und Verarbeitungsklassifizierungen, angegebene Zutaten und Erkenntnisse zu bestimmten Stoffen. Wir zeigen Ihnen, was jede Bewertung bestimmt hat."
+          ]
+        },
+        {
+          "heading": "Was eine Bewertung ist — und was nicht",
+          "body": [
+            "Sie ist unsere Einschätzung auf Grundlage der uns verfügbaren Daten. Sie ist keine medizinische, diätetische oder ernährungswissenschaftliche Beratung und ersetzt nicht das Lesen des Etiketts.",
+            "Wenn Sie eine Allergie oder eine Erkrankung haben, ist die Packung in Ihrer Hand maßgeblich — nicht wir. Rezepturen ändern sich, und öffentliche Datenbanken hinken hinterher.",
+            "Wo uns Informationen fehlen, sagen wir das und zeigen keine Note, statt zu raten."
+          ]
+        },
+        {
+          "heading": "Unser eigenes Modell — und was das für Sie bedeutet",
+          "body": [
+            "Die Sicherheitsbewertungen erstellt ein Sprachmodell mit einer Reihe von Algorithmen, die wir selbst geschrieben haben und selbst betreiben. Sie sind von niemandem lizenziert, und diese App ist keine Hülle um den Dienst eines anderen.",
+            "Alles, was Ihre Daten liest, läuft auf unseren eigenen Servern. Es ist kein externer KI-Dienst beteiligt, also wird nichts, was Sie scannen, an einen solchen gesendet.",
+            "Was wir aus der Nutzung der App lernen, verwenden wir, um sie besser und verlässlicher zu machen und die Vorschläge zu verbessern. Das geschieht hier, auf unserer eigenen Infrastruktur.",
+            "Das Modell bleibt unseres. Wir teilen es nicht, wir lizenzieren es nicht, und niemand sonst trainiert mit dem, was Sie scannen.",
+            "Wir verkaufen Ihre personenbezogenen Daten nicht, geben sie nicht an Werbetreibende oder Datenhändler weiter und verfolgen Sie nicht über andere Apps oder Websites hinweg."
+          ]
+        },
+        {
+          "heading": "Woher die Daten stammen",
+          "body": [
+            "Aus öffentlich verfügbaren Produktdaten, aus unserer eigenen Recherche und aus dem, was wir daraus ableiten. Ein Teil stammt aus gemeinschaftlich gepflegten Datenbanken unter der Open Database License, die wir in den Danksagungen nennen.",
+            "Wir können irren, weil eine Quelle irrt. Wenn Sie einen Fehler finden, sagen Sie uns Bescheid, und wir beheben ihn."
+          ]
+        },
+        {
+          "heading": "Ihr Konto",
+          "body": [
+            "Ein Konto pro Person. Behalten Sie Ihr Passwort für sich.",
+            "Verwenden Sie keine automatisierten Werkzeuge, um den Dienst auszulesen, und versuchen Sie nicht, ihn zu überlasten.",
+            "Sie können Ihr Konto jederzeit in der App löschen."
+          ]
+        },
+        {
+          "heading": "Abonnements",
+          "body": [
+            "Bezahlte Stufen werden über den App Store und Google Play verkauft. Diese wickeln die Zahlung, den Preis in Ihrer Währung und die Steuer ab.",
+            "Abonnements verlängern sich, bis sie gekündigt werden. Kündigen Sie über Ihre Apple- oder Google-Kontoeinstellungen — wir können das nicht für Sie tun.",
+            "Erstattungen bearbeitet der Store nach seinen eigenen Richtlinien."
+          ]
+        },
+        {
+          "heading": "Grenzen",
+          "body": [
+            "Der Dienst wird so bereitgestellt, wie er ist. Wir arbeiten daran, ihn zutreffend und verfügbar zu halten, garantieren aber weder das eine noch das andere.",
+            "Für Entscheidungen, die Sie aufgrund einer Bewertung treffen, haften wir nicht. Siehe oben, was eine Bewertung ist."
+          ]
+        },
+        {
+          "heading": "Änderungen",
+          "body": [
+            "Wir können diese Bedingungen ändern. Ist eine Änderung wesentlich, teilen wir sie Ihnen in der App mit, bevor sie wirksam wird."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Danksagungen",
+      "intro": "Product Scanner baut auf offenen Daten und Open Source auf. Das sind die Menschen, deren Arbeit das möglich macht.",
+      "sections": [
+        {
+          "heading": "Offene Produktdaten",
+          "body": [
+            "Teile der Produktinformationen in dieser App stammen von Open Food Facts und Open Beauty Facts, gemeinschaftlich gepflegten Datenbanken, die unter der Open Database License (ODbL) v1.0 bereitgestellt werden.",
+            "Ihre Inhalte stammen von Freiwilligen. Wir sind dafür dankbar, korrigieren sie, wo wir Fehler finden, und etwaige Fehler in dem, was Sie hier sehen, gehen auf uns zurück, nicht auf sie.",
+            "Die Lizenz finden Sie unter opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Was von uns stammt",
+          "body": [
+            "Die Sicherheitsbewertungen, die Zutaten- und Dosisanalyse, die Modelle und die Software sind unsere eigene Arbeit und fallen nicht unter die oben genannten Lizenzen."
+          ]
+        },
+        {
+          "heading": "Open Source",
+          "body": [
+            "Diese App ist mit React Native und Expo gebaut, ihr Backend mit FastAPI und PostgreSQL, neben vielen weiteren Open-Source-Bibliotheken unter permissiven Lizenzen."
+          ]
+        }
+      ]
+    }
   }
 }

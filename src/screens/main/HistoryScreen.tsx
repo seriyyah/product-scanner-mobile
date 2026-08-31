@@ -182,8 +182,8 @@ const HistoryScreen: React.FC = () => {
         ListEmptyComponent={() => (
           <View style={styles.emptyState}>
             <Ionicons name="time-outline" size={64} color={theme.colors.textSecondary} />
-            <Text style={styles.emptyTitle}>No scans yet</Text>
-            <Text style={styles.emptyText}>Your scan history will appear here</Text>
+            <Text style={styles.emptyTitle}>{t('history.noHistory', 'No scans yet')}</Text>
+            <Text style={styles.emptyText}>{t('history.noHistoryBody', 'Your scan history will appear here')}</Text>
           </View>
         )}
         contentContainerStyle={items.length === 0 ? styles.emptyContainer : styles.listContent}

@@ -18,7 +18,9 @@
     "allow": "Salli",
     "deny": "Estä",
     "unknown": "Tuntematon",
-    "goBack": "Takaisin"
+    "goBack": "Takaisin",
+    "continue": "Jatka",
+    "success": "Valmis"
   },
   "auth": {
     "login": "Kirjaudu sisään",
@@ -51,7 +53,51 @@
     "ruleLength": "Vähintään 12 merkkiä",
     "ruleLowercase": "Pieni kirjain",
     "ruleSpecial": "Erikoismerkki (!@#$…)",
-    "ruleUppercase": "Iso kirjain"
+    "ruleUppercase": "Iso kirjain",
+    "welcomeBack": "Tervetuloa takaisin",
+    "loginSubtitle": "Kirjaudu sisään jatkaaksesi tuotteiden skannausta",
+    "emailLabel": "Sähköpostiosoite",
+    "emailPlaceholder": "Anna sähköpostiosoitteesi",
+    "passwordPlaceholder": "Anna salasanasi",
+    "signIn": "Kirjaudu sisään",
+    "signUp": "Rekisteröidy",
+    "emailInvalidLong": "Anna kelvollinen sähköpostiosoite",
+    "emailRequired": "Sähköpostiosoite vaaditaan",
+    "emailTooLong": "Sähköpostiosoitteen on oltava alle 255 merkkiä",
+    "passwordRequired": "Salasana vaaditaan",
+    "passwordTooLong": "Salasanan on oltava alle 128 merkkiä",
+    "checkEmailTitle": "Tarkista sähköpostisi",
+    "resetLinkSent": "Jos kyseinen sähköpostiosoite on järjestelmässämme, lähetimme siihen linkin salasanan palauttamiseksi.",
+    "backToSignIn": "Takaisin kirjautumiseen",
+    "resetPasswordTitle": "Palauta salasana",
+    "resetPasswordBody": "Anna sähköpostiosoitteesi, niin lähetämme sinulle palautuslinkin.",
+    "sending": "Lähetetään...",
+    "sendResetLink": "Lähetä linkki",
+    "passwordResetDone": "Salasana palautettu!",
+    "passwordResetDoneBody": "Salasanasi on päivitetty. Kirjaudu sisään uudella salasanallasi.",
+    "newPassword": "Uusi salasana",
+    "newPasswordBody": "Valitse tilillesi vahva salasana.",
+    "passwordPlaceholderMin": "Vähintään 8 merkkiä",
+    "confirmPasswordPlaceholder": "Anna salasana uudelleen",
+    "resetting": "Palautetaan…",
+    "setNewPassword": "Aseta uusi salasana",
+    "verifyingEmail": "Vahvistetaan sähköpostiosoitettasi…",
+    "goToSignIn": "Siirry kirjautumiseen",
+    "registerCheckEmail": "Tarkista sähköpostisi!",
+    "registerCheckEmailBody": "Lähetimme vahvistuslinkin sähköpostiosoitteeseesi. Vahvista tilisi jatkaaksesi.",
+    "registerSubtitle": "Liity Product Scanneriin tänään",
+    "firstNamePlaceholder": "Matti",
+    "lastNamePlaceholder": "Virtanen",
+    "emailExample": "matti@example.com",
+    "passwordPlaceholder12": "Vähintään 12 merkkiä",
+    "firstNameRequired": "Etunimi vaaditaan",
+    "lastNameRequired": "Sukunimi vaaditaan",
+    "passwordPolicy": "Salasana ei täytä kaikkia vaatimuksia",
+    "confirmPasswordRequired": "Vahvista salasanasi",
+    "termsPrefix": "Hyväksyn",
+    "termsAnd": "ja",
+    "creatingAccount": "Luodaan tiliä...",
+    "registrationFailed": "Rekisteröinti epäonnistui"
   },
   "onboarding": {
     "locationTitle": "Salli sijainti",
@@ -77,7 +123,10 @@
     "recentScans": "Viimeisimmät skannaukset",
     "noHistory": "Ei viimeisiä skannauksia",
     "scanNow": "Skannaa tuote aloittaaksesi",
-    "safetyTip": "Skannaa viivakoodi turvallisuusarviota varten"
+    "safetyTip": "Skannaa viivakoodi turvallisuusarviota varten",
+    "subtitle": "Mitä haluaisit skannata tänään?",
+    "viewAll": "Näytä kaikki",
+    "noHistoryBody": "Aloita napauttamalla ”Skannaa tuote”"
   },
   "scanner": {
     "title": "Skanneri",
@@ -92,7 +141,19 @@
     "rateLimitBody": "Olet käyttänyt kaikki 20 ilmaista skannausta tältä tunnilta.",
     "watchAd": "Katso video saadaksesi 5 lisäskannausta",
     "upgradePremium": "Päivitä Premiumiin",
-    "scansRemaining": "{{count}} skannausta jäljellä tältä tunnilta"
+    "scansRemaining": "{{count}} skannausta jäljellä tältä tunnilta",
+    "scanAProduct": "Skannaa tuote",
+    "enterBarcodeFromPack": "Syötä viivakoodin numero tuotteen pakkauksesta.",
+    "requestingPermission": "Pyydetään kameran käyttöoikeutta...",
+    "permissionDeniedTitle": "Kameran käyttöoikeus vaaditaan",
+    "permissionDeniedBody": "Salli kameran käyttö viivakoodien skannaamiseen, tai syötä ne käsin alla.",
+    "typeBarcode": "Kirjoita tuotteen viivakoodin numero.",
+    "useCamera": "Käytä kameraa",
+    "enterManually": "Syötä käsin",
+    "scanAgain": "Skannaa uudelleen",
+    "pointCameraShort": "Suuntaa kamera viivakoodiin",
+    "enterBarcodePlaceholder": "Syötä viivakoodin numero…",
+    "watchVideo": "Katso video (+5 skannausta)"
   },
   "product": {
     "loading": "Ladataan tuotetta...",
@@ -147,7 +208,14 @@
     "scanResult": "Skannaustulos",
     "notRated": "Ei arvioitu",
     "notRatedBody": "Tästä tuotteesta ei ole tarpeeksi tietoa",
-    "alternativesPending": "Tuotetta vertaillaan yhä. Valmista pian — katso historia minuutin kuluttua."
+    "alternativesPending": "Tuotetta vertaillaan yhä. Valmista pian — katso historia minuutin kuluttua.",
+    "images": "Tuotekuvat",
+    "linkFailed": "Linkkiä ei voitu avata",
+    "notInDatabase": "Tuotetta ei ole tietokannassamme",
+    "recommendationsUnavailable": "Suositukset eivät ole käytettävissä.",
+    "sharingSoon": "Jakaminen tulossa pian!",
+    "notRatedResearching": "Meillä ei ole vielä tarpeeksi tietoa — etsimme sitä parhaillaan. Palaa hetken kuluttua.",
+    "notRatedUnsupported": "Emme arvioi vielä tämän tyyppisiä tuotteita"
   },
   "history": {
     "title": "Skannaushistoria",
@@ -170,7 +238,21 @@
     "premiumTier": "Premium",
     "aiPremiumTier": "AI Premium",
     "scansUsed": "{{used}} / {{total}} skannausta käytetty tällä tunnilla",
-    "unlimitedScans": "Rajoittamattomat skannaukset"
+    "unlimitedScans": "Rajoittamattomat skannaukset",
+    "phone": "Puhelin",
+    "phoneNumber": "Puhelinnumero",
+    "phonePlaceholder": "+358123456789",
+    "bio": "Tietoja minusta",
+    "bioPlaceholder": "Kerro jotain itsestäsi",
+    "memberSince": "Jäsen alkaen",
+    "dietaryAllergens": "Ruokavalio ja allergeenit",
+    "dietaryAllergensSub": "Mukauta arviot ja suositukset",
+    "adminFullAccess": "Ylläpitäjä — täysi käyttöoikeus",
+    "logout": "Kirjaudu ulos",
+    "logoutConfirm": "Haluatko varmasti kirjautua ulos?",
+    "loadFailed": "Profiilin lataaminen epäonnistui",
+    "updateSuccess": "Profiili päivitetty onnistuneesti",
+    "updateFailed": "Profiilin päivittäminen epäonnistui"
   },
   "preferences": {
     "title": "Asetukset",
@@ -181,7 +263,20 @@
     "privacy": "Yksityisyys",
     "analyticsConsent": "Analytiikka",
     "marketingConsent": "Markkinointisähköpostit",
-    "saved": "Asetukset tallennettu"
+    "saved": "Asetukset tallennettu",
+    "dietarySub": "Käytetään turvallisuusarvioiden ja suositusten mukauttamiseen",
+    "allergensTitle": "Vältettävät allergeenit",
+    "allergensSub": "Näitä sisältävät tuotteet merkitään varoituksella",
+    "appSettings": "Sovelluksen asetukset",
+    "analytics": "Analytiikka",
+    "analyticsSub": "Auta meitä parantamaan sovellusta. Tiedot pysyvät meillä eikä niitä koskaan jaeta.",
+    "personalisation": "Henkilökohtaiset suositukset",
+    "personalisationSub": "Käytä skannaushistoriaani oppiaksesi, mitä ostan, jotta sovellus voi ehdottaa minulle parempia vaihtoehtoja. Tiedot pysyvät meillä eikä niitä koskaan myydä.",
+    "marketing": "Markkinointi",
+    "marketingSub": "Vastaanota henkilökohtaisia tarjouksia ja uutisia",
+    "savedBody": "Asetuksesi on tallennettu.",
+    "loadFailed": "Asetusten lataaminen epäonnistui",
+    "saveFailed": "Asetusten tallentaminen epäonnistui. Yritä uudelleen."
   },
   "subscription": {
     "title": "Päivitä",
@@ -214,7 +309,13 @@
     "restoreDone": "Aiemmat ostokset on palautettu.",
     "restoreTitle": "Palauta ostokset",
     "restoreUnavailable": "Ostosten palauttaminen ei ole vielä käytettävissä.",
-    "storeBillingNotice": "Tilaukset laskutetaan App Storen tai Google Playn kautta. Hallinnoi tai peru milloin tahansa kauppatilissäsi."
+    "storeBillingNotice": "Tilaukset laskutetaan App Storen tai Google Playn kautta. Hallinnoi tai peru milloin tahansa kauppatilissäsi.",
+    "adminAccount": "Ylläpitäjän tili",
+    "adminSubtitle": "Täysi käyttöoikeus — tilausta ei tarvita",
+    "unlockFull": "Ota ProductScannerista kaikki irti",
+    "upgradeToPremium": "Päivitä Premiumiin",
+    "upgradeToAiPremium": "Päivitä AI Premiumiin",
+    "aiPremiumTeaser": "Todelliset hinnat paikallisista kaupoista ja verkosta, kaikki yhdessä paikassa"
   },
   "grades": {
     "A": "Erinomainen",
@@ -314,5 +415,267 @@
     "sulphurdioxideandsulphites": "rikkidioksidi ja sulfiitit",
     "lupin": "lupiini",
     "molluscs": "nilviäiset"
+  },
+  "nutrition": {
+    "energy": "Energia",
+    "fat": "Rasva",
+    "carbohydrates": "Hiilihydraatit",
+    "sugars": "Sokerit",
+    "fiber": "Kuitu",
+    "proteins": "Proteiini",
+    "salt": "Suola"
+  },
+  "video": {
+    "title": "Katso ja ansaitse",
+    "loadingAd": "Ladataan videotasi…",
+    "watchToEarn": "Katso koko video ansaitaksesi 5 lisäskannausta tälle tunnille.",
+    "claiming": "Myönnetään palkintoasi…",
+    "granted": "+5 skannausta myönnetty!",
+    "grantedBody": "Sinulla on 5 lisäskannausta tälle tunnille.",
+    "grantedUpgrade": "Päivitä Premiumiin rajattomaan skannaukseen ilman mainoksia.",
+    "alreadyClaimed": "Jo lunastettu",
+    "alreadyClaimedBody": "Olet jo saanut lisäskannauksia tällä tunnilla.",
+    "alreadyClaimedUpgrade": "Palaa myöhemmin tai päivitä Premiumiin.",
+    "backToScanner": "Takaisin skanneriin",
+    "upgradeUnlimited": "Rajattomasti Premiumilla",
+    "notCompleted": "Videota ei katsottu loppuun",
+    "notCompletedBody": "Katso koko video ansaitaksesi 5 lisäskannausta.",
+    "claimFailed": "Palkintoa ei voitu myöntää. Yritä uudelleen."
+  },
+  "account": {
+    "delete": "Poista tili",
+    "deleteHint": "Poistaa pysyvästi tilisi, skannaushistoriasi ja asetuksesi. Tätä ei voi perua.",
+    "deleteExplain": "Tämä poistaa palvelimiltamme tilisi, skannaushistoriasi ja asetuksesi. Tätä ei voi perua.",
+    "deleteConfirmTitle": "Poistetaanko pysyvästi?",
+    "deleteConfirmBody": "Näitä tietoja ei saa millään takaisin.",
+    "deleteConfirm": "Poista kaikki",
+    "deletePartialTitle": "Osittain poistettu",
+    "deletePartialBody": "Joitakin tietojasi ei voitu vielä poistaa. Olemme kirjanneet tämän ja saatamme sen loppuun. Ota yhteyttä, jos ongelma jatkuu.",
+    "deleteFailed": "Tiliäsi ei poistettu. Yritä uudelleen."
+  },
+  "legal": {
+    "privacy": "Tietosuojakäytäntö",
+    "privacySub": "Mitä säilytämme ja mitä voit sille tehdä",
+    "terms": "Käyttöehdot",
+    "attributions": "Kiitokset",
+    "attributionsSub": "Avoin data ja avoin lähdekoodi, joiden varaan rakennamme",
+    "lastUpdated": "Viimeksi päivitetty"
+  },
+  "dietary": {
+    "vegan": "Vegaaninen",
+    "vegetarian": "Kasvisruoka",
+    "glutenFree": "Gluteeniton",
+    "halal": "Halal",
+    "kosher": "Kosher",
+    "lactoseFree": "Laktoositon",
+    "nutFree": "Pähkinätön",
+    "lowSugar": "Vähäsokerinen"
+  },
+  "allergenOption": {
+    "milk": "Maito",
+    "eggs": "Kananmuna",
+    "fish": "Kala",
+    "shellfish": "Äyriäiset",
+    "treeNuts": "Pähkinät",
+    "peanuts": "Maapähkinät",
+    "wheat": "Vehnä",
+    "soy": "Soija",
+    "sesame": "Seesami",
+    "celery": "Selleri",
+    "mustard": "Sinappi",
+    "sulphites": "Sulfiitit"
+  },
+  "legalDocs": {
+    "privacy": {
+      "title": "Tietosuojakäytäntö",
+      "intro": "Tässä kerromme, mitä sinusta säilytämme, miksi, ja mitä voit sille tehdä. Olemme yrittäneet kirjoittaa sen selkokielellä emmekä sellaisen asiakirjan kielellä, jota kukaan ei lue.",
+      "sections": [
+        {
+          "heading": "Mitä säilytämme",
+          "body": [
+            "Sähköpostiosoitteesi ja salasanasi kryptografisen tiivisteen — ei koskaan itse salasanaa.",
+            "Skannaushistoriasi: skannaamasi viivakoodit ja ajankohdan.",
+            "Ruokavaliomieltymyksesi ja ilmoittamasi allergeenit, jos päätät antaa ne.",
+            "Tilaustasosi ja laitetunnisteen, jos otat ilmoitukset käyttöön.",
+            "Vapaaehtoisesti, ja vain jos täytät ne: etu- ja sukunimesi, puhelinnumerosi, syntymäaikasi, lyhyen esittelyn ja profiilikuvan. Mikään näistä ei ole pakollinen, sovellus toimii ilman niitä, ja voit poistaa ne milloin tahansa Profiilissa.",
+            "Emme kysy osoitettasi emmekä maksutietojasi, emmekä koskaan näe korttiasi."
+          ]
+        },
+        {
+          "heading": "Miksi säilytämme sitä",
+          "body": [
+            "Jotta voimme tarjota sinulle palvelun, johon rekisteröidyit: tuotteiden skannauksen, historiasi säilyttämisen ja tuotteiden arvioinnin sinulle eikä kaikille.",
+            "Allergeenit ja ruokavaliorajoitukset ovat GDPR:n 9 artiklan mukaisia terveystietoja. Kysymme niitä vain, jotta arvio voi varoittaa sinua jostakin, joka olisi sinulle haitallista; kysymme ne erikseen ja nimenomaisesti ennen kuin annat ne, ja voit peruuttaa suostumuksen milloin tahansa Asetuksissa.",
+            "Maksun vastaanottamiseksi, mistä huolehtivat Apple ja Google — emme koskaan näe korttiasi."
+          ]
+        },
+        {
+          "heading": "Missä ne sijaitsevat",
+          "body": [
+            "Palvelimilla Frankfurtissa Saksassa, Euroopan unionin sisällä. Henkilötietojasi ei siirretä EU:n ulkopuolelle.",
+            "Arviota selittävä tekoäly toimii samalla palvelimella. Se ei ole kolmannen osapuolen palvelu, eikä mitään skannaamaasi lähetetä sellaiselle."
+          ]
+        },
+        {
+          "heading": "Kuka muu ne näkee",
+          "body": [
+            "Apple ja Google tilausmaksuja varten, RevenueCatin kautta. Ne ovat myyjänä.",
+            "Resend, joka lähettää tiliin liittyvät sähköpostit — vahvistuksen ja salasanan palautuksen.",
+            "Ei kukaan muu.",
+            "Kun haemme tuotetta, teemme kyselyn julkisesti saatavilla oleviin tuotetietoihin pelkän viivakoodin avulla. Nuo lähteet eivät saa mitään tietoa sinusta, tilistäsi tai laitteestasi."
+          ]
+        },
+        {
+          "heading": "Malli on meidän",
+          "body": [
+            "Turvallisuusarvio, ainesosa-analyysi ja suositukset tulevat kielimallista ja joukosta algoritmeja, jotka olemme rakentaneet itse. Ne toimivat omilla palvelimillamme Frankfurtissa.",
+            "Tässä sovelluksessa ei ole mitään ulkopuolista tekoälypalvelua. Mitään skannaamaasi ei lähetetä sellaiselle, koska sellaista ei ole olemassa.",
+            "Sen, minkä malli oppii, se oppii täällä, omista tiedoistamme, jotta sovellus olisi parempi sitä käyttäville ihmisille. Tuota oppimaa ei jaeta, eikä kukaan muu harjoita sillä.",
+            "Tuotehaut tekevät palvelimemme, eivät koskaan puhelimesi, joten mitään laitteestasi ei päädy ulkopuoliseen lähteeseen."
+          ]
+        },
+        {
+          "heading": "Henkilökohtaiset suositukset",
+          "body": [
+            "Jos otat Henkilökohtaiset suositukset käyttöön Asetuksissa, käytämme skannaushistoriaasi oppiaksemme, mitä ostat, ja ehdottaaksemme parempia vaihtoehtoja — turvallisempia tuotteita niissä ryhmissä, joista todella ostat.",
+            "Tämä määrittää, mitä sovellus sinulle suosittelee. Sitä ei käytetä mainosten näyttämiseen, sitä ei jaeta eikä myydä.",
+            "Se on pois päältä, ellet ota sitä käyttöön, ja pois kytkeminen lopettaa sen. Kysymme erikseen, koska tämä on eri tarkoitus kuin sovelluksen toiminnan ylläpitäminen, ja koska se, mitä skannaat, voi kertoa jotakin terveydestäsi."
+          ]
+        },
+        {
+          "heading": "Mitä emme koskaan tee",
+          "body": [
+            "Emme myy henkilötietojasi. Emme skannaushistoriaasi, emme asetuksiasi, emme tietovälittäjille emmekä kenellekään muulle.",
+            "Emme seuraa sinua muiden yritysten sovelluksissa tai sivustoilla, emmekä anna kenenkään seurata sinua kauttamme.",
+            "Emme näytä sinulle mainoksia sen perusteella, mitä skannaat.",
+            "Tässä sovelluksessa ei ole minkäänlaista analytiikka- tai mainosohjelmistoa. Mikään kolmannen osapuolen SDK ei tarkkaile, mitä siinä teet.",
+            "Ainoat yritykset, jotka saavat sinusta mitään, ovat ne kaksi, joiden ansiosta palvelu toimii: se, joka toimittaa tilisi sähköpostit, ja kaupat, jotka ottavat maksusi vastaan. Molemmat on nimetty edellä, molemmat toimivat vain ohjeidemme mukaan, eikä kumpikaan saa skannaushistoriaasi.",
+            "Voimme julkaista koottuja lukuja tuotteista — esimerkiksi miten jokin tuoteryhmä keskimäärin arvioidaan. Ne ovat summia, joissa ei ole ketään henkilöä, eikä yhtään alle 20 skannauksesta koottua lukua julkaista lainkaan."
+          ]
+        },
+        {
+          "heading": "Kuinka kauan säilytämme niitä",
+          "body": [
+            "Skannaushistoria: 30 päivää maksuttomalla tasolla, 2 vuotta maksullisella tasolla, minkä jälkeen se poistetaan automaattisesti.",
+            "Tilisi ja asetuksesi: kunnes poistat tilisi.",
+            "Maksutositteet: säilytetään poiston jälkeenkin ilman yhteyttä sinuun, koska verolainsäädäntö ja sovelluskaupat sitä edellyttävät."
+          ]
+        },
+        {
+          "heading": "Mitä voit tehdä",
+          "body": [
+            "Nähdä kaiken, mitä sinusta säilytämme, ja ottaa sen mukaasi tiedostona — Profiili, sitten Vie tietoni.",
+            "Poistaa tilisi ja kaiken henkilökohtaisen siinä, sovelluksen sisältä — Profiili, sitten Poista tili. Se tapahtuu heti eikä ole peruutettavissa.",
+            "Korjata virheellisen tiedon, peruuttaa allergeenitietoja koskevan suostumuksen tai vastustaa niiden käyttöä.",
+            "Tehdä valituksen tietosuojaviranomaiselle. Suomessa se on tietosuojavaltuutetun toimisto."
+          ]
+        },
+        {
+          "heading": "Lapset",
+          "body": [
+            "Sovellusta ei ole tarkoitettu alle 16-vuotiaille lapsille, emmekä tietoisesti säilytä heitä koskevia tietoja."
+          ]
+        },
+        {
+          "heading": "Yhteystiedot",
+          "body": [
+            "Kirjoita osoitteeseen {{email}} mistä tahansa tähän käytäntöön liittyvästä."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Käyttöehdot",
+      "intro": "Sopimus sinun ja meidän välillämme. Lyhyesti: käytä sovellusta, älä käytä sitä väärin, äläkä pidä arviota lääketieteellisenä neuvona.",
+      "sections": [
+        {
+          "heading": "Mitä tämä sovellus tekee",
+          "body": [
+            "Se lukee viivakoodin, hakee tuotteen ja arvioi sen turvallisuuden omalla mallillamme.",
+            "Arviot lasketaan julkaistuista tiedoista: ravitsemus- ja prosessointiluokituksista, ilmoitetuista ainesosista ja tiettyjä aineita koskevasta näytöstä. Näytämme sinulle, mikä kunkin arvion määritti."
+          ]
+        },
+        {
+          "heading": "Mitä arvio on ja mitä ei",
+          "body": [
+            "Se on oma arviomme käytettävissämme olevista tiedoista. Se ei ole lääketieteellinen, ruokavalio- tai ravitsemusneuvonta eikä korvaa pakkausmerkintöjen lukemista.",
+            "Jos sinulla on allergia tai sairaus, kädessäsi oleva pakkaus ratkaisee — emme me. Koostumukset muuttuvat, ja julkiset tietokannat laahaavat perässä.",
+            "Silloin kun meillä ei ole riittävästi tietoa, sanomme sen emmekä näytä arvosanaa sen sijaan että arvailisimme."
+          ]
+        },
+        {
+          "heading": "Oma mallimme ja mitä se sinulle merkitsee",
+          "body": [
+            "Turvallisuusarviot tuottaa kielimalli ja joukko algoritmeja, jotka olemme itse kirjoittaneet ja joita itse ylläpidämme. Niitä ei ole lisensoitu keneltäkään, eikä tämä sovellus ole kuori jonkun toisen palvelun ympärillä.",
+            "Kaikki, mikä lukee tietojasi, toimii omilla palvelimillamme. Mukana ei ole mitään ulkopuolista tekoälypalvelua, joten mitään skannaamaasi ei lähetetä sellaiselle.",
+            "Sen, mitä opimme sovelluksen käytöstä, käytämme tehdäksemme siitä paremman ja luotettavamman ja parantaaksemme sen ehdotuksia. Se tapahtuu täällä, omassa infrastruktuurissamme.",
+            "Malli pysyy meidän. Emme jaa sitä, emme lisensoi sitä eteenpäin, eikä kukaan muu harjoita sillä, mitä sinä skannaat.",
+            "Emme myy henkilötietojasi, emme jaa niitä mainostajille tai tietovälittäjille emmekä seuraa sinua muissa sovelluksissa tai sivustoilla."
+          ]
+        },
+        {
+          "heading": "Mistä tiedot tulevat",
+          "body": [
+            "Avoimesti saatavilla olevista tuotetiedoista, omasta tutkimuksestamme ja siitä, mitä näistä johdamme. Osa tulee yhteisön ylläpitämistä tietokannoista, jotka on lisensoitu Open Database License -lisenssillä ja jotka mainitsemme Kiitoksissa.",
+            "Voimme olla väärässä, koska lähde on väärässä. Jos löydät virheen, kerro meille, niin korjaamme sen."
+          ]
+        },
+        {
+          "heading": "Tilisi",
+          "body": [
+            "Yksi tili henkilöä kohden. Pidä salasanasi omana tietonasi.",
+            "Älä käytä automaattisia työkaluja palvelun haravointiin äläkä yritä ylikuormittaa sitä.",
+            "Voit poistaa tilisi milloin tahansa sovelluksen sisältä."
+          ]
+        },
+        {
+          "heading": "Tilaukset",
+          "body": [
+            "Maksulliset tasot myydään App Storen ja Google Playn kautta. Ne hoitavat maksun, hinnan omassa valuutassasi ja veron.",
+            "Tilaukset jatkuvat, kunnes ne irtisanotaan. Irtisano Apple- tai Google-tilisi asetuksista — emme voi tehdä sitä puolestasi.",
+            "Palautukset hoitaa kauppa oman käytäntönsä mukaisesti."
+          ]
+        },
+        {
+          "heading": "Rajoitukset",
+          "body": [
+            "Palvelu tarjotaan sellaisenaan. Pyrimme pitämään sen paikkansapitävänä ja saatavilla, mutta emme takaa kumpaakaan.",
+            "Emme vastaa päätöksistä, joita teet arvion perusteella. Katso edeltä, mitä arvio on."
+          ]
+        },
+        {
+          "heading": "Muutokset",
+          "body": [
+            "Voimme muuttaa näitä ehtoja. Jos muutos on merkittävä, kerromme siitä sovelluksessa ennen kuin se tulee voimaan."
+          ]
+        }
+      ]
+    },
+    "attributions": {
+      "title": "Kiitokset",
+      "intro": "Product Scanner rakentuu avoimelle datalle ja avoimelle lähdekoodille. Nämä ovat ihmiset, joiden työ tekee sen mahdolliseksi.",
+      "sections": [
+        {
+          "heading": "Avoin tuotedata",
+          "body": [
+            "Osa tämän sovelluksen tuotetiedoista on peräisin Open Food Factsista ja Open Beauty Factsista, yhteisön ylläpitämistä tietokannoista, jotka on saatettu saataville Open Database License (ODbL) v1.0 -lisenssillä.",
+            "Niiden sisällön tuottavat vapaaehtoiset. Olemme siitä kiitollisia, korjaamme sitä siellä missä löydämme virheitä, ja mahdolliset virheet siinä, mitä täällä näet, ovat meidän eivätkä heidän.",
+            "Lisenssi löytyy osoitteesta opendatacommons.org/licenses/odbl."
+          ]
+        },
+        {
+          "heading": "Mikä on meidän",
+          "body": [
+            "Turvallisuusarviot, ainesosa- ja annosanalyysi, mallit ja ohjelmisto ovat omaa työtämme eivätkä kuulu edellä mainittujen lisenssien piiriin."
+          ]
+        },
+        {
+          "heading": "Avoin lähdekoodi",
+          "body": [
+            "Tämä sovellus on rakennettu React Nativella ja Expolla, ja sen taustajärjestelmä FastAPI:lla ja PostgreSQL:llä, monien muiden sallivilla lisensseillä julkaistujen avoimen lähdekoodin kirjastojen ohella."
+          ]
+        }
+      ]
+    }
   }
 }
