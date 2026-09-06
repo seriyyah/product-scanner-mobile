@@ -22,7 +22,7 @@ import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
 import { ingredientList } from '@/utils/ingredientLocale';
 import { isRated, displayGrade, unratedReason } from '@/utils/ratingConfidence';
 import { classifyFailure } from '@/utils/requestOutcome';
-import { countryFromLang } from '@/utils/countryFromLang';
+import { resolveDiscoveryCountry } from '@/utils/discoveryCountry';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
 import {
@@ -102,10 +102,12 @@ const ScanResultScreen: React.FC = () => {
 
     const init = async () => {
       let currency = 'EUR';
+      let savedCountry: string | null = null;
       if (userId) {
         try {
           const prefs = await preferencesRepository.get(userId);
           if (prefs.default_currency) currency = prefs.default_currency;
+          savedCountry = prefs.country ?? null;
         } catch {}
       }
 
@@ -114,7 +116,11 @@ const ScanResultScreen: React.FC = () => {
       if (isAIPremium) {
         setDiscoveryStatus('loading');
         try {
-          const country = countryFromLang(i18n.language);
+          const country = resolveDiscoveryCountry({
+            saved: savedCountry,
+            language: i18n.language,
+            hasLocation: location?.lat != null && location?.lng != null,
+          });
           const result = await discoveryRepository.getDiscovery(barcode, location?.lat, location?.lng, currency, country);
           if (!cancelled) { setDiscovery(result as any); setDiscoveryStatus('done'); }
         } catch (err) {

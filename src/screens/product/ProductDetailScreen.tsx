@@ -32,7 +32,7 @@ import { gradeColor, gradeLabel, novaLabel } from '@/utils/safetyColors';
 import { isRated, displayGrade, unratedReason } from '@/utils/ratingConfidence';
 import { ingredientList } from '@/utils/ingredientLocale';
 import { explainRating, type ReasonTone } from '@/utils/ratingExplanation';
-import { countryFromLang } from '@/utils/countryFromLang';
+import { resolveDiscoveryCountry } from '@/utils/discoveryCountry';
 
 type ProductDetailRouteProp = RouteProp<MainStackParamList, 'ProductDetail'>;
 
@@ -52,6 +52,9 @@ const ProductDetailScreen: React.FC = () => {
   const [error, setError] = useState('');
   const [showAllIngredients, setShowAllIngredients] = useState(false);
   const [userCurrency, setUserCurrency] = useState('EUR');
+  // Kept beside the currency because a retry re-runs loadProduct outside the
+  // effect that fetched the preferences.
+  const [userCountry, setUserCountry] = useState<string | null>(null);
   const INGREDIENT_PREVIEW = 5;
 
   // AI Premium — unified discovery data
@@ -68,19 +71,22 @@ const ProductDetailScreen: React.FC = () => {
     const init = async () => {
       // 1. Resolve user's preferred currency first
       let currency = 'EUR';
+      let savedCountry: string | null = null;
       if (userId) {
         try {
           const prefs = await preferencesRepository.get(userId);
           if (prefs.default_currency) currency = prefs.default_currency;
+          savedCountry = prefs.country ?? null;
         } catch {}
       }
       if (!cancelled) {
         setUserCurrency(currency);
+        setUserCountry(savedCountry);
         // 2. Load product if not already provided
         if (!initialScanResult) {
           await loadProduct(currency);
         } else {
-          loadPhase2Data(barcode, currency);
+          loadPhase2Data(barcode, currency, savedCountry);
         }
       }
     };
@@ -101,7 +107,7 @@ const ProductDetailScreen: React.FC = () => {
     try {
       const result = await scannerRepository.getProductDetails(barcode);
       setScanResult(result);
-      loadPhase2Data(barcode, currency);
+      loadPhase2Data(barcode, currency, userCountry);
     } catch (err: unknown) {
       // Only a product never scanned before reaches the metered route, so a 429
       // here means this is a new lookup and the hourly quota is spent — not that
@@ -117,13 +123,17 @@ const ProductDetailScreen: React.FC = () => {
     }
   };
 
-  const loadPhase2Data = async (bc: string, currency: string): Promise<void> => {
+  const loadPhase2Data = async (bc: string, currency: string, savedCountry?: string | null): Promise<void> => {
     if (isAIPremium) {
       setDiscoveryStatus('loading');
       try {
-        // Country hint: GPS geocoding takes priority on the backend;
-        // language preference is the fallback when no location is available.
-        const country = countryFromLang(i18n.language);
+        // A country chosen in Preferences wins; failing that we send nothing
+        // so the backend can geocode, because a hint suppresses that lookup.
+        const country = resolveDiscoveryCountry({
+          saved: savedCountry,
+          language: i18n.language,
+          hasLocation: location?.lat != null && location?.lng != null,
+        });
         const result = await discoveryRepository.getDiscovery(
           bc,
           location?.lat,

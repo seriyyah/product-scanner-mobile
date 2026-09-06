@@ -21,7 +21,9 @@ const LANG_TO_COUNTRY: Record<string, string> = {
   da: 'dk',
   fi: 'fi',
   el: 'gr',
+  uk: 'ua',
   en: '',
+  ru: '',
 };
 
 export function countryFromLang(lang: string): string | undefined {
