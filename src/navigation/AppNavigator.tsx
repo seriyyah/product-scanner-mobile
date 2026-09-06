@@ -227,7 +227,7 @@ const linking: LinkingOptions<AuthRootParamList & MainRootParamList> = {
 // App Navigator
 const AppNavigator: React.FC = () => (
   <>
-    <StatusBar style="light" backgroundColor={theme.colors.background} />
+    <StatusBar style="light" />
     <NavigationContainer linking={linking}>
       <RootNavigator />
     </NavigationContainer>

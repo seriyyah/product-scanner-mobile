@@ -208,7 +208,7 @@ const ScannerScreen: React.FC = () => {
     <View style={styles.container}>
       {isFocused && (
         <CameraView
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill}
           facing="back"
           onBarcodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
           barcodeScannerSettings={{
