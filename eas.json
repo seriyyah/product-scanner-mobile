@@ -26,7 +26,6 @@
       "extends": "base",
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development",
       "ios": {
         "simulator": false
       },
