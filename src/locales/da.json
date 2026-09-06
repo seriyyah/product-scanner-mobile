@@ -281,7 +281,9 @@
     "marketingSub": "Modtag personlige tilbud og nyheder",
     "savedBody": "Dine indstillinger er gemt.",
     "loadFailed": "Indstillingerne kunne ikke indlæses",
-    "saveFailed": "Indstillingerne kunne ikke gemmes. Prøv igen."
+    "saveFailed": "Indstillingerne kunne ikke gemmes. Prøv igen.",
+    "country": "Land",
+    "countrySub": "Så vi kun foreslår sikrere produkter, du rent faktisk kan købe"
   },
   "subscription": {
     "title": "Opgrader",

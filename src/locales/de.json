@@ -281,7 +281,9 @@
     "marketingSub": "Personalisierte Angebote und Neuigkeiten erhalten",
     "savedBody": "Ihre Einstellungen wurden gespeichert.",
     "loadFailed": "Einstellungen konnten nicht geladen werden",
-    "saveFailed": "Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    "saveFailed": "Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "country": "Land",
+    "countrySub": "Damit wir nur sicherere Produkte vorschlagen, die Sie auch kaufen können"
   },
   "subscription": {
     "title": "Upgrade",

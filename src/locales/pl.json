@@ -281,7 +281,9 @@
     "marketingSub": "Otrzymuj spersonalizowane oferty i nowości",
     "savedBody": "Twoje ustawienia zostały zapisane.",
     "loadFailed": "Nie udało się wczytać ustawień",
-    "saveFailed": "Nie udało się zapisać ustawień. Spróbuj ponownie."
+    "saveFailed": "Nie udało się zapisać ustawień. Spróbuj ponownie.",
+    "country": "Kraj",
+    "countrySub": "Abyśmy proponowali tylko bezpieczniejsze produkty, które faktycznie kupisz"
   },
   "subscription": {
     "title": "Aktualizacja",

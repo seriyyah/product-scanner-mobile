@@ -281,7 +281,9 @@
     "marketingSub": "Ta emot personliga erbjudanden och nyheter",
     "savedBody": "Dina inställningar har sparats.",
     "loadFailed": "Det gick inte att läsa in inställningarna",
-    "saveFailed": "Det gick inte att spara inställningarna. Försök igen."
+    "saveFailed": "Det gick inte att spara inställningarna. Försök igen.",
+    "country": "Land",
+    "countrySub": "Så att vi bara föreslår säkrare produkter som du faktiskt kan köpa"
   },
   "subscription": {
     "title": "Uppgradera",

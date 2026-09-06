@@ -281,7 +281,9 @@
     "marketingSub": "Dostávat personalizované nabídky a novinky",
     "savedBody": "Vaše předvolby byly uloženy.",
     "loadFailed": "Nepodařilo se načíst předvolby",
-    "saveFailed": "Nepodařilo se uložit předvolby. Zkuste to prosím znovu."
+    "saveFailed": "Nepodařilo se uložit předvolby. Zkuste to prosím znovu.",
+    "country": "Země",
+    "countrySub": "Abychom navrhovali jen bezpečnější produkty, které si opravdu můžete koupit"
   },
   "subscription": {
     "title": "Upgrade",

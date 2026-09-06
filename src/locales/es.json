@@ -281,7 +281,9 @@
     "marketingSub": "Recibir ofertas personalizadas y novedades",
     "savedBody": "Tus preferencias se han guardado.",
     "loadFailed": "No se pudieron cargar las preferencias",
-    "saveFailed": "No se pudieron guardar las preferencias. Inténtalo de nuevo."
+    "saveFailed": "No se pudieron guardar las preferencias. Inténtalo de nuevo.",
+    "country": "País",
+    "countrySub": "Para sugerir solo productos más seguros que realmente puedas comprar"
   },
   "subscription": {
     "title": "Actualizar",

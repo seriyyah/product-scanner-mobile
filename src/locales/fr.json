@@ -281,7 +281,9 @@
     "marketingSub": "Recevoir des offres personnalisées et des actualités",
     "savedBody": "Vos préférences ont été enregistrées.",
     "loadFailed": "Impossible de charger les préférences",
-    "saveFailed": "Impossible d'enregistrer les préférences. Veuillez réessayer."
+    "saveFailed": "Impossible d'enregistrer les préférences. Veuillez réessayer.",
+    "country": "Pays",
+    "countrySub": "Pour ne proposer que des produits plus sûrs que vous pouvez réellement acheter"
   },
   "subscription": {
     "title": "Mise à niveau",

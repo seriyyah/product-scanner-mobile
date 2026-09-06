@@ -281,7 +281,9 @@
     "marketingSub": "Receive personalised offers and news",
     "savedBody": "Your preferences have been updated.",
     "loadFailed": "Failed to load preferences",
-    "saveFailed": "Failed to save preferences. Please try again."
+    "saveFailed": "Failed to save preferences. Please try again.",
+    "country": "Country",
+    "countrySub": "So we only suggest safer products you can actually buy"
   },
   "subscription": {
     "title": "Upgrade",

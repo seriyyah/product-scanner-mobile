@@ -281,7 +281,9 @@
     "marketingSub": "Primește oferte personalizate și noutăți",
     "savedBody": "Preferințele tale au fost salvate.",
     "loadFailed": "Preferințele nu au putut fi încărcate",
-    "saveFailed": "Preferințele nu au putut fi salvate. Încearcă din nou."
+    "saveFailed": "Preferințele nu au putut fi salvate. Încearcă din nou.",
+    "country": "Țara",
+    "countrySub": "Ca să îți sugerăm doar produse mai sigure pe care le poți cumpăra"
   },
   "subscription": {
     "title": "Actualizare",

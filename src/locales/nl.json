@@ -281,7 +281,9 @@
     "marketingSub": "Gepersonaliseerde aanbiedingen en nieuws ontvangen",
     "savedBody": "Je voorkeuren zijn opgeslagen.",
     "loadFailed": "Voorkeuren konden niet worden geladen",
-    "saveFailed": "Voorkeuren konden niet worden opgeslagen. Probeer het opnieuw."
+    "saveFailed": "Voorkeuren konden niet worden opgeslagen. Probeer het opnieuw.",
+    "country": "Land",
+    "countrySub": "Zodat we alleen veiligere producten voorstellen die je echt kunt kopen"
   },
   "subscription": {
     "title": "Upgraden",

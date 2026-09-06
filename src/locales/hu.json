@@ -281,7 +281,9 @@
     "marketingSub": "Személyre szabott ajánlatok és hírek fogadása",
     "savedBody": "A beállításaidat elmentettük.",
     "loadFailed": "A beállítások betöltése nem sikerült",
-    "saveFailed": "A beállítások mentése nem sikerült. Próbáld újra."
+    "saveFailed": "A beállítások mentése nem sikerült. Próbáld újra.",
+    "country": "Ország",
+    "countrySub": "Hogy csak olyan biztonságosabb termékeket ajánljunk, amiket meg is tudsz venni"
   },
   "subscription": {
     "title": "Frissítés",

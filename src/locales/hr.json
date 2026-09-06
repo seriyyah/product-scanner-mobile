@@ -281,7 +281,9 @@
     "marketingSub": "Primaj personalizirane ponude i novosti",
     "savedBody": "Vaše postavke su spremljene.",
     "loadFailed": "Nije moguće učitati postavke",
-    "saveFailed": "Nije moguće spremiti postavke. Pokušajte ponovno."
+    "saveFailed": "Nije moguće spremiti postavke. Pokušajte ponovno.",
+    "country": "Država",
+    "countrySub": "Da predlažemo samo sigurnije proizvode koje stvarno možete kupiti"
   },
   "subscription": {
     "title": "Nadogradnja",

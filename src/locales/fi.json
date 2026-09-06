@@ -281,7 +281,9 @@
     "marketingSub": "Vastaanota henkilökohtaisia tarjouksia ja uutisia",
     "savedBody": "Asetuksesi on tallennettu.",
     "loadFailed": "Asetusten lataaminen epäonnistui",
-    "saveFailed": "Asetusten tallentaminen epäonnistui. Yritä uudelleen."
+    "saveFailed": "Asetusten tallentaminen epäonnistui. Yritä uudelleen.",
+    "country": "Maa",
+    "countrySub": "Jotta ehdotamme vain turvallisempia tuotteita, joita voit oikeasti ostaa"
   },
   "subscription": {
     "title": "Päivitä",

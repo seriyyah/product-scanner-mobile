@@ -444,6 +444,8 @@ export interface UserPreferences {
   language: string;
   theme: string;
   default_currency: string;
+  /** ISO 3166-1 alpha-2. Null until the user says — see PreferencesScreen. */
+  country?: string | null;
   privacy_analytics: boolean;
   privacy_personalisation?: boolean;
   privacy_marketing: boolean;
@@ -455,6 +457,10 @@ export interface PreferencesUpdate {
   language?: string;
   theme?: string;
   default_currency?: string;
+  // Nullable to match the stored shape: the whole preferences object is sent
+  // back on save, and country is null until the person picks one. The server
+  // reads null as "leave it as it is" rather than as a clear.
+  country?: string | null;
   privacy_analytics?: boolean;
   privacy_personalisation?: boolean;
   privacy_marketing?: boolean;

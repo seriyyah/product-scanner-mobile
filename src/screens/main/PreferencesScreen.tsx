@@ -45,6 +45,15 @@ const ALLERGEN_OPTIONS = [
   { key: 'sulphites', i18n: 'allergenOption.sulphites', label: 'Sulphites' },
 ];
 
+// Where a person shops, which decides whether a safer alternative is one they
+// can actually buy. Ordered by likelihood rather than alphabetically so the
+// common answer is the first thing a thumb reaches.
+const COUNTRY_OPTIONS = [
+  'CZ', 'SK', 'DE', 'AT', 'PL', 'UA', 'HU', 'RO', 'HR', 'SI',
+  'BG', 'GR', 'IT', 'ES', 'FR', 'NL', 'BE', 'PT', 'SE', 'DK',
+  'FI', 'GB', 'IE', 'CH', 'US', 'CA',
+];
+
 const CURRENCY_OPTIONS = ['CZK', 'EUR', 'USD', 'GBP', 'PLN', 'HUF', 'RON', 'SEK', 'DKK', 'NOK', 'CHF'];
 
 const PreferencesScreen: React.FC = () => {
@@ -193,6 +202,30 @@ const PreferencesScreen: React.FC = () => {
                   >
                     <Text style={[styles.segmentText, prefs.language === lang.code && styles.segmentTextActive]}>
                       {lang.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+          <View style={styles.colRow}>
+            <Text style={styles.rowLabel}>{t('preferences.country', 'Country')}</Text>
+            <Text style={styles.rowSub}>
+              {t('preferences.countrySub',
+                 'So we only suggest safer products you can actually buy')}
+            </Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
+              <View style={styles.chipsRow}>
+                {COUNTRY_OPTIONS.map((code) => (
+                  <TouchableOpacity
+                    key={code}
+                    style={[styles.segmentBtn, prefs.country === code && styles.segmentBtnActive]}
+                    onPress={() => patch({ country: code })}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.segmentText, prefs.country === code && styles.segmentTextActive]}>
+                      {code}
                     </Text>
                   </TouchableOpacity>
                 ))}
