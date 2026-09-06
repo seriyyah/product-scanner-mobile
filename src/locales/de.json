@@ -126,7 +126,8 @@
     "safetyTip": "Barcode scannen für Sicherheitsbewertung",
     "subtitle": "Was möchten Sie heute scannen?",
     "viewAll": "Alle anzeigen",
-    "noHistoryBody": "Tippen Sie auf „Produkt scannen“, um zu beginnen"
+    "noHistoryBody": "Tippen Sie auf „Produkt scannen“, um zu beginnen",
+    "scanProduct": "Produkt scannen"
   },
   "scanner": {
     "title": "Scanner",

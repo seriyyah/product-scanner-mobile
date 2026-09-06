@@ -73,7 +73,7 @@ describe('LoginScreen', () => {
     const { getByText } = render(
       <LoginScreen navigation={fakeNavigation} route={{} as any} />
     );
-    fireEvent.press(getByText('Forgot Password?'));
+    fireEvent.press(getByText('Forgot password?'));
     expect(mockNavigate).toHaveBeenCalledWith('ForgotPassword');
   });
 

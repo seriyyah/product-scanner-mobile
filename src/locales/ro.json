@@ -126,7 +126,8 @@
     "safetyTip": "Scanați un cod de bare pentru evaluarea siguranței",
     "subtitle": "Ce ai vrea să scanezi azi?",
     "viewAll": "Vezi tot",
-    "noHistoryBody": "Atinge „Scanează produs” ca să începi"
+    "noHistoryBody": "Atinge „Scanează produs” ca să începi",
+    "scanProduct": "Scanează produsul"
   },
   "scanner": {
     "title": "Scanner",

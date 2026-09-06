@@ -126,7 +126,8 @@
     "safetyTip": "Skenirajte barkod za procjenu sigurnosti",
     "subtitle": "Što biste danas htjeli skenirati?",
     "viewAll": "Prikaži sve",
-    "noHistoryBody": "Dodirnite „Skeniraj proizvod” za početak"
+    "noHistoryBody": "Dodirnite „Skeniraj proizvod” za početak",
+    "scanProduct": "Skeniraj proizvod"
   },
   "scanner": {
     "title": "Skener",

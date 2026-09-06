@@ -126,7 +126,8 @@
     "safetyTip": "Zeskanuj kod kreskowy, aby uzyskać ocenę bezpieczeństwa",
     "subtitle": "Co chcesz dziś zeskanować?",
     "viewAll": "Zobacz wszystkie",
-    "noHistoryBody": "Dotknij „Skanuj produkt”, aby zacząć"
+    "noHistoryBody": "Dotknij „Skanuj produkt”, aby zacząć",
+    "scanProduct": "Skanuj produkt"
   },
   "scanner": {
     "title": "Skaner",

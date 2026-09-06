@@ -74,7 +74,13 @@ describe('RegisterScreen', () => {
     expect(getByText(/Email/)).toBeTruthy();
     // "Password" appears in both Password and Confirm Password fields
     expect(getAllByText(/Password/).length).toBeGreaterThanOrEqual(2);
-    expect(getByText('I agree to the Terms of Service')).toBeTruthy();
+    // The consent line is no longer one text node: the two documents are
+    // separately tappable, so it renders as prefix + link + joiner + link.
+    // Asserting the pieces is what checks the thing that matters — that a user
+    // can read both documents before agreeing to them.
+    expect(getByText(/I agree to the/)).toBeTruthy();
+    expect(getByText('Terms of Service')).toBeTruthy();
+    expect(getByText('Privacy Policy')).toBeTruthy();
   });
 
   it('shows sign in link', () => {

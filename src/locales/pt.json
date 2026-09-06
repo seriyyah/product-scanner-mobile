@@ -126,7 +126,8 @@
     "safetyTip": "Digitalize um código de barras para uma avaliação de segurança",
     "subtitle": "O que gostaria de digitalizar hoje?",
     "viewAll": "Ver tudo",
-    "noHistoryBody": "Toque em «Digitalizar produto» para começar"
+    "noHistoryBody": "Toque em «Digitalizar produto» para começar",
+    "scanProduct": "Digitalizar produto"
   },
   "scanner": {
     "title": "Scanner",

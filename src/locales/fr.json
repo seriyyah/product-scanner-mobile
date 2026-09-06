@@ -126,7 +126,8 @@
     "safetyTip": "Scannez un code-barres pour obtenir une évaluation de sécurité",
     "subtitle": "Que souhaitez-vous scanner aujourd'hui ?",
     "viewAll": "Tout voir",
-    "noHistoryBody": "Appuyez sur « Scanner un produit » pour commencer"
+    "noHistoryBody": "Appuyez sur « Scanner un produit » pour commencer",
+    "scanProduct": "Scanner un produit"
   },
   "scanner": {
     "title": "Scanner",

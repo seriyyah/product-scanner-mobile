@@ -73,7 +73,7 @@ describe('HistoryScreen', () => {
   it('shows empty state when no history', async () => {
     mockGetHistory.mockResolvedValueOnce({ scans: [], total: 0 });
     const { findByText } = render(<HistoryScreen />);
-    const empty = await findByText('No scans yet');
+    const empty = await findByText('No scan history yet');
     expect(empty).toBeTruthy();
   });
 

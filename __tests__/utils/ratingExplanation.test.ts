@@ -125,14 +125,14 @@ describe('explainRating with server warnings', () => {
 
   it('shows a banned additive as a danger', () => {
     const reasons = explainRating({}, { warnings: details as any });
-    expect(reasons.find((r) => r.id === 'warning:banned_additive')?.tone).toBe('negative');
+    expect(reasons.find((r) => r.id.startsWith('warning:banned_additive'))?.tone).toBe('negative');
   });
 
   it('does not present a note about method as a warning about the food', () => {
     // "Some data derived from ingredient text analysis" was rendered in the same
     // red as a banned additive, which made every product look alarming.
     const reasons = explainRating({}, { warnings: details as any });
-    expect(reasons.find((r) => r.id === 'warning:derived_from_text')?.tone).toBe('unknown');
+    expect(reasons.find((r) => r.id.startsWith('warning:derived_from_text'))?.tone).toBe('unknown');
   });
 
   it('puts dangers above everything derived from the breakdown', () => {
@@ -141,7 +141,7 @@ describe('explainRating with server warnings', () => {
       { warnings: details as any },
     );
     expect(reasons[0]?.tone).toBe('negative');
-    expect(reasons[reasons.length - 1]?.id).toBe('warning:derived_from_text');
+    expect(reasons[reasons.length - 1]?.id).toMatch(/^warning:derived_from_text/);
   });
 
   it('does not repeat a driver the breakdown already explains', () => {
@@ -151,13 +151,13 @@ describe('explainRating with server warnings', () => {
       { nova_group: { score: 20, group: 4 } },
       { warnings: details as any },
     );
-    const novaMentions = reasons.filter((r) => r.id === 'nova' || r.id === 'warning:ultra_processed');
+    const novaMentions = reasons.filter((r) => r.id === 'nova' || r.id.startsWith('warning:ultra_processed'));
     expect(novaMentions).toHaveLength(1);
   });
 
   it('keeps the server text when no translation exists for the code', () => {
     const reasons = explainRating({}, { warnings: details as any });
-    expect(reasons.find((r) => r.id === 'warning:banned_additive')?.fallback)
+    expect(reasons.find((r) => r.id.startsWith('warning:banned_additive'))?.fallback)
       .toContain('Titanium Dioxide');
   });
 });
@@ -194,7 +194,7 @@ describe('explainRating deduplication', () => {
       { warnings: [{ code: 'high_risk_additive', severity: 'danger', text: 'Contains Aspartame (E951)', params: {} }] as any },
     );
     expect(reasons.find((r) => r.id === 'additives')).toBeUndefined();
-    expect(reasons.find((r) => r.id === 'warning:high_risk_additive')).toBeTruthy();
+    expect(reasons.find((r) => r.id.startsWith('warning:high_risk_additive'))).toBeTruthy();
   });
 
   it('keeps the additive summary when no specific additive is named', () => {

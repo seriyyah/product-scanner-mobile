@@ -126,7 +126,8 @@
     "safetyTip": "Scan een barcode voor een veiligheidsbeoordeling",
     "subtitle": "Wat wil je vandaag scannen?",
     "viewAll": "Alles bekijken",
-    "noHistoryBody": "Tik op ‘Product scannen’ om te beginnen"
+    "noHistoryBody": "Tik op ‘Product scannen’ om te beginnen",
+    "scanProduct": "Product scannen"
   },
   "scanner": {
     "title": "Scanner",

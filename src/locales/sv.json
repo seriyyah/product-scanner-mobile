@@ -126,7 +126,8 @@
     "safetyTip": "Skanna en streckkod för säkerhetsbedömning",
     "subtitle": "Vad vill du skanna idag?",
     "viewAll": "Visa alla",
-    "noHistoryBody": "Tryck på ”Skanna produkt” för att komma igång"
+    "noHistoryBody": "Tryck på ”Skanna produkt” för att komma igång",
+    "scanProduct": "Skanna produkt"
   },
   "scanner": {
     "title": "Skanner",

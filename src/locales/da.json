@@ -126,7 +126,8 @@
     "safetyTip": "Scan en stregkode for en sikkerhedsvurdering",
     "subtitle": "Hvad vil du scanne i dag?",
     "viewAll": "Se alle",
-    "noHistoryBody": "Tryk på “Scan produkt” for at komme i gang"
+    "noHistoryBody": "Tryk på “Scan produkt” for at komme i gang",
+    "scanProduct": "Scan produkt"
   },
   "scanner": {
     "title": "Scanner",

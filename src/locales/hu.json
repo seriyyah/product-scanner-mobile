@@ -126,7 +126,8 @@
     "safetyTip": "Olvassa be a vonalkódot a biztonsági értékeléshez",
     "subtitle": "Mit szeretnél ma beolvasni?",
     "viewAll": "Összes megtekintése",
-    "noHistoryBody": "Koppints a „Termék beolvasása” gombra a kezdéshez"
+    "noHistoryBody": "Koppints a „Termék beolvasása” gombra a kezdéshez",
+    "scanProduct": "Termék beolvasása"
   },
   "scanner": {
     "title": "Szkenner",

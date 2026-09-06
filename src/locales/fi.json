@@ -126,7 +126,8 @@
     "safetyTip": "Skannaa viivakoodi turvallisuusarviota varten",
     "subtitle": "Mitä haluaisit skannata tänään?",
     "viewAll": "Näytä kaikki",
-    "noHistoryBody": "Aloita napauttamalla ”Skannaa tuote”"
+    "noHistoryBody": "Aloita napauttamalla ”Skannaa tuote”",
+    "scanProduct": "Skannaa tuote"
   },
   "scanner": {
     "title": "Skanneri",

@@ -126,7 +126,8 @@
     "safetyTip": "Scan any barcode to get a safety rating",
     "subtitle": "What would you like to scan today?",
     "viewAll": "View all",
-    "noHistoryBody": "Tap “Scan Product” to get started"
+    "noHistoryBody": "Tap “Scan Product” to get started",
+    "scanProduct": "Scan Product"
   },
   "scanner": {
     "title": "Scanner",

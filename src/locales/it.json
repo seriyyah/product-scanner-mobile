@@ -126,7 +126,8 @@
     "safetyTip": "Scansiona un codice a barre per la valutazione di sicurezza",
     "subtitle": "Cosa vuoi scansionare oggi?",
     "viewAll": "Vedi tutto",
-    "noHistoryBody": "Tocca «Scansiona prodotto» per iniziare"
+    "noHistoryBody": "Tocca «Scansiona prodotto» per iniziare",
+    "scanProduct": "Scansiona prodotto"
   },
   "scanner": {
     "title": "Scanner",

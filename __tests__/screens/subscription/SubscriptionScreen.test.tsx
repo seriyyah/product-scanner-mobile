@@ -69,7 +69,7 @@ describe('SubscriptionScreen', () => {
 
   it('shows current plan badge for free user', async () => {
     const { getByText } = render(<SubscriptionScreen />);
-    await waitFor(() => expect(getByText('Your current plan')).toBeTruthy());
+    await waitFor(() => expect(getByText('Current plan')).toBeTruthy());
   });
 
   it('shows upgrade buttons for paid tiers', async () => {

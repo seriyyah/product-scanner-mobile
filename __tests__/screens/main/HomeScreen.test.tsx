@@ -63,7 +63,7 @@ describe('HomeScreen', () => {
 
   it('shows empty state when no scans', async () => {
     const { findByText } = render(<HomeScreen />);
-    const empty = await findByText('No scans yet');
+    const empty = await findByText('No recent scans');
     expect(empty).toBeTruthy();
   });
 

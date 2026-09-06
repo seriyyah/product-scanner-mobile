@@ -126,7 +126,8 @@
     "safetyTip": "Naskenujte čárový kód pro hodnocení bezpečnosti",
     "subtitle": "Co byste dnes chtěli naskenovat?",
     "viewAll": "Zobrazit vše",
-    "noHistoryBody": "Klepnutím na „Skenovat produkt“ začnete"
+    "noHistoryBody": "Klepnutím na „Skenovat produkt“ začnete",
+    "scanProduct": "Skenovat produkt"
   },
   "scanner": {
     "title": "Skener",

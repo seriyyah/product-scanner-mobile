@@ -136,7 +136,7 @@ const HomeScreen: React.FC = () => {
               activeOpacity={0.8}
             >
               <Ionicons name="scan-circle" size={48} color={theme.colors.text} />
-              <Text style={styles.scanButtonText}>{t('home.scanNow', 'Scan Product')}</Text>
+              <Text style={styles.scanButtonText}>{t('home.scanProduct', 'Scan Product')}</Text>
               <Text style={styles.scanButtonSubtext}>{t('scanner.pointCamera', 'Point your camera at any barcode')}</Text>
             </TouchableOpacity>
 
