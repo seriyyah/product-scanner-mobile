@@ -154,7 +154,11 @@
     "scanAgain": "Scansiona di nuovo",
     "pointCameraShort": "Punta la fotocamera sul codice a barre",
     "enterBarcodePlaceholder": "Inserisci il numero del codice a barre…",
-    "watchVideo": "Guarda il video (+5 scansioni)"
+    "watchVideo": "Guarda il video (+5 scansioni)",
+    "notABarcode": "Questo è un codice di un sito web, non un codice a barre di prodotto. Punta la fotocamera sul codice a barre a righe.",
+    "unreadable": "Non è stato possibile leggere questo codice a barre. Riprova oppure inseriscilo manualmente.",
+    "scansLeft": "Scansioni rimaste in questa ora: {{count}}",
+    "scanFailed": "Non è stato possibile scansionare questo prodotto. Riprova."
   },
   "product": {
     "loading": "Caricamento prodotto...",

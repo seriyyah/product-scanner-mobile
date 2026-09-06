@@ -154,7 +154,11 @@
     "scanAgain": "Digitalizar novamente",
     "pointCameraShort": "Aponte a câmara ao código de barras",
     "enterBarcodePlaceholder": "Introduza o número do código de barras…",
-    "watchVideo": "Ver vídeo (+5 digitalizações)"
+    "watchVideo": "Ver vídeo (+5 digitalizações)",
+    "notABarcode": "Esse é um código de um site, não um código de barras de produto. Aponte a câmara ao código de barras às riscas.",
+    "unreadable": "Não foi possível ler esse código de barras. Tente novamente ou introduza-o manualmente.",
+    "scansLeft": "Digitalizações restantes nesta hora: {{count}}",
+    "scanFailed": "Não foi possível digitalizar esse produto. Tente novamente."
   },
   "product": {
     "loading": "A carregar produto...",

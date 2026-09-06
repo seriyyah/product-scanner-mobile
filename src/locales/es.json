@@ -154,7 +154,11 @@
     "scanAgain": "Escanear otra vez",
     "pointCameraShort": "Apunta la cámara al código de barras",
     "enterBarcodePlaceholder": "Introduce el número del código de barras…",
-    "watchVideo": "Ver vídeo (+5 escaneos)"
+    "watchVideo": "Ver vídeo (+5 escaneos)",
+    "notABarcode": "Ese es un código de sitio web, no un código de barras de producto. Apunta la cámara al código de barras rayado.",
+    "unreadable": "No se pudo leer ese código de barras. Inténtalo de nuevo o introdúcelo manualmente.",
+    "scansLeft": "Escaneos restantes esta hora: {{count}}",
+    "scanFailed": "No se pudo escanear ese producto. Inténtalo de nuevo."
   },
   "product": {
     "loading": "Cargando producto...",

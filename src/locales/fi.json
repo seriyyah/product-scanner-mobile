@@ -154,7 +154,11 @@
     "scanAgain": "Skannaa uudelleen",
     "pointCameraShort": "Suuntaa kamera viivakoodiin",
     "enterBarcodePlaceholder": "Syötä viivakoodin numero…",
-    "watchVideo": "Katso video (+5 skannausta)"
+    "watchVideo": "Katso video (+5 skannausta)",
+    "notABarcode": "Tämä on verkkosivuston koodi, ei tuotteen viivakoodi. Suuntaa kamera raidalliseen viivakoodiin.",
+    "unreadable": "Tätä viivakoodia ei voitu lukea. Yritä uudelleen tai syötä se käsin.",
+    "scansLeft": "Skannauksia jäljellä tällä tunnilla: {{count}}",
+    "scanFailed": "Tuotetta ei voitu skannata. Yritä uudelleen."
   },
   "product": {
     "loading": "Ladataan tuotetta...",

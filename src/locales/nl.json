@@ -154,7 +154,11 @@
     "scanAgain": "Opnieuw scannen",
     "pointCameraShort": "Richt de camera op de streepjescode",
     "enterBarcodePlaceholder": "Voer het streepjescodenummer in…",
-    "watchVideo": "Video bekijken (+5 scans)"
+    "watchVideo": "Video bekijken (+5 scans)",
+    "notABarcode": "Dat is een websitecode, geen productstreepjescode. Richt de camera op de gestreepte streepjescode.",
+    "unreadable": "Deze streepjescode kon niet worden gelezen. Probeer het opnieuw of voer hem handmatig in.",
+    "scansLeft": "Resterende scans dit uur: {{count}}",
+    "scanFailed": "Dit product kon niet worden gescand. Probeer het opnieuw."
   },
   "product": {
     "loading": "Product laden...",

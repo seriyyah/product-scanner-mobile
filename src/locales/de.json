@@ -154,7 +154,11 @@
     "scanAgain": "Erneut scannen",
     "pointCameraShort": "Kamera auf den Strichcode richten",
     "enterBarcodePlaceholder": "Strichcodenummer eingeben…",
-    "watchVideo": "Video ansehen (+5 Scans)"
+    "watchVideo": "Video ansehen (+5 Scans)",
+    "notABarcode": "Das ist ein Website-Code, kein Produkt-Strichcode. Richten Sie die Kamera auf den gestreiften Strichcode.",
+    "unreadable": "Dieser Strichcode konnte nicht gelesen werden. Versuchen Sie es erneut oder geben Sie ihn manuell ein.",
+    "scansLeft": "Verbleibende Scans in dieser Stunde: {{count}}",
+    "scanFailed": "Dieses Produkt konnte nicht gescannt werden. Bitte versuchen Sie es erneut."
   },
   "product": {
     "loading": "Produkt wird geladen...",

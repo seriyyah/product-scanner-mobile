@@ -154,7 +154,11 @@
     "scanAgain": "Skenovať znova",
     "pointCameraShort": "Namierte kameru na čiarový kód",
     "enterBarcodePlaceholder": "Zadajte číslo čiarového kódu…",
-    "watchVideo": "Prehrať video (+5 skenov)"
+    "watchVideo": "Prehrať video (+5 skenov)",
+    "notABarcode": "To je kód webovej stránky, nie čiarový kód produktu. Namierte kameru na pruhovaný čiarový kód.",
+    "unreadable": "Tento čiarový kód sa nepodarilo prečítať. Skúste to znova, alebo ho zadajte ručne.",
+    "scansLeft": "Zostávajúce skeny v tejto hodine: {{count}}",
+    "scanFailed": "Produkt sa nepodarilo naskenovať. Skúste to prosím znova."
   },
   "product": {
     "loading": "Načítanie produktu...",

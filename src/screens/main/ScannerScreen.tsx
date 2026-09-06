@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { checkBarcode } from '@/utils/barcode';
 import { CameraView, Camera } from 'expo-camera';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -75,13 +76,36 @@ const ScannerScreen: React.FC = () => {
     const code = barcode.trim();
     if (!code || scanLock.current) return;
 
+    // Reject locally so the message is a sentence rather than the server's
+    // validation pattern, which is what a user saw when a QR code was read.
+    const check = checkBarcode(code);
+    if (!check.ok) {
+      setErrorMessage(
+        check.reason === 'looks-like-url'
+          ? t('scanner.notABarcode', 'That is a website code, not a product barcode. Point the camera at the striped barcode.')
+          : t('scanner.unreadable', 'That barcode could not be read. Try again, or enter it manually.'),
+      );
+      setScanned(true);
+      scanLock.current = true;
+      retryTimeout.current = setTimeout(() => {
+        scanLock.current = false;
+        setScanned(false);
+        setErrorMessage('');
+      }, 2500);
+      return;
+    }
+
     scanLock.current = true;
     setScanned(true);
     setIsLoading(true);
     setErrorMessage('');
     try {
       const result = await scannerRepository.scanBarcode(code);
-      if (result.scansRemaining !== undefined) setScansRemaining(result.scansRemaining);
+      if (result.scansRemaining !== undefined) {
+        // The gateway can report a negative remainder once the window is
+        // exceeded; "-1 scans left" is not something to show anyone.
+        setScansRemaining(Math.max(0, result.scansRemaining));
+      }
       navigation.navigate('ScanResult', { scanResult: result });
     } catch (err: unknown) {
       if (err instanceof ApiError && err.statusCode === 429) {
@@ -91,8 +115,9 @@ const ScannerScreen: React.FC = () => {
         _showRateLimitDialog();
         return;
       }
-      const message = err instanceof Error ? err.message : 'Failed to scan product. Please try again.';
-      setErrorMessage(message);
+      // Deliberately not err.message: that is the server's wording, in the
+      // server's language, and for a validation failure it is a regex.
+      setErrorMessage(t('scanner.scanFailed', 'Could not scan that product. Please try again.'));
       retryTimeout.current = setTimeout(() => {
         scanLock.current = false;
         setScanned(false);
@@ -212,7 +237,9 @@ const ScannerScreen: React.FC = () => {
           facing="back"
           onBarcodeScanned={scanned ? undefined : ({ data }) => scanProduct(data)}
           barcodeScannerSettings={{
-            barcodeTypes: ['ean13', 'ean8', 'qr', 'code128', 'code39', 'upc_a', 'upc_e'],
+            // No 'qr': the QR code on packaging points at the manufacturer's
+              // website, and reading it sent a URL where a barcode belongs.
+              barcodeTypes: ['ean13', 'ean8', 'code128', 'code39', 'upc_a', 'upc_e'],
           }}
         />
       )}
@@ -265,7 +292,9 @@ const ScannerScreen: React.FC = () => {
                 color={scansRemaining <= 3 ? theme.colors.error : theme.colors.textSecondary}
               />
               <Text style={[styles.scanCounterText, scansRemaining <= 3 && styles.scanCounterTextUrgent]}>
-                {scansRemaining} scan{scansRemaining !== 1 ? 's' : ''} left this hour
+                {t('scanner.scansLeft', 'Scans left this hour: {{count}}', {
+                  count: Math.max(0, scansRemaining),
+                })}
               </Text>
             </TouchableOpacity>
           )}

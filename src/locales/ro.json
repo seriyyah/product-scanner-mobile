@@ -154,7 +154,11 @@
     "scanAgain": "Scanează din nou",
     "pointCameraShort": "Îndreaptă camera spre codul de bare",
     "enterBarcodePlaceholder": "Introdu numărul codului de bare…",
-    "watchVideo": "Vezi clipul (+5 scanări)"
+    "watchVideo": "Vezi clipul (+5 scanări)",
+    "notABarcode": "Acesta este un cod de site web, nu un cod de bare de produs. Îndreaptă camera spre codul de bare cu dungi.",
+    "unreadable": "Acest cod de bare nu a putut fi citit. Încearcă din nou sau introdu-l manual.",
+    "scansLeft": "Scanări rămase în această oră: {{count}}",
+    "scanFailed": "Acest produs nu a putut fi scanat. Încearcă din nou."
   },
   "product": {
     "loading": "Se încarcă produsul...",

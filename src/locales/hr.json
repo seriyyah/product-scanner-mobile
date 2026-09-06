@@ -154,7 +154,11 @@
     "scanAgain": "Skeniraj ponovno",
     "pointCameraShort": "Usmjerite kameru na crtični kod",
     "enterBarcodePlaceholder": "Unesite broj crtičnog koda…",
-    "watchVideo": "Pogledaj videozapis (+5 skeniranja)"
+    "watchVideo": "Pogledaj videozapis (+5 skeniranja)",
+    "notABarcode": "To je kod web-stranice, a ne crtični kod proizvoda. Usmjerite kameru na prugasti crtični kod.",
+    "unreadable": "Ovaj crtični kod nije bilo moguće pročitati. Pokušajte ponovno ili ga unesite ručno.",
+    "scansLeft": "Preostala skeniranja u ovom satu: {{count}}",
+    "scanFailed": "Ovaj proizvod nije bilo moguće skenirati. Pokušajte ponovno."
   },
   "product": {
     "loading": "Učitavanje proizvoda...",

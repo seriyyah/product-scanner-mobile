@@ -154,7 +154,11 @@
     "scanAgain": "Scanner à nouveau",
     "pointCameraShort": "Pointez la caméra vers le code-barres",
     "enterBarcodePlaceholder": "Saisissez le numéro du code-barres…",
-    "watchVideo": "Regarder la vidéo (+5 scans)"
+    "watchVideo": "Regarder la vidéo (+5 scans)",
+    "notABarcode": "C'est un code de site web, pas un code-barres produit. Pointez la caméra vers le code-barres rayé.",
+    "unreadable": "Ce code-barres n'a pas pu être lu. Réessayez ou saisissez-le manuellement.",
+    "scansLeft": "Scans restants cette heure : {{count}}",
+    "scanFailed": "Impossible de scanner ce produit. Veuillez réessayer."
   },
   "product": {
     "loading": "Chargement du produit...",

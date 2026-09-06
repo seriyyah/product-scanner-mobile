@@ -154,7 +154,11 @@
     "scanAgain": "Scan igen",
     "pointCameraShort": "Ret kameraet mod stregkoden",
     "enterBarcodePlaceholder": "Indtast stregkodenummer…",
-    "watchVideo": "Se video (+5 scanninger)"
+    "watchVideo": "Se video (+5 scanninger)",
+    "notABarcode": "Det er en webstedskode, ikke en produktstregkode. Ret kameraet mod den stribede stregkode.",
+    "unreadable": "Denne stregkode kunne ikke læses. Prøv igen, eller indtast den manuelt.",
+    "scansLeft": "Resterende scanninger denne time: {{count}}",
+    "scanFailed": "Produktet kunne ikke scannes. Prøv igen."
   },
   "product": {
     "loading": "Indlæser produkt...",

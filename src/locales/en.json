@@ -154,7 +154,11 @@
     "scanAgain": "Scan Again",
     "pointCameraShort": "Point camera at barcode",
     "enterBarcodePlaceholder": "Enter barcode number…",
-    "watchVideo": "Watch Video (+5 scans)"
+    "watchVideo": "Watch Video (+5 scans)",
+    "notABarcode": "That is a website code, not a product barcode. Point the camera at the striped barcode.",
+    "unreadable": "That barcode could not be read. Try again, or enter it manually.",
+    "scansLeft": "Scans left this hour: {{count}}",
+    "scanFailed": "Could not scan that product. Please try again."
   },
   "product": {
     "loading": "Loading product...",

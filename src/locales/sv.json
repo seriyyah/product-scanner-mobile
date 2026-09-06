@@ -154,7 +154,11 @@
     "scanAgain": "Skanna igen",
     "pointCameraShort": "Rikta kameran mot streckkoden",
     "enterBarcodePlaceholder": "Ange streckkodsnummer…",
-    "watchVideo": "Titta på video (+5 skanningar)"
+    "watchVideo": "Titta på video (+5 skanningar)",
+    "notABarcode": "Det är en webbplatskod, inte en produktstreckkod. Rikta kameran mot den randiga streckkoden.",
+    "unreadable": "Den streckkoden kunde inte läsas. Försök igen eller ange den manuellt.",
+    "scansLeft": "Återstående skanningar denna timme: {{count}}",
+    "scanFailed": "Produkten kunde inte skannas. Försök igen."
   },
   "product": {
     "loading": "Laddar produkt...",

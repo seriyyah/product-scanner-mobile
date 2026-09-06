@@ -154,7 +154,11 @@
     "scanAgain": "Skanuj ponownie",
     "pointCameraShort": "Skieruj aparat na kod kreskowy",
     "enterBarcodePlaceholder": "Wpisz numer kodu kreskowego…",
-    "watchVideo": "Obejrzyj film (+5 skanów)"
+    "watchVideo": "Obejrzyj film (+5 skanów)",
+    "notABarcode": "To kod strony internetowej, a nie kod kreskowy produktu. Skieruj aparat na kod z paskami.",
+    "unreadable": "Nie udało się odczytać tego kodu kreskowego. Spróbuj ponownie lub wpisz go ręcznie.",
+    "scansLeft": "Pozostałe skany w tej godzinie: {{count}}",
+    "scanFailed": "Nie udało się zeskanować tego produktu. Spróbuj ponownie."
   },
   "product": {
     "loading": "Ładowanie produktu...",

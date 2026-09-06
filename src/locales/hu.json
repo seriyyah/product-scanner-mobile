@@ -154,7 +154,11 @@
     "scanAgain": "Új beolvasás",
     "pointCameraShort": "Irányítsd a kamerát a vonalkódra",
     "enterBarcodePlaceholder": "Add meg a vonalkód számát…",
-    "watchVideo": "Videó megtekintése (+5 beolvasás)"
+    "watchVideo": "Videó megtekintése (+5 beolvasás)",
+    "notABarcode": "Ez egy webhely kódja, nem termék vonalkódja. Irányítsd a kamerát a csíkos vonalkódra.",
+    "unreadable": "Ezt a vonalkódot nem sikerült beolvasni. Próbáld újra, vagy add meg kézzel.",
+    "scansLeft": "Hátralévő beolvasások ebben az órában: {{count}}",
+    "scanFailed": "Ezt a terméket nem sikerült beolvasni. Próbáld újra."
   },
   "product": {
     "loading": "Termék betöltése...",
