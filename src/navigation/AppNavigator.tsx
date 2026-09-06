@@ -3,12 +3,18 @@
  * React Navigation v6 with auth flow and main app flow
  */
 
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer, type LinkingOptions } from '@react-navigation/native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+  type LinkingOptions,
+  type NavigatorScreenParams,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { SCREEN_OPTIONS } from '@/navigation/screenOptions';
+import { useProductReadyNavigation } from '@/utils/usePushNotifications';
 import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -47,7 +53,7 @@ import VideoRewardScreen from '@/screens/main/VideoRewardScreen';
 import PreferencesScreen from '@/screens/main/PreferencesScreen';
 
 type AuthRootParamList = { Auth: undefined };
-type MainRootParamList = { Main: undefined };
+type MainRootParamList = { Main: NavigatorScreenParams<MainStackParamList> | undefined };
 
 const RootStack = createStackNavigator<AuthRootParamList & MainRootParamList>();
 const AuthStack = createStackNavigator<AuthStackParamList>();
@@ -224,14 +230,53 @@ const linking: LinkingOptions<AuthRootParamList & MainRootParamList> = {
   },
 };
 
+// Held outside the tree so a notification tap can navigate without being inside
+// a screen. A tap that launches the app from cold arrives before any screen has
+// mounted, so there is no component to route it from.
+export const navigationRef = createNavigationContainerRef<
+  AuthRootParamList & MainRootParamList
+>();
+
 // App Navigator
-const AppNavigator: React.FC = () => (
-  <>
-    <StatusBar style="light" />
-    <NavigationContainer linking={linking}>
-      <RootNavigator />
-    </NavigationContainer>
-  </>
-);
+const AppNavigator: React.FC = () => {
+  const pending = useRef<string | null>(null);
+
+  const openProduct = useCallback((barcode: string) => {
+    if (navigationRef.isReady()) {
+      navigationRef.navigate('Main', {
+        screen: 'ProductDetail',
+        params: { barcode },
+      });
+    } else {
+      // Cold start: the container is not mounted yet. Hold the barcode and let
+      // onReady deliver it, rather than dropping the tap that opened the app.
+      pending.current = barcode;
+    }
+  }, []);
+
+  useProductReadyNavigation(openProduct);
+
+  return (
+    <>
+      <StatusBar style="light" />
+      <NavigationContainer
+        ref={navigationRef}
+        linking={linking}
+        onReady={() => {
+          const barcode = pending.current;
+          if (barcode) {
+            pending.current = null;
+            navigationRef.navigate('Main', {
+              screen: 'ProductDetail',
+              params: { barcode },
+            });
+          }
+        }}
+      >
+        <RootNavigator />
+      </NavigationContainer>
+    </>
+  );
+};
 
 export default AppNavigator;
