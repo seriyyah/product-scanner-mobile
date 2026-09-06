@@ -36,7 +36,16 @@ import {
 type ScanResultRouteProp = RouteProp<MainStackParamList, 'ScanResult'>;
 
 // Minimal local types to avoid circular imports
-interface DiscoveryPrice { shop_name: string; price: number; currency: string; distance_km?: number | null }
+interface DiscoveryPrice {
+  shop_name: string;
+  price: number;
+  currency: string;
+  distance_km?: number | null;
+  /** The shop's own product page, set when it confirmed it stocks this. */
+  url?: string | null;
+  /** What the shop calls it, so the price is not taken on faith. */
+  matched_name?: string | null;
+}
 interface DiscoveryAlternative { barcode: string; name: string; safety_score: number; grade: string; prices: DiscoveryPrice[] }
 interface SearchResult { title: string; url: string; snippet?: string }
 interface DiscoveryResult { barcode: string; product_name: string; safety_score: number; grade: string; prices: DiscoveryPrice[]; alternatives: DiscoveryAlternative[]; search_results: SearchResult[]; explanation: string }
@@ -379,11 +388,22 @@ const ScanResultScreen: React.FC = () => {
                 <TouchableOpacity
                   key={i}
                   style={styles.listingRow}
-                  onPress={() => behaviorRepository.track(barcode, 'click_price', { shop: p.shop_name })}
+                  onPress={() => {
+                    behaviorRepository.track(barcode, 'click_price', { shop: p.shop_name });
+                    // Straight to the product's own page when the shop gave us
+                    // one. Rows without a link stay as they were.
+                    if (p.url) Linking.openURL(p.url).catch(() => {});
+                  }}
                   activeOpacity={0.8}
                 >
-                  <View>
+                  <View style={styles.listingInfo}>
                     <Text style={styles.shopName}>{p.shop_name}</Text>
+                    {/* Naming what was matched turns a bare number into something
+                        checkable — the price is only as good as the product it
+                        belongs to. */}
+                    {p.matched_name ? (
+                      <Text style={styles.matchedName} numberOfLines={2}>{p.matched_name}</Text>
+                    ) : null}
                     {p.distance_km != null && <Text style={styles.distanceText}>{t('product.kmAway', { distance: p.distance_km })}</Text>}
                   </View>
                   <Text style={styles.listingPrice}>{p.price.toFixed(2)} {p.currency}</Text>
@@ -719,6 +739,8 @@ const styles = StyleSheet.create({
   listingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: theme.spacing.sm, borderTopWidth: 1, borderTopColor: theme.colors.border },
   shopName: { fontSize: theme.typography.fontSizes.sm, fontWeight: '600' as const, color: theme.colors.text },
   distanceText: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary },
+  listingInfo: { flex: 1, paddingRight: 12 },
+  matchedName: { fontSize: theme.typography.fontSizes.xs, color: theme.colors.textSecondary, marginTop: 2 },
   listingPrice: { fontSize: theme.typography.fontSizes.md, fontWeight: '700' as const, color: theme.colors.primary },
   searchResultRow: { flexDirection: 'row', alignItems: 'flex-start', gap: theme.spacing.sm, paddingVertical: theme.spacing.sm, borderTopWidth: 1, borderTopColor: theme.colors.border },
   searchResultInfo: { flex: 1, gap: 2 },
