@@ -27,6 +27,15 @@ Notifications.setNotificationHandler({
  * legible one.
  */
 export function pushProjectId(): string | null {
+  // Environment first, manifest second. The id is deliberately not in app.json:
+  // Expo Go resolves one there back to the account that owns the project and
+  // checks the viewer against it, which stops anyone else opening the shared
+  // dev link. Configuration reaches the push call without carrying that meaning.
+  const fromEnv = process.env.EXPO_PUBLIC_EAS_PROJECT_ID;
+  if (typeof fromEnv === 'string' && fromEnv.length > 0) return fromEnv;
+
+  // Still honoured, so a real EAS build — where the id is in the manifest and
+  // there is no ownership check to trip over — needs no extra configuration.
   const fromConfig =
     (Constants.expoConfig?.extra as { eas?: { projectId?: string } } | undefined)?.eas
       ?.projectId ?? Constants.easConfig?.projectId;
