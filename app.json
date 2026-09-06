@@ -26,7 +26,7 @@
       },
       "package": "com.productscanner.mobile",
       "permissions": [
-        "CAMERA"
+        "android.permission.CAMERA"
       ]
     },
     "web": {
@@ -36,7 +36,8 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan product barcodes"
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan product barcodes",
+          "recordAudioAndroid": false
         }
       ],
       [
@@ -54,6 +55,12 @@
           "iosDisplayInForeground": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c7ff1d39-b980-4881-abe2-0c709c00e211"
+      }
+    },
+    "owner": "seriyyah"
   }
 }
