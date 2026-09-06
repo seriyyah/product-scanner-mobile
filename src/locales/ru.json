@@ -419,7 +419,9 @@
     "sesameseeds": "кунжут",
     "sulphurdioxideandsulphites": "диоксид серы и сульфиты",
     "lupin": "люпин",
-    "molluscs": "моллюски"
+    "molluscs": "моллюски",
+    "sesame": "кунжут",
+    "sulphites": "диоксид серы и сульфиты"
   },
   "nutrition": {
     "energy": "Энергия",

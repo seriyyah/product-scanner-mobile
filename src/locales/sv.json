@@ -419,7 +419,9 @@
     "sesameseeds": "sesamfrön",
     "sulphurdioxideandsulphites": "svaveldioxid och sulfiter",
     "lupin": "lupin",
-    "molluscs": "blötdjur"
+    "molluscs": "blötdjur",
+    "sesame": "sesamfrön",
+    "sulphites": "svaveldioxid och sulfiter"
   },
   "nutrition": {
     "energy": "Energi",

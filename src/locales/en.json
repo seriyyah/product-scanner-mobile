@@ -419,7 +419,9 @@
     "sesameseeds": "sesameseeds",
     "sulphurdioxideandsulphites": "sulphurdioxideandsulphites",
     "lupin": "lupin",
-    "molluscs": "molluscs"
+    "molluscs": "molluscs",
+    "sesame": "sesameseeds",
+    "sulphites": "sulphurdioxideandsulphites"
   },
   "nutrition": {
     "energy": "Energy",

@@ -419,7 +419,9 @@
     "sesameseeds": "sesamzaad",
     "sulphurdioxideandsulphites": "zwaveldioxide en sulfieten",
     "lupin": "lupine",
-    "molluscs": "weekdieren"
+    "molluscs": "weekdieren",
+    "sesame": "sesamzaad",
+    "sulphites": "zwaveldioxide en sulfieten"
   },
   "nutrition": {
     "energy": "Energie",

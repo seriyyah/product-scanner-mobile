@@ -419,7 +419,9 @@
     "sesameseeds": "Sesam",
     "sulphurdioxideandsulphites": "Schwefeldioxid und Sulfite",
     "lupin": "Lupinen",
-    "molluscs": "Weichtiere"
+    "molluscs": "Weichtiere",
+    "sesame": "Sesam",
+    "sulphites": "Schwefeldioxid und Sulfite"
   },
   "nutrition": {
     "energy": "Energie",

@@ -511,7 +511,12 @@ const ProductDetailScreen: React.FC = () => {
             <View style={styles.chipsRow}>
               {product.allergens.map((a, i) => (
                 <View key={i} style={styles.allergenChip}>
-                  <Text style={styles.allergenChipText}>{a}</Text>
+                  {/* Canonical keys from the backend translate; anything it
+                      could not recognise is kept and shown as written, since
+                      an unknown allergen is still a warning. */}
+                  <Text style={styles.allergenChipText}>
+                    {t(`allergen.${a}`, { defaultValue: a })}
+                  </Text>
                 </View>
               ))}
             </View>

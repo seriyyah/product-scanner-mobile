@@ -419,7 +419,9 @@
     "sesameseeds": "seesaminsiemenet",
     "sulphurdioxideandsulphites": "rikkidioksidi ja sulfiitit",
     "lupin": "lupiini",
-    "molluscs": "nilviäiset"
+    "molluscs": "nilviäiset",
+    "sesame": "seesaminsiemenet",
+    "sulphites": "rikkidioksidi ja sulfiitit"
   },
   "nutrition": {
     "energy": "Energia",

@@ -419,7 +419,9 @@
     "sesameseeds": "sesamo",
     "sulphurdioxideandsulphites": "anidride solforosa e solfiti",
     "lupin": "lupini",
-    "molluscs": "molluschi"
+    "molluscs": "molluschi",
+    "sesame": "sesamo",
+    "sulphites": "anidride solforosa e solfiti"
   },
   "nutrition": {
     "energy": "Energia",

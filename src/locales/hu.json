@@ -419,7 +419,9 @@
     "sesameseeds": "szezámmag",
     "sulphurdioxideandsulphites": "kén-dioxid és szulfitok",
     "lupin": "csillagfürt",
-    "molluscs": "puhatestűek"
+    "molluscs": "puhatestűek",
+    "sesame": "szezámmag",
+    "sulphites": "kén-dioxid és szulfitok"
   },
   "nutrition": {
     "energy": "Energia",

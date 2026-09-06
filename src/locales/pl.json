@@ -419,7 +419,9 @@
     "sesameseeds": "sezam",
     "sulphurdioxideandsulphites": "dwutlenek siarki i siarczyny",
     "lupin": "łubin",
-    "molluscs": "mięczaki"
+    "molluscs": "mięczaki",
+    "sesame": "sezam",
+    "sulphites": "dwutlenek siarki i siarczyny"
   },
   "nutrition": {
     "energy": "Energia",
